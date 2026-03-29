@@ -12,6 +12,8 @@ Landing page for STEPS Fitness Center — women's fitness studio in Netanya Pole
 C:\Users\USER\steps-site\
 ├── index.html              # Main page (522+ lines)
 ├── steps-logo-white.png    # Logo, white on transparent (95KB)
+├── robots.txt              # Crawl rules + sitemap pointer
+├── sitemap.xml             # XML sitemap for Google
 ├── vercel.json             # Vercel config
 ├── images\                 # Real photos from studio
 │   ├── hero-new.png        # Hero background image (replaced gym-squat.png)
@@ -96,6 +98,7 @@ npx vercel --yes --prod
 ## Deploy Log
 | Date | Platform | Deploy ID | Changes |
 |------|----------|-----------|---------|
+| 2026-03-29 | Vercel | dpl_9XerSvUA6h6V | SEO fix: canonical+og:url→stepsnetanya.co.il (was stepsfitness.netlify.app), og:image→stepsnetanya.co.il, added robots.txt with sitemap pointer |
 | 2026-03-29 | Vercel | dpl_HtjrCH6wGwbJBTo | GA4 (G-5T22VE9YHT) + Meta Pixel (1016773848190436) added to head |
 | 2026-03-29 | Vercel | dpl_ERRDaHG6wx32 | 6 changes: Hero split layout (tag top, h1 bottom, space-between), accent #E8553D→#F5C518 yellow, GYM "סטודיו כושר", MOVE removed HIIT/קיקבוקס/עיצוב, team USP cards→single paragraph, rgba colors updated |
 | 2026-03-28 | Vercel | dpl_6UXdXn64YYTM | Hero tag text: "3 חללי אימון · מקום אחד" → "פה את לעולם לא לבד." |
