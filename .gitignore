@@ -1,0 +1,4 @@
+.vercel
+.netlify/
+.claude/settings.local.json
+*.mp4

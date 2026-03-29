@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/api/schedule", "destination": "/api/schedule" }
+  ]
+}
