@@ -76,6 +76,11 @@ npx vercel --yes --prod
 | Logo height navbar | 44px |
 | Logo height footer | 38px |
 
+### GitHub
+- Repo: https://github.com/orsaboni-max/steps-site
+- Branch: main
+- .gitignore: .vercel, .netlify/, .claude/settings.local.json, *.mp4
+
 ### Vercel Config
 - Project: `steps-site` (orsaboni-maxs-projects)
 - Live URL: https://steps-site-xi.vercel.app
