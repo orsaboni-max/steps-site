@@ -98,6 +98,7 @@ npx vercel --yes --prod
 ## Deploy Log
 | Date | Platform | Deploy ID | Changes |
 |------|----------|-----------|---------|
+| 2026-03-30 | Vercel | pending | Technical SEO: canonical trailing slash, Schema.org HealthClub JSON-LD, updated meta description, added hreflang=he |
 | 2026-03-29 | Vercel | dpl_9XerSvUA6h6V | SEO fix: canonical+og:url→stepsnetanya.co.il (was stepsfitness.netlify.app), og:image→stepsnetanya.co.il, added robots.txt with sitemap pointer |
 | 2026-03-29 | Vercel | dpl_HtjrCH6wGwbJBTo | GA4 (G-5T22VE9YHT) + Meta Pixel (1016773848190436) added to head |
 | 2026-03-29 | Vercel | dpl_ERRDaHG6wx32 | 6 changes: Hero split layout (tag top, h1 bottom, space-between), accent #E8553D→#F5C518 yellow, GYM "סטודיו כושר", MOVE removed HIIT/קיקבוקס/עיצוב, team USP cards→single paragraph, rgba colors updated |
