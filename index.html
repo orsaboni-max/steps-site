@@ -71,9 +71,9 @@ img{max-width:100%;height:auto}
 .hero-sub{font-size:clamp(15px,2vw,18px);font-weight:300;color:rgba(255,255,255,0.6);line-height:1.8;margin-bottom:36px;max-width:520px;margin-left:auto;margin-right:auto;animation:slideR .8s .25s both}
 .hero-btns{display:flex;gap:12px;flex-wrap:wrap;animation:slideR .8s .4s both;justify-content:center}
 .btn-a{background:var(--accent);color:#fff;border:none;padding:14px 34px;border-radius:50px;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
-.btn-a:hover{filter:brightness(1.15);transform:translateY(-2px);box-shadow:0 8px 25px rgba(245,197,24,0.35)}
-.btn-b{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:14px 34px;border-radius:50px;font-size:16px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .3s;text-decoration:none}
-.btn-b:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.35)}
+.btn-a:hover{filter:brightness(1.15);transform:translateY(-2px) scale(1.04);box-shadow:0 8px 30px rgba(245,197,24,0.45),0 0 60px rgba(245,197,24,0.15)}
+.btn-b{background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.25);padding:14px 34px;border-radius:50px;font-size:16px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .4s;text-decoration:none;backdrop-filter:blur(8px)}
+.btn-b:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.5);transform:translateY(-2px) scale(1.04);box-shadow:0 8px 30px rgba(255,255,255,0.1),0 0 40px rgba(255,255,255,0.05)}
 
 /* PAIN SECTION - photo bg */
 .pain-sec{position:relative;padding:90px 5%;overflow:hidden}
@@ -328,6 +328,10 @@ img{max-width:100%;height:auto}
     <div>
       <h1 data-aos="fade-up">הבית שלך<em>לאימונים.</em></h1>
       <p class="hero-sub" data-aos="fade-up" data-aos-delay="200">כוח · אירובי · פילאטיס מכשירים · תזונה</p>
+      <div class="hero-btns" data-aos="fade-up" data-aos-delay="400">
+        <a href="#contact" class="btn-a">אימון ניסיון חינם</a>
+        <a href="#sched" class="btn-b">לצפייה במערכת שעות</a>
+      </div>
     </div>
   </div>
 </section>
