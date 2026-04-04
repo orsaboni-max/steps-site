@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>אימון בר בנתניה | סטודיו סטפס פולג</title>
+<meta name="description" content="אימון בר בנתניה בסטודיו סטפס פולג. חלל ייעודי עם בר על הקיר ומדריכות מוסמכות דרך הקורס שלנו. שיעורים כל יום בוקר וערב. בואי לנסות">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://stepsnetanya.co.il/barre.html" />
+<link rel="alternate" hreflang="he" href="https://stepsnetanya.co.il/barre.html" />
+<meta property="og:title" content="אימון בר בנתניה | סטודיו סטפס פולג">
+<meta property="og:description" content="כוח גמישות וחיטוב בשיעור אחד של שעה. חלל ייעודי ומדריכות מוסמכות. שיעורים כל יום">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stepsnetanya.co.il/barre.html">
+<meta property="og:image" content="https://stepsnetanya.co.il/images/gym-card.jpg">
+<meta property="og:locale" content="he_IL">
+<meta property="og:site_name" content="STEPS Fitness Center">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="אימון בר בנתניה | סטודיו סטפס פולג">
+<meta name="twitter:description" content="כוח גמישות וחיטוב בשיעור אחד של שעה. חלל ייעודי ומדריכות מוסמכות. שיעורים כל יום">
+<meta name="twitter:image" content="https://stepsnetanya.co.il/images/gym-card.jpg">
+<meta name="theme-color" content="#111111">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#F5C518;--accent2:#2EC4B6;--dark:#111;--white:#FAFAFA}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow-x:hidden;max-width:100vw}
+body{font-family:'Heebo',sans-serif;background:var(--dark);color:var(--white);-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto}
+
+/* NAV */
+.nav{position:fixed;top:0;right:0;left:0;z-index:1000;padding:14px 5%;display:flex;align-items:center;justify-content:space-between;transition:all .4s}
+.nav.solid{background:rgba(17,17,17,0.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.05)}
+.logo{font-weight:900;font-size:22px;letter-spacing:3px;color:#fff}
+.logo img{height:44px;width:auto}
+.logo a{text-decoration:none}
+.n-links{display:flex;gap:24px;list-style:none;align-items:center}
+.n-links a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:14px;font-weight:500;transition:color .3s}
+.n-links a:hover{color:#fff}
+.n-cta{background:var(--accent)!important;color:#fff!important;padding:9px 22px;border-radius:50px;font-weight:700;font-size:13px;transition:all .3s}
+.n-cta:hover{filter:brightness(1.15);transform:translateY(-1px)}
+.mob{display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;z-index:1001}
+
+/* MOBILE MENU */
+@media(max-width:768px){
+.n-links{display:none;position:fixed;top:0;right:0;width:75%;max-width:320px;height:100vh;background:rgba(17,17,17,0.98);backdrop-filter:blur(20px);flex-direction:column;padding:80px 32px 40px;gap:0;z-index:999;transform:translateX(100%);transition:transform .35s ease}
+.n-links.open{display:flex;transform:translateX(0)}
+.n-links a{font-size:18px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.06);color:rgba(255,255,255,0.8);width:100%;display:block}
+.n-links a:last-child{border-bottom:none;margin-top:12px;text-align:center}
+.mob{display:block}
+.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:998}
+.mob-overlay.open{display:block}
+}
+
+/* HERO */
+.hero{min-height:100svh;position:relative;display:flex;overflow:hidden}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.05) 40%,rgba(0,0,0,0.05) 60%,rgba(0,0,0,0.7) 100%)}
+.hero-inner{position:relative;z-index:2;padding:100px 7% 60px;width:100%;min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;align-items:center;text-align:center;text-shadow:0 2px 8px rgba(0,0,0,0.5)}
+.hero-tag{display:inline-block;border:1px solid rgba(255,255,255,0.2);padding:5px 14px;border-radius:50px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.7);margin-bottom:20px;letter-spacing:1px;animation:fadeIn 1s}
+.hero h1{font-size:clamp(38px,6.5vw,68px);font-weight:900;line-height:1.05;margin-bottom:16px;animation:slideR .8s .1s both}
+.hero h1 em{font-style:normal;color:var(--accent);display:block}
+.hero-sub{font-size:clamp(15px,2vw,18px);font-weight:300;color:rgba(255,255,255,0.6);line-height:1.8;margin-bottom:36px;max-width:520px;margin-left:auto;margin-right:auto;animation:slideR .8s .25s both}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;animation:slideR .8s .4s both;justify-content:center}
+.btn-a{background:var(--accent);color:#fff;border:none;padding:14px 34px;border-radius:50px;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn-a:hover{filter:brightness(1.15);transform:translateY(-2px) scale(1.04);box-shadow:0 8px 30px rgba(245,197,24,0.45),0 0 60px rgba(245,197,24,0.15)}
+
+/* SECTIONS */
+.sec{padding:90px 5%;overflow-x:hidden}
+.sec-h{text-align:center;margin-bottom:50px}
+.sec-tag{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.sec-title{font-size:clamp(28px,4vw,42px);font-weight:900;line-height:1.15}
+.sec-content{max-width:760px;margin:0 auto}
+.sec-content p{font-size:16px;color:rgba(255,255,255,0.7);line-height:1.9;margin-bottom:20px}
+.sec-content p.lead{font-size:18px;color:rgba(255,255,255,0.85);font-weight:500}
+.sec-content p.highlight{font-size:20px;color:var(--accent);font-weight:700}
+.sec-alt{background:#0d0d0d}
+
+/* FAQ */
+.faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.faq-item{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:24px;transition:all .3s}
+.faq-item:hover{background:rgba(255,255,255,0.07);border-color:rgba(245,197,24,0.2)}
+.faq-q{font-size:16px;font-weight:700;color:#fff;margin-bottom:10px;display:flex;align-items:flex-start;gap:10px}
+.faq-q::before{content:'?';display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:rgba(245,197,24,0.12);color:var(--accent);font-weight:900;font-size:14px;flex-shrink:0}
+.faq-a{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.8;padding-right:38px}
+
+/* CTA BOTTOM */
+.cta-bottom{padding:80px 5%;text-align:center;background:linear-gradient(to bottom,var(--dark),#1a1a1a)}
+.cta-bottom h2{font-size:clamp(24px,4vw,38px);font-weight:900;margin-bottom:12px}
+.cta-bottom p{font-size:16px;color:rgba(255,255,255,0.6);margin-bottom:28px}
+
+/* FOOTER */
+.foot{background:#080808;padding:48px 5% 20px;overflow-x:hidden}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;max-width:1100px;margin:0 auto;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,0.04)}
+.fd{font-size:12px;color:#666;line-height:1.7;margin-top:10px}
+.foot .logo img{height:38px}
+.ft{font-size:13px;font-weight:700;margin-bottom:14px;color:var(--accent)}
+.fl{list-style:none;display:flex;flex-direction:column;gap:8px}
+.fl a{color:#666;text-decoration:none;font-size:12px;transition:color .3s}.fl a:hover{color:var(--accent)}
+.fc{display:flex;align-items:center;gap:6px;color:#666;font-size:12px;margin-bottom:8px}
+.fb{max-width:1100px;margin:0 auto;padding-top:16px;display:flex;justify-content:space-between;align-items:center}
+.fcopy{font-size:11px;color:rgba(255,255,255,0.15)}
+.fsoc{display:flex;gap:8px}
+.fsi{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;font-size:13px;color:#666;text-decoration:none;transition:all .3s}
+.fsi:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* WA FLOAT */
+.waf{position:fixed;bottom:18px;left:18px;z-index:999;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,0.4);transition:transform .3s;animation:bounceIn 1s 1.5s both}
+.waf:hover{transform:scale(1.08)}
+
+/* ANIMATIONS */
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideR{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:none}}
+@keyframes bounceIn{0%{opacity:0;transform:scale(.3)}50%{transform:scale(1.1)}70%{transform:scale(.95)}100%{opacity:1;transform:scale(1)}}
+
+/* AOS OVERFLOW FIX */
+[data-aos="fade-left"],[data-aos="fade-right"]{overflow-x:hidden}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .fg{grid-template-columns:1fr 1fr}
+  .hero-overlay{background:linear-gradient(to bottom,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.05) 35%,rgba(0,0,0,0.05) 60%,rgba(0,0,0,0.75) 100%)}
+  .hero-inner{padding:90px 5% 40px}
+  .hero-tag{font-size:12px}
+  .hero h1{font-size:clamp(28px,7vw,48px)}
+  .hero-sub{font-size:13px}
+  .hero-btns{flex-direction:column;align-items:center}
+  .btn-a{min-height:48px;display:inline-flex;align-items:center;justify-content:center}
+  .sec-content p{font-size:15px}
+  .sec-content p.lead{font-size:16px}
+  .sec-content p.highlight{font-size:18px}
+  .faq-a{padding-right:0}
+}
+@media(max-width:480px){.fg{grid-template-columns:1fr}}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5T22VE9YHT"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-5T22VE9YHT');</script>
+<!-- Meta Pixel -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1016773848190436');fbq('track','PageView');</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1016773848190436&ev=PageView&noscript=1"/></noscript>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HealthClub",
+  "name": "STEPS Fitness Center",
+  "alternateName": "סטודיו סטפס",
+  "url": "https://stepsnetanya.co.il",
+  "logo": "https://stepsnetanya.co.il/steps-logo-white.png",
+  "image": "https://stepsnetanya.co.il/images/gym-card.jpg",
+  "telephone": "+972-52-792-7575",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "אמנון ותמר 6, קניון פולג",
+    "addressLocality": "נתניה",
+    "addressCountry": "IL"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 32.2749168,
+    "longitude": 34.8479596
+  },
+  "openingHoursSpecification": [
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday"], "opens": "07:00", "closes": "22:00"},
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "07:00", "closes": "14:00"},
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "18:30", "closes": "22:00"}
+  ],
+  "priceRange": "$$",
+  "description": "אימון בר בנתניה בסטודיו סטפס פולג. חלל ייעודי עם בר על הקיר ומדריכות מוסמכות. שיעורים כל יום בוקר וערב."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "מה זה אימון בר?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "שיעור של שעה שמשלב תנועות מפילאטיס בלט וכוח. עובדים עם בר על הקיר משקולות קטנות גומיות וכדור. מתאים לכל הרמות"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "אני מתחילה לגמרי זה בשבילי?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "בהחלט. כל שיעור מתאים לכל הרמות והמדריכה נותנת וריאציות ומתקנת אישית"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "כמה פעמים בשבוע שווה לעשות בר?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "2-3 פעמים בשילוב עם אימוני כוח ופילאטיס מכשירים. אצלנו יש שיעורים כל יום בוקר וערב אז תמיד יש מתי"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "מה להביא?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "בגדי אימון נוחים גרביים מגבת ומים"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "כמה עולה?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "יש כמה מסלולים. שלחי הודעה ונתאים לך"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav" role="navigation" aria-label="ניווט ראשי">
+  <div class="logo"><a href="https://stepsnetanya.co.il/"><img src="steps-logo-white.png" alt="STEPS Fitness Center לוגו אימון בר נתניה" style="height:36px;width:auto"></a></div>
+  <ul class="n-links">
+    <li><a href="https://stepsnetanya.co.il/">דף הבית</a></li>
+    <li><a href="https://stepsnetanya.co.il/#spaces">החללים</a></li>
+    <li><a href="https://stepsnetanya.co.il/#sched">מערכת שעות</a></li>
+    <li><a href="https://stepsnetanya.co.il/#contact" class="n-cta">צרי קשר</a></li>
+  </ul>
+  <button class="mob" id="mobBtn">☰</button>
+</nav>
+<div class="mob-overlay" id="mobOverlay"></div>
+
+<!-- HERO -->
+<section class="hero" style="background-image:url('images/hero-new.png');background-size:cover;background-position:center 30%">
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">BARRE — סטודיו סטפס פולג</div>
+    <div>
+      <h1 data-aos="fade-up">אימון בר<em>בנתניה</em></h1>
+      <p class="hero-sub" data-aos="fade-up" data-aos-delay="200">השיעור שאת לא מפסיקה לדבר עליו אחרי</p>
+      <div class="hero-btns" data-aos="fade-up" data-aos-delay="400">
+        <a href="https://stepsnetanya.co.il/#contact" class="btn-a">לשיעור ניסיון</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- מה זה בכלל אימון בר? -->
+<section class="sec" data-aos="fade-up">
+  <div class="sec-h">
+    <div class="sec-tag">BARRE</div>
+    <h2 class="sec-title">מה זה בכלל אימון בר?</h2>
+  </div>
+  <div class="sec-content">
+    <p class="lead">תעצרי שנייה ותדמייני שיעור שלוקח את מה שהכי עובד מפילאטיס ומבלט ומאימון כוח ושם את הכל בשעה אחת</p>
+    <p class="highlight">ככה זה בר</p>
+    <p>בר קבוע על הקיר משקולות קטנות גומיות כדור ותנועות קטנות ומדויקות שנראות קלות אבל שורפות כמו אש. רגליים רועדות ישבן בוער ליבה עובדת נון סטופ</p>
+    <p>לא צריך ניסיון ולא צריך לדעת לרקוד ולא צריך להיות ספורטיבית בכלל. באות בנות שמעולם לא עשו כלום וגם בנות שמתאמנות כוח שנים וכולן יוצאות עם אותו חיוך מטורף</p>
+  </div>
+</section>
+
+<!-- למה דווקא בסטפס? -->
+<section class="sec sec-alt" data-aos="fade-up">
+  <div class="sec-h">
+    <div class="sec-tag">STEPS</div>
+    <h2 class="sec-title">למה דווקא בסטפס?</h2>
+  </div>
+  <div class="sec-content">
+    <p class="highlight">כי פה בנינו את זה רציני</p>
+    <p>יש לנו חלל שלם לזה. ייעודי. בר על הקיר ציוד ייעודי מראות הכל. לא פינה בתוך חדר כושר אלא חלל אמיתי שנבנה בשביל זה</p>
+    <p>כל המדריכות שלנו עברו הכשרה דרך הקורס בר שפיתחנו פה בסטודיו בהכשרת וניהול של טלי טרחובסקי. לא הסמכה שקונים באינטרנט תוך יומיים אלא הכשרה רצינית מקצה לקצה</p>
+    <p>יש שיעורים כל יום בוקר וערב ועד 15 בנות בשיעור ככה שהמדריכה באמת רואה אותך ומתקנת בזמן אמת</p>
+    <p>ואנחנו לא עושים סגנון אחד. יש פילאטיס-בר יש כוח-בר יש ריקוד-בר. כל שיעור שונה כל שיעור שורף</p>
+  </div>
+</section>
+
+<!-- גיוון לא תחליף -->
+<section class="sec" data-aos="fade-up">
+  <div class="sec-h">
+    <div class="sec-tag">3 עולמות</div>
+    <h2 class="sec-title">גיוון לא תחליף</h2>
+  </div>
+  <div class="sec-content">
+    <p>בואי נהיה ברורים בר זה לא עדיף על אימון כוח וזה לא תחליף לפילאטיס מכשירים</p>
+    <p class="highlight">בר זה הגיוון המושלם</p>
+    <p>מי שמתאמנת אצלנו עושה כוח ופילאטיס מכשירים ובר הכל באותו מקום עם אותו צוות שמכיר אותה בשם. שלושה עולמות תחת קורת גג אחת ואף סטודיו אחר בנתניה לא נותן לך את זה</p>
+    <p>את לא צריכה שלושה מנויים בשלושה מקומות. פה יש הכל</p>
+  </div>
+</section>
+
+<!-- איך נראה שיעור? -->
+<section class="sec sec-alt" data-aos="fade-up">
+  <div class="sec-h">
+    <div class="sec-tag">שיעור</div>
+    <h2 class="sec-title">איך נראה שיעור?</h2>
+  </div>
+  <div class="sec-content">
+    <p>מתחילות בחימום קל מכינות את הגוף מתחברות לנשימה</p>
+    <p>ואז מתחיל הטירוף. ניגשות לבר על הקיר ומתחילות לעבוד רגליים ישבן ליבה. תנועות קטנות שנראות פשוט אבל אחרי חצי דקה את מבינה שזה הדבר הכי קשה שעשית השבוע</p>
+    <p>משם עוברות למזרן עם גומיות כדור ומשקולות קטנות. חיטוב חיזוק גמישות</p>
+    <p>מסיימות במתיחות ורגיעה. שעה עפה</p>
+    <p class="lead">והתגובה הכי נפוצה אחרי שיעור ראשון? וואו איזה אימון טירוף</p>
+  </div>
+</section>
+
+<!-- שאלות נפוצות -->
+<section class="sec" data-aos="fade-up">
+  <div class="sec-h">
+    <div class="sec-tag">FAQ</div>
+    <h2 class="sec-title">שאלות נפוצות</h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+      <div class="faq-q">מה זה אימון בר?</div>
+      <div class="faq-a">שיעור של שעה שמשלב תנועות מפילאטיס בלט וכוח. עובדים עם בר על הקיר משקולות קטנות גומיות וכדור. מתאים לכל הרמות</div>
+    </div>
+    <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+      <div class="faq-q">אני מתחילה לגמרי זה בשבילי?</div>
+      <div class="faq-a">בהחלט. כל שיעור מתאים לכל הרמות והמדריכה נותנת וריאציות ומתקנת אישית</div>
+    </div>
+    <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+      <div class="faq-q">כמה פעמים בשבוע שווה לעשות בר?</div>
+      <div class="faq-a">2-3 פעמים בשילוב עם אימוני כוח ופילאטיס מכשירים. אצלנו יש שיעורים כל יום בוקר וערב אז תמיד יש מתי</div>
+    </div>
+    <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
+      <div class="faq-q">מה להביא?</div>
+      <div class="faq-a">בגדי אימון נוחים גרביים מגבת ומים</div>
+    </div>
+    <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
+      <div class="faq-q">כמה עולה?</div>
+      <div class="faq-a">יש כמה מסלולים. שלחי הודעה ונתאים לך</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BOTTOM -->
+<section class="cta-bottom" data-aos="fade-up">
+  <h2>בואי לנסות</h2>
+  <p>שיעור ניסיון בחינם. בואי תרגישי מה זה בר בסטפס</p>
+  <a href="https://stepsnetanya.co.il/#contact" class="btn-a">לשיעור ניסיון</a>
+  <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.5)">💬 שאלות? <a href="https://wa.me/972527927575" style="color:#F5C518;text-decoration:underline" target="_blank">דברי איתנו בוואטסאפ</a></p>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot" role="contentinfo">
+  <div class="fg">
+    <div><div class="logo"><a href="https://stepsnetanya.co.il/"><img src="steps-logo-white.png" alt="STEPS Fitness Center לוגו"></a></div><p class="fd">הבית שלך לאימונים. כוח · אירובי · פילאטיס מכשירים · יוגה · בר · תזונה חכמה. הכל תחת קורת גג אחת.</p></div>
+    <div><div class="ft">ניווט</div><ul class="fl"><li><a href="https://stepsnetanya.co.il/">דף הבית</a></li><li><a href="https://stepsnetanya.co.il/#spaces">החללים</a></li><li><a href="https://stepsnetanya.co.il/#sched">מערכת שעות</a></li><li><a href="https://stepsnetanya.co.il/#reviews">המלצות</a></li></ul></div>
+    <div><div class="ft">שירותים</div><ul class="fl"><li><a href="barre.html">אימון בר</a></li><li><a href="https://stepsnetanya.co.il/#spaces">GYM — חדר כושר</a></li><li><a href="https://stepsnetanya.co.il/#spaces">MOVE — שיעורים</a></li><li><a href="https://stepsnetanya.co.il/#spaces">רפורמר פילאטיס</a></li></ul></div>
+    <div><div class="ft">צרי קשר</div><div class="fc">📍 אמנון ותמר 6, קניון פולג, נתניה</div><div class="fc" dir="ltr">📞 052-792-7575</div><div class="fc">📸 <a href="https://www.instagram.com/steps_netanya/" style="color:#666;text-decoration:none" target="_blank" rel="noopener noreferrer">@steps_netanya</a></div></div>
+  </div>
+  <div class="fb"><span class="fcopy">© 2026 Studio Steps. כל הזכויות שמורות.</span><div class="fsoc"><a href="https://www.instagram.com/steps_netanya/" class="fsi" target="_blank" rel="noopener noreferrer">📷</a><a href="https://www.facebook.com/stepsnetanya/" class="fsi" target="_blank" rel="noopener noreferrer">📘</a><a href="https://wa.me/972527927575" class="fsi" target="_blank" rel="noopener noreferrer">💬</a></div></div>
+</footer>
+
+<!-- FLOATING WA -->
+<a href="https://wa.me/972527927575?text=היי%20אני%20מעוניינת%20בשיעור%20בר%20ב-STEPS%20🔥" class="waf" target="_blank">💬</a>
+
+<script>
+// Navbar solid on scroll
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('solid',scrollY>80)});
+
+// Mobile menu toggle
+const mobBtn=document.getElementById('mobBtn');
+const nLinks=document.querySelector('.n-links');
+const mobOv=document.getElementById('mobOverlay');
+function toggleMenu(){nLinks.classList.toggle('open');mobOv.classList.toggle('open');mobBtn.textContent=nLinks.classList.contains('open')?'✕':'☰'}
+mobBtn.addEventListener('click',toggleMenu);
+mobOv.addEventListener('click',toggleMenu);
+
+// Close mobile menu on link click
+document.querySelectorAll('.n-links a').forEach(a=>{a.addEventListener('click',function(){if(nLinks.classList.contains('open'))toggleMenu()})});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>AOS.init({duration:800,once:true,offset:100})</script>
+</body>
+</html>
