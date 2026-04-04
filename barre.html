@@ -223,6 +223,7 @@ img{max-width:100%;height:auto}
 </script>
 </head>
 <body>
+<a href="#content" class="skip-link" style="position:absolute;top:-100px;left:0;background:#F5C518;color:#fff;padding:8px 16px;z-index:100000;font-size:14px;text-decoration:none;transition:top 0.3s" onfocus="this.style.top='0'" onblur="this.style.top='-100px'">דלגי לתוכן</a>
 
 <!-- NAV -->
 <nav class="nav" id="nav" role="navigation" aria-label="ניווט ראשי">
@@ -253,7 +254,7 @@ img{max-width:100%;height:auto}
 </section>
 
 <!-- מה זה בכלל אימון בר? -->
-<section class="sec" data-aos="fade-up">
+<section class="sec" id="content" data-aos="fade-up">
   <div class="sec-h">
     <div class="sec-tag">BARRE</div>
     <h2 class="sec-title">מה זה בכלל אימון בר?</h2>
@@ -359,6 +360,9 @@ img{max-width:100%;height:auto}
   <div class="fb"><span class="fcopy">© 2026 Studio Steps. כל הזכויות שמורות.</span><div class="fsoc"><a href="https://www.instagram.com/steps_netanya/" class="fsi" target="_blank" rel="noopener noreferrer">📷</a><a href="https://www.facebook.com/stepsnetanya/" class="fsi" target="_blank" rel="noopener noreferrer">📘</a><a href="https://wa.me/972527927575" class="fsi" target="_blank" rel="noopener noreferrer">💬</a></div></div>
 </footer>
 
+<!-- ACCESSIBILITY BUTTON -->
+<button id="acc-btn" onclick="document.getElementById('acc-modal').style.display='flex'" aria-label="נגישות" style="position:fixed;bottom:90px;left:20px;z-index:9999;width:48px;height:48px;border-radius:50%;background:#1565C0;color:#fff;border:none;cursor:pointer;font-size:22px;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center">♿</button>
+
 <!-- FLOATING WA -->
 <a href="https://wa.me/972527927575?text=היי%20אני%20מעוניינת%20בשיעור%20בר%20ב-STEPS%20🔥" class="waf" target="_blank">💬</a>
 
@@ -379,5 +383,30 @@ document.querySelectorAll('.n-links a').forEach(a=>{a.addEventListener('click',f
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>AOS.init({duration:800,once:true,offset:100})</script>
+
+<!-- ACCESSIBILITY MODAL -->
+<div id="acc-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:99999;align-items:center;justify-content:center;padding:20px">
+  <div style="background:#1a1a1a;border-radius:16px;padding:32px;max-width:500px;width:100%;color:#fff;position:relative;max-height:90vh;overflow-y:auto">
+    <button onclick="document.getElementById('acc-modal').style.display='none'" style="position:absolute;top:12px;left:12px;background:none;border:none;color:#fff;font-size:24px;cursor:pointer">&times;</button>
+    <h2 style="font-size:20px;margin-bottom:16px;text-align:center">♿ הצהרת נגישות</h2>
+    <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px">
+      סטודיו STEPS מחויב לספק חוויית שימוש נגישה לכל המשתמשים, כולל אנשים עם מוגבלויות. אנו פועלים בהתאם לתקן הישראלי SI 5568 ולהנחיות WCAG 2.1 ברמה AA.
+    </p>
+    <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px">
+      <strong>פעולות נגישות שבוצעו:</strong><br>
+      • כל התמונות כוללות טקסט חלופי (alt text) בעברית<br>
+      • האתר מותאם לגלישה במובייל ובמחשב<br>
+      • ניתן לנווט באתר באמצעות מקלדת<br>
+      • ניגודיות צבעים מספקת בין טקסט לרקע
+    </p>
+    <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px">
+      <strong>יצירת קשר בנושא נגישות:</strong><br>
+      אם נתקלת בבעיית נגישות, נשמח לסייע.<br>
+      טלפון: 052-792-7575<br>
+      כתובת: אמנון ותמר 6, קניון פולג, נתניה
+    </p>
+    <p style="font-size:12px;color:rgba(255,255,255,0.4);text-align:center;margin-top:16px">עודכן: מרץ 2026</p>
+  </div>
+</div>
 </body>
 </html>
