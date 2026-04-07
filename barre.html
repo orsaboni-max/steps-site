@@ -12,13 +12,13 @@
 <meta property="og:description" content="כוח גמישות וחיטוב בשיעור אחד של שעה. חלל ייעודי ומדריכות מוסמכות. שיעורים כל יום">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://stepsnetanya.co.il/barre.html">
-<meta property="og:image" content="https://stepsnetanya.co.il/images/gym-card.jpg">
+<meta property="og:image" content="https://stepsnetanya.co.il/images/barre-workout.jpeg">
 <meta property="og:locale" content="he_IL">
 <meta property="og:site_name" content="STEPS Fitness Center">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="אימון בר בנתניה | סטודיו סטפס פולג">
 <meta name="twitter:description" content="כוח גמישות וחיטוב בשיעור אחד של שעה. חלל ייעודי ומדריכות מוסמכות. שיעורים כל יום">
-<meta name="twitter:image" content="https://stepsnetanya.co.il/images/gym-card.jpg">
+<meta name="twitter:image" content="https://stepsnetanya.co.il/images/barre-workout.jpeg">
 <meta name="theme-color" content="#111111">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
@@ -58,7 +58,8 @@ img{max-width:100%;height:auto}
 
 /* HERO */
 .hero{min-height:100svh;position:relative;display:flex;overflow:hidden}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.05) 40%,rgba(0,0,0,0.05) 60%,rgba(0,0,0,0.7) 100%)}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;z-index:0}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.05) 40%,rgba(0,0,0,0.05) 60%,rgba(0,0,0,0.7) 100%);z-index:1}
 .hero-inner{position:relative;z-index:2;padding:100px 7% 60px;width:100%;min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;align-items:center;text-align:center;text-shadow:0 2px 8px rgba(0,0,0,0.5)}
 .hero-tag{display:inline-block;border:1px solid rgba(255,255,255,0.2);padding:5px 14px;border-radius:50px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.7);margin-bottom:20px;letter-spacing:1px;animation:fadeIn 1s}
 .hero h1{font-size:clamp(38px,6.5vw,68px);font-weight:900;line-height:1.05;margin-bottom:16px;animation:slideR .8s .1s both}
@@ -77,6 +78,8 @@ img{max-width:100%;height:auto}
 .sec-content p{font-size:16px;color:rgba(255,255,255,0.7);line-height:1.9;margin-bottom:20px}
 .sec-content p.lead{font-size:18px;color:rgba(255,255,255,0.85);font-weight:500}
 .sec-content p.highlight{font-size:20px;color:var(--accent);font-weight:700}
+.sec-content .sec-img{width:100%;border-radius:12px;margin:24px 0}
+.sec-content .sec-video{width:100%;border-radius:12px;margin:24px 0;background:#000}
 .sec-alt{background:#0d0d0d}
 
 /* FAQ */
@@ -151,7 +154,7 @@ img{max-width:100%;height:auto}
   "alternateName": "סטודיו סטפס",
   "url": "https://stepsnetanya.co.il",
   "logo": "https://stepsnetanya.co.il/steps-logo-white.png",
-  "image": "https://stepsnetanya.co.il/images/gym-card.jpg",
+  "image": "https://stepsnetanya.co.il/images/barre-workout.jpeg",
   "telephone": "+972-52-792-7575",
   "address": {
     "@type": "PostalAddress",
@@ -239,7 +242,10 @@ img{max-width:100%;height:auto}
 <div class="mob-overlay" id="mobOverlay"></div>
 
 <!-- HERO -->
-<section class="hero" style="background-image:url('images/hero-new.png');background-size:cover;background-position:center 30%">
+<section class="hero">
+  <video class="hero-video" autoplay muted loop playsinline poster="images/barre-workout.jpeg">
+    <source src="images/barre-hero.mp4" type="video/mp4">
+  </video>
   <div class="hero-overlay"></div>
   <div class="hero-inner">
     <div class="hero-tag">BARRE — סטודיו סטפס פולג</div>
@@ -264,6 +270,7 @@ img{max-width:100%;height:auto}
     <p class="highlight">ככה זה בר</p>
     <p>בר קבוע על הקיר משקולות קטנות גומיות כדור ותנועות קטנות ומדויקות שנראות קלות אבל שורפות כמו אש. רגליים רועדות ישבן בוער ליבה עובדת נון סטופ</p>
     <p>לא צריך ניסיון ולא צריך לדעת לרקוד ולא צריך להיות ספורטיבית בכלל. באות בנות שמעולם לא עשו כלום וגם בנות שמתאמנות כוח שנים וכולן יוצאות עם אותו חיוך מטורף</p>
+    <img src="images/barre-workout.jpeg" alt="אימון בר בנתניה — מתאמנות עובדות על הבר בסטודיו סטפס" class="sec-img" data-aos="fade-up" loading="lazy">
   </div>
 </section>
 
@@ -279,6 +286,7 @@ img{max-width:100%;height:auto}
     <p>כל המדריכות שלנו עברו הכשרה דרך הקורס בר שפיתחנו פה בסטודיו בהכשרת וניהול של טלי טרחובסקי. לא הסמכה שקונים באינטרנט תוך יומיים אלא הכשרה רצינית מקצה לקצה</p>
     <p>יש שיעורים כל יום בוקר וערב ועד 15 בנות בשיעור ככה שהמדריכה באמת רואה אותך ומתקנת בזמן אמת</p>
     <p>ואנחנו לא עושים סגנון אחד. יש פילאטיס-בר יש כוח-בר יש ריקוד-בר. כל שיעור שונה כל שיעור שורף</p>
+    <img src="images/barre-tali.jpeg" alt="טלי טרחובסקי מדריכה אימון בר בסטודיו סטפס נתניה" class="sec-img" data-aos="fade-up" loading="lazy">
   </div>
 </section>
 
@@ -308,6 +316,9 @@ img{max-width:100%;height:auto}
     <p>משם עוברות למזרן עם גומיות כדור ומשקולות קטנות. חיטוב חיזוק גמישות</p>
     <p>מסיימות במתיחות ורגיעה. שעה עפה</p>
     <p class="lead">והתגובה הכי נפוצה אחרי שיעור ראשון? וואו איזה אימון טירוף</p>
+    <video class="sec-video" controls playsinline poster="images/barre-tali.jpeg" preload="metadata" data-aos="fade-up">
+      <source src="images/barre-class.mp4" type="video/mp4">
+    </video>
   </div>
 </section>
 
