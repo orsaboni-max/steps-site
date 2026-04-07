@@ -151,6 +151,30 @@ img{max-width:100%;height:auto}
   .faq-a{padding-right:0}
 }
 @media(max-width:480px){.fg{grid-template-columns:1fr}}
+
+/* SCHEDULE */
+.barre-sched{padding:90px 5%;background:#fafaf8;overflow-x:hidden}
+.barre-sched .sec-tag{color:var(--accent)}
+.barre-sched .sec-title{color:#222}
+.sched{max-width:860px;margin:0 auto;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.06)}
+.sched-top{background:var(--dark);padding:16px 22px;display:flex;align-items:center;justify-content:space-between;color:#fff}
+.sched-top h3{font-size:17px;font-weight:700}
+.dtabs{display:flex;gap:3px}
+.dt{padding:6px 14px;border-radius:50px;font-size:12px;font-weight:600;background:rgba(255,255,255,0.08);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all .3s}
+.dt.active{background:var(--accent);color:#fff}
+.slist{padding:6px}
+.si{display:flex;align-items:center;padding:13px 16px;gap:12px;border-bottom:1px solid rgba(0,0,0,0.03);transition:background .2s;border-radius:8px}
+.si:hover{background:rgba(245,197,24,0.03)}
+.s-time{font-size:16px;font-weight:700;color:#222;min-width:50px}
+.s-cls{flex:1}
+.s-n{font-size:14px;font-weight:700;color:#222}
+.s-t{font-size:11px;color:#aaa}
+.sfn{text-align:center;padding:10px;font-size:11px;color:#bbb;border-top:1px solid rgba(0,0,0,0.03)}
+.trial-wrap{max-width:860px;margin:0 auto;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:40px 24px}
+@media(max-width:768px){
+  .sched-top{flex-direction:column;gap:8px}
+  .trial-wrap{padding:24px 16px}
+}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 <!-- GA4 -->
@@ -350,13 +374,17 @@ img{max-width:100%;height:auto}
 <div class="sec-divider" data-aos="zoom-in" data-aos-duration="600"><span></span></div>
 
 <!-- לוח שיעורי בר -->
-<section class="sec sec-alt" data-aos="fade-up">
+<section class="barre-sched" data-aos="fade-up">
   <div class="sec-h">
     <div class="sec-tag">SCHEDULE</div>
     <h2 class="sec-title">לוח שיעורי בר</h2>
   </div>
-  <div class="sec-content">
-    <iframe src="https://bp4jsudd1589999012.web.arboxapp.com/group?whitelabel=Arbox&lang=he&location=18259&referrer=SITE&allLocations=false&filters=%7B%22boxCategories%22%3A%5B45670%5D%2C%22pageName%22%3A%22group%22%7D" width="100%" height="600" style="border:none;border-radius:12px;background:#fff" loading="lazy" title="לוח שיעורי בר — סטודיו סטפס נתניה"></iframe>
+  <div class="sched">
+    <div class="sched-top"><h3>📅 שיעורי בר השבוע</h3><div class="dtabs" id="barre-dtabs"><button class="dt active">א׳</button><button class="dt">ב׳</button><button class="dt">ג׳</button><button class="dt">ד׳</button><button class="dt">ה׳</button><button class="dt">ו׳</button></div></div>
+    <div class="slist" id="barre-slist">
+      <div class="sfn">⏳ טוען שיעורי בר...</div>
+    </div>
+    <div class="sfn">⚡ מתעדכנת אוטומטית מ-Arbox</div>
   </div>
 </section>
 
@@ -368,7 +396,7 @@ img{max-width:100%;height:auto}
     <div class="sec-tag">TRIAL</div>
     <h2 class="sec-title">קבעי אימון היכרות ב-50 ₪</h2>
   </div>
-  <div class="sec-content">
+  <div class="trial-wrap">
     <iframe src="https://bp4jsudd1589999012.web.arboxapp.com/group?whitelabel=Arbox&lang=he&location=18259&referrer=SITE&allLocations=false&filters=%7B%22boxCategories%22%3A%5B45670%5D%2C%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" width="100%" height="600" style="border:none;border-radius:12px;background:#fff" loading="lazy" title="אימון היכרות בר — סטודיו סטפס נתניה"></iframe>
   </div>
 </section>
@@ -465,6 +493,66 @@ document.querySelectorAll('.n-links a').forEach(a=>{a.addEventListener('click',f
       ticking=false;
     });ticking=true;}
   });
+})();
+</script>
+<script>
+// Barre Schedule — filtered from Arbox API
+(function(){
+  var FALLBACK=[
+    {start_time:'08:00',session_name:'בר — Barre',coach:'אגם סימנרוב'},
+    {start_time:'09:15',session_name:'פילאטיס-בר',coach:'שקד נחום'},
+    {start_time:'18:00',session_name:'כוח-בר',coach:'קים הרשקו'},
+    {start_time:'19:30',session_name:'בר — Barre',coach:'טל כראדי'}
+  ];
+  function isBarre(name){var n=(name||'').toLowerCase();return n.indexOf('barre')!==-1||n.indexOf('בר')!==-1;}
+  function mkEl(tag,cls){var el=document.createElement(tag);if(cls)el.className=cls;return el;}
+  function renderItems(items){
+    var sl=document.getElementById('barre-slist');
+    while(sl.firstChild)sl.removeChild(sl.firstChild);
+    if(!items||!items.length){var fn=mkEl('div','sfn');fn.textContent='אין שיעורי בר ביום זה';sl.appendChild(fn);return;}
+    items.forEach(function(s){
+      var si=mkEl('div','si');
+      var tm=mkEl('div','s-time');tm.textContent=(s.start_time||'').slice(0,5);
+      var cls=mkEl('div','s-cls');
+      var sn=mkEl('div','s-n');sn.textContent=s.session_name||s.name||'';
+      var coachName=s.coach||(s.staff_member&&s.staff_member.name)||'';
+      var st=mkEl('div','s-t');st.textContent=coachName?'מדריכה: '+coachName:'';
+      cls.appendChild(sn);cls.appendChild(st);
+      si.appendChild(tm);si.appendChild(cls);
+      sl.appendChild(si);
+    });
+  }
+  var cache={};
+  function getWeekDates(){
+    var today=new Date(),day=today.getDay(),sun=new Date(today);
+    sun.setDate(today.getDate()-day);
+    return Array.from({length:6},function(_,i){var d=new Date(sun);d.setDate(sun.getDate()+i);return d.toISOString().split('T')[0];});
+  }
+  var weekDates=getWeekDates();
+  var todayIdx=Math.min(new Date().getDay(),5);
+  function loadDay(idx){
+    var date=weekDates[idx];if(!date)return;
+    if(cache[date]){renderItems(cache[date]);return;}
+    var sl=document.getElementById('barre-slist');
+    while(sl.firstChild)sl.removeChild(sl.firstChild);
+    var fn=mkEl('div','sfn');fn.textContent='⏳ טוען שיעורי בר...';sl.appendChild(fn);
+    fetch('/api/schedule?date='+date)
+      .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
+      .then(function(data){
+        var all=Array.isArray(data)?data:[];
+        var barre=all.filter(function(s){return isBarre(s.session_name||s.name);});
+        cache[date]=barre.length?barre:FALLBACK.length?FALLBACK:[];
+        renderItems(cache[date]);
+      })
+      .catch(function(){cache[date]=FALLBACK;renderItems(FALLBACK);});
+  }
+  var tabs=document.querySelectorAll('#barre-dtabs .dt');
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){tabs.forEach(function(d){d.classList.remove('active');});this.classList.add('active');loadDay(i);});
+  });
+  tabs.forEach(function(d){d.classList.remove('active');});
+  if(tabs[todayIdx])tabs[todayIdx].classList.add('active');else if(tabs[0])tabs[0].classList.add('active');
+  loadDay(todayIdx);
 })();
 </script>
 
