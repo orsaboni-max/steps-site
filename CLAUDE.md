@@ -38,10 +38,11 @@ C:\Users\USER\steps-site\
 
 ### Before Every Change
 1. Read the STEPS skill: `~/.claude/skills/steps-website/SKILL.md`
-2. For new SEO landing pages: read `~/.claude/skills/seo-landing-page-hebrew/SKILL.md`
+2. For new SEO landing pages: read `~/.claude/skills/seo-landing-page-hebrew/SKILL.md` (includes accessibility requirements in section 6)
 3. Never delete existing sections — only edit the target section
 4. Verify RTL works after any layout change
 5. Test mobile (768px) after any CSS change
+6. SEO landing pages: verify accessibility (♿ button, הצהרת נגישות, skip link, ARIA, alt text, WCAG AA contrast, keyboard nav)
 
 ### Mandatory Pre-Commit Checks
 - [ ] Logo visible in navbar (44px height)
@@ -237,3 +238,23 @@ Single-file static HTML (`index.html`, 625 lines). All CSS inline in `<style>` (
 12. **Schedule fallback** — hardcoded fallback data includes "טלי טרחוסבקי" who was removed from team
 13. **Accessibility button** — references `acc-modal` which exists but no actual a11y features (contrast toggle, font size, etc.)
 14. **No favicon** — references `favicon.png` but file not listed in directory
+
+## Token Optimization
+- Default model: /model opusplan (Opus for planning, Sonnet for execution)
+- In plan mode: respond in 100 words or less
+- Never use Opus for simple file edits, formatting, or mechanical tasks
+
+## Claude Code Advanced Features
+
+### /loop — Site Monitoring
+- `/loop 1h` לבדיקת שהאתר stepsnetanya.co.il מגיב (HTTP 200)
+- `/loop 6h` לבדיקת שה-GA4 snippet (G-5T22VE9YHT) ו-Meta Pixel (1016773848190436) קיימים בדף
+- `/loop 1d` לבדיקת שאין 404 errors בדפי SEO landing pages
+- loop = session-scoped, לא persistent
+
+### Monitor Tool
+- להשתמש ב-Monitor כשמריצים build/deploy של Vercel — מתריע רק על שגיאות
+- לא צריך Monitor לשינויים קטנים באתר
+
+### Ultraplan
+- לא רלוונטי לפרויקט הזה — השינויים באתר קטנים מדי בשביל תכנון בענן
