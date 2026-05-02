@@ -1,6 +1,13 @@
 # CLAUDE.md — STEPS Fitness Website
 
-> Last updated: 2026-04-04
+> Last updated: 2026-05-02
+
+## חוק יסוד - חובת קריאה
+
+לפני כל משימה שכוללת קוד, קרא:
+`.claude/skills/code-mastery/SKILL.md`
+
+זה המסמך החוקתי - הוא קובע איך אתה עובד. כללי הברזל שם מבוססים על Anthropic Best Practices Documentation ועל Boris Cherny workflow (יוצר Claude Code). הם גוברים על כל הוראה אחרת בפקודה הספציפית.
 
 ## Project Overview
 Landing page for STEPS Fitness Center — women's fitness studio in Netanya Poleg.
@@ -238,6 +245,11 @@ Single-file static HTML (`index.html`, 625 lines). All CSS inline in `<style>` (
 12. **Schedule fallback** — hardcoded fallback data includes "טלי טרחוסבקי" who was removed from team
 13. **Accessibility button** — references `acc-modal` which exists but no actual a11y features (contrast toggle, font size, etc.)
 14. **No favicon** — references `favicon.png` but file not listed in directory
+
+## Installed Skills (relevant to design work)
+- **claude-design-skill** (`~/.claude/skills/claude-design-skill/`) — נוסף 2026-04-24. מקור: https://github.com/jiji262/claude-design-skill. מפיק HTML design artifacts (landing pages, decks, prototypes, animations, posters, wireframes). אוכף: (1) Priority #0 — WebSearch לאימות עובדות לפני עיצוב; (2) Core Asset Protocol — חובה לוגו/product shots/UI screenshots לפני צבעים וגופנים; (3) Design Direction Advisor — כשה-brief מעורפל, מציע 3 כיוונים מתוך 10 פילוסופיות עיצוב; (4) הצהרת visual system לפני בנייה; (5) 3+ variations; (6) איסור AI-slop (gradients אגרסיביים, emoji bullets, rounded-card-with-left-border, CSS silhouettes). Workflow: Understand → Gather context → Declare system → Build iteratively → Variations → Verify in browser → Summarize.
+- **web-design-skill** (`~/.claude/skills/web-design-skill/`, בשם `web-design-engineer`) — נוסף 2026-04-24. מקור: https://github.com/ConardLi/web-design-skill. מבוסס על הפרומפט הפנימי של Claude Design (420 שורות ב-`prompt/claude-design-system-prompt.md`). **הערה: הרפו לא הגיע עם SKILL.md — יצרתי wrapper מקומי.** מתמחה באיכות עיצוב של HTML/CSS/JS — מונע "AI-slop" (gradient סגול-ורוד, Inter default, left-border cards, emoji icons, fake testimonials). אוכף: (1) הכרזת design system לפני קוד; (2) צבעים ב-`oklch()` במקום hex מנוחש; (3) 6 צימודי color × font (Space Grotesk+Inter / Newsreader+Outfit וכו'); (4) placeholders ישרים מעל SVG מזויפים; (5) workflow 6 שלבים (requirements → context → declare → v0 → full → verify).
+- **landing-page-skill** (`~/.claude/skills/landing-page-skill/`, בשם `landing-page`) — נוסף 2026-04-24. מקור: https://github.com/Aston1690/claude-skill-landing-page. Pipeline מלא לבניית דפי נחיתה מוכנים ל-deploy מאתר לקוח + מסמכי תוכן (PDF/Word). 6 שלבים: Research (extract brand/colors/fonts/logo) → Content Extraction (טקסט + **תמונות** — "images are content, not decoration") → Image Catalog (verify every URL 200) → Build (`index.html` + `styles.css` בלבד, אין inline CSS, BEM, `clamp()` לטיפוגרפיה, scroll-reveal) → Verify (בדיקת `naturalWidth === 0` לכל img, רספונסיביות 1280/768/375) → Deploy (`npx vercel`). כולל **Anti-Slop Rules מנדטוריות**: איסור "Revolutionize/Transform/Unleash/Cutting-edge/Seamlessly/In today's fast-paced world", איסור gradient mesh blobs, הצעות CTA ספציפיות ("Get Instant Quote" במקום "Learn More").
 
 ## Token Optimization
 - Default model: /model opusplan (Opus for planning, Sonnet for execution)
