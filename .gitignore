@@ -2,6 +2,7 @@
 .netlify/
 .claude/settings.local.json
 *.mp4
+.heygen-setup/credentials.env
 !images/barre-hero.mp4
 !images/barre-class.mp4
 *.mov
