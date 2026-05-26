@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STEPS — מרכז שליטה שיווקי</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Heebo',sans-serif;}
+  body{background:#0d0d0d;color:#fff;padding:28px 20px 60px;}
+  .wrap{max-width:1200px;margin:0 auto;}
+  h1{font-size:32px;font-weight:900;} h1 b{color:#F5C518;}
+  .sub{color:#9a9a9a;font-size:15px;margin:6px 0 26px;font-weight:500;}
+  h2{font-size:20px;font-weight:800;margin:30px 0 14px;border-right:4px solid #F5C518;padding-right:10px;}
+  .grid{display:grid;gap:14px;}
+  .g4{grid-template-columns:repeat(4,1fr);} .g3{grid-template-columns:repeat(3,1fr);} .g2{grid-template-columns:repeat(2,1fr);}
+  .card{background:#161616;border:1px solid #262626;border-radius:16px;padding:18px 20px;}
+  .kpi .v{font-size:30px;font-weight:900;color:#F5C518;line-height:1.1;}
+  .kpi .v.teal{color:#2EC4B6;} .kpi .v.white{color:#fff;}
+  .kpi .l{font-size:13px;color:#b9b9b9;font-weight:600;margin-top:4px;}
+  .kpi .s{font-size:12px;color:#7a7a7a;margin-top:2px;}
+  .bar{height:22px;background:#0f0f0f;border-radius:6px;overflow:hidden;margin:5px 0;position:relative;}
+  .bar>span{display:block;height:100%;background:linear-gradient(90deg,#F5C518,#caa015);}
+  .row{display:flex;justify-content:space-between;font-size:13px;margin-top:9px;font-weight:600;}
+  .row .n{color:#ddd;} .row .c{color:#F5C518;}
+  .badge{display:inline-block;font-size:11px;font-weight:800;padding:2px 9px;border-radius:20px;}
+  .ok{background:#0c3b2e;color:#39d98a;} .warn{background:#3b2d0c;color:#f5c518;} .info{background:#0c2a3b;color:#57b6ff;}
+  .opp{background:#161616;border:1px solid #262626;border-radius:14px;padding:16px 18px;display:flex;gap:14px;align-items:flex-start;}
+  .opp .ic{font-size:26px;} .opp .t{font-weight:800;font-size:16px;} .opp .d{font-size:13px;color:#aaa;margin-top:3px;line-height:1.4;}
+  .ph{border:1.5px dashed #3a3a3a;border-radius:14px;padding:22px;text-align:center;color:#888;font-size:14px;}
+  .win{color:#39d98a;font-weight:800;}
+  @media(max-width:900px){.g4,.g3{grid-template-columns:repeat(2,1fr);}.g2{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>STEPS — <b>מרכז שליטה שיווקי</b></h1>
+  <div class="sub">נתונים חיים: Meta + Arbox · סניף פולג · עודכן 2026-05-26</div>
+
+  <!-- BUSINESS HEALTH -->
+  <h2>📊 בריאות העסק (Arbox)</h2>
+  <div class="grid g4">
+    <div class="card kpi"><div class="v">534</div><div class="l">מתאמנות פעילות</div></div>
+    <div class="card kpi"><div class="v teal">₪188,812</div><div class="l">שווי מנויים פעילים</div></div>
+    <div class="card kpi"><div class="v white">₪175</div><div class="l">חוב פתוח (זניח)</div></div>
+    <div class="card kpi"><div class="v" style="color:#ff9d57">77</div><div class="l">מנויים שפגים ב-14 יום</div><div class="s">הזדמנות חידוש</div></div>
+  </div>
+
+  <!-- KIDS CAMPAIGN -->
+  <h2>🧒 קמפיין STEPS KIDS 12-15 <span class="badge ok">פעיל</span></h2>
+  <div class="grid g4">
+    <div class="card kpi"><div class="v">12</div><div class="l">שיחות וואטסאפ</div></div>
+    <div class="card kpi"><div class="v">₪10.5</div><div class="l">עלות לשיחה</div></div>
+    <div class="card kpi"><div class="v white">2,048</div><div class="l">אנשים נחשפו</div></div>
+    <div class="card kpi"><div class="v teal">2.47%</div><div class="l">CTR <span class="win">— הכי גבוה בחשבון</span></div></div>
+  </div>
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card">
+      <div style="font-weight:800;margin-bottom:8px">לפי פלטפורמה</div>
+      <div class="row"><span class="n">אינסטגרם — היעיל ביותר</span><span class="c">4 שיחות · ₪8.75</span></div>
+      <div class="row"><span class="n">פייסבוק</span><span class="c">8 שיחות · ₪11.75</span></div>
+    </div>
+    <div class="card">
+      <div style="font-weight:800;margin-bottom:8px">מי מגיב (12 שיחות)</div>
+      <div class="row"><span class="n">נשים 35-44</span><span class="c">4</span></div>
+      <div class="row"><span class="n">נשים 25-34 (₪3/שיחה!)</span><span class="c">3</span></div>
+      <div class="row"><span class="n">נשים 45-54</span><span class="c">2</span></div>
+      <div class="row"><span class="n">גברים — כמעט אפס</span><span class="c">2</span></div>
+    </div>
+  </div>
+
+  <!-- BASELINE -->
+  <h2>🎯 בייסליין הסוכנות (המספר להכות)</h2>
+  <div class="grid g4">
+    <div class="card kpi"><div class="v">₪30</div><div class="l">עלות לליד (ממוצע)</div><div class="s">הראשי: ₪29.8</div></div>
+    <div class="card kpi"><div class="v white">334</div><div class="l">לידים ב-90 יום</div></div>
+    <div class="card kpi"><div class="v white">~₪10,000</div><div class="l">הוצאה ב-90 יום</div></div>
+    <div class="card kpi"><div class="v teal">CTW</div><div class="l">שלנו: ₪10.5/שיחה (יחידה אחרת)</div></div>
+  </div>
+
+  <!-- MEMBERSHIP MIX -->
+  <h2>💳 תמהיל המנויים (Top)</h2>
+  <div class="card">
+    <div class="row"><span class="n">גמיש 9 כניסות · כוח</span><span class="c">83</span></div><div class="bar"><span style="width:100%"></span></div>
+    <div class="row"><span class="n">גמיש 5 כניסות · משולב</span><span class="c">71</span></div><div class="bar"><span style="width:86%"></span></div>
+    <div class="row"><span class="n">גמיש 9 כניסות · משולב</span><span class="c">70</span></div><div class="bar"><span style="width:84%"></span></div>
+    <div class="row"><span class="n">גמיש 5 כניסות · כוח</span><span class="c">67</span></div><div class="bar"><span style="width:81%"></span></div>
+    <div class="row"><span class="n">ילדים + נערות (כל הסוגים)</span><span class="c">~34</span></div><div class="bar"><span style="width:41%;background:linear-gradient(90deg,#2EC4B6,#1f9488)"></span></div>
+  </div>
+
+  <!-- OPPORTUNITIES -->
+  <h2>💡 הזדמנויות לקמפיינים הבאים</h2>
+  <div class="grid g3">
+    <div class="opp"><div class="ic">🔄</div><div><div class="t">קמפיין חידוש</div><div class="d">77 מנויים פגים ב-14 יום. פנייה ממוקדת/מודעת ריטרגטינג = הכנסה שכבר כמעט ביד.</div></div></div>
+    <div class="opp"><div class="ic">🧒</div><div><div class="t">צמיחת נוער</div><div class="d">רק ~34 מנויי ילדים/נוער מתוך 534. קמפיין KIDS (רץ) פותר בדיוק את הפער הזה.</div></div></div>
+    <div class="opp"><div class="ic">📈</div><div><div class="t">אופטימיזציית KIDS</div><div class="d">בתום הלמידה: נשים בלבד, דחיפה לאינסטגרם, הרחבת גיל ל-28+. (לא נוגעים עד אז.)</div></div></div>
+  </div>
+
+  <!-- COMPETITORS -->
+  <h2>🔎 מתחרים</h2>
+  <div class="ph">
+    קטע המתחרים ימולא מ-<b>ספריית המודעות של Meta</b> (חינמי, ציבורי).<br>
+    Ahrefs (מודיעין מתחרים אוטומטי) חסום בתוכנית הנוכחית — נשקול שדרוג בעתיד אם נרצה מודיעין SEO עמוק.
+  </div>
+
+  <div style="margin-top:30px;color:#666;font-size:12px;text-align:center">נבנה ע"י Claude · מתעדכן ידנית במשיכת נתונים · marketing/reports/dashboard.html</div>
+</div>
+</body>
+</html>

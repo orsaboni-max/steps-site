@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STEPS — איך ליד הופך ללקוח</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Heebo',sans-serif;}
+  body{background:#0d0d0d;color:#fff;padding:40px 20px;}
+  .wrap{max-width:1100px;margin:0 auto;}
+  h1{font-size:38px;font-weight:900;text-align:center;}
+  h1 b{color:#F5C518;}
+  .sub{text-align:center;color:#b9b9b9;font-size:18px;margin:8px 0 40px;font-weight:500;}
+
+  .path{background:#161616;border-radius:20px;padding:26px 24px;margin-bottom:26px;border:1px solid #262626;}
+  .path.win{border:2px solid #F5C518;background:#1a1707;}
+  .ptitle{font-size:24px;font-weight:800;margin-bottom:6px;}
+  .ptitle.now{color:#2EC4B6;}
+  .ptitle.form{color:#8ab4ff;}
+  .ptitle.win{color:#F5C518;}
+  .ptag{font-size:15px;color:#9a9a9a;margin-bottom:20px;font-weight:500;}
+
+  .flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;}
+  .step{flex:1;min-width:120px;background:#0f0f0f;border:1px solid #2c2c2c;border-radius:14px;
+        padding:18px 10px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
+  .step .ic{font-size:40px;line-height:1;}
+  .step .t{font-size:17px;font-weight:800;}
+  .step .d{font-size:13px;color:#9a9a9a;font-weight:500;line-height:1.3;}
+  .step.arbox{border-color:#2EC4B6;}
+  .step.arbox .t{color:#2EC4B6;}
+  .arrow{display:flex;align-items:center;justify-content:center;font-size:30px;color:#F5C518;padding:0 6px;font-weight:900;}
+
+  .badge{display:inline-block;font-size:12px;font-weight:800;padding:3px 10px;border-radius:20px;margin-top:4px;}
+  .auto{background:#0c3b2e;color:#39d98a;}
+  .manual{background:#3b1c0c;color:#ff9d57;}
+
+  .legend{margin-top:30px;text-align:center;color:#9a9a9a;font-size:15px;line-height:1.9;}
+  .legend b.g{color:#39d98a;}
+  .legend b.o{color:#ff9d57;}
+  @media(max-width:760px){.flow{flex-direction:column;}.arrow{transform:rotate(-90deg);padding:8px 0;}.step{min-width:auto;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>איך ליד הופך ל<b>לקוחה</b> ב-STEPS</h1>
+  <div class="sub">המודעה מביאה אנשים בשתי דרכים — וזה ההבדל ביניהן</div>
+
+  <!-- PATH 1: WHATSAPP -->
+  <div class="path">
+    <div class="ptitle now">דרך 1 · וואטסאפ <span style="font-size:15px;color:#888;">(רץ עכשיו)</span></div>
+    <div class="ptag">שיחה אמיתית עם ההורה — אבל הכניסה ל-Arbox ידנית</div>
+    <div class="flow">
+      <div class="step"><div class="ic">📱</div><div class="t">המודעה</div><div class="d">פייסבוק / אינסטגרם</div></div>
+      <div class="arrow">←</div>
+      <div class="step"><div class="ic">💬</div><div class="t">הודעת וואטסאפ</div><div class="d">ההורה כותב לכם</div></div>
+      <div class="arrow">←</div>
+      <div class="step"><div class="ic">✍️</div><div class="t">הדלפק מקליד</div><div class="d"><span class="badge manual">ידני</span></div></div>
+      <div class="arrow">←</div>
+      <div class="step arbox"><div class="ic">📊</div><div class="t">Arbox</div><div class="d">נרשם במערכת</div></div>
+    </div>
+  </div>
+
+  <!-- PATH 2: FORM -->
+  <div class="path">
+    <div class="ptitle form">דרך 2 · טופס</div>
+    <div class="ptag">נכנס לבד ל-Arbox — אבל בלי שיחה</div>
+    <div class="flow">
+      <div class="step"><div class="ic">📱</div><div class="t">המודעה</div><div class="d">פייסבוק / אינסטגרם</div></div>
+      <div class="arrow">←</div>
+      <div class="step"><div class="ic">📝</div><div class="t">טופס</div><div class="d">שם + טלפון</div></div>
+      <div class="arrow">←</div>
+      <div class="step arbox"><div class="ic">📊</div><div class="t">Arbox</div><div class="d"><span class="badge auto">אוטומטי</span></div></div>
+    </div>
+  </div>
+
+  <!-- PATH 3: THE WINNER -->
+  <div class="path win">
+    <div class="ptitle win">⭐ השילוב המנצח · טופס + וואטסאפ אוטומטי</div>
+    <div class="ptag">גם נכנס לבד ל-Arbox, וגם פותח שיחה אוטומטית — בלי הקלדה</div>
+    <div class="flow">
+      <div class="step"><div class="ic">📱</div><div class="t">המודעה</div><div class="d">פייסבוק / אינסטגרם</div></div>
+      <div class="arrow">←</div>
+      <div class="step"><div class="ic">📝</div><div class="t">טופס</div><div class="d">שם + טלפון</div></div>
+      <div class="arrow">←</div>
+      <div class="step arbox"><div class="ic">📊</div><div class="t">Arbox</div><div class="d"><span class="badge auto">אוטומטי</span></div></div>
+      <div class="arrow">←</div>
+      <div class="step"><div class="ic">🤖</div><div class="t">Upgrade שולח וואטסאפ</div><div class="d"><span class="badge auto">אוטומטי</span></div></div>
+      <div class="arrow">←</div>
+      <div class="step"><div class="ic">💬</div><div class="t">שיחה מתחילה</div><div class="d">ההורה עונה</div></div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <span class="badge auto">אוטומטי</span> = קורה לבד, בלי שאף אחד נוגע &nbsp;·&nbsp;
+    <span class="badge manual">ידני</span> = מישהו צריך להקליד
+  </div>
+</div>
+</body>
+</html>

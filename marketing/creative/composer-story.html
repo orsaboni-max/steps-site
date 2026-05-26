@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1080px; height:1920px; overflow:hidden; background:#0d0d0d; }
+  .box { position:relative; width:1080px; height:1920px; background:#0d0d0d; font-family:'Heebo',sans-serif; }
+
+  /* photo fills the lower portion (bottom safe zone is only photo, no critical text) */
+  .photo-wrap { position:absolute; top:880px; left:0; width:1080px; height:1040px; overflow:hidden; }
+  .photo { width:1080px; height:1040px; object-fit:cover; object-position:center 38%; display:block; }
+  .fade-top { position:absolute; top:880px; left:0; width:1080px; height:260px;
+    background:linear-gradient(to bottom, #0d0d0d 0%, rgba(13,13,13,0) 100%); }
+
+  /* ALL text sits in the safe middle band (below top 14% ≈ 270px, above bottom 20% ≈ 1536px) */
+  .logo { position:absolute; top:312px; left:50%; transform:translateX(-50%); width:215px;
+    filter:drop-shadow(0 3px 10px rgba(0,0,0,.6)); }
+  .kicker { position:absolute; top:452px; left:0; width:1080px; text-align:center;
+    font-size:32px; font-weight:700; letter-spacing:10px; color:#F5C518; }
+  .title { position:absolute; top:496px; left:0; width:1080px; text-align:center;
+    font-size:142px; font-weight:900; letter-spacing:4px; line-height:1;
+    color:#fff; text-shadow:0 4px 24px rgba(0,0,0,.7); }
+  .title b { color:#F5C518; }
+  .age { position:absolute; top:664px; left:0; width:1080px; text-align:center;
+    font-size:56px; font-weight:800; color:#fff; }
+  .age span { color:#F5C518; }
+  .hook { position:absolute; top:752px; left:90px; width:900px; text-align:center;
+    font-size:42px; font-weight:500; line-height:1.35; color:#e9e9e9; }
+</style>
+</head>
+<body>
+  <div class="box">
+    <div class="photo-wrap"><img class="photo" src="kids-12-15-hero-1.png" alt=""></div>
+    <div class="fade-top"></div>
+
+    <img class="logo" src="steps-logo-white.png" alt="STEPS">
+    <div class="kicker">FITNESS · נתניה</div>
+    <div class="title">STEPS <b>KIDS</b></div>
+    <div class="age">אימון נוער · גיל <span>12–15</span></div>
+    <div class="hook">בונים גוף, ביטחון והרגלים<br>שיישארו להם לכל החיים 💪</div>
+  </div>
+</body>
+</html>

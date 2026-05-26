@@ -1,0 +1,49 @@
+{
+  "brand": "STEPS Fitness",
+  "updated": "2026-05-26",
+  "what": "סטודיו כושר לנשים בנתניה (פולג) + תוכנית נוער STEPS KIDS",
+  "location": { "city": "נתניה", "area": "פולג / עיר ימים", "address": "אמנון ותמר 6, פולג, נתניה" },
+  "owners": ["אור סבוני", "אור תורג'מן"],
+  "members_active": 534,
+  "spaces": [
+    { "name": "GYM", "desc": "אימוני כוח ואירובי, מכשור מתקדם", "color": "#F5C518" },
+    { "name": "MOVE", "desc": "יוגה, פילאטיס מכשירים, Barre, BootCamp", "color": "#A855F7" },
+    { "name": "REFORMER PILATES", "desc": "פילאטיס מכשירים", "color": "#2EC4B6" }
+  ],
+  "programs": ["נשים", "STEPS KIDS (נוער 12–15)", "Barre", "פילאטיס מכשירים", "YOGA", "BootCamp"],
+  "brand_dna": {
+    "core_promise": "פה את לעולם לא לבד.",
+    "pillars": [
+      "מאמנות אמיתיות שמתאמנות בעצמן ומכירות כל אחת בשם",
+      "אווירה של בית ומשפחה — לא מכון אנונימי",
+      "3 חללי אימון, מקום אחד",
+      "ליווי מקצועי אמיתי, אפס פשרות"
+    ]
+  },
+  "visual": {
+    "font": "Heebo",
+    "colors": { "accent_yellow": "#F5C518", "teal": "#2EC4B6", "purple": "#A855F7", "dark": "#111111", "white": "#FAFAFA" },
+    "logo": "steps-logo-white.png (לבן על שקוף)",
+    "style": "תמונות אמת מהסטודיו, חם, אנושי. בלי AI-slop, בלי gradients אגרסיביים, בלי אייקוני אמוג'י כ-bullets."
+  },
+  "voice": {
+    "language": "עברית",
+    "tone": "חם, אנושי, משפחתי, מקצועי, ישיר",
+    "form_women": "לשון נקבה (לקמפייני נשים)",
+    "form_kids": "פנייה להורים (גוף שני) לקמפיין נוער 12–15",
+    "avoid": ["קלישאות שיווקיות מנופחות", "הבטחות מוגזמות", "שפה גנרית"]
+  },
+  "audiences": {
+    "women_netanya": "נשים נתניה+סביבה, מיקוד גיאוגרפי פולג/עיר ימים, גיל 18–60",
+    "kids_parents": "הורים בנתניה גיל 33–55 לקידום STEPS KIDS (נוער 12–15)",
+    "lookalike": "Lookalike מ-534 מתאמנות פעילות (Arbox)",
+    "retargeting": "מבקרי אתר דרך Meta Pixel 1016773848190436"
+  },
+  "conversion": {
+    "primary_cta": "אימון היכרות ללא התחייבות",
+    "whatsapp": "972527927575",
+    "site": "https://stepsnetanya.co.il",
+    "crm": "Arbox (פולג)",
+    "north_star_metric": "עלות ללקוחה חדשה אמיתית (לא ליד)"
+  }
+}
