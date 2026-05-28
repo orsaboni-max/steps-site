@@ -684,15 +684,19 @@ async def bina_eligible_non_buyers(branch: str = DEFAULT_BRANCH) -> str:
 
 
 def _group_memberships_by_user(memberships: list) -> dict:
-    """Group all memberships by user_id. Returns {user_id: {info, sorted_memberships}}."""
+    """Group all memberships by user_fk (the actual user/customer reference).
+
+    CRITICAL: m['id'] is the membership row ID, NOT the user ID.
+    The field that links a membership to a customer is 'user_fk'.
+    """
     by_user = {}
     for m in memberships:
-        uid = m.get("id")
+        uid = m.get("user_fk")
         if not uid:
             continue
         if uid not in by_user:
             by_user[uid] = {
-                "id": uid,
+                "user_fk": uid,
                 "name": f"{m.get('first_name', '')} {m.get('last_name', '')}".strip(),
                 "phone": m.get("phone", ""),
                 "memberships": [],
@@ -868,39 +872,185 @@ async def acquisition_summary(days: int = 30, branch: str = DEFAULT_BRANCH) -> s
 
 
 @mcp.tool()
-async def inspect_membership_fields(branch: str = DEFAULT_BRANCH) -> str:
-    """DIAGNOSTIC: returns all field keys present in membership records, plus a few raw samples.
+async def leads_summary(days: int = 30, branch: str = DEFAULT_BRANCH) -> str:
+    """Marketing attribution: lead funnel from /leads endpoint.
 
-    Use to discover cancellation/trial/status fields not yet exposed by other tools.
+    Reports leads created in window, breakdown by lead_source, conversion rate
+    (lead -> paying customer = user_fk set + membership purchased).
+    branch defaults to 'poleg'."""
+    try:
+        loc = _resolve_branch(branch)
+        today = date.today()
+        cutoff_dt = datetime.now() - timedelta(days=int(days))
+        cutoff = cutoff_dt.date()
+
+        leads = await _get("/leads")
+        leads = _filter_by_branch(leads, loc)
+
+        def _parse_created(s):
+            if not s:
+                return None
+            try:
+                return datetime.strptime(s[:10], "%Y-%m-%d").date()
+            except Exception:
+                return None
+
+        leads_in_window = []
+        for ld in leads:
+            cdt = _parse_created(ld.get("created_at"))
+            if cdt and cutoff <= cdt <= today:
+                leads_in_window.append(ld)
+
+        # Group by source
+        by_source = {}
+        by_status = {}
+        converted_user_fks = set()
+        for ld in leads_in_window:
+            src = ld.get("lead_source") or "unknown"
+            status = ld.get("lead_status") or "unknown"
+            by_source.setdefault(src, {"count": 0, "converted": 0})
+            by_source[src]["count"] += 1
+            by_status[status] = by_status.get(status, 0) + 1
+            ufk = ld.get("user_fk")
+            if ufk:
+                by_source[src]["converted"] += 1
+                converted_user_fks.add(ufk)
+
+        # Compute conversion rate per source
+        for src, info in by_source.items():
+            info["conversion_rate_pct"] = round(
+                100.0 * info["converted"] / info["count"], 1
+            ) if info["count"] else 0.0
+
+        # Cross-reference converted leads to actual memberships purchased
+        memberships = _filter_by_branch(await _get("/membership"), loc)
+        converted_with_membership = []
+        for ld in leads_in_window:
+            ufk = ld.get("user_fk")
+            if not ufk:
+                continue
+            user_mems = [m for m in memberships if m.get("user_fk") == ufk]
+            if user_mems:
+                user_mems.sort(key=lambda x: _parse_date(x.get("start")) or date(1900, 1, 1))
+                first_after_lead = next(
+                    (m for m in user_mems if _parse_date(m.get("start")) and _parse_date(m.get("start")) >= _parse_created(ld.get("created_at"))),
+                    None,
+                )
+                if first_after_lead:
+                    converted_with_membership.append({
+                        "lead_id": ld.get("id"),
+                        "name": ld.get("full_name") or f"{ld.get('first_name', '')} {ld.get('last_name', '')}".strip(),
+                        "phone": ld.get("phone"),
+                        "lead_source": ld.get("lead_source"),
+                        "lead_status": ld.get("lead_status"),
+                        "lead_created_at": ld.get("created_at"),
+                        "membership_purchased": first_after_lead.get("name"),
+                        "membership_start": first_after_lead.get("start"),
+                        "price_ILS": float(first_after_lead.get("price") or 0),
+                    })
+
+        total_revenue = sum(float(c.get("price_ILS") or 0) for c in converted_with_membership)
+        return json.dumps({
+            "branch": branch,
+            "window_days": days,
+            "summary": {
+                "total_leads": len(leads_in_window),
+                "leads_with_user_fk_converted": len([l for l in leads_in_window if l.get("user_fk")]),
+                "leads_that_actually_bought": len(converted_with_membership),
+                "overall_conversion_rate_pct": round(100.0 * len(converted_with_membership) / len(leads_in_window), 1) if leads_in_window else 0,
+                "total_revenue_from_converted_leads_ILS": total_revenue,
+            },
+            "by_lead_source": by_source,
+            "by_lead_status": by_status,
+            "converted_customers": converted_with_membership,
+        }, indent=2, ensure_ascii=False)
+    except Exception as e:
+        return f"Error: {e}"
+
+
+@mcp.tool()
+async def inspect_membership_fields(branch: str = DEFAULT_BRANCH) -> str:
+    """DIAGNOSTIC: returns all field keys present in membership records AND user records,
+    AND probes candidate Arbox endpoints for membership history / cancellations.
+
+    Discovers cancellation/trial/status/creation fields not yet exposed by other tools.
     branch defaults to 'poleg'."""
     try:
         loc = _resolve_branch(branch)
         memberships = _filter_by_branch(await _get("/membership"), loc)
+        users = await _get("/users")
         if not memberships:
             return json.dumps({"error": "no memberships returned"}, ensure_ascii=False)
-        all_keys = set()
+
+        # MEMBERSHIP fields
+        mem_keys = set()
         for m in memberships:
-            all_keys.update(m.keys())
-        # Look for likely "cancelled" / "trial" signals
-        signal_keys = [k for k in all_keys if any(
-            t in k.lower() for t in ["cancel", "trial", "status", "froze", "freeze", "active", "type", "lead", "source", "created"]
+            mem_keys.update(m.keys())
+        mem_signal_keys = [k for k in mem_keys if any(
+            t in k.lower() for t in ["cancel", "trial", "status", "froze", "freeze", "active", "type", "lead", "source", "created", "create"]
         )]
-        # Distinct values per signal key
-        signal_values = {}
-        for k in signal_keys:
+        mem_signal_values = {}
+        for k in mem_signal_keys:
             vals = {str(m.get(k)) for m in memberships}
-            signal_values[k] = sorted(list(vals))[:20]
-        # Distinct membership names containing trial-ish words
+            mem_signal_values[k] = sorted(list(vals))[:20]
         trial_names = sorted({
             m.get("name", "") for m in memberships
             if m.get("name") and any(t in m["name"] for t in ["היכרות", "ניסיון", "trial", "Trial"])
         })
+
+        # USER fields
+        user_keys = set()
+        for u in users:
+            user_keys.update(u.keys())
+        user_signal_keys = [k for k in user_keys if any(
+            t in k.lower() for t in ["create", "register", "joined", "since", "first", "open", "sign", "active", "status"]
+        )]
+        user_signal_values = {}
+        for k in user_signal_keys:
+            vals = [str(u.get(k)) for u in users[:3]]
+            user_signal_values[k] = vals
+
+        # PROBE candidate endpoints for cancellation / history data
+        endpoint_probe = {}
+        candidates = [
+            "/users/history", "/membership/history", "/memberships",
+            "/user_history", "/membership_history", "/cancellations",
+            "/clients", "/members", "/leads",
+            "/trial", "/trials",
+            "/payments", "/transactions",
+        ]
+        async with httpx.AsyncClient(timeout=10) as client:
+            for path in candidates:
+                try:
+                    resp = await client.get(f"{ARBOX_BASE_URL}{path}", headers=_headers())
+                    if resp.status_code == 200:
+                        data = resp.json()
+                        if isinstance(data, list) and data and isinstance(data[0], dict):
+                            endpoint_probe[path] = {"status": 200, "count": len(data), "fields": sorted(list(data[0].keys()))[:25]}
+                        elif isinstance(data, dict):
+                            endpoint_probe[path] = {"status": 200, "type": "dict", "fields": sorted(list(data.keys()))[:25]}
+                        else:
+                            endpoint_probe[path] = {"status": 200, "shape": str(type(data).__name__)}
+                    else:
+                        endpoint_probe[path] = {"status": resp.status_code}
+                except Exception as e:
+                    endpoint_probe[path] = {"error": str(e)[:80]}
+
         return json.dumps({
-            "total_records": len(memberships),
-            "all_field_keys": sorted(list(all_keys)),
-            "signal_keys_found": signal_keys,
-            "signal_values_sample": signal_values,
-            "trial_like_membership_names": trial_names,
+            "membership": {
+                "total_records": len(memberships),
+                "all_field_keys": sorted(list(mem_keys)),
+                "signal_keys_found": mem_signal_keys,
+                "signal_values_sample": mem_signal_values,
+                "trial_like_membership_names": trial_names,
+            },
+            "users": {
+                "total_records": len(users),
+                "all_field_keys": sorted(list(user_keys)),
+                "signal_keys_found": user_signal_keys,
+                "first_3_users_signal_values": user_signal_values,
+            },
+            "endpoint_probe": endpoint_probe,
         }, indent=2, ensure_ascii=False)
     except Exception as e:
         return f"Error: {e}"
