@@ -18,6 +18,19 @@ description: >-
 - `marketing/brand/brand-dna.md` — מותג, טון, ויזואל, קהלים.
 - `marketing/ops/connections-map.md` — חשבונות, חיבורים, מגבלות (אמת מחדש — משתנה).
 
+## 🎭 מפת התפקידים (איזה סקיל לשימוש מתי)
+זה הסקיל הראשי — האב. הוא מאגד את ה-3 התפקידים הספציפיים שלמטה. הוא הסקיל שעולה כשאור אומר "שיווק סטפס" באופן כללי. כשהמשימה ספציפית, אחד התפקידים למטה הוא העיקרי:
+
+| תפקיד | מתי הסקיל קופץ | מה הוא עושה |
+|---|---|---|
+| 🎨 **`steps-ad-copy` + `steps-reel-pipeline` + `steps-studio-visuals`** | כשמייצרים קופי/ריל/תמונה | המקור לכל הקריאייטיב — DNA הקול, נוסחת ההפקה |
+| 🛠️ **`steps-campaign-builder`** | כשמקימים קמפיין חדש | צ'קליסט 8 שלבים: objective → audience → budget → bidding → placements → structure → naming → approval |
+| 📊 **`steps-performance-analyst`** | כשמנתחים תוצאות / רואים screenshot | 6 שלבי אבחון: data → baseline → Learning Phase → fatigue → Breakdown Effect → kill/scale/refresh |
+
+**שגרות אוטומטיות פעילות:**
+- ראשון 09:00 → `steps-marketing-weekly-audit` (audit + צ'קליסט לאור)
+- שני 09:00 → `steps-creative-ideas-weekly` (3 רעיונות מהמתחרים)
+
 ## 🧠 כלל הזיכרון (חובה — אסור לחקור פעמיים)
 **אם חקרת נושא שיווקי חדש (מסמך רשמי של Meta, בלוג מומחה, פיצ'ר חדש) — חייב לשמור מיד ל-`marketing/meta-playbook.md`** (סעיף חדש או הרחבה לסעיף קיים, עם מקור + תאריך + תובנה ספציפית ל-STEPS). אחרת בפעם הבאה תחקור שוב את אותו דבר ותבזבז זמן של אור.
 - בדיקה לפני שמתחילים מחקר: האם זה כבר ב-playbook? (חיפוש מילת מפתח)
