@@ -12,7 +12,8 @@ description: >-
 
 מערכת עבודה לשיווק STEPS Fitness בניהול Claude (החלפת חברת השיווק). מטרה: כמה שיותר אוטומטי ומבוסס-נתונים.
 
-## קודם תקרא
+## קודם תקרא (קריאת חובה)
+- **`marketing/meta-playbook.md`** — ידע רשמי של Meta + תובנות 2026 (Learning Phase, CTWA, Reels, bidding, frequency, Advantage+, attribution, lead ads). **לקרוא את הסעיף הרלוונטי לפני כל החלטה.**
 - `marketing/brand/brand-dna.md` — מותג, טון, ויזואל, קהלים.
 - `marketing/ops/connections-map.md` — חשבונות, חיבורים, מגבלות (אמת מחדש — משתנה).
 

@@ -6,3 +6,5 @@
 !images/barre-hero.mp4
 !images/barre-class.mp4
 *.mov
+.playwright-mcp/
+/kids-12-15-*.png

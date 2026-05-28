@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STEPS KIDS — נערות פילאטיס · Reel Preview v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Heebo',sans-serif;}
+  body{background:#111;display:flex;align-items:center;justify-content:center;min-height:100vh;}
+  .reel{position:relative;height:94vh;aspect-ratio:9/16;overflow:hidden;background:#000;border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.6);}
+  .reel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;}
+  /* total timeline 19s, looping — 4 scenes + CTA */
+  .s1{animation:s1 19s infinite, kb 19s infinite;}
+  .s2{animation:s2 19s infinite, kb 19s infinite;}
+  .s3{animation:s3 19s infinite, kb 19s infinite;}
+  .s4{animation:s4 19s infinite, kb 19s infinite;}
+  @keyframes s1{0%{opacity:0}3%{opacity:1}19%{opacity:1}23%{opacity:0}100%{opacity:0}}
+  @keyframes s2{0%,18%{opacity:0}22%{opacity:1}39%{opacity:1}43%{opacity:0}100%{opacity:0}}
+  @keyframes s3{0%,38%{opacity:0}42%{opacity:1}59%{opacity:1}63%{opacity:0}100%{opacity:0}}
+  @keyframes s4{0%,58%{opacity:0}62%{opacity:1}82%{opacity:1}87%{opacity:0}100%{opacity:0}}
+  @keyframes kb{0%{transform:scale(1.05) translate(0,0)}100%{transform:scale(1.18) translate(-2%,-2%)}}
+
+  .grad{position:absolute;left:0;right:0;bottom:0;height:48%;background:linear-gradient(to top,rgba(0,0,0,.80),transparent);}
+  .topgrad{position:absolute;left:0;right:0;top:0;height:30%;background:linear-gradient(to bottom,rgba(0,0,0,.55),transparent);}
+
+  .cap{position:absolute;left:6%;right:6%;text-align:center;color:#fff;font-weight:900;
+       text-shadow:0 3px 18px rgba(0,0,0,.9);line-height:1.18;opacity:0;}
+  .cap.top{top:9%;font-size:clamp(22px,4.6vh,46px);}
+  .cap.bot{bottom:11%;font-size:clamp(20px,4.2vh,40px);}
+  .cap b{color:#F5C518;}
+  .c1{animation:c1 19s infinite;} .c2{animation:c2 19s infinite;} .c3{animation:c3 19s infinite;} .c4{animation:c4 19s infinite;}
+  @keyframes c1{0%{opacity:0;transform:translateY(14px)}5%{opacity:1;transform:none}19%{opacity:1}23%{opacity:0}100%{opacity:0}}
+  @keyframes c2{0%,19%{opacity:0;transform:translateY(14px)}24%{opacity:1;transform:none}39%{opacity:1}43%{opacity:0}100%{opacity:0}}
+  @keyframes c3{0%,39%{opacity:0;transform:translateY(14px)}44%{opacity:1;transform:none}59%{opacity:1}63%{opacity:0}100%{opacity:0}}
+  @keyframes c4{0%,59%{opacity:0;transform:translateY(14px)}64%{opacity:1;transform:none}82%{opacity:1}87%{opacity:0}100%{opacity:0}}
+
+  .cta{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+       background:rgba(17,17,17,.93);text-align:center;opacity:0;animation:ctaA 19s infinite;}
+  @keyframes ctaA{0%,85%{opacity:0}90%{opacity:1}99%{opacity:1}100%{opacity:0}}
+  .cta .logo{font-size:clamp(40px,8vh,80px);font-weight:900;color:#fff;letter-spacing:2px;}
+  .cta .logo b{color:#F5C518;}
+  .cta .l2{font-size:clamp(22px,4.4vh,40px);font-weight:800;color:#fff;}
+  .cta .l3{font-size:clamp(17px,3.4vh,30px);font-weight:600;color:#bbb;}
+  .cta .btn{margin-top:8px;background:#F5C518;color:#111;font-weight:900;font-size:clamp(18px,3.6vh,32px);
+            padding:14px 34px;border-radius:50px;}
+
+  .kicker{position:absolute;top:4%;left:0;right:0;text-align:center;color:#F5C518;font-weight:800;
+          font-size:clamp(13px,2.4vh,22px);letter-spacing:6px;opacity:0;animation:c1 19s infinite;}
+  .replay{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);color:#777;font-size:13px;}
+</style>
+</head>
+<body>
+  <div class="reel">
+    <img class="s1" src="final-group-A.png" alt="">
+    <img class="s2" src="derived-lunge.png" alt="">
+    <img class="s3" src="derived-instructor.png" alt="">
+    <img class="s4" src="derived-vibe.png" alt="">
+    <div class="topgrad"></div>
+    <div class="grad"></div>
+
+    <div class="kicker">STEPS KIDS · פולג נתניה</div>
+
+    <div class="cap top c1">דברים שקורים בשיעור<br><b>נערות פילאטיס</b> 💚</div>
+    <div class="cap bot c2">תרגילים <b>אמיתיים</b> —<br>מתחזקות ומיישרות גב</div>
+    <div class="cap bot c3">ליווי צמוד —<br><b>כל אחת על המכשיר שלה</b></div>
+    <div class="cap bot c4">והכי כיף —<br><b>יוצאות עם חיוך</b> 😂</div>
+
+    <div class="cta">
+      <div class="logo">STEPS <b>KIDS</b></div>
+      <div class="l2">פילאטיס מכשירים · נערות 12–15</div>
+      <div class="l3">קבוצות קטנות · פולג, נתניה</div>
+      <div class="btn">אימון היכרות 👇</div>
+    </div>
+  </div>
+  <div class="replay">▶︎ מתנגן בלולאה — תצוגה מקדימה (לפני רינדור MP4)</div>
+</body>
+</html>
