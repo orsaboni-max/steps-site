@@ -27,4 +27,9 @@
 3. כש-Upgrade מאשרים ToS → הסבה לטופס.
 
 ## 🤖 שגרות אוטומטיות פעילות
-- **`steps-marketing-weekly-audit`** (`trig_0115msYg9h5L7zwVgAZmxEA8`) — כל ראשון 09:00 Asia/Jerusalem. רץ בענן Anthropic, קורא STATUS.md + meta-playbook.md, מייצר `marketing/weekly-audits/YYYY-MM-DD-audit.md` עם צ'קליסט 5-דקות לאור + התראות דריפט. **מגביל:** אין גישה לטוקן Meta מהענן — אי-אפשר לאמת אוטומטית מצב אמיתי של קמפיינים, רק לוודא שהמסמכים מעודכנים. אור חייב לפתוח Ads Manager ידנית פעם בשבוע + לעדכן את Claude.
+- **`steps-marketing-weekly-audit`** (`trig_0115msYg9h5L7zwVgAZmxEA8`) — כל ראשון 09:00 Asia/Jerusalem. רץ בענן Anthropic, קורא STATUS.md + meta-playbook.md, מייצר `marketing/weekly-audits/YYYY-MM-DD-audit.md` עם צ'קליסט 5-דקות לאור + התראות דריפט.
+- **`steps-creative-ideas-weekly`** (`trig_016LZH7feduqoFxm3VzpjLgE`) — כל שני 09:00 Asia/Jerusalem. סורק Meta Ad Library של 5 מתחרים (Revo / Yam / Diamond / Swift / She Run), מזהה דפוסים מנצחים, מציע 3 רעיונות קריאייטיב חדשים ל-STEPS ב-`marketing/creative-ideas/YYYY-MM-DD-ideas.md`. **למה זה קיים:** אור לא מבין בקריאייטיב — צריך שמישהו יביא לו רעיונות מוכנים כל שבוע.
+- **מגבלה כללית:** השגרות בענן לא נגישות לטוקן Meta המקומי — לא יכולות לגעת בחשבון המודעות, רק לקרוא נתונים פומביים ולייצר מסמכים.
+
+## 🧠 סקילים חדשים שהותקנו (2026-05-28)
+- **`meta-ads-analyzer`** (mathiaschu) — אבחון עומק של קמפייני Meta עם 9 מסמכים רשמיים: Breakdown Effect, Learning Phase, Auction Overlap, Pacing, Bid Strategies, Performance Fluctuations. **קופץ אוטומטית כשמדובר בניתוח קמפיין.** ידע שרוב הסוכנויות בישראל לא מכירות.
