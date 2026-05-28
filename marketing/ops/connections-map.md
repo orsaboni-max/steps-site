@@ -24,7 +24,7 @@
 - **WhatsApp / לידים:** מענה אוטומטי דרך **Upgrade 360** (פלטפורמת אוטומציה/CRM ל-WhatsApp) + קבלה. מודעות Click-to-WhatsApp נכנסות לשם.
 
 ## כלי קריאייטיב
-ChatGPT image (אור מייצר), Gemini (ב-Make), higgsfield (0 קרדיטים), Canva, Adobe Firefly, HeyGen (וידאו).
+ChatGPT image (אור מייצר), Gemini (ב-Make), higgsfield (Plus, 852 קרדיטים — 2026-05-28), Canva, Adobe Firefly, HeyGen (וידאו).
 
 ## סקילים רלוונטיים (מותקנים)
 ads-meta, ads-create, ads-generate, ads-dna, ads-photoshoot, ads-competitor, ad-creative, content-machine, steps-website, seo-landing-page-hebrew.

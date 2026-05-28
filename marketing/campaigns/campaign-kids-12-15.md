@@ -83,4 +83,4 @@
 **Prompt 3 — Community/belonging (1:1):**
 > Warm candid moment of teens (12-15, mixed) high-fiving / laughing together after a workout in a dark premium studio with golden-yellow accent lighting (#F5C518). Sense of belonging and fun. Photorealistic, cinematic. Negative space for Hebrew text. Faces soft/not identifiable. No text in image.
 
-> מצב כלי: חשבון higgsfield חינמי (0.2 קרדיטים) — לא ניתן לייצר כרגע. אפשרויות: (א) טעינת קרדיטים ל-higgsfield, (ב) ייצור דרך Canva/כלי אחר, (ג) אשת הסושיאל מייצרת מה-prompts.
+> מצב כלי (עודכן 2026-05-28): higgsfield Plus פעיל, **852 קרדיטים** — ייצור AI זמין מיידית. Workflow מומלץ ב-`marketing/REEL-SOP.md`.
