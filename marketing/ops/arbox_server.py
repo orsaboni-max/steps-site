@@ -901,64 +901,84 @@ async def leads_summary(days: int = 30, branch: str = DEFAULT_BRANCH) -> str:
             if cdt and cutoff <= cdt <= today:
                 leads_in_window.append(ld)
 
-        # Group by source
+        # Build a phone -> membership index (the robust cross-system join key).
+        # Phone is more reliable than user_fk, which lives in different ID spaces
+        # between /leads and /membership.
+        memberships = _filter_by_branch(await _get("/membership"), loc)
+
+        def _norm_phone(p):
+            if not p:
+                return ""
+            # strip non-digits, drop leading country code / zero for matching
+            digits = "".join(ch for ch in str(p) if ch.isdigit())
+            if digits.startswith("972"):
+                digits = "0" + digits[3:]
+            return digits[-9:] if len(digits) >= 9 else digits
+
+        mem_by_phone = {}
+        for m in memberships:
+            key = _norm_phone(m.get("phone"))
+            if key:
+                mem_by_phone.setdefault(key, []).append(m)
+
+        # Group by source + status, and detect real conversions via phone match.
         by_source = {}
         by_status = {}
-        converted_user_fks = set()
+        converted_with_membership = []
+
         for ld in leads_in_window:
             src = ld.get("lead_source") or "unknown"
             status = ld.get("lead_status") or "unknown"
-            by_source.setdefault(src, {"count": 0, "converted": 0})
-            by_source[src]["count"] += 1
+            by_source.setdefault(src, {"leads": 0, "converted": 0, "revenue_ILS": 0.0})
+            by_source[src]["leads"] += 1
             by_status[status] = by_status.get(status, 0) + 1
-            ufk = ld.get("user_fk")
-            if ufk:
+
+            ld_phone = _norm_phone(ld.get("phone"))
+            ld_created = _parse_created(ld.get("created_at"))
+            matched_mems = mem_by_phone.get(ld_phone, []) if ld_phone else []
+            if matched_mems:
+                # earliest membership starting on/after the lead was created
+                candidates = [
+                    m for m in matched_mems
+                    if _parse_date(m.get("start")) and ld_created and _parse_date(m.get("start")) >= ld_created
+                ]
+                # fallback: any membership at all (handles same-day / data lag)
+                chosen_pool = candidates or matched_mems
+                chosen_pool.sort(key=lambda x: _parse_date(x.get("start")) or date(1900, 1, 1))
+                chosen = chosen_pool[0]
+                price = float(chosen.get("price") or 0)
                 by_source[src]["converted"] += 1
-                converted_user_fks.add(ufk)
+                by_source[src]["revenue_ILS"] += price
+                converted_with_membership.append({
+                    "lead_id": ld.get("id"),
+                    "name": ld.get("full_name") or f"{ld.get('first_name', '')} {ld.get('last_name', '')}".strip(),
+                    "phone": ld.get("phone"),
+                    "lead_source": ld.get("lead_source"),
+                    "lead_status": ld.get("lead_status"),
+                    "lead_created_at": ld.get("created_at"),
+                    "membership_purchased": chosen.get("name"),
+                    "membership_start": chosen.get("start"),
+                    "price_ILS": price,
+                    "match_quality": "after_lead" if candidates else "any_membership",
+                })
 
         # Compute conversion rate per source
         for src, info in by_source.items():
             info["conversion_rate_pct"] = round(
-                100.0 * info["converted"] / info["count"], 1
-            ) if info["count"] else 0.0
-
-        # Cross-reference converted leads to actual memberships purchased
-        memberships = _filter_by_branch(await _get("/membership"), loc)
-        converted_with_membership = []
-        for ld in leads_in_window:
-            ufk = ld.get("user_fk")
-            if not ufk:
-                continue
-            user_mems = [m for m in memberships if m.get("user_fk") == ufk]
-            if user_mems:
-                user_mems.sort(key=lambda x: _parse_date(x.get("start")) or date(1900, 1, 1))
-                first_after_lead = next(
-                    (m for m in user_mems if _parse_date(m.get("start")) and _parse_date(m.get("start")) >= _parse_created(ld.get("created_at"))),
-                    None,
-                )
-                if first_after_lead:
-                    converted_with_membership.append({
-                        "lead_id": ld.get("id"),
-                        "name": ld.get("full_name") or f"{ld.get('first_name', '')} {ld.get('last_name', '')}".strip(),
-                        "phone": ld.get("phone"),
-                        "lead_source": ld.get("lead_source"),
-                        "lead_status": ld.get("lead_status"),
-                        "lead_created_at": ld.get("created_at"),
-                        "membership_purchased": first_after_lead.get("name"),
-                        "membership_start": first_after_lead.get("start"),
-                        "price_ILS": float(first_after_lead.get("price") or 0),
-                    })
+                100.0 * info["converted"] / info["leads"], 1
+            ) if info["leads"] else 0.0
+            info["revenue_ILS"] = round(info["revenue_ILS"], 0)
 
         total_revenue = sum(float(c.get("price_ILS") or 0) for c in converted_with_membership)
         return json.dumps({
             "branch": branch,
             "window_days": days,
+            "join_method": "phone_normalized (last 9 digits)",
             "summary": {
                 "total_leads": len(leads_in_window),
-                "leads_with_user_fk_converted": len([l for l in leads_in_window if l.get("user_fk")]),
-                "leads_that_actually_bought": len(converted_with_membership),
+                "leads_that_became_members": len(converted_with_membership),
                 "overall_conversion_rate_pct": round(100.0 * len(converted_with_membership) / len(leads_in_window), 1) if leads_in_window else 0,
-                "total_revenue_from_converted_leads_ILS": total_revenue,
+                "total_revenue_from_converted_leads_ILS": round(total_revenue, 0),
             },
             "by_lead_source": by_source,
             "by_lead_status": by_status,
