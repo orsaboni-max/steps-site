@@ -270,17 +270,46 @@ async def list_locations() -> str:
 
 @mcp.tool()
 async def active_members_count(branch: str = DEFAULT_BRANCH) -> str:
-    """Count active members at a branch. branch='poleg' (default), 'karit_hasharon', or 'all'."""
+    """Count active members at a branch — TRUE unique people (by user_fk), not membership rows.
+
+    Splits paying vs comp ('שקוף'/employee/0-price) and counts people holding
+    more than one active membership. branch='poleg' (default), 'karit_hasharon', or 'all'."""
     try:
         loc = _resolve_branch(branch)
         today = date.today()
         memberships = _filter_by_branch(await _get("/membership"), loc)
         active = [m for m in memberships if _active(m, today)]
-        unique_ids = {m["id"] for m in active}
+
+        # Count by user_fk = the real person reference (NOT m['id'], the membership row id)
+        people = {}
+        for m in active:
+            uid = m.get("user_fk")
+            if uid is None:
+                continue
+            people.setdefault(uid, {"memberships": 0, "paid": 0.0, "is_comp": True})
+            people[uid]["memberships"] += 1
+            price = float(m.get("price") or 0)
+            people[uid]["paid"] += price
+            name = (m.get("name") or "")
+            is_comp_row = price == 0 or any(k in name for k in ["שקוף", "עובד"])
+            if not is_comp_row:
+                people[uid]["is_comp"] = False
+
+        unique_people = len(people)
+        paying_people = sum(1 for p in people.values() if not p["is_comp"] and p["paid"] > 0)
+        comp_people = unique_people - paying_people
+        multi = sum(1 for p in people.values() if p["memberships"] > 1)
+        active_no_userfk = sum(1 for m in active if m.get("user_fk") is None)
+
         return json.dumps({
             "branch": branch,
-            "active_memberships": len(active),
-            "unique_active_members": len(unique_ids),
+            "active_membership_rows": len(active),
+            "unique_people": unique_people,
+            "paying_people": paying_people,
+            "comp_or_zero_price_people": comp_people,
+            "people_with_multiple_memberships": multi,
+            "active_rows_missing_user_fk": active_no_userfk,
+            "note": "unique_people counts distinct user_fk. paying_people excludes comp/שקוף/0-price.",
             "as_of": today.isoformat(),
         }, indent=2, ensure_ascii=False)
     except Exception as e:
