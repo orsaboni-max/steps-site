@@ -8,3 +8,4 @@
 *.mov
 .playwright-mcp/
 /kids-12-15-*.png
+.codex-private/
