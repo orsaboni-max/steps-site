@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STEPS — דשבורד צמיחה</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#F5C518; --teal:#2EC4B6; --purple:#A855F7;
+    --dark:#111111; --card:#1b1b1b; --line:#2a2a2a;
+    --txt:#FAFAFA; --dim:#9a9a9a; --red:#ff5252; --green:#37d67a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Heebo',sans-serif}
+  body{background:var(--dark);color:var(--txt);padding:24px;max-width:1200px;margin:0 auto}
+  h1{font-weight:900;font-size:clamp(24px,4vw,34px)}
+  .sub{color:var(--dim);font-size:14px;margin-top:4px}
+  .updated{display:inline-block;margin-top:10px;font-size:12px;color:var(--dim);border:1px solid var(--line);padding:4px 10px;border-radius:20px}
+  h2{font-size:18px;font-weight:700;margin:34px 0 14px;display:flex;align-items:center;gap:8px}
+  .grid{display:grid;gap:14px}
+  .g4{grid-template-columns:repeat(4,1fr)} .g3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:760px){.g4,.g3{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:460px){.g4,.g3{grid-template-columns:1fr}}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .kpi .label{color:var(--dim);font-size:13px;font-weight:400}
+  .kpi .val{font-size:30px;font-weight:900;margin-top:6px}
+  .kpi .note{font-size:12px;color:var(--dim);margin-top:4px}
+  .gold{color:var(--gold)} .teal{color:var(--teal)} .red{color:var(--red)} .green{color:var(--green)}
+  table{width:100%;border-collapse:collapse;background:var(--card);border-radius:14px;overflow:hidden}
+  th,td{padding:12px 14px;text-align:right;font-size:14px;border-bottom:1px solid var(--line)}
+  th{color:var(--dim);font-weight:500;font-size:12px}
+  tr:last-child td{border-bottom:none}
+  .funnel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .step{display:flex;align-items:center;gap:12px;padding:10px 0}
+  .bar{height:34px;border-radius:8px;display:flex;align-items:center;padding:0 12px;font-weight:700;font-size:14px;color:#111;white-space:nowrap}
+  .flag{background:rgba(255,82,82,.1);border:1px solid rgba(255,82,82,.4);border-radius:12px;padding:14px 16px;margin-bottom:10px;font-size:14px}
+  .flag b{color:var(--red)}
+  .ok{background:rgba(55,214,122,.08);border-color:rgba(55,214,122,.35)}
+  .ok b{color:var(--green)}
+  .pending{background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:14px 16px;color:var(--dim);font-size:14px}
+</style>
+</head>
+<body>
+
+  <header>
+    <h1>STEPS — דשבורד צמיחה 🏋️‍♀️</h1>
+    <div class="sub">סניף פולג · מטרה: +200 לקוחות (יעד שנתי)</div>
+    <div class="updated">⟳ עודכן ידנית 29.5.2026 · נתונים חיים מ-Arbox + Meta</div>
+  </header>
+
+  <h2>💰 תמונת העסק</h2>
+  <div class="grid g4">
+    <div class="kpi"><div class="label">מנויים פעילים</div><div class="val">530</div><div class="note">~488 משלמים</div></div>
+    <div class="kpi"><div class="label">הכנסה חודשית</div><div class="val gold">₪188K</div><div class="note">סכום מנויים פעילים</div></div>
+    <div class="kpi"><div class="label">ממוצע ללקוחה</div><div class="val">₪386</div><div class="note">לחודש</div></div>
+    <div class="kpi"><div class="label">יעד +200 שווה</div><div class="val teal">₪77K</div><div class="note">לחודש · ₪925K/שנה</div></div>
+  </div>
+
+  <h2>📣 קמפיינים חיים <span style="font-size:12px;color:var(--dim);font-weight:400">· 7 ימים אחרונים (22-28.5)</span></h2>
+  <table>
+    <tr><th>קמפיין</th><th>הוצאה</th><th>CTR</th><th>תדירות</th><th>סטטוס</th></tr>
+    <tr><td>פילאטיס נערות <span style="color:var(--dim)">(שלנו)</span></td><td>₪119.64</td><td>1.37%</td><td>1.51 <span class="green">●</span></td><td class="green">בריא</td></tr>
+    <tr><td>STEPS KIDS 12-15 <span style="color:var(--dim)">(שלנו)</span></td><td>₪235.11</td><td class="gold">2.22% 🔥</td><td>2.32 <span style="color:var(--gold)">●</span></td><td class="gold">לרענן בקרוב</td></tr>
+    <tr><td>סניף פולג <span style="color:var(--dim)">(סוכנות)</span></td><td>₪708.13</td><td>1.63%</td><td>2.22 <span style="color:var(--gold)">●</span></td><td>לבחון תשואה</td></tr>
+    <tr><td><b>סה"כ</b></td><td><b>₪1,063</b></td><td>—</td><td>—</td><td>~₪4,250/חודש</td></tr>
+  </table>
+
+  <h2>🔻 משפך הלידים <span style="font-size:12px;color:var(--dim);font-weight:400">· 30 יום</span></h2>
+  <div class="funnel">
+    <div class="step"><div style="width:120px;color:var(--dim);font-size:13px">לידים נכנסו</div><div class="bar" style="background:var(--teal);width:100%">96</div></div>
+    <div class="step"><div style="width:120px;color:var(--dim);font-size:13px">נוצר קשר</div><div class="bar" style="background:#777;width:57%">55</div></div>
+    <div class="step"><div style="width:120px;color:var(--red);font-size:13px">🔴 לא נענו</div><div class="bar" style="background:var(--red);width:43%">41</div></div>
+    <div class="step"><div style="width:120px;color:var(--dim);font-size:13px">אימון היכרות</div><div class="bar" style="background:var(--line);color:var(--dim);width:30%">לא נמדד</div></div>
+    <div class="step"><div style="width:120px;color:var(--dim);font-size:13px">לקוחה משלמת</div><div class="bar" style="background:var(--line);color:var(--dim);width:30%">לא נמדד</div></div>
+    <p style="color:var(--dim);font-size:13px;margin-top:12px">וואטסאפ ממיר <b class="teal">פי 3</b> מפייסבוק · פייסבוק = 40% מהלידים</p>
+  </div>
+
+  <h2>🚨 דגלים אדומים — דורש פעולה</h2>
+  <div class="flag"><b>41 לידים לא נענו</b> (43% מהחודש) — ~₪3,860/חודש פוטנציאל אבוד. <b>הרווח המהיר ביותר.</b></div>
+  <div class="flag"><b>KIDS בתדירות 2.32</b> — מתקרב לסף עייפות (2.5). לרענן קריאייטיב תוך שבוע-שבועיים.</div>
+  <div class="pending">⏳ <b>נטישה (churn) — עדיין לא נמדד.</b> הנתון הכי חשוב ל"200 נטו". בשלב הבא בונים אותו.</div>
+  <div class="pending">⏳ <b>המרת אימון היכרות → מנוי — לא נמדד.</b> נבנה ב-Arbox MCP.</div>
+
+  <h2>📈 5 השלבים ל-200</h2>
+  <div class="grid g3">
+    <div class="kpi"><div class="label">שלב 0-1 · עכשיו</div><div class="val" style="font-size:18px">מדידה + עצירת דליפה</div><div class="note">churn, משפך, 41 לידים אבודים</div></div>
+    <div class="kpi"><div class="label">שלב 2-3 · חודשים 1-6</div><div class="val" style="font-size:18px">ייעול + הגדלה</div><div class="note">תקציב למנצחים, קמפיינים חדשים</div></div>
+    <div class="kpi"><div class="label">שלב 4 · חודשים 2-12</div><div class="val" style="font-size:18px">שימור + הפניות</div><div class="note">המכפיל — לסגור דלת אחורית</div></div>
+  </div>
+
+  <p style="color:var(--dim);font-size:12px;margin-top:30px;text-align:center">
+    תוכנית מלאה: GROWTH-PLAN.md · מקור אמת: SOURCE_OF_TRUTH.md · כל הוצאה כספית דורשת אישור אור
+  </p>
+
+</body>
+</html>
