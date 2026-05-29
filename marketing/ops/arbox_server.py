@@ -317,6 +317,78 @@ async def active_members_count(branch: str = DEFAULT_BRANCH) -> str:
 
 
 @mcp.tool()
+async def churn_summary(days: int = 30, branch: str = DEFAULT_BRANCH) -> str:
+    """Measure churn: people whose membership ended in the window and who have NO active
+    membership now. Also computes net growth (truly-new minus churned) for the window.
+
+    Definitions:
+    - churned: latest membership end date is within [cutoff, today] AND no currently-active membership.
+    - This naturally excludes same-day renewals (they'd still have an active membership).
+    branch defaults to 'poleg'."""
+    try:
+        loc = _resolve_branch(branch)
+        today = date.today()
+        cutoff = today - timedelta(days=int(days))
+        memberships = _filter_by_branch(await _get("/membership"), loc)
+        by_user = _group_memberships_by_user(memberships)  # groups by user_fk, sorted by start
+
+        churned = []
+        active_people = 0
+        for uid, info in by_user.items():
+            mems = info["memberships"]
+            has_active = any(_active(m, today) for m in mems)
+            if has_active:
+                active_people += 1
+                continue
+            # not active now — did their latest membership end within the window?
+            ends = [_parse_date(m.get("end")) for m in mems if _parse_date(m.get("end"))]
+            if not ends:
+                continue
+            latest_end = max(ends)
+            if cutoff <= latest_end <= today:
+                last_mem = max(mems, key=lambda m: _parse_date(m.get("end")) or date(1900, 1, 1))
+                churned.append({
+                    "user_fk": uid,
+                    "name": info["name"],
+                    "phone": info["phone"],
+                    "last_membership": last_mem.get("name"),
+                    "ended": last_mem.get("end"),
+                    "last_price_ILS": float(last_mem.get("price") or 0),
+                    "days_ago": (today - latest_end).days,
+                })
+        churned.sort(key=lambda x: x["days_ago"])
+
+        # truly-new in same window (first-ever membership started in window)
+        truly_new_count = 0
+        for uid, info in by_user.items():
+            if not info["memberships"]:
+                continue
+            first_start = _parse_date(info["memberships"][0].get("start"))
+            if first_start and cutoff <= first_start <= today:
+                truly_new_count += 1
+
+        lost_revenue = sum(c["last_price_ILS"] for c in churned)
+        monthly_churn_pct = round(100.0 * len(churned) / active_people, 1) if active_people else 0.0
+        return json.dumps({
+            "branch": branch,
+            "window_days": days,
+            "summary": {
+                "active_people_now": active_people,
+                "churned_in_window": len(churned),
+                "truly_new_in_window": truly_new_count,
+                "net_growth_in_window": truly_new_count - len(churned),
+                "churn_rate_pct_of_active": monthly_churn_pct,
+                "lost_monthly_revenue_ILS": round(lost_revenue, 0),
+            },
+            "note": "churned = membership ended in window AND no active membership now. net_growth = truly_new - churned.",
+            "churned_people": churned,
+            "as_of": today.isoformat(),
+        }, indent=2, ensure_ascii=False)
+    except Exception as e:
+        return f"Error: {e}"
+
+
+@mcp.tool()
 async def revenue_summary(branch: str = DEFAULT_BRANCH) -> str:
     """Estimate revenue from active memberships (sum of prices). branch defaults to 'poleg'."""
     try:
@@ -883,6 +955,31 @@ async def acquisition_summary(days: int = 30, branch: str = DEFAULT_BRANCH) -> s
                         renewal_continuous.append(entry)
                 break
 
+        # ---- CHURN (folded in so it's available without a new tool name) ----
+        churned = []
+        active_people = 0
+        for uid, info in by_user.items():
+            mems = info["memberships"]
+            if any(_active(m, today) for m in mems):
+                active_people += 1
+                continue
+            ends = [_parse_date(m.get("end")) for m in mems if _parse_date(m.get("end"))]
+            if not ends:
+                continue
+            latest_end = max(ends)
+            if cutoff <= latest_end <= today:
+                last_mem = max(mems, key=lambda m: _parse_date(m.get("end")) or date(1900, 1, 1))
+                churned.append({
+                    "name": info["name"],
+                    "last_membership": last_mem.get("name"),
+                    "ended": last_mem.get("end"),
+                    "last_price_ILS": float(last_mem.get("price") or 0),
+                    "days_ago": (today - latest_end).days,
+                })
+        churned.sort(key=lambda x: x["days_ago"])
+        lost_rev = sum(c["last_price_ILS"] for c in churned)
+        churn_pct = round(100.0 * len(churned) / active_people, 1) if active_people else 0.0
+
         return json.dumps({
             "branch": branch,
             "window_days": days,
@@ -891,10 +988,16 @@ async def acquisition_summary(days: int = 30, branch: str = DEFAULT_BRANCH) -> s
                 "truly_new_customers": len(truly_new),
                 "renewal_continuous": len(renewal_continuous),
                 "renewal_returning_after_break": len(renewal_returning),
+                "churned_in_window": len(churned),
+                "net_growth_in_window": len(truly_new) - len(churned),
+                "churn_rate_pct_of_active": churn_pct,
+                "lost_monthly_revenue_ILS": round(lost_rev, 0),
+                "active_people_now": active_people,
             },
             "truly_new": truly_new,
             "renewals_continuous": renewal_continuous,
             "renewals_returning": renewal_returning,
+            "churned_people": churned,
         }, indent=2, ensure_ascii=False)
     except Exception as e:
         return f"Error: {e}"
