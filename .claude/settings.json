@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cat marketing/OPERATING-RULES.md 2>/dev/null || echo 'STEPS שיווק: שפוט לפי ₪-לתוצאה (לא CTR); שום כסף בלי go של אור; קרא STEPS-CONTROL-CENTER + STATUS; השתמש בסקילים steps-*.'"
+          }
+        ]
+      }
+    ]
+  }
+}
