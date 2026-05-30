@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STEPS — מרכז השליטה (מחליף הסוכנות)</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#F5C518;--teal:#2EC4B6;--purple:#A855F7;--dark:#111;--card:#1b1b1b;--line:#2a2a2a;--txt:#FAFAFA;--dim:#9a9a9a;--green:#37d67a;--red:#ff5252;--orange:#ffa53c}
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Heebo',sans-serif}
+  body{background:var(--dark);color:var(--txt);padding:24px;max-width:1180px;margin:0 auto}
+  h1{font-weight:900;font-size:clamp(24px,4vw,34px)}
+  .sub{color:var(--dim);font-size:14px;margin-top:4px}
+  h2{font-size:19px;font-weight:700;margin:32px 0 14px;border-right:3px solid var(--gold);padding-right:10px}
+  table{width:100%;border-collapse:collapse;background:var(--card);border-radius:14px;overflow:hidden;margin-bottom:8px}
+  th,td{padding:12px 13px;text-align:right;font-size:14px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--dim);font-weight:500;font-size:12px}
+  tr:last-child td{border-bottom:none}
+  .gold{color:var(--gold)}.teal{color:var(--teal)}.green{color:var(--green)}.red{color:var(--red)}.orange{color:var(--orange)}
+  .pill{display:inline-block;font-size:11px;padding:2px 9px;border-radius:20px;font-weight:500}
+  .keep{background:rgba(55,214,122,.13);color:var(--green)}
+  .refresh{background:rgba(255,165,60,.13);color:var(--orange)}
+  .review{background:rgba(255,82,82,.13);color:var(--red)}
+  .grid{display:grid;gap:14px;grid-template-columns:repeat(3,1fr)}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .card h3{font-size:15px;font-weight:700;margin-bottom:6px}
+  .card p{font-size:13px;color:var(--dim);line-height:1.5}
+  .auto{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+  .auto .when{background:rgba(46,196,182,.13);color:var(--teal);font-size:12px;font-weight:700;padding:6px 12px;border-radius:8px;white-space:nowrap;min-width:120px;text-align:center}
+  .auto .what{font-size:14px}
+  .auto .what b{color:var(--txt)}
+  .you{background:rgba(245,197,24,.07);border:1px solid rgba(245,197,24,.3);border-radius:12px;padding:16px;margin-bottom:10px}
+  .you b{color:var(--gold)}
+  .note{font-size:12px;color:var(--dim);margin-top:6px}
+</style>
+</head>
+<body>
+  <header>
+    <h1>🎛️ STEPS — מרכז השליטה</h1>
+    <div class="sub">מחליף הסוכנות, מקצה לקצה · עודכן 29.5.2026 · נתונים חיים מ-Meta + Arbox</div>
+  </header>
+
+  <h2>🤖 המכונה השבועית — רץ בלעדיך</h2>
+  <div class="auto"><div class="when">ראשון 09:00</div><div class="what"><b>אודיט שבועי</b> — בודק שכל הקמפיינים חיים, תקציב, תדירות. מתריע אם משהו חורג. <span class="green">●פעיל</span></div></div>
+  <div class="auto"><div class="when">שני 09:00</div><div class="what"><b>3 רעיונות קריאייטיב</b> — סורק מתחרים + המנצחים שלך + השראה מחו"ל → 3 רעיונות מוכנים בדשבורד. <span class="green">●פעיל</span></div></div>
+  <div class="auto"><div class="when">לפי דרישה</div><div class="what"><b>דוח החלטות ביצועים</b> — מושך נתוני Meta חיים, אומר על כל קמפיין: לשמור / לרענן / להחליף / לשכפל. <span class="orange">●בבנייה</span></div></div>
+  <p class="note">השגרות רצות בענן בלי שתצטרך מחשב פתוח. הרצה ראשונה: ראשון 31.5 + שני 1.6.</p>
+
+  <h2>📊 מה עובד / מה לא — החלטות (נתונים חיים, 7 יום)</h2>
+  <table>
+    <tr><th>קמפיין</th><th>CTR</th><th>תדירות</th><th>המצב</th><th>הפעולה</th></tr>
+    <tr>
+      <td><b>STEPS KIDS 12-15</b><br><span class="dim" style="color:var(--dim);font-size:12px">CTWA · ₪235/שבוע</span></td>
+      <td class="gold">2.22% 🔥</td><td class="orange">2.32</td>
+      <td>הכי מושך בחשבון, אבל מתקרב לעייפות (אותם אנשים רואים שוב)</td>
+      <td><span class="pill refresh">לרענן קריאייטיב</span><br><span class="note">תוך שבוע-שבועיים</span></td>
+    </tr>
+    <tr>
+      <td><b>פילאטיס נערות</b><br><span style="color:var(--dim);font-size:12px">CTWA · ₪120/שבוע</span></td>
+      <td>1.37%</td><td class="green">1.51</td>
+      <td>בריא, עוד הרבה קהל חדש נחשף. צעיר (רץ פחות מ-2 שבועות)</td>
+      <td><span class="pill keep">לשמור ולנטר</span></td>
+    </tr>
+    <tr>
+      <td><b>סניף פולג (סוכנות)</b><br><span style="color:var(--dim);font-size:12px">לידים · ₪708/שבוע</span></td>
+      <td>1.63%</td><td>2.22</td>
+      <td>הכי הרבה תקציב (67%!) על CTR בינוני. לבחון מול הקמפיינים שלנו</td>
+      <td><span class="pill review">לבחון תשואה</span></td>
+    </tr>
+  </table>
+
+  <h2>🏆 לשכפל את המנצחים (מ-Meta, 90 יום)</h2>
+  <div class="grid">
+    <div class="card"><h3 class="gold">🥇 וידאו SCULPT · 3.18%</h3><p>"הטרנד שכובש את העולם" — חוג חדש. <b style="color:var(--txt)">דפוס לשכפל:</b> וידאו על חוג/טרנד חדש.</p></div>
+    <div class="card"><h3 class="gold">🥈 "הפסיקי להתלבט" · 2.87%</h3><p>על 23.5K חשיפות (מנצח אמין). <b style="color:var(--txt)">דפוס לשכפל:</b> הוק החלטה ישיר.</p></div>
+    <div class="card"><h3 class="teal">📌 כלל-על</h3><p><b style="color:var(--txt)">וידאו &gt; תמונה</b> אצלך. <b style="color:var(--txt)">וואטסאפ = CTA מנצח</b> (26% מההמרות).</p></div>
+  </div>
+
+  <h2>👤 מה אתה עושה — רק 2 דברים</h2>
+  <div class="you">🎨 <b>מאשר קריאייטיב</b> — אני מביא רעיון מוכן (קופי + ריל/תמונה), אתה אומר "כן/לא/שנה".</div>
+  <div class="you">💰 <b>מאשר תקציב/השקה</b> — שום שקל לא זז בלי "go" מפורש ממך.</div>
+  <p class="note">כל השאר — מחקר, קריאייטיב, בנייה, ניטור, ניתוח, אופטימיזציה — באחריותי.</p>
+
+  <h2>🔄 איך זה מחליף את הסוכנות (תפקיד → מי עושה)</h2>
+  <table>
+    <tr><th>מה הסוכנות עשתה</th><th>מי עושה עכשיו</th></tr>
+    <tr><td>מחקר מתחרים</td><td>🤖 שגרה שבועית (אוטומטי)</td></tr>
+    <tr><td>רעיונות קריאייטיב</td><td>🤖 שגרה שבועית → דשבורד</td></tr>
+    <tr><td>הפקת מודעות (קופי+ויזואל+ריל)</td><td>🧠 Claude (Higgsfield + סקילים) → אישורך</td></tr>
+    <tr><td>בניית קמפיין ב-Meta</td><td>🧠 Claude (גישה ישירה) → go שלך</td></tr>
+    <tr><td>ניטור יומי</td><td>🤖 שגרה + נתונים חיים</td></tr>
+    <tr><td>אופטימיזציה (כבה/הגדל)</td><td>🧠 Claude ממליץ → אישורך</td></tr>
+    <tr><td>דוחות</td><td>🤖 אוטומטי + דשבורדים חיים</td></tr>
+  </table>
+
+  <p style="color:var(--dim);font-size:12px;margin-top:30px;text-align:center">
+    אסטרטגיה: MARKETING-STRATEGY.md · רעיונות: creative/idea-dashboard.html · עסק: reports/growth-dashboard.html · הכל ב-GitHub
+  </p>
+</body>
+</html>
