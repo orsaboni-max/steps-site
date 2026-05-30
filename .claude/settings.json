@@ -9,6 +9,16 @@
           }
         ]
       }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '🧠 לפני סיום: היה ממצא/החלטה/התקדמות? עדכן את snapshot הזיכרון (memory/project_steps_state_*.md) + STATUS.md. אל תחכה שאור יבקש.'"
+          }
+        ]
+      }
     ]
   }
 }
