@@ -15,6 +15,10 @@
 | **ידע Meta (ספים, נוסחאות, best practices)** | `marketing/meta-playbook.md` | ops/meta-official-performance-playbook.md (עקרונות + לינקים רשמיים) |
 | **צינור לידים (SOP)** | `marketing/ops/lead-pipeline-sop.md` | lead-pipeline-build-spec.md |
 | **מחקר מתחרים** | `marketing/research/competitor-research.md` | — |
+| **אסטרטגיית שיווק (גיוס)** | `marketing/MARKETING-STRATEGY.md` | — |
+| **קריאייטיב מנצח שלי** | `marketing/research/my-winners.md` (מ-Meta) | מתעדכן שבועי |
+| **השראת קריאייטיב חו"ל** | `marketing/research/inspiration-abroad.md` | — |
+| **דשבורד רעיונות קריאייטיב** | `marketing/creative/idea-dashboard.html` | מתעדכן שני 09:00 |
 | **בייסליין ביצועים** | `marketing/reports/baseline-2026-05.md` | — |
 | **ייחוס לקוחות (מקור→המרה)** | דוח Arbox `manage.arboxapp.com/reports-v5/converted-leads-report` + `marketing/reports/converted-leads-2026-05.md` | ⚠️ לא דרך `/membership` או `/leads` API — הוכחו לא אמינים |
 | **נטישה / churn** | דוחות Arbox: `מנויים שהסתיימו` + `לקוחות לא פעילים` (UI) | ⚠️ לא דרך `/membership` API |
