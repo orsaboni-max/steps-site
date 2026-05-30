@@ -16,6 +16,8 @@
 | **צינור לידים (SOP)** | `marketing/ops/lead-pipeline-sop.md` | lead-pipeline-build-spec.md |
 | **מחקר מתחרים** | `marketing/research/competitor-research.md` | — |
 | **בייסליין ביצועים** | `marketing/reports/baseline-2026-05.md` | — |
+| **ייחוס לקוחות (מקור→המרה)** | דוח Arbox `manage.arboxapp.com/reports-v5/converted-leads-report` + `marketing/reports/converted-leads-2026-05.md` | ⚠️ לא דרך `/membership` או `/leads` API — הוכחו לא אמינים |
+| **נטישה / churn** | דוחות Arbox: `מנויים שהסתיימו` + `לקוחות לא פעילים` (UI) | ⚠️ לא דרך `/membership` API |
 | **מסירת Claude→Codex** | `HANDOFF.md` | לקריאה בלבד, לא עבודה יומית |
 
 ## 🔌 שני חיבורי Arbox (שניהם לגיטימיים — לא כפילות!)
