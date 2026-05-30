@@ -29,11 +29,20 @@ description: >-
 1. **נועלים תמונת-אם אחת** (סטודיו + בנות + מכשירים) שאוהבים.
 2. **כל שאר הצילומים נגזרים ממנה כתמונת-ייחוס.** הזווית/התרגיל משתנים — הסטודיו/בנות/לבוש נשארים.
 
-### הכלי הכי עקבי: ChatGPT — GPT Image 2
-- מודל ברירת מחדל ב-ChatGPT (Plus של אור). מקבל **עד 16 תמונות-ייחוס**, "חושב".
-- **בשיחה אחת:** מייצרים תמונת-אם → ואז "אותן בנות, אותו סטודיו, זווית אחרת". הוא כותב "Generating with continuity" ומשתמש בתמונה הקודמת.
-- מגבלה: איטי (~דקה-דקה וחצי לתמונה), ויש מכסת שימוש יומית ב-Plus. פנים מדויקות יכולות לזוז קצת — הסטודיו/לבוש ננעלים מצוין.
-- חלופה: Higgsfield `nano_banana_pro` (image-to-image, ref = job_id; ~2 קרדיט) — מהיר, פחות עקבי מ-GPT Image 2.
+### בחירת מודל — מאומת 2026-05-30 (web 2026 + קטלוג Higgsfield + recommend)
+**שיטת מחקר לבחירת מודל (לחזור עליה כשיש ספק):** (1) WebSearch למצב ה-state-of-art, (2) `models_explore action=search/list` לקטלוג הזמין, (3) `models_explore action=recommend` עם ה-goal → Higgsfield ממליצה למשימה. להצליב 3.
+
+**המודלים הכי עקביים שזמינים לנו ב-Higgsfield (ישירות דרך MCP — אני מריץ, אור לא מדביק):**
+| model id | למה |
+|---|---|
+| **`gpt_image_2`** (OpenAI) | אותו GPT Image 2 שאור אהב — עכשיו **ישיר ב-Higgsfield**. edit-based consistency, שמירת מותג. ברירת מחדל בטוחה. |
+| **`nano_banana_pro`** (Google) | מדורג גבוה לעקביות באינטרנט 2026. top quality, 4K, image-to-image. |
+| **`seedream_v4_5`** (Bytedance) | 4K, precise control, transformations. |
+| **`ms_image` "DTC Ads"** (Higgsfield) | ייעודי למודעות, brand-kit-aware, עד 14 ref images. דורש style_id. |
+
+**ברירת מחדל: `gpt_image_2` עם תמונת-אם** (image role). אור סומך עליו + הוכח. Nano Banana Pro = חלופה אם רוצים לנסות.
+- ⚠️ **טקסט עברית — לא דרך ה-AI** (יוצא מקושקש בכל מודל). מייצרים תמונה **נקייה** → מוסיפים כיתוב עברית ב-overlay (FFmpeg). ראה סעיף כתוביות.
+- ⚠️ תמיד `get_cost: true` לפני ייצור.
 
 ## 🎬 הנפשה לסרטון — Seedance 2.0 (מתכון מאומת · נבדק 2026-05-26 ✅)
 ChatGPT מייצר רק סטילס. מנפישים ב-Higgsfield → `seedance_2_0` (image-to-video, "consistent identity"):
