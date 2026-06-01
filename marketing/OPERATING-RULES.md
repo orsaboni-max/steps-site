@@ -15,6 +15,11 @@
 3. **לקרוא לפני לדבר.** בתחילת עבודה שיווקית: `marketing/STEPS-CONTROL-CENTER.html` + `STATUS.md` + הסעיף הרלוונטי ב-`meta-playbook.md`.
 4. **כל נתון אמיתי.** אסור placeholder/ניחוש שמתחזה לעובדה. לא בטוח → "אני בודק", לא "כן".
 
+## 🔴 עבודת Meta Ads — הדרך היחידה (לקח 1/6 — לא לחזור על הפדיחה!)
+- **העלאה/שינוי מודעה/קריאייטיב = Graph API ישיר בלבד.** טוקן: `C:\Users\USER\meta-token-temp.txt` (StepsAds, לא פג). graph.facebook.com/v21.0 → `/adimages`(hash) → `/adcreatives` → POST ל-ad. **לא MCP** (כתיבה חסומה ברולאאוט) **ולא דפדפן** (קופא). סקריפטים מוכנים ב-`marketing/creative/*/` (swap_creative / preview_collage / fix_collage_4x5).
+- **קריאייטיב לפני "מוכן":** פיד = **4:5** (9:16/3:4 נחתכים!). safe-zone (לוגו+CTA ב-60% מרכזי). **preview רשמי (פיד+סטורי) → אימות אחרי ההעלאה.**
+- **לפני שקופצים לכלי כלשהו — חקור איך עשינו בעבר** (היסטוריה/סקריפטים). פירוט מלא: `SOURCE_OF_TRUTH.md` §Meta Runbook.
+
 ## 🧠 משמעת זיכרון (אוטומטי — לא לחכות שאור יבקש)
 **אחרי כל התקדמות משמעותית** (ממצא חדש, החלטה, בנייה, מספר חי שנמשך) — **עדכן מיד** את ה-snapshot:
 `~/.claude/projects/C--Users-USER-steps-site/memory/project_steps_state_<תאריך>.md` + `marketing/STATUS.md` + הדשבורד הרלוונטי.
