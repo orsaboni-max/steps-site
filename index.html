@@ -198,16 +198,16 @@ img{max-width:100%;height:auto}
 /* FOOTER */
 .foot{background:#080808;padding:48px 5% 20px;overflow-x:hidden}
 .fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;max-width:1100px;margin:0 auto;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,0.04)}
-.fd{font-size:12px;color:#666;line-height:1.7;margin-top:10px}
+.fd{font-size:12px;color:#8a8a8a;line-height:1.7;margin-top:10px}
 .foot .logo img{height:38px}
 .ft{font-size:13px;font-weight:700;margin-bottom:14px;color:var(--accent)}
 .fl{list-style:none;display:flex;flex-direction:column;gap:8px}
-.fl a{color:#666;text-decoration:none;font-size:12px;transition:color .3s}.fl a:hover{color:var(--accent)}
-.fc{display:flex;align-items:center;gap:6px;color:#666;font-size:12px;margin-bottom:8px}
+.fl a{color:#8a8a8a;text-decoration:none;font-size:12px;transition:color .3s}.fl a:hover{color:var(--accent)}
+.fc{display:flex;align-items:center;gap:6px;color:#8a8a8a;font-size:12px;margin-bottom:8px}
 .fb{max-width:1100px;margin:0 auto;padding-top:16px;display:flex;justify-content:space-between;align-items:center}
-.fcopy{font-size:11px;color:rgba(255,255,255,0.15)}
+.fcopy{font-size:11px;color:rgba(255,255,255,0.4)}
 .fsoc{display:flex;gap:8px}
-.fsi{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;font-size:13px;color:#666;text-decoration:none;transition:all .3s}
+.fsi{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;font-size:13px;color:#8a8a8a;text-decoration:none;transition:all .3s}
 .fsi:hover{background:var(--accent);border-color:var(--accent);color:#fff}
 
 /* WA FLOAT */
@@ -308,7 +308,7 @@ img{max-width:100%;height:auto}
 <!-- NAV -->
 <nav class="nav" id="nav" role="navigation" aria-label="ניווט ראשי">
   <div class="logo"><img src="steps-logo-white.png" alt="STEPS Fitness Center לוגו" style="height:36px;width:auto"></div>
-  <ul class="n-links">
+  <ul class="n-links" id="navLinks">
     <li><a href="#pain">למה STEPS</a></li>
     <li><a href="#spaces">החללים</a></li>
     <li><a href="#sched">מערכת שעות</a></li>
@@ -316,7 +316,7 @@ img{max-width:100%;height:auto}
     <li><a href="#reviews">המלצות</a></li>
     <li><a href="#contact" class="n-cta">הצטרפי</a></li>
   </ul>
-  <button class="mob" id="mobBtn">☰</button>
+  <button class="mob" id="mobBtn" aria-label="פתיחת תפריט" aria-expanded="false" aria-controls="navLinks">☰</button>
 </nav>
 <div class="mob-overlay" id="mobOverlay"></div>
 
@@ -510,14 +510,14 @@ img{max-width:100%;height:auto}
     <div><div class="ft">החללים</div><ul class="fl"><li><a href="#spaces">GYM — חדר כושר</a></li><li><a href="#spaces">MOVE — שיעורים</a></li><li><a href="#spaces">רפורמר פילאטיס</a></li><li><a href="#bina">בינה — תזונה חכמה</a></li><li><a href="barre.html">אימון בר</a></li></ul></div>
     <div><div class="ft">צרי קשר</div><div class="fc">📍 פולג, נתניה</div><div class="fc">📞 052-792-7575</div><div class="fc">⏰ א׳-ה׳ 6:00-22:00 | ו׳ 7:00-14:00</div></div>
   </div>
-  <div class="fb"><span class="fcopy">© 2026 Studio Steps. כל הזכויות שמורות.</span><div class="fsoc"><a href="https://www.instagram.com/steps_netanya/" class="fsi" target="_blank" rel="noopener noreferrer">📷</a><a href="https://www.facebook.com/stepsnetanya/" class="fsi" target="_blank" rel="noopener noreferrer">📘</a><a href="https://wa.me/972527927575" class="fsi" target="_blank" rel="noopener noreferrer">💬</a></div></div>
+  <div class="fb"><span class="fcopy">© 2026 Studio Steps. כל הזכויות שמורות.</span><div class="fsoc"><a href="https://www.instagram.com/steps_netanya/" class="fsi" target="_blank" rel="noopener noreferrer" aria-label="STEPS באינסטגרם"><span aria-hidden="true">📷</span></a><a href="https://www.facebook.com/stepsnetanya/" class="fsi" target="_blank" rel="noopener noreferrer" aria-label="STEPS בפייסבוק"><span aria-hidden="true">📘</span></a><a href="https://wa.me/972527927575" class="fsi" target="_blank" rel="noopener noreferrer" aria-label="STEPS בוואטסאפ"><span aria-hidden="true">💬</span></a></div></div>
 </footer>
 
 <!-- ACCESSIBILITY BUTTON -->
 <button id="acc-btn" onclick="document.getElementById('acc-modal').style.display='flex'" aria-label="נגישות" style="position:fixed;bottom:90px;left:20px;z-index:9999;width:48px;height:48px;border-radius:50%;background:#1565C0;color:#fff;border:none;cursor:pointer;font-size:22px;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center">♿</button>
 
 <!-- FLOATING WA -->
-<a href="https://wa.me/972527927575?text=היי%20אני%20מעוניינת%20באימון%20היכרות%20ב-STEPS%20🔥" class="waf" target="_blank">💬</a>
+<a href="https://wa.me/972527927575?text=היי%20אני%20מעוניינת%20באימון%20היכרות%20ב-STEPS%20🔥" class="waf" target="_blank" rel="noopener noreferrer" aria-label="פתיחת צ'אט וואטסאפ"><span aria-hidden="true">💬</span></a>
 
 <script>
 // Navbar
@@ -527,7 +527,7 @@ window.addEventListener('scroll',()=>{document.getElementById('nav').classList.t
 const mobBtn=document.getElementById('mobBtn');
 const nLinks=document.querySelector('.n-links');
 const mobOv=document.getElementById('mobOverlay');
-function toggleMenu(){nLinks.classList.toggle('open');mobOv.classList.toggle('open');mobBtn.textContent=nLinks.classList.contains('open')?'✕':'☰'}
+function toggleMenu(){const open=nLinks.classList.toggle('open');mobOv.classList.toggle('open');mobBtn.textContent=open?'✕':'☰';mobBtn.setAttribute('aria-expanded',open?'true':'false')}
 mobBtn.addEventListener('click',toggleMenu);
 mobOv.addEventListener('click',toggleMenu);
 
@@ -537,12 +537,12 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click'
 // Schedule — Dynamic from Arbox
 (function(){
   var FALLBACK=[
-    {start_time:'07:00',name:'עיצוב + כוח',coach:'טלי טרחוסבקי'},
+    {start_time:'07:00',name:'אימון כוח',coach:'רותם זינגר'},
     {start_time:'08:15',name:'רפורמר פילאטיס',coach:'אורי כהן'},
-    {start_time:'09:30',name:'HIIT Burn',coach:'רותם זינגר'},
-    {start_time:'17:00',name:'GYM — אימון חופשי',coach:'מעיין לזר'},
-    {start_time:'18:30',name:'קיקבוקס',coach:'ירדן נתן'},
-    {start_time:'19:45',name:'בר — Barre',coach:'אגם סימנרוב'}
+    {start_time:'09:30',name:'GYM — אימון חופשי',coach:'מעיין לזר'},
+    {start_time:'17:00',name:'בר — Barre',coach:'אגם סימנרוב'},
+    {start_time:'18:30',name:'יוגה',coach:'הילי מרגוליס'},
+    {start_time:'19:45',name:'רפורמר פילאטיס',coach:'גל מוחרר'}
   ];
   function getName(s){return s.session_name||s.name||'';}
   function mkEl(tag,cls){var el=document.createElement(tag);if(cls)el.className=cls;return el;}
@@ -595,17 +595,16 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click'
 const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-// Lead form → WhatsApp
-document.querySelector('.sb').addEventListener('click',()=>{const n=document.querySelector('.lf input[type="text"]').value;const p=document.querySelector('.lf input[type="tel"]').value;if(n&&p){window.open(`https://wa.me/972527927575?text=${encodeURIComponent(`היי, אני ${n} ואני מעוניינת באימון היכרות ב-STEPS 🔥\nטלפון: ${p}`)}`,'_blank')}else{alert('נא למלא שם וטלפון 🙏')}});
+// (טופס הליד הישן הוסר — ההרשמה עכשיו דרך iframe של Arbox)
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>AOS.init({duration:800,once:true,offset:100})</script>
 
 <!-- ACCESSIBILITY MODAL -->
-<div id="acc-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:99999;align-items:center;justify-content:center;padding:20px">
+<div id="acc-modal" role="dialog" aria-modal="true" aria-labelledby="acc-modal-title" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:99999;align-items:center;justify-content:center;padding:20px">
   <div style="background:#1a1a1a;border-radius:16px;padding:32px;max-width:500px;width:100%;color:#fff;position:relative;max-height:90vh;overflow-y:auto">
-    <button onclick="document.getElementById('acc-modal').style.display='none'" style="position:absolute;top:12px;left:12px;background:none;border:none;color:#fff;font-size:24px;cursor:pointer">&times;</button>
-    <h2 style="font-size:20px;margin-bottom:16px;text-align:center">♿ הצהרת נגישות</h2>
+    <button onclick="document.getElementById('acc-modal').style.display='none'" aria-label="סגירת חלון נגישות" style="position:absolute;top:12px;left:12px;background:none;border:none;color:#fff;font-size:24px;cursor:pointer">&times;</button>
+    <h2 id="acc-modal-title" style="font-size:20px;margin-bottom:16px;text-align:center">♿ הצהרת נגישות</h2>
     <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px">
       סטודיו STEPS מחויב לספק חוויית שימוש נגישה לכל המשתמשים, כולל אנשים עם מוגבלויות. אנו פועלים בהתאם לתקן הישראלי SI 5568 ולהנחיות WCAG 2.1 ברמה AA.
     </p>
@@ -622,8 +621,16 @@ document.querySelector('.sb').addEventListener('click',()=>{const n=document.que
       טלפון: 052-792-7575<br>
       כתובת: אמנון ותמר 6, קניון פולג, נתניה
     </p>
-    <p style="font-size:12px;color:rgba(255,255,255,0.4);text-align:center;margin-top:16px">עודכן: מרץ 2026</p>
+    <p style="font-size:12px;color:rgba(255,255,255,0.4);text-align:center;margin-top:16px">עודכן: יוני 2026</p>
   </div>
 </div>
+<script>
+(function(){
+  var m=document.getElementById('acc-modal'),btn=document.getElementById('acc-btn');
+  function closeAcc(){m.style.display='none';if(btn)btn.focus();}
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&m.style.display==='flex')closeAcc();});
+  m.addEventListener('click',function(e){if(e.target===m)closeAcc();});
+})();
+</script>
 </body>
 </html>
