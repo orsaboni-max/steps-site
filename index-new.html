@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="google-site-verification" content="K_7mCc-RsktQCxvSV9-vVXyyE995LaJnbnosy-8ExRg" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio Steps — סטודיו כושר לנשים בנתניה | הבית שלך לאימונים</title>
+<meta name="description" content="סטודיו כושר לנשים בנתניה — STEPS Fitness Center. אימוני כוח, פילאטיס מכשירים, יוגה ובר תחת קורת גג אחת. צוות מקצועי, יחס אישי. בואי לאימון היכרות ב-50 ₪.">
+<meta name="keywords" content="סטודיו כושר נתניה, כושר לנשים, פילאטיס מכשירים נתניה, אימוני כוח, HIIT, קיקבוקס, בר, יוגה, Steps Fitness, פולג נתניה">
+<meta name="author" content="STEPS Fitness Center">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://stepsnetanya.co.il/" />
+<link rel="alternate" hreflang="he" href="https://stepsnetanya.co.il/" />
+<meta property="og:title" content="STEPS Fitness Center — הבית שלך לאימונים">
+<meta property="og:description" content="סטודיו כושר לנשים בנתניה עם כוח, MOVE ופילאטיס מכשירים תחת קורת גג אחת. יחס אישי, צוות חם ואימון היכרות ב-50 ₪.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stepsnetanya.co.il">
+<meta property="og:image" content="https://stepsnetanya.co.il/images/gym-card.jpg">
+<meta property="og:locale" content="he_IL">
+<meta property="og:site_name" content="STEPS Fitness Center">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="STEPS Fitness Center — הבית שלך לאימונים">
+<meta name="twitter:description" content="סטודיו כושר לנשים בנתניה. כוח, MOVE ופילאטיס מכשירים תחת קורת גג אחת. אימון היכרות ב-50 ₪.">
+<meta name="twitter:image" content="https://stepsnetanya.co.il/images/gym-card.jpg">
+<meta name="theme-color" content="#111111">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<!--
+====================================================================
+DESIGN SYSTEM — "Cinematic Journey" (production build v1)
+STEPS Fitness · dark, immersive, pinned scroll scenes
+Colors in oklch. Yellow is the only accent that travels through the
+whole page. Purple (MOVE) and teal (PILATES) live only inside their
+own scene. Motion: CSS animation-timeline (view()/scroll()) behind
+@supports, IntersectionObserver fallback for everything else.
+Sticky choreography disabled on very short viewports + reduced-motion.
+====================================================================
+-->
+<style>
+:root{
+  --c-bg: oklch(15% 0.004 285);
+  --c-bg-2: oklch(19% 0.006 285);
+  --c-bg-3: oklch(11% 0.003 285);
+  --c-ink: oklch(97% 0.003 90);
+  --c-ink-dim: oklch(97% 0.003 90 / .55);
+  --c-ink-faint: oklch(97% 0.003 90 / .3);
+  --c-yellow: oklch(84% 0.16 95);
+  --c-yellow-ink: oklch(20% 0.05 95);
+  --c-purple: oklch(64% 0.19 320);
+  --c-teal: oklch(74% 0.12 180);
+  --ease: cubic-bezier(.16,.84,.44,1);
+  /* legacy aliases used by ported production components */
+  --accent:#F5C518;--accent2:#2EC4B6;--dark:#111;--white:#FAFAFA;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{overflow-x:hidden;max-width:100vw;background:var(--c-bg)}
+body{font-family:'Heebo',sans-serif;color:var(--c-ink);-webkit-font-smoothing:antialiased;font-weight:300}
+img{max-width:100%;height:auto;display:block}
+h1,h2,h3{font-weight:900;line-height:0.95;letter-spacing:-0.01em}
+a{color:inherit}
+::selection{background:var(--c-yellow);color:var(--c-yellow-ink)}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+}
+
+.skip-link{position:absolute;top:-100px;left:0;background:var(--accent);color:#111;padding:8px 16px;z-index:100000;font-size:14px;text-decoration:none;transition:top .3s}
+.skip-link:focus{top:0}
+
+/* ============ PROGRESS + NAV CHROME ============ */
+.progress-track{position:fixed;top:0;right:0;left:0;height:3px;z-index:1500;background:rgba(255,255,255,.06)}
+.progress-fill{height:100%;width:100%;background:var(--c-yellow);transform:scaleX(0);transform-origin:right center;box-shadow:0 0 12px oklch(84% 0.16 95 / .6)}
+@supports (animation-timeline: scroll()){
+  .progress-fill{animation:progress-grow linear both;animation-timeline:scroll(root)}
+}
+@keyframes progress-grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+.nav{position:fixed;top:0;right:0;left:0;z-index:1000;padding:14px 5%;display:flex;align-items:center;justify-content:space-between;transition:background .4s,backdrop-filter .4s,border-color .4s}
+.nav.solid{background:rgba(8,8,8,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+.logo img{height:44px;width:auto;display:block}
+.n-links{display:flex;gap:26px;list-style:none;align-items:center}
+.n-links a{color:rgba(255,255,255,.72);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.02em;transition:color .3s}
+.n-links a:hover{color:#fff}
+.n-cta{background:var(--c-yellow)!important;color:var(--c-yellow-ink)!important;padding:10px 24px;font-weight:700;font-size:12px;letter-spacing:.03em}
+.n-cta:hover{filter:brightness(1.08)}
+.mob{display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;z-index:1001}
+
+@media(max-width:768px){
+.n-links{display:none;position:fixed;top:0;right:0;width:75%;max-width:320px;height:100vh;background:rgba(8,8,8,.98);backdrop-filter:blur(20px);flex-direction:column;padding:80px 32px 40px;gap:0;z-index:999;transform:translateX(100%);transition:transform .35s var(--ease)}
+.n-links.open{display:flex;transform:translateX(0)}
+.n-links a{font-size:18px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.06);color:rgba(255,255,255,.82);width:100%;display:block}
+.n-links a:last-child{border-bottom:none;margin-top:12px;text-align:center}
+.mob{display:block}
+.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:998}
+.mob-overlay.open{display:block}
+}
+
+/* ============ SCENE FRAMEWORK (pinned cinematic scenes) ============ */
+.scene{position:relative;height:190vh}
+.scene__sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+.scene__bg{position:absolute;inset:-6% -6%;background-size:cover;background-position:center;transform:scale(1.06);will-change:transform}
+.scene__tint{position:absolute;inset:0}
+.scene__content{position:relative;z-index:2;padding:0 6% 9%;width:100%;max-width:1200px;margin:0 auto}
+.scene__eyebrow{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;margin-bottom:18px;opacity:0;transform:translateY(14px);transition:all .8s var(--ease)}
+.scene__title{font-size:clamp(40px,11vw,128px);margin-bottom:20px;opacity:0;transform:translateY(24px);transition:all .9s var(--ease) .05s}
+.scene__body{font-size:clamp(15px,1.8vw,19px);color:var(--c-ink-dim);max-width:520px;line-height:1.8;font-weight:300;opacity:0;transform:translateY(18px);transition:all .9s var(--ease) .15s}
+.scene__tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;opacity:0;transform:translateY(14px);transition:all .9s var(--ease) .25s}
+.scene__ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px;opacity:0;transform:translateY(14px);transition:all .9s var(--ease) .3s}
+.scene__proof{margin-top:22px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;opacity:0;transform:translateY(14px);transition:all .9s var(--ease) .4s}
+.tag-chip{border:1px solid rgba(255,255,255,.22);padding:7px 16px;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;background:rgba(0,0,0,.2);backdrop-filter:blur(4px);border-radius:2px}
+.scene.in-view .scene__eyebrow,
+.scene.in-view .scene__title,
+.scene.in-view .scene__body,
+.scene.in-view .scene__tags,
+.scene.in-view .scene__ctas,
+.scene.in-view .scene__proof{opacity:1;transform:none}
+
+.scene--arrival .scene__sticky{justify-content:space-between;padding-top:22vh}
+.scene--arrival .scene__eyebrow{align-self:center;border:1px solid rgba(255,255,255,.25);padding:10px 26px;font-size:clamp(13px,2vw,17px);letter-spacing:.04em;text-transform:none;font-weight:700;border-radius:2px}
+.scene--arrival .scene__content{text-align:center;max-width:900px;padding-bottom:12vh}
+.scene--arrival .scene__title{font-size:clamp(40px,9vw,104px)}
+.scene--arrival .scene__title em{font-style:normal;display:block;color:var(--c-yellow)}
+.scene--arrival .scene__body{margin:0 auto}
+.scene--arrival .scene__ctas{justify-content:center}
+.scroll-cue{position:absolute;bottom:5vh;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;animation:cue-fade 1s var(--ease) 1.4s forwards}
+.scroll-cue span{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--c-ink-faint)}
+.scroll-cue svg{animation:cue-bob 1.8s ease-in-out infinite}
+@keyframes cue-fade{to{opacity:1}}
+@keyframes cue-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
+.scene--gym .scene__tint{background:linear-gradient(to top,rgba(8,8,8,.95) 0%,rgba(8,8,8,.35) 45%,rgba(8,8,8,.1) 70%)}
+.scene--gym .scene__eyebrow{color:var(--c-yellow)}
+.scene--gym .tag-chip{border-color:oklch(84% 0.16 95 / .4)}
+.scene--gym .scene__title em{color:var(--c-yellow)}
+.scene--move .scene__tint{background:linear-gradient(to top,rgba(8,8,8,.95) 0%,rgba(8,8,8,.3) 45%,rgba(8,8,8,.08) 70%)}
+.scene--move .scene__eyebrow{color:var(--c-purple)}
+.scene--move .tag-chip{border-color:oklch(64% 0.19 320 / .45)}
+.scene--move .scene__title em{color:var(--c-purple)}
+.scene--pilates .scene__tint{background:linear-gradient(to top,rgba(8,8,8,.95) 0%,rgba(8,8,8,.3) 45%,rgba(8,8,8,.08) 70%)}
+.scene--pilates .scene__eyebrow{color:var(--c-teal)}
+.scene--pilates .tag-chip{border-color:oklch(74% 0.12 180 / .45)}
+.scene--pilates .scene__title em{color:var(--c-teal)}
+
+.space-name{display:flex;align-items:baseline;gap:16px}
+.space-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
+.scene--gym .space-dot{background:var(--c-yellow);box-shadow:0 0 22px oklch(84% 0.16 95 / .7)}
+.scene--move .space-dot{background:var(--c-purple);box-shadow:0 0 22px oklch(64% 0.19 320 / .7)}
+.scene--pilates .space-dot{background:var(--c-teal);box-shadow:0 0 22px oklch(74% 0.12 180 / .7)}
+
+.scene-index{position:absolute;top:8vh;left:6%;z-index:2;font-size:13px;font-weight:700;color:var(--c-ink-faint);letter-spacing:.15em;opacity:0;transition:opacity .8s var(--ease) .1s}
+.scene.in-view .scene-index{opacity:1}
+.scene-index b{color:var(--c-ink);font-weight:900;font-size:16px}
+
+@supports (animation-timeline: view()){
+  .scene--arrival, .scene--gym, .scene--move, .scene--pilates, .scene--energy{ view-timeline: --track block; }
+  .scene--arrival .scene__bg{ animation:bg-scale-in linear both; animation-timeline:--track; animation-range:entry 0% cover 60%; }
+  .scene--gym .scene__bg, .scene--move .scene__bg, .scene--pilates .scene__bg, .scene--energy .scene__bg{
+    animation:bg-scale-through linear both; animation-timeline:--track; animation-range:cover 0% cover 100%;
+  }
+  .scene--arrival .scene__eyebrow,.scene--arrival .scene__title,.scene--arrival .scene__body,.scene--arrival .scene__tags,.scene--arrival .scene__ctas,.scene--arrival .scene__proof,
+  .scene--gym .scene__eyebrow,.scene--gym .scene__title,.scene--gym .scene__body,.scene--gym .scene__tags,
+  .scene--move .scene__eyebrow,.scene--move .scene__title,.scene--move .scene__body,.scene--move .scene__tags,
+  .scene--pilates .scene__eyebrow,.scene--pilates .scene__title,.scene--pilates .scene__body,.scene--pilates .scene__tags{
+    opacity:1; animation:content-rise both; animation-timeline:--track; animation-range:entry 10% cover 30%;
+  }
+  .scene-index{opacity:1;animation:idx-fade both;animation-timeline:--track;animation-range:entry 0% cover 20%;}
+}
+@keyframes bg-scale-in{from{transform:scale(1.18);opacity:.4}to{transform:scale(1.0);opacity:1}}
+@keyframes bg-scale-through{from{transform:scale(1.0)}to{transform:scale(1.24)}}
+@keyframes content-rise{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+@keyframes idx-fade{from{opacity:0}to{opacity:1}}
+
+/* short-viewport degrade: no pinned choreography when there's no runway */
+@media(max-height:480px){
+  .scene,.scene--energy{height:auto}
+  .scene__sticky{position:relative;height:auto;min-height:100vh;padding:80px 0 40px}
+}
+
+/* ============ SPOTLIGHT STRIP ============ */
+.strip{background:var(--c-bg-3);border-top:1px solid oklch(84% 0.16 95 / .25);border-bottom:1px solid oklch(84% 0.16 95 / .25);padding:20px 5%;overflow:hidden}
+.strip-track{display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+.strip-word{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--c-ink-faint);transition:color .5s,text-shadow .5s}
+.strip-word.hot{color:var(--c-ink);text-shadow:0 0 18px oklch(84% 0.16 95 / .55)}
+.strip-sep{color:oklch(97% 0.003 90 / .12);font-size:11px;align-self:center}
+
+/* ============ GENERIC REVEAL (replaces AOS) ============ */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.visible{opacity:1;transform:none}
+noscript{}
+
+/* ============ SECTION HEADERS ============ */
+.sec{padding:100px 5%;overflow-x:hidden}
+.sec-h{text-align:center;margin-bottom:50px}
+.sec-tag{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.sec-title{font-size:clamp(28px,4.5vw,46px);font-weight:900;line-height:1.12}
+.sec-sub{font-size:16px;color:var(--c-ink-dim);margin-top:10px;font-weight:300}
+
+/* ============ PAIN → SOLUTION ============ */
+.pain-sec{position:relative;padding:100px 5%;overflow:hidden}
+.pain-bg{position:absolute;inset:0;background:url('images/pain-bg.jpg') center/cover no-repeat}
+.pain-ov{position:absolute;inset:0;background:linear-gradient(rgba(8,8,8,.6),rgba(8,8,8,.85))}
+.pain-content{position:relative;z-index:2;max-width:1000px;margin:0 auto}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pcard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:26px;transition:all .4s var(--ease)}
+.pcard:hover{background:rgba(255,255,255,.07);transform:translateY(-3px);border-color:oklch(84% 0.16 95 / .3)}
+.pcard-x{font-size:12px;color:var(--accent);font-weight:700;letter-spacing:.05em;margin-bottom:8px}
+.pcard-q{font-size:14px;color:var(--c-ink-dim);font-style:italic;margin-bottom:16px;line-height:1.7;padding-right:12px;border-right:2px solid rgba(255,255,255,.1)}
+.pcard-a{display:flex;align-items:flex-start;gap:10px}
+.pcard-chk{width:26px;height:26px;border-radius:50%;background:rgba(46,196,182,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent2);font-size:13px;font-weight:700}
+.pcard-txt{font-size:14px;color:#fff;font-weight:500;line-height:1.6}
+
+/* ============ BINA ============ */
+.bina{padding:100px 5%;background:var(--c-bg);overflow-x:hidden}
+.bina-wrap{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.bina-tag{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--accent2);margin-bottom:10px}
+.bina h2{font-size:clamp(26px,3.5vw,40px);margin-bottom:14px;line-height:1.15}
+.bina h2 span{color:var(--accent2)}
+.bina-p{font-size:14px;color:var(--c-ink-dim);line-height:1.8;margin-bottom:20px}
+.bf{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.75);font-weight:500;margin-bottom:12px}
+.bf-i{width:30px;height:30px;background:rgba(46,196,182,.08);border:1px solid rgba(46,196,182,.14);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.phone{width:210px;height:380px;background:var(--c-bg-2);border:2px solid rgba(255,255,255,.06);padding:12px;display:flex;flex-direction:column;gap:8px;box-shadow:0 20px 50px rgba(0,0,0,.5);margin:0 auto}
+.phone::before{content:'';display:block;width:44px;height:4px;background:rgba(255,255,255,.06);margin:0 auto 4px}
+.msg{padding:8px 10px;font-size:10px;line-height:1.5;max-width:88%}
+.m-bot{background:rgba(46,196,182,.1);border:1px solid rgba(46,196,182,.14);color:oklch(74% 0.12 180 / .95);align-self:flex-start;margin-top:10px}
+.m-usr{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.04);color:rgba(255,255,255,.65);align-self:flex-end}
+.m-menu{background:rgba(245,197,24,.08);border:1px solid rgba(245,197,24,.14);color:var(--accent);align-self:flex-start;font-weight:600}
+@media(max-width:768px){
+  .bina-wrap{grid-template-columns:1fr;text-align:center;gap:32px}
+  .phone{width:170px;height:300px}
+  .bf{justify-content:center}
+}
+
+/* ============ SCHEDULE ============ */
+.sched-sec{padding:100px 5%;background:var(--c-bg);overflow-x:hidden}
+.sched{max-width:860px;margin:0 auto;background:var(--c-bg-2);border:1px solid rgba(255,255,255,.06);overflow:hidden}
+.sched-top{background:var(--c-bg-3);padding:16px 22px;display:flex;align-items:center;justify-content:space-between;color:#fff}
+.sched-top h3{font-size:17px;font-weight:700}
+.dtabs{display:flex;gap:3px;flex-wrap:wrap}
+.dt{padding:7px 15px;font-size:12px;font-weight:600;background:rgba(255,255,255,.08);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all .3s}
+.dt.active{background:var(--accent);color:var(--c-yellow-ink)}
+.slist{padding:6px}
+.si{display:flex;align-items:center;padding:13px 16px;gap:12px;border-bottom:1px solid rgba(255,255,255,.05)}
+.s-time{font-size:16px;font-weight:700;color:#fff;min-width:50px}
+.s-cls{flex:1}.s-n{font-size:14px;font-weight:700;color:#fff}.s-t{font-size:11px;color:var(--c-ink-faint)}
+.sfn{text-align:center;padding:14px;font-size:12px;color:var(--c-ink-faint);border-top:1px solid rgba(255,255,255,.05)}
+
+/* ============ TESTIMONIALS / ENERGY SCENE ============ */
+.scene--energy{height:220vh}
+.scene--energy .scene__tint{background:rgba(0,0,0,.82)}
+.scene--energy .scene__sticky{justify-content:center;align-items:center}
+.scene--energy .scene__content{text-align:center;max-width:820px;padding:0 6%}
+.energy-eyebrow{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--c-yellow);margin-bottom:22px}
+.energy-h2{font-size:clamp(24px,4vw,44px);margin-bottom:52px;color:var(--c-ink)}
+.quote-stack{position:relative;min-height:260px}
+.quote{position:absolute;inset:0;opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease),transform .7s var(--ease);pointer-events:none}
+.quote.active{opacity:1;transform:none;pointer-events:auto;position:relative}
+.quote-mark{font-size:15px;color:var(--c-yellow);letter-spacing:.3em;margin-bottom:14px}
+.quote-txt{font-size:clamp(16px,2.2vw,24px);font-weight:500;line-height:1.55;color:var(--c-ink);margin-bottom:20px}
+.quote-name{font-size:13px;color:var(--c-ink-dim);letter-spacing:.04em}
+.quote-name b{color:var(--c-ink);font-weight:700}
+.quote-dots{display:flex;justify-content:center;gap:8px;margin-top:30px;flex-wrap:wrap}
+.quote-dots span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2);transition:background .4s}
+.quote-dots span.active{background:var(--c-yellow)}
+
+/* ============ TEAM (USP) ============ */
+.team{padding:100px 5%;background:var(--c-bg);overflow-x:hidden}
+.usp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1000px;margin:0 auto}
+.usp-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:32px 24px;text-align:center;transition:all .3s var(--ease)}
+.usp-card:hover{border-color:oklch(84% 0.16 95 / .3);transform:translateY(-4px)}
+.usp-i{width:52px;height:52px;border-radius:50%;background:rgba(245,197,24,.08);border:1px solid rgba(245,197,24,.15);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 16px}
+.usp-t{font-weight:700;font-size:16px;margin-bottom:10px;color:#fff}
+.usp-p{font-size:13px;color:var(--c-ink-faint);line-height:1.7}
+@media(max-width:768px){.usp-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.usp-grid{grid-template-columns:1fr}}
+
+/* ============ GALLERY ============ */
+.gal{padding:100px 5%;overflow-x:hidden}
+.gg{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,180px);gap:8px;max-width:1100px;margin:0 auto}
+.gi{overflow:hidden;position:relative;cursor:pointer}
+.gi:first-child{grid-column:span 2;grid-row:span 2}
+.gi img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.gi:hover img{transform:scale(1.06)}
+.gi-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7),transparent);display:flex;align-items:flex-end;padding:14px;opacity:0;transition:opacity .3s}
+.gi:hover .gi-ov{opacity:1}
+.gi-l{color:#fff;font-size:12px;font-weight:600}
+@media(max-width:768px){.gg{grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,140px)}.gi:first-child{grid-column:span 2;grid-row:span 1;height:220px}}
+
+/* ============ FAQ ============ */
+.faq-item{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);overflow:hidden;transition:border-color .3s}
+.faq-item:hover{border-color:oklch(84% 0.16 95 / .3)}
+.faq-item summary{font-weight:700;font-size:15px;color:#fff;padding:20px 24px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';color:var(--accent);font-size:22px;font-weight:300;flex-shrink:0;transition:transform .3s}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-item p{font-size:14px;color:var(--c-ink-dim);line-height:1.8;padding:0 24px 20px}
+
+/* ============ PRICING ============ */
+.pricing{padding:100px 5%;background:var(--c-bg-3)}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1000px;margin:0 auto}
+.price-card{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);padding:36px 26px;text-align:center;display:flex;flex-direction:column;gap:16px}
+.price-card.mid{border-color:oklch(84% 0.16 95 / .45);background:rgba(245,197,24,.05)}
+.price-slot{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--c-ink-faint)}
+.price-placeholder-name,.price-placeholder-amount{border:1px dashed rgba(255,255,255,.35);color:var(--c-ink-faint);padding:10px 14px;font-size:13px;font-weight:600}
+.price-placeholder-amount{font-size:22px;padding:14px}
+.price-feat{list-style:none;text-align:right;font-size:13px;color:var(--c-ink-dim);line-height:2.1}
+.price-feat li::before{content:'—  '}
+@media(max-width:768px){.price-grid{grid-template-columns:1fr}}
+
+/* ============ CTA ============ */
+.cta-sec{position:relative;padding:80px 5%;text-align:center;overflow:hidden;background:var(--c-bg-3)}
+.cta-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center 30%, oklch(84% 0.16 95 / .1), transparent 60%)}
+.cta-in{position:relative;z-index:2;max-width:700px;margin:0 auto}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 36px;font-size:16px;font-weight:700;text-decoration:none;transition:all .35s var(--ease);font-family:inherit;border:none;cursor:pointer}
+.btn-primary{background:var(--c-yellow);color:var(--c-yellow-ink)}
+.btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 40px oklch(84% 0.16 95 / .35)}
+.btn-ghost{border:1px solid rgba(255,255,255,.28);color:var(--c-ink);background:rgba(255,255,255,.04)}
+.btn-ghost:hover{background:rgba(255,255,255,.1);transform:translateY(-3px)}
+.arbox-mobile{display:none;flex-direction:column;align-items:center;padding:20px 0;gap:12px}
+@media(max-width:768px){.arbox-desktop{display:none}.arbox-mobile{display:flex!important}}
+
+/* ============ FOOTER ============ */
+.foot{background:var(--c-bg-3);padding:48px 5% 20px;overflow-x:hidden;border-top:1px solid rgba(255,255,255,.05)}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;max-width:1100px;margin:0 auto;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.05)}
+.fd{font-size:12px;color:var(--c-ink-faint);line-height:1.7;margin-top:10px}
+.foot .logo img{height:38px}
+.ft{font-size:13px;font-weight:700;margin-bottom:14px;color:var(--accent)}
+.fl{list-style:none;display:flex;flex-direction:column;gap:8px}
+.fl a{color:var(--c-ink-faint);text-decoration:none;font-size:12px;transition:color .3s}
+.fl a:hover{color:var(--accent)}
+.fc{display:flex;align-items:center;gap:6px;color:var(--c-ink-faint);font-size:12px;margin-bottom:8px}
+.fb{max-width:1100px;margin:0 auto;padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.fcopy{font-size:11px;color:rgba(255,255,255,.15)}
+.fsoc{display:flex;gap:8px}
+.fsi{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--c-ink-faint);text-decoration:none;transition:all .3s}
+.fsi:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+@media(max-width:768px){.fg{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.fg{grid-template-columns:1fr}}
+
+/* ============ WA FLOAT + ACCESSIBILITY BTN ============ */
+.waf{position:fixed;bottom:18px;left:18px;z-index:999;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,.4);transition:transform .3s;animation:bounceIn 1s 1.5s both}
+.waf:hover{transform:scale(1.08)}
+@keyframes bounceIn{0%{opacity:0;transform:scale(.3)}50%{transform:scale(1.1)}70%{transform:scale(.95)}100%{opacity:1;transform:scale(1)}}
+#acc-btn{position:fixed;bottom:90px;left:20px;z-index:9999;width:48px;height:48px;border-radius:50%;background:#1565C0;color:#fff;border:none;cursor:pointer;font-size:22px;box-shadow:0 2px 8px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center}
+
+/* ============ MOBILE STICKY CTA BAR ============ */
+.mbar{display:none}
+@media(max-width:768px){
+  .mbar{display:flex;position:fixed;bottom:0;right:0;left:0;z-index:1400;background:rgba(8,8,8,.92);backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,.08);padding:10px 12px;gap:10px;align-items:center}
+  .mbar-cta{flex:1;text-align:center;background:var(--c-yellow);color:var(--c-yellow-ink);font-size:14px;font-weight:800;padding:13px;text-decoration:none}
+  .mbar-wa{width:46px;height:46px;flex-shrink:0;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;color:#fff}
+  body{padding-bottom:66px}
+  .waf{bottom:78px}
+  #acc-btn{bottom:150px}
+}
+
+/* ============ MOBILE SCENE DEGRADE ============ */
+@media(max-width:768px){
+  .scene{height:130vh}
+  .scene--energy{height:180vh}
+  .scene__content{padding-bottom:13vh}
+  @keyframes bg-scale-through{from{transform:scale(1.04)}to{transform:scale(1.14)}}
+  @keyframes bg-scale-in{from{transform:scale(1.1);opacity:.5}to{transform:scale(1.02);opacity:1}}
+  .scene-index{top:7vh}
+  .pgrid{grid-template-columns:1fr}
+  .quote-stack{min-height:320px}
+}
+</style>
+
+<noscript><style>
+/* no-JS: content must stay readable, motion is optional */
+.scene__eyebrow,.scene__title,.scene__body,.scene__tags,.scene__ctas,.scene__proof,.scene-index,.reveal{opacity:1!important;transform:none!important}
+.quote{opacity:1!important;position:static!important;margin-bottom:36px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.08)}
+.quote-dots{display:none}
+</style></noscript>
+
+<!-- Consent Mode v2 — must run BEFORE GA4 loads -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5T22VE9YHT"></script>
+<script>gtag('js',new Date());gtag('config','G-5T22VE9YHT');</script>
+<!-- Meta Pixel loader — init deferred until consent -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HealthClub",
+  "name": "STEPS Fitness Center",
+  "alternateName": "סטודיו סטפס",
+  "url": "https://stepsnetanya.co.il",
+  "logo": "https://stepsnetanya.co.il/steps-logo-white.png",
+  "image": "https://stepsnetanya.co.il/images/hero-new.jpg",
+  "telephone": "+972-52-792-7575",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "אמנון ותמר 6, קניון פולג",
+    "addressLocality": "נתניה",
+    "addressCountry": "IL"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 32.2749168,
+    "longitude": 34.8479596
+  },
+  "openingHoursSpecification": [
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday"], "opens": "07:00", "closes": "22:00"},
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "07:00", "closes": "14:00"},
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "18:30", "closes": "22:00"}
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.7",
+    "reviewCount": "26"
+  },
+  "priceRange": "$$",
+  "description": "סטודיו כושר לנשים בנתניה — אימוני כוח, פילאטיס מכשירים, יוגה, בר. 3 חללי אימון, צוות מקצועי, יחס אישי.",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "שיעורים",
+    "itemListElement": [
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "אימוני כוח"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "פילאטיס מכשירים"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "יוגה"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "בר"}}
+    ]
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"כמה עולה המנוי?","acceptedAnswer":{"@type":"Answer","text":"אימון היכרות עולה 50 ₪ בלבד. לאחר מכן יש מסלולים שונים. לפרטי מחירים מדויקים אפשר לשלוח הודעה בוואטסאפ ונשמח לעזור."}},
+    {"@type":"Question","name":"מה ההבדל בין GYM, MOVE ו-REFORMER PILATES?","acceptedAnswer":{"@type":"Answer","text":"GYM הוא חלל הכוח, MOVE הוא חלל שיעורי הבר, היוגה והגמישות, ו-REFORMER PILATES הוא חלל הפילאטיס עם 11 מיטות רפורמר."}},
+    {"@type":"Question","name":"האם אני צריכה ניסיון קודם?","acceptedAnswer":{"@type":"Answer","text":"לא. STEPS מתאים גם אם מעולם לא נכנסת לסטודיו כושר. אימון ההיכרות נועד להכיר את המקום, לדבר עם המאמנת ולהרגיש בנוח לפני שמחליטים."}},
+    {"@type":"Question","name":"יש חנייה ליד הסטודיו?","acceptedAnswer":{"@type":"Answer","text":"כן. STEPS נמצאת בקניון פולג, נתניה, עם חנייה נוחה בקניון."}},
+    {"@type":"Question","name":"איך מבטלים שיעור?","acceptedAnswer":{"@type":"Answer","text":"ביטול מתבצע דרך Arbox או בוואטסאפ לפי מדיניות הביטולים שמופיעה באתר."}}
+  ]
+}
+</script>
+</head>
+<body>
+<a href="#contact" class="skip-link">דלגי לתוכן</a>
+
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" role="dialog" aria-label="הסכמה לעוגיות" style="display:none;position:fixed;bottom:0;right:0;left:0;background:#1a1a1a;border-top:2px solid #F5C518;padding:14px 5%;z-index:99998;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+  <p style="font-size:13px;color:rgba(255,255,255,0.75);margin:0;flex:1;min-width:200px">האתר משתמש בעוגיות לצורך אנליטיקה ופרסום. <a href="privacy.html" style="color:#F5C518;text-decoration:underline">מדיניות פרטיות</a></p>
+  <div style="display:flex;gap:8px;flex-shrink:0">
+    <button onclick="acceptCookies()" style="background:#F5C518;color:#111;border:none;padding:9px 22px;border-radius:50px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">מסכימה</button>
+    <button onclick="declineCookies()" style="background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:9px 16px;border-radius:50px;font-size:13px;cursor:pointer;font-family:inherit">דחייה</button>
+  </div>
+</div>
+
+<div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+<!-- NAV -->
+<nav class="nav" id="nav" role="navigation" aria-label="ניווט ראשי">
+  <div class="logo"><img src="steps-logo-white.png" alt="STEPS Fitness Center לוגו" width="149" height="44" style="height:44px;width:auto"></div>
+  <ul class="n-links">
+    <li><a href="#pain">למה STEPS</a></li>
+    <li><a href="#spaces">החללים</a></li>
+    <li><a href="#sched">מערכת שעות</a></li>
+    <li><a href="#bina">ליווי תזונה</a></li>
+    <li><a href="#reviews">המלצות</a></li>
+    <li><a href="#contact" class="n-cta" data-track="trial-cta">אימון היכרות</a></li>
+  </ul>
+  <button class="mob" id="mobBtn" aria-label="תפריט">☰</button>
+</nav>
+<div class="mob-overlay" id="mobOverlay"></div>
+
+<!-- 1 · ARRIVAL / HERO -->
+<section class="scene scene--arrival" id="s1">
+  <div class="scene__sticky">
+    <div class="scene__bg" style="background-image:url('images/hero-new.jpg');background-position:center 30%"></div>
+    <div class="scene__tint" style="background:linear-gradient(to bottom,rgba(0,0,0,.55) 0%,rgba(0,0,0,.05) 40%,rgba(0,0,0,.1) 60%,rgba(0,0,0,.75) 100%)"></div>
+    <div class="scene__content">
+      <div class="scene__eyebrow">פה את לעולם לא לבד.</div>
+      <h1 class="scene__title">סטודיו כושר לנשים<em>בנתניה.</em></h1>
+      <p class="scene__body">כוח, בר, יוגה ופילאטיס מכשירים — הכל תחת קורת גג אחת. נתניה · פולג.</p>
+      <div class="scene__ctas">
+        <a href="#contact" class="btn btn-primary" data-track="trial-cta">אימון היכרות ב-50 ₪</a>
+        <a href="#sched" class="btn btn-ghost" data-track="schedule-view">לצפייה במערכת שעות</a>
+      </div>
+      <div class="scene__proof">
+        <span style="color:#FFB800;font-size:15px;letter-spacing:1px">★★★★★</span>
+        <span style="color:rgba(255,255,255,.8);font-size:13px;font-weight:600">מעל 500 מתאמנות</span>
+        <span style="display:inline-block;width:1px;height:14px;background:rgba(255,255,255,.2)"></span>
+        <span style="color:rgba(255,255,255,.45);font-size:12px">נתניה · פולג</span>
+      </div>
+    </div>
+    <div class="scroll-cue">
+      <span>גללי להמשיך</span>
+      <svg width="16" height="24" viewBox="0 0 16 24" fill="none" aria-hidden="true"><path d="M8 1v20M1 15l7 7 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- SPOTLIGHT STRIP -->
+<div class="strip">
+  <div class="strip-track" id="stripTrack"></div>
+</div>
+
+<!-- PAIN → SOLUTION -->
+<section class="pain-sec" id="pain">
+  <div class="pain-bg"></div>
+  <div class="pain-ov"></div>
+  <div class="pain-content">
+    <div class="sec-h reveal">
+      <div class="sec-tag">מכירה את ההרגשה?</div>
+      <h2 class="sec-title">הבעיות שהן מספרות לנו<br>ואיך אנחנו פותרים אותן</h2>
+    </div>
+    <div class="pgrid">
+      <div class="pcard reveal"><div class="pcard-x">✕ הבעיה</div><div class="pcard-q">"הלכתי למכון כושר ולא ידעתי מה לעשות שם. עמדתי ליד המכשירים והרגשתי אבודה."</div><div class="pcard-a"><div class="pcard-chk">✓</div><div class="pcard-txt">ב-STEPS כל אימון מובנה וכל מאמנת מלווה אותך צעד אחר צעד. את לא לבד פה.</div></div></div>
+      <div class="pcard reveal"><div class="pcard-x">✕ הבעיה</div><div class="pcard-q">"נפצעתי באימון כי אף אחד לא תיקן לי תנועות. לא היה שם מי שיסתכל עליי."</div><div class="pcard-a"><div class="pcard-chk">✓</div><div class="pcard-txt">צוות מקצועי ומוסמך שרואה אותך, מתקן תנועה ומתאים את האימון לרמה שלך.</div></div></div>
+      <div class="pcard reveal"><div class="pcard-x">✕ הבעיה</div><div class="pcard-q">"התאמנתי חודשים ולא ראיתי תוצאות. בלי תוכנית ובלי כיוון."</div><div class="pcard-a"><div class="pcard-chk">✓</div><div class="pcard-txt">כשיש אימון מובנה, ליווי ותוכנית שמתאימה לשגרה שלך — הרבה יותר קל להתמיד.</div></div></div>
+      <div class="pcard reveal"><div class="pcard-x">✕ הבעיה</div><div class="pcard-q">"הרגשתי אבודה במכון כושר ענק. סתם עוד מספר, בלי שם ובלי יחס."</div><div class="pcard-a"><div class="pcard-chk">✓</div><div class="pcard-txt">STEPS הוא סטודיו בוטיק, לא מפעל. פה יודעים את השם שלך, ואת הסיפור שלך.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SPACES: 3 pinned scenes -->
+<div id="spaces">
+  <section class="scene scene--gym" id="s2">
+    <div class="scene-index"><b>01</b> / 03 — GYM</div>
+    <div class="scene__sticky">
+      <div class="scene__bg" style="background-image:url('images/gym-card.jpg')"></div>
+      <div class="scene__tint"></div>
+      <div class="scene__content">
+        <div class="scene__eyebrow">החלל הראשון</div>
+        <h1 class="scene__title"><span class="space-name"><span class="space-dot"></span>GYM</span></h1>
+        <p class="scene__body">סטודיו כושר שמרגיש אחרת. מכשירים מתקדמים, משקולות חופשיות, ומאמנות שיודעות בדיוק מה את צריכה.</p>
+        <div class="scene__tags">
+          <span class="tag-chip">אימוני כוח</span><span class="tag-chip">BOOTCAMP</span><span class="tag-chip">ENDURANCE</span><span class="tag-chip">GYM &amp; RUN</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene scene--move" id="s3">
+    <div class="scene-index"><b>02</b> / 03 — MOVE</div>
+    <div class="scene__sticky">
+      <div class="scene__bg" style="background-image:url('images/move-card.jpg')"></div>
+      <div class="scene__tint"></div>
+      <div class="scene__content">
+        <div class="scene__eyebrow">החלל השני</div>
+        <h1 class="scene__title"><span class="space-name"><span class="space-dot"></span>MOVE</span></h1>
+        <p class="scene__body">השיעורים שגורמים לך לחזור. בר, יוגה, גמישות — כל יום אנרגיה אחרת.</p>
+        <div class="scene__tags">
+          <span class="tag-chip">BAR</span><span class="tag-chip">YOGA</span><span class="tag-chip">Flexibility</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene scene--pilates" id="s4">
+    <div class="scene-index"><b>03</b> / 03 — REFORMER PILATES</div>
+    <div class="scene__sticky">
+      <div class="scene__bg" style="background-image:url('images/pilates-card.jpg')"></div>
+      <div class="scene__tint"></div>
+      <div class="scene__content">
+        <div class="scene__eyebrow">החלל השלישי</div>
+        <h1 class="scene__title" style="font-size:clamp(32px,7.2vw,84px)"><span class="space-name"><span class="space-dot"></span>REFORMER PILATES</span></h1>
+        <p class="scene__body">קבוצות קטנות, מכשירים ברמה הגבוהה ביותר, ותחושה שהגוף שלך מודה לך אחרי כל שיעור.</p>
+        <div class="scene__tags">
+          <span class="tag-chip">רפורמר</span><span class="tag-chip">קבוצות קטנות</span><span class="tag-chip">גמישות</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- BINA (nutrition) — visible on mobile too -->
+<section class="bina bina-sec" id="bina">
+  <div class="bina-wrap">
+    <div class="reveal">
+      <div class="bina-tag">תזונה חכמה</div>
+      <h2>גם תזונה?<br><span>גם תזונה.</span></h2>
+      <p class="bina-p">ליווי תזונה אישי ישירות לוואטסאפ, עם תפריט שמתחשב במטרות, בהעדפות ובסגנון החיים שלך. פשוט, ברור, ובלי להעמיס עלייך עוד מערכת.</p>
+      <div class="bf"><span class="bf-i">📱</span> תפריט אישי ישירות לוואטסאפ</div>
+      <div class="bf"><span class="bf-i">🎯</span> מותאם למטרות שלך</div>
+      <div class="bf"><span class="bf-i">⚖️</span> שקילות ומעקב שבועי</div>
+      <div class="bf"><span class="bf-i">📊</span> דוחות התקדמות</div>
+    </div>
+    <div class="reveal">
+      <div class="phone">
+        <div class="msg m-bot">היי! בואי נבנה תפריט שמתאים בדיוק לך</div>
+        <div class="msg m-usr">רוצה לרדת במשקל, צמחונית</div>
+        <div class="msg m-bot">מעולה! הנה התפריט שלך 🥗</div>
+        <div class="msg m-menu">📋 תפריט אישי — שבוע 1<br>בוקר: שקשוקה + לחם מלא<br>ביניים: יוגורט + גרנולה<br>צהריים: סלמון + ירקות...</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="sched-sec" id="sched">
+  <div class="sec-h reveal"><div class="sec-tag">מערכת שיעורים</div><h2 class="sec-title">השיעורים של היום</h2><p class="sec-sub">מתעדכנת אוטומטית</p></div>
+  <div class="sched">
+    <div class="sched-top"><h3>📅 מערכת שעות</h3><div class="dtabs"><button class="dt active">א׳</button><button class="dt">ב׳</button><button class="dt">ג׳</button><button class="dt">ד׳</button><button class="dt">ה׳</button><button class="dt">ו׳</button></div></div>
+    <div class="slist">
+      <div class="sfn" id="sched-loading">⏳ טוען מערכת שעות...</div>
+    </div>
+    <div class="sfn">⚡ מערכת שעות חיה — מתעדכנת אוטומטית מ-Arbox</div>
+  </div>
+  <div style="text-align:center;margin-top:28px">
+    <a href="#contact" class="btn btn-primary reveal" data-track="trial-cta">💬 קבעי אימון היכרות</a>
+  </div>
+</section>
+
+<!-- 5 · ENERGY / TESTIMONIALS (pinned) -->
+<section class="scene scene--energy" id="reviews">
+  <div class="scene__sticky">
+    <div class="scene__bg" style="background-image:url('images/testimonials-bg.jpg')"></div>
+    <div class="scene__tint"></div>
+    <div class="scene__content">
+      <div class="energy-eyebrow">מה אומרות עלינו</div>
+      <h2 class="energy-h2">הן באו בשביל האימון.<br>הן נשארו בשביל המשפחה.</h2>
+      <div class="quote-stack" id="quoteStack">
+        <div class="quote active">
+          <div class="quote-mark">★★★★★</div>
+          <p class="quote-txt">"אתם הלב שלי. אין סטודיו כזה בעולם ויצא לי לנסות המון. היחס האישי באימונים, האכפתיות, הדחיפה להתקדם ולהשתפר כל הזמן, אתם יחידים ומיוחדים באמת. כלכך שמחה להיות חלק מהמשפחה ❤️"</p>
+          <div class="quote-name"><b>לימור מ.</b> · חברה ותיקה, STEPS</div>
+        </div>
+        <div class="quote">
+          <div class="quote-mark">★★★★★</div>
+          <p class="quote-txt">"מילה טובה על מעיין לזר — איזה שיעור מהמם של אירובי וכוח. הפעלנו את כל השרירים ואנרגיה מקסימה שלה! לאורך כל השיעור עברה אחד אחד, דייקה את התנועה. פשוט מעולה."</p>
+          <div class="quote-name"><b>חני ל.</b> · מתאמנת MOVE</div>
+        </div>
+        <div class="quote">
+          <div class="quote-mark">★★★★★</div>
+          <p class="quote-txt">"אני מאוד נהנית באימונים, כל המדריכות מצוינות, כל אחת עם הסגנון שלה. לאחרונה כולן התחילו לגוון יותר בשיעורים וזה מבורך מאוד מבחינתי!"</p>
+          <div class="quote-name"><b>מיכל ר.</b> · מתאמנת קבועה</div>
+        </div>
+        <div class="quote">
+          <div class="quote-mark">★★★★★</div>
+          <p class="quote-txt">"אחלה סטודיו, מאוד מרוצה מכל המאמנים! גם של הכוח וגם בפילאטיס 🌻"</p>
+          <div class="quote-name"><b>שירה כ.</b> · GYM + Pilates</div>
+        </div>
+        <div class="quote">
+          <div class="quote-mark">★★★★★</div>
+          <p class="quote-txt">"אני איתכם כבר המון שנים, מאוד מרוצה! ירדן אלופה, מקצועית, נותנת יחס אישי ושומרת על רמה סופר גבוהה. ותמיד יש אצלה אווירה מאוד כיפית ומדברנת."</p>
+          <div class="quote-name"><b>נעמה ג.</b> · מתאמנת GYM ותיקה</div>
+        </div>
+        <div class="quote">
+          <div class="quote-mark">★★★★★</div>
+          <p class="quote-txt">"הכל מושלם, אין על האימונים שלכם! מושלם כמו תמיד, הכי כיף בעולם 😍"</p>
+          <div class="quote-name"><b>דנה ב.</b> · מתאמנת קבועה</div>
+        </div>
+      </div>
+      <div class="quote-dots" id="quoteDots">
+        <span class="active"></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM (USP) -->
+<section class="team" id="team">
+  <div class="sec-h reveal">
+    <div class="sec-tag">הצוות שלנו</div>
+    <h2 class="sec-title">מאמנות. אפס פשרות.</h2>
+    <p class="sec-sub" style="max-width:420px;margin-left:auto;margin-right:auto">ארבעה דברים שמבדילים את המאמנות שלנו מכל מאמנת אחרת</p>
+  </div>
+  <div class="usp-grid">
+    <div class="usp-card reveal"><div class="usp-i">🎓</div><div class="usp-t">מוסמכות</div><div class="usp-p">כל מאמנת מוסמכת, מתמחה ומתעדכנת. לא סתם תואר — ידע אמיתי שמגיע לכל שיעור</div></div>
+    <div class="usp-card reveal"><div class="usp-i">👁️</div><div class="usp-t">רואות אותך</div><div class="usp-p">לא סתם שם בחדר. כל תנועה נבדקת, כל תיקון ניתן. את לא נופלת בין הכיסאות</div></div>
+    <div class="usp-card reveal"><div class="usp-i">💪</div><div class="usp-t">מתאמנות בעצמן</div><div class="usp-p">הן לא עומדות בצד. הן שם, עם ידיים, עם זיעה, עם אנרגיה — בשבילך</div></div>
+    <div class="usp-card reveal"><div class="usp-i">❤️</div><div class="usp-t">אוהבות מה שהן עושות</div><div class="usp-p">כשמאמנת עובדת מהלב — את מרגישה את זה. ולא שוכחת את זה</div></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gal" id="gallery">
+  <div class="sec-h reveal"><div class="sec-tag">הצצה פנימה</div><h2 class="sec-title">ככה זה נראה אצלנו</h2></div>
+  <div class="gg">
+    <div class="gi reveal"><img src="images/gallery-1.jpg" width="853" height="1280" alt="אימון כוח בסטודיו STEPS" loading="lazy"><div class="gi-ov"><span class="gi-l">אימון כוח בסטודיו STEPS</span></div></div>
+    <div class="gi reveal"><img src="images/gallery-2.jpg" width="853" height="1280" alt="ליווי אישי של מאמנת" loading="lazy"><div class="gi-ov"><span class="gi-l">ליווי אישי של מאמנת</span></div></div>
+    <div class="gi reveal"><img src="images/gallery-3.jpg" width="874" height="1311" alt="מאמנת בשיעור בר" loading="lazy"><div class="gi-ov"><span class="gi-l">מאמנת בשיעור בר</span></div></div>
+    <div class="gi reveal"><img src="images/gallery-4.jpg" width="1311" height="874" alt="יוגה וגמישות" loading="lazy"><div class="gi-ov"><span class="gi-l">יוגה וגמישות</span></div></div>
+    <div class="gi reveal"><img src="images/gallery-5.jpg" width="873" height="1311" alt="שיעור בר קבוצתי" loading="lazy"><div class="gi-ov"><span class="gi-l">שיעור בר קבוצתי</span></div></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec" style="background:var(--c-bg-3)">
+  <div style="max-width:760px;margin:0 auto">
+    <div class="sec-h reveal">
+      <div class="sec-tag">שאלות נפוצות</div>
+      <h2 class="sec-title">יש לך שאלות? יש לנו תשובות.</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <details class="faq-item reveal">
+        <summary>כמה עולה המנוי?</summary>
+        <p>אימון היכרות עולה 50 ₪ בלבד. לאחר מכן יש מסלולים שונים — חודשי, חצי-שנתי ושנתי. לפרטי מחירים מדויקים <a href="https://wa.me/972527927575" style="color:#F5C518;text-decoration:underline" target="_blank">שלחי לנו הודעה בוואטסאפ</a> ונשמח לעזור.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>מה ההבדל בין GYM, MOVE ו-REFORMER PILATES?</summary>
+        <p>GYM הוא חלל הכוח שלנו — משקולות, מכשירים, BOOTCAMP ואימוני עוצמה. MOVE הוא חלל השיעורים הקבוצתיים — בר, יוגה, גמישות, אנרגיה. REFORMER PILATES הוא חלל הפילאטיס עם מכשירי רפורמר מקצועיים, 11 מיטות רפורמר, בקבוצות קטנות.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>האם אני צריכה ניסיון קודם?</summary>
+        <p>בכלל לא. STEPS מתאים לכל רמה — גם אם מעולם לא נכנסת לסטודיו כושר. אימון ההיכרות בדיוק לשם כך: להכיר את המקום, לדבר עם המאמנת, ולהרגיש בנוח לפני שמחליטים על מנוי.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>יש חנייה ליד הסטודיו?</summary>
+        <p>כן! STEPS נמצאת בקניון פולג, נתניה — עם חנייה חינמית ונוחה ישירות בקניון. קל להגיע, קל לחנות, קל להתחיל.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>איך מבטלים שיעור?</summary>
+        <p>ביטול עד 12 שעות לפני השיעור — ניתן בוואטסאפ או דרך Arbox. ביטול פחות מ-12 שעות מראש — נספר כנוכחות. מומלץ לסמן שיעורים מראש ולבטל ברגע שיודעים שלא מגיעים.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING (placeholders — real data pending) -->
+<section class="pricing" id="pricing">
+  <div class="sec-h reveal">
+    <div class="sec-tag">מסלולים</div>
+    <h2 class="sec-title">בחרי את המסלול שלך</h2>
+    <p class="sec-sub">המחירים המדויקים ממתינים לאישור — לבינתיים אפשר לשאול בוואטסאפ</p>
+  </div>
+  <div class="price-grid">
+    <div class="price-card reveal">
+      <div class="price-slot">אופציה 1</div>
+      <div class="price-placeholder-name">[ממתין לנתונים מאור]</div>
+      <div class="price-placeholder-amount">[ממתין לנתונים מאור]</div>
+      <ul class="price-feat"><li>גישה לחלל אחד</li><li>מערכת שעות מלאה</li><li>ליווי מאמנת</li></ul>
+      <a href="#contact" class="btn btn-ghost" style="justify-content:center">קבעי אימון היכרות</a>
+    </div>
+    <div class="price-card mid reveal">
+      <div class="price-slot">אופציה 2 — הכי פופולרי</div>
+      <div class="price-placeholder-name">[ממתין לנתונים מאור]</div>
+      <div class="price-placeholder-amount">[ממתין לנתונים מאור]</div>
+      <ul class="price-feat"><li>גישה לכל 3 החללים</li><li>מערכת שעות מלאה</li><li>ליווי תזונה בסיסי</li></ul>
+      <a href="#contact" class="btn btn-primary" style="justify-content:center">קבעי אימון היכרות</a>
+    </div>
+    <div class="price-card reveal">
+      <div class="price-slot">אופציה 3</div>
+      <div class="price-placeholder-name">[ממתין לנתונים מאור]</div>
+      <div class="price-placeholder-amount">[ממתין לנתונים מאור]</div>
+      <ul class="price-feat"><li>גישה לכל 3 החללים</li><li>ליווי תזונה מלא</li><li>עדיפות בהרשמה לשיעורים</li></ul>
+      <a href="#contact" class="btn btn-ghost" style="justify-content:center">קבעי אימון היכרות</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA — Arbox iframe -->
+<section class="cta-sec" id="contact">
+  <div class="cta-in">
+    <h2 style="font-size:clamp(24px,4vw,38px);font-weight:900;color:#fff;margin-bottom:8px" class="reveal">קבעי אימון היכרות</h2>
+    <p style="font-size:16px;color:rgba(255,255,255,0.6);margin-bottom:24px">בחרי שיעור, הירשמי ושלמי — הכל כאן. בלי טלפונים, בלי המתנה.</p>
+    <!-- דסקטופ: iframe -->
+    <div class="arbox-desktop reveal" style="background:#fff;overflow:hidden" data-track="arbox-open">
+      <iframe src="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&lang=he&location=18259&referrer=PLUGIN&filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" width="100%" height="600" style="border:none;display:block" allow="payment *" title="קביעת אימון היכרות ב-STEPS"></iframe>
+    </div>
+    <!-- מובייל: כפתור ישיר (iframe נחסם בדפדפני מובייל) -->
+    <div class="arbox-mobile reveal">
+      <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&lang=he&location=18259&referrer=PLUGIN&filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener" data-track="trial-cta arbox-open" class="btn btn-primary">אימון היכרות ב-50 ₪</a>
+      <p style="margin-top:16px;font-size:14px;color:rgba(255,255,255,0.5)">נפתח בטאב חדש — הרשמה מלאה ב-Arbox</p>
+    </div>
+    <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.5)">💬 שאלות? <a href="https://wa.me/972527927575" style="color:#F5C518;text-decoration:underline" target="_blank" rel="noopener" data-track="whatsapp-click">דברי איתנו בוואטסאפ</a></p>
+    <p style="margin-top:10px;font-size:11px;color:rgba(255,255,255,0.25);line-height:1.7">מדיניות ביטולים: ביטול עד 24 שעות לפני האימון — ניתן לקבוע מועד חלופי. ביטול פחות מ-24 שעות מראש או אי-הגעה — אין זיכוי. לביטול: <a href="https://wa.me/972527927575" style="color:rgba(255,255,255,0.4);text-decoration:underline" target="_blank">וואטסאפ</a> · <a href="privacy.html#ביטולים" style="color:rgba(255,255,255,0.4);text-decoration:underline">פרטים נוספים</a></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot" role="contentinfo">
+  <div class="fg">
+    <div><div class="logo"><img src="steps-logo-white.png" alt="STEPS Fitness Center לוגו" width="158" height="38" loading="lazy"></div><p class="fd">הבית שלך לאימונים. כוח · אירובי · פילאטיס מכשירים · יוגה · בר · תזונה חכמה. הכל תחת קורת גג אחת.</p></div>
+    <div><div class="ft">ניווט</div><ul class="fl"><li><a href="#pain">למה STEPS</a></li><li><a href="#spaces">החללים</a></li><li><a href="#sched">מערכת שעות</a></li><li><a href="#bina">תזונה חכמה</a></li><li><a href="#reviews">המלצות</a></li><li><a href="privacy.html">מדיניות פרטיות</a></li></ul></div>
+    <div><div class="ft">החללים</div><ul class="fl"><li><a href="#spaces">GYM — חדר כושר</a></li><li><a href="#spaces">MOVE — שיעורים</a></li><li><a href="pilates.html">רפורמר פילאטיס</a></li><li><a href="#bina">ליווי תזונה</a></li><li><a href="barre.html">אימון בר</a></li></ul></div>
+    <div><div class="ft">צרי קשר</div><div class="fc">📍 פולג, נתניה</div><div class="fc">📞 052-792-7575</div><div class="fc">⏰ א׳-ה׳ 6:00-22:00 | ו׳ 7:00-14:00</div></div>
+  </div>
+  <p style="font-size:10px;color:rgba(255,255,255,0.18);text-align:center;max-width:1100px;margin:0 auto 10px;line-height:1.6">פעילות גופנית מומלץ לבצע לאחר התייעצות עם רופא. STEPS אינה אחראית לנזקי בריאות הנובעים משימוש בשירותיה.</p>
+  <div class="fb"><span class="fcopy">© 2026 Studio Steps. כל הזכויות שמורות. &nbsp;·&nbsp; <a href="privacy.html" style="color:rgba(255,255,255,0.25);text-decoration:underline">מדיניות פרטיות</a></span><div class="fsoc"><a href="https://www.instagram.com/steps_netanya/" class="fsi" target="_blank" rel="noopener noreferrer" aria-label="אינסטגרם">📷</a><a href="https://www.facebook.com/stepsnetanya/" class="fsi" target="_blank" rel="noopener noreferrer" aria-label="פייסבוק">📘</a><a href="https://wa.me/972527927575" class="fsi" target="_blank" rel="noopener noreferrer" aria-label="וואטסאפ">💬</a></div></div>
+</footer>
+
+<!-- ACCESSIBILITY BUTTON -->
+<button id="acc-btn" onclick="document.getElementById('acc-modal').style.display='flex'" aria-label="נגישות">♿</button>
+
+<!-- FLOATING WA -->
+<a href="https://wa.me/972527927575?text=היי%20אני%20מעוניינת%20באימון%20היכרות%20ב-STEPS" class="waf" target="_blank" rel="noopener" aria-label="שלחי הודעה בוואטסאפ" data-track="whatsapp-click">💬</a>
+
+<!-- MOBILE STICKY CTA BAR -->
+<div class="mbar">
+  <a href="#contact" class="mbar-cta" data-track="trial-cta">אימון היכרות ב-50 ₪</a>
+  <a href="https://wa.me/972527927575" target="_blank" rel="noopener" class="mbar-wa" aria-label="וואטסאפ" data-track="whatsapp-click">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.7.44 3.36 1.28 4.82L2.05 22l5.4-1.42a9.9 9.9 0 0 0 4.6 1.17h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.13-2.9-7C17.2 3.03 14.7 2 12.05 2Zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.03.13-2.1-.24-.48-.17-1.1-.35-1.9-.7-3.35-1.45-5.53-4.8-5.7-5.02-.17-.22-1.36-1.8-1.36-3.44 0-1.63.86-2.43 1.16-2.77.3-.33.66-.42.88-.42h.63c.2 0 .47-.04.73.55.27.6.9 2.08.98 2.23.08.16.13.34.02.55-.1.2-.16.33-.32.5-.16.18-.34.4-.48.53-.16.15-.33.32-.14.63.19.32.85 1.4 1.83 2.27 1.26 1.12 2.32 1.47 2.65 1.63.33.16.52.14.71-.08.2-.22.83-.97 1.05-1.3.22-.34.44-.28.74-.17.3.11 1.9.9 2.23 1.06.32.16.54.24.62.38.08.13.08.77-.16 1.45Z"/></svg>
+  </a>
+</div>
+
+<!-- ACCESSIBILITY MODAL -->
+<div id="acc-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:99999;align-items:center;justify-content:center;padding:20px">
+  <div style="background:#1a1a1a;border-radius:16px;padding:32px;max-width:500px;width:100%;color:#fff;position:relative;max-height:90vh;overflow-y:auto">
+    <button onclick="document.getElementById('acc-modal').style.display='none'" aria-label="סגירה" style="position:absolute;top:12px;left:12px;background:none;border:none;color:#fff;font-size:24px;cursor:pointer">&times;</button>
+    <h2 style="font-size:20px;margin-bottom:16px;text-align:center">♿ הצהרת נגישות</h2>
+    <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px">
+      סטודיו STEPS שואף לספק חוויית שימוש נגישה לכל המשתמשים. אנו פועלים לשיפור הנגישות באופן מתמיד ומקבלים בברכה פניות בנושא.
+    </p>
+    <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px">
+      <strong>פעולות נגישות שבוצעו:</strong><br>
+      • כל התמונות כוללות טקסט חלופי (alt text) בעברית<br>
+      • האתר מותאם לגלישה במובייל ובמחשב<br>
+      • קיים קישור "דלגי לתוכן" לניווט מהיר במקלדת<br>
+      • ניגודיות צבעים מספקת בין טקסט לרקע<br>
+      • מבנה כותרות (H1/H2) סדור לניווט בטכנולוגיות מסייעות
+    </p>
+    <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px">
+      <strong>יצירת קשר בנושא נגישות:</strong><br>
+      אם נתקלת בבעיית נגישות, נשמח לסייע.<br>
+      טלפון: 052-792-7575<br>
+      כתובת: אמנון ותמר 6, קניון פולג, נתניה
+    </p>
+    <p style="font-size:12px;color:rgba(255,255,255,0.4);text-align:center;margin-top:16px">עודכן: מרץ 2026</p>
+  </div>
+</div>
+
+<script>
+// Spotlight strip
+(function(){
+  var items=['GYM','BOOTCAMP','ENDURANCE','GYM & RUN','Pilates Reformer','BAR','YOGA','Flexibility'];
+  var t=document.getElementById('stripTrack');
+  items.forEach(function(w,i){
+    if(i>0){var sep=document.createElement('span');sep.className='strip-sep';sep.textContent='|';t.appendChild(sep);}
+    var span=document.createElement('span');span.className='strip-word';span.textContent=w;t.appendChild(span);
+  });
+  var words=document.querySelectorAll('.strip-word'),idx=0;
+  setInterval(function(){
+    words.forEach(function(w){w.classList.remove('hot')});
+    words[idx].classList.add('hot');
+    idx=(idx+1)%words.length;
+  },900);
+})();
+
+// Testimonial quote cycler
+(function(){
+  var quotes=document.querySelectorAll('#quoteStack .quote');
+  var dots=document.querySelectorAll('#quoteDots span');
+  var i=0;
+  setInterval(function(){
+    quotes[i].classList.remove('active');dots[i].classList.remove('active');
+    i=(i+1)%quotes.length;
+    quotes[i].classList.add('active');dots[i].classList.add('active');
+  },4200);
+})();
+
+// Progress bar fallback (no animation-timeline: scroll support)
+var supportsScrollTimeline = CSS.supports('animation-timeline: scroll()') && CSS.supports('animation-timeline: view()');
+if(!supportsScrollTimeline){
+  var fill=document.getElementById('progressFill');
+  fill.style.animation='none';
+  function updateProgress(){
+    var h=document.documentElement;
+    var pct=(h.scrollTop)/(h.scrollHeight-h.clientHeight||1);
+    fill.style.transform='scaleX('+Math.min(Math.max(pct,0),1)+')';
+  }
+  document.addEventListener('scroll',function(){requestAnimationFrame(updateProgress)},{passive:true});
+  updateProgress();
+}
+
+// Scene reveal fallback (IntersectionObserver) — the only mechanism when
+// animation-timeline isn't supported; harmless no-op on top of the CSS path.
+var scenes=document.querySelectorAll('.scene');
+var ioScene=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('in-view'); });
+},{threshold:0.35});
+scenes.forEach(function(s){ioScene.observe(s)});
+
+// Generic reveal (.reveal) — replaces AOS for regular in-flow sections
+var ioReveal=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){ e.target.classList.add('visible'); ioReveal.unobserve(e.target); }
+  });
+},{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(function(el){ioReveal.observe(el)});
+
+// Navbar solid-on-scroll
+window.addEventListener('scroll',function(){document.getElementById('nav').classList.toggle('solid',scrollY>80)});
+
+// Mobile menu toggle
+var mobBtn=document.getElementById('mobBtn');
+var nLinks=document.querySelector('.n-links');
+var mobOv=document.getElementById('mobOverlay');
+function toggleMenu(){nLinks.classList.toggle('open');mobOv.classList.toggle('open');mobBtn.textContent=nLinks.classList.contains('open')?'✕':'☰'}
+mobBtn.addEventListener('click',toggleMenu);
+mobOv.addEventListener('click',toggleMenu);
+
+// Smooth scroll + close mobile menu (respects reduced motion)
+var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    e.preventDefault();
+    if(nLinks.classList.contains('open'))toggleMenu();
+    var t=document.querySelector(this.getAttribute('href'));
+    if(t)t.scrollIntoView({behavior:prefersReduced?'auto':'smooth',block:'start'});
+  });
+});
+
+// Schedule — dynamic from Arbox
+(function(){
+  var FALLBACK=[
+    {start_time:'07:00',name:'עיצוב + כוח',coach:'מאמנת STEPS'},
+    {start_time:'08:15',name:'רפורמר פילאטיס',coach:'אורי כהן'},
+    {start_time:'09:30',name:'HIIT Burn',coach:'רותם זינגר'},
+    {start_time:'17:00',name:'GYM — אימון חופשי',coach:'מעיין לזר'},
+    {start_time:'18:30',name:'קיקבוקס',coach:'ירדן נתן'},
+    {start_time:'19:45',name:'בר — Barre',coach:'אגם סימנרוב'}
+  ];
+  function getName(s){return s.session_name||s.name||'';}
+  function mkEl(tag,cls){var el=document.createElement(tag);if(cls)el.className=cls;return el;}
+  function renderItems(items){
+    var sl=document.querySelector('.slist');
+    while(sl.firstChild)sl.removeChild(sl.firstChild);
+    if(!items||!items.length){var fn=mkEl('div','sfn');fn.textContent='אין שיעורים ביום זה';sl.appendChild(fn);return;}
+    items.forEach(function(s){
+      var nm=getName(s);
+      var si=mkEl('div','si');
+      var tm=mkEl('div','s-time');tm.textContent=(s.start_time||'').slice(0,5);
+      var cls=mkEl('div','s-cls');
+      var sn=mkEl('div','s-n');sn.textContent=nm;
+      var coachName=s.coach||(s.staff_member&&s.staff_member.name)||'';
+      var st=mkEl('div','s-t');st.textContent=coachName?'מאמנת: '+coachName:'';
+      cls.appendChild(sn);cls.appendChild(st);
+      si.appendChild(tm);si.appendChild(cls);
+      sl.appendChild(si);
+    });
+  }
+  var cache={};
+  function getWeekDates(){
+    var today=new Date(),day=today.getDay(),sun=new Date(today);
+    sun.setDate(today.getDate()-day);
+    return Array.from({length:6},function(_,i){var d=new Date(sun);d.setDate(sun.getDate()+i);return d.toISOString().split('T')[0];});
+  }
+  var weekDates=getWeekDates();
+  var todayIdx=Math.min(new Date().getDay(),5);
+  function loadDay(idx){
+    var date=weekDates[idx];if(!date)return;
+    if(cache[date]){renderItems(cache[date]);return;}
+    var sl=document.querySelector('.slist');
+    while(sl.firstChild)sl.removeChild(sl.firstChild);
+    var fn=mkEl('div','sfn');fn.textContent='⏳ טוען מערכת שעות...';sl.appendChild(fn);
+    fetch('/api/schedule?date='+date)
+      .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
+      .then(function(data){cache[date]=Array.isArray(data)&&data.length?data:FALLBACK;renderItems(cache[date]);})
+      .catch(function(){cache[date]=FALLBACK;renderItems(FALLBACK);});
+  }
+  var tabs=document.querySelectorAll('.dt');
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){tabs.forEach(function(d){d.classList.remove('active');});this.classList.add('active');loadDay(i);});
+  });
+  tabs.forEach(function(d){d.classList.remove('active');});
+  if(tabs[todayIdx])tabs[todayIdx].classList.add('active');else tabs[0].classList.add('active');
+  loadDay(todayIdx);
+})();
+
+// Cookie consent logic
+(function(){
+  function initTracking(){
+    if(typeof gtag==='function')gtag('consent','update',{'analytics_storage':'granted','ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted'});
+    if(typeof fbq==='function'){fbq('init','1016773848190436');fbq('track','PageView');}
+  }
+  window.acceptCookies=function(){
+    localStorage.setItem('steps-consent','granted');
+    document.getElementById('cookie-banner').style.display='none';
+    initTracking();
+  };
+  window.declineCookies=function(){
+    localStorage.setItem('steps-consent','declined');
+    document.getElementById('cookie-banner').style.display='none';
+  };
+  var c=localStorage.getItem('steps-consent');
+  if(c==='granted'){initTracking();}
+  else if(c!=='declined'){document.getElementById('cookie-banner').style.display='flex';}
+})();
+
+// Conversion tracking
+(function(){
+  function trackEvent(name, params){
+    params=params||{};
+    params.page_location=location.href;
+    if(typeof gtag==='function')gtag('event',name,params);
+    if(typeof fbq==='function'){
+      if(name==='cta_trial_click')fbq('track','Lead',params);
+      else fbq('trackCustom',name,params);
+    }
+  }
+  document.querySelectorAll('[data-track]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var t=el.getAttribute('data-track')||'';
+      if(t.indexOf('trial-cta')>-1)trackEvent('cta_trial_click',{cta_text:(el.textContent||'').trim()});
+      if(t.indexOf('whatsapp-click')>-1)trackEvent('whatsapp_click',{link_url:el.href||''});
+      if(t.indexOf('arbox-open')>-1)trackEvent('arbox_open',{link_url:el.href||''});
+      if(t.indexOf('schedule-view')>-1)trackEvent('schedule_view',{});
+    });
+  });
+})();
+</script>
+</body>
+</html>
