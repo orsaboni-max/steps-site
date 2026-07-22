@@ -1,2 +1,11 @@
 images/Studio STEPS2 (1).mp4
 images/hero-video.mp4
+images/*.mov
+images/hero-video-enhanced.mp4
+images/hero-video-web.mp4
+.claude/
+.heygen-setup/
+.netlify/
+netlify/
+marketing/
+*.md
