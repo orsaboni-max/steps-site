@@ -187,12 +187,6 @@ img{max-width:100%;height:auto}
 .cta-price{display:inline-block;background:#fff;color:var(--accent);font-size:24px;font-weight:900;padding:7px 26px;border-radius:50px;margin-bottom:16px}
 .cta-h{font-size:clamp(24px,4vw,38px);font-weight:900;color:#fff;margin-bottom:8px;line-height:1.2}
 .cta-p{font-size:16px;color:rgba(255,255,255,0.85);margin-bottom:28px;line-height:1.6}
-.lf{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
-.lf input{flex:1;min-width:160px;padding:13px 20px;border-radius:50px;border:2px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.12);color:#fff;font-size:15px;font-family:inherit;outline:none;transition:border-color .3s;backdrop-filter:blur(8px)}
-.lf input::placeholder{color:rgba(255,255,255,0.5)}
-.lf input:focus{border-color:#fff}
-.lf .sb{background:#fff;color:var(--accent);border:none;padding:13px 30px;border-radius:50px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .3s;white-space:nowrap}
-.lf .sb:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.2)}
 .cta-t{margin-top:14px;font-size:12px;color:rgba(255,255,255,0.6)}
 
 /* FOOTER */
@@ -246,7 +240,7 @@ img{max-width:100%;height:auto}
   .hero-btns .btn-b{width:100%;text-align:center}
   .btn-a,.btn-b{min-height:48px;display:inline-flex;align-items:center;justify-content:center}
 }
-@media(max-width:480px){.fg{grid-template-columns:1fr}.lf{flex-direction:column}.lf input,.lf .sb{width:100%}}
+@media(max-width:480px){.fg{grid-template-columns:1fr}}
 @media(max-width:768px){.bina-sec{display:none}}
 .arbox-mobile{display:none;flex-direction:column;align-items:center;padding:20px 0;gap:12px}
 @media(max-width:768px){.arbox-desktop{display:none}.arbox-mobile{display:flex!important}}
@@ -262,7 +256,7 @@ img{max-width:100%;height:auto}
 @media(max-width:480px){.usp-grid{grid-template-columns:1fr}}
 
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+<link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"></noscript>
 <!-- Consent Mode v2 — must run BEFORE GA4 loads -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
 <!-- GA4 -->
@@ -278,7 +272,7 @@ img{max-width:100%;height:auto}
   "alternateName": "סטודיו סטפס",
   "url": "https://stepsnetanya.co.il",
   "logo": "https://stepsnetanya.co.il/steps-logo-white.png",
-  "image": "https://stepsnetanya.co.il/images/hero-new.png",
+  "image": "https://stepsnetanya.co.il/images/hero-new.jpg",
   "telephone": "+972-52-792-7575",
   "address": {
     "@type": "PostalAddress",
@@ -343,7 +337,7 @@ img{max-width:100%;height:auto}
 
 <!-- NAV -->
 <nav class="nav" id="nav" role="navigation" aria-label="ניווט ראשי">
-  <div class="logo"><img src="steps-logo-white.png" alt="STEPS Fitness Center לוגו" style="height:36px;width:auto"></div>
+  <div class="logo"><img src="steps-logo-white.png" alt="STEPS Fitness Center לוגו" width="149" height="36" style="height:36px;width:auto"></div>
   <ul class="n-links">
     <li><a href="#pain">למה STEPS</a></li>
     <li><a href="#spaces">החללים</a></li>
@@ -357,7 +351,7 @@ img{max-width:100%;height:auto}
 <div class="mob-overlay" id="mobOverlay"></div>
 
 <!-- HERO - FULL BG IMAGE -->
-<section class="hero" style="background-image:url('images/hero-new.png');background-size:cover;background-position:center 30%">
+<section class="hero" style="background-image:url('images/hero-new.jpg');background-size:cover;background-position:center 30%">
   <div class="hero-overlay"></div>
   <div class="hero-inner" style="position:relative;z-index:1">
     <div class="hero-tag" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1200">פה את לעולם לא לבד.</div>
@@ -544,11 +538,11 @@ img{max-width:100%;height:auto}
 <section class="gal" id="gallery">
   <div class="sec-h"><div class="sec-tag">הצצה פנימה</div><h2 class="sec-title">ככה זה נראה אצלנו</h2></div>
   <div class="gg">
-    <div class="gi" data-aos="zoom-in" data-aos-delay="100"><img src="images/gallery-1.jpg" alt="אימון כוח בסטודיו STEPS" loading="lazy" style="object-fit:cover;width:100%;height:100%;border-radius:14px"><div class="gi-ov"><span class="gi-l">אימון כוח בסטודיו STEPS</span></div></div>
-    <div class="gi" data-aos="zoom-in" data-aos-delay="200"><img src="images/gallery-2.jpg" alt="ליווי אישי של מאמנת" loading="lazy" style="object-fit:cover;width:100%;height:100%;border-radius:14px"><div class="gi-ov"><span class="gi-l">ליווי אישי של מאמנת</span></div></div>
-    <div class="gi" data-aos="zoom-in" data-aos-delay="300"><img src="images/gallery-3.jpg" alt="מאמנת בשיעור בר" loading="lazy" style="object-fit:cover;width:100%;height:100%;border-radius:14px"><div class="gi-ov"><span class="gi-l">מאמנת בשיעור בר</span></div></div>
-    <div class="gi" data-aos="zoom-in" data-aos-delay="400"><img src="images/gallery-4.jpg" alt="יוגה וגמישות" loading="lazy" style="object-fit:cover;width:100%;height:100%;border-radius:14px"><div class="gi-ov"><span class="gi-l">יוגה וגמישות</span></div></div>
-    <div class="gi" data-aos="zoom-in" data-aos-delay="500"><img src="images/gallery-5.jpg" alt="שיעור בר קבוצתי" loading="lazy" style="object-fit:cover;width:100%;height:100%;border-radius:14px"><div class="gi-ov"><span class="gi-l">שיעור בר קבוצתי</span></div></div>
+    <div class="gi" data-aos="zoom-in" data-aos-delay="100"><img src="images/gallery-1.jpg" width="853" height="1280" alt="אימון כוח בסטודיו STEPS" loading="lazy" style="object-fit:cover;width:100%;height:100%;border-radius:14px"><div class="gi-ov"><span class="gi-l">אימון כוח בסטודיו STEPS</span></div></div>
+    <div class="gi" data-aos="zoom-in" data-aos-delay="200"><img src="images/gallery-2.jpg" width="853" height="1280" alt="ליווי אישי של מאמנת" loading="lazy" style="object-fit:cover;width:100%;height:100%;border-radius:14px"><div class="gi-ov"><span class="gi-l">ליווי אישי של מאמנת</span></div></div>
+    <div class="gi" data-aos="zoom-in" data-aos-delay="300"><img src="images/gallery-3.jpg" width="874" height="1311" alt="מאמנת בשיעור בר" loading="lazy" style="object-fit:cover;width:100%;height:100%;border-radius:14px"><div class="gi-ov"><span class="gi-l">מאמנת בשיעור בר</span></div></div>
+    <div class="gi" data-aos="zoom-in" data-aos-delay="400"><img src="images/gallery-4.jpg" width="1311" height="874" alt="יוגה וגמישות" loading="lazy" style="object-fit:cover;width:100%;height:100%;border-radius:14px"><div class="gi-ov"><span class="gi-l">יוגה וגמישות</span></div></div>
+    <div class="gi" data-aos="zoom-in" data-aos-delay="500"><img src="images/gallery-5.jpg" width="873" height="1311" alt="שיעור בר קבוצתי" loading="lazy" style="object-fit:cover;width:100%;height:100%;border-radius:14px"><div class="gi-ov"><span class="gi-l">שיעור בר קבוצתי</span></div></div>
   </div>
 </section>
 
@@ -608,7 +602,7 @@ img{max-width:100%;height:auto}
 <!-- FOOTER -->
 <footer class="foot" role="contentinfo">
   <div class="fg">
-    <div><div class="logo"><img src="steps-logo-white.png" alt="STEPS Fitness Center לוגו"></div><p class="fd">הבית שלך לאימונים. כוח · אירובי · פילאטיס מכשירים · יוגה · בר · תזונה חכמה. הכל תחת קורת גג אחת.</p></div>
+    <div><div class="logo"><img src="steps-logo-white.png" alt="STEPS Fitness Center לוגו" width="158" height="38" loading="lazy"></div><p class="fd">הבית שלך לאימונים. כוח · אירובי · פילאטיס מכשירים · יוגה · בר · תזונה חכמה. הכל תחת קורת גג אחת.</p></div>
     <div><div class="ft">ניווט</div><ul class="fl"><li><a href="#pain">למה STEPS</a></li><li><a href="#spaces">החללים</a></li><li><a href="#sched">מערכת שעות</a></li><li><a href="#bina">תזונה חכמה</a></li><li><a href="#reviews">המלצות</a></li><li><a href="privacy.html">מדיניות פרטיות</a></li></ul></div>
     <div><div class="ft">החללים</div><ul class="fl"><li><a href="#spaces">GYM — חדר כושר</a></li><li><a href="#spaces">MOVE — שיעורים</a></li><li><a href="pilates.html">רפורמר פילאטיס</a></li><li><a href="#bina">ליווי תזונה</a></li><li><a href="barre.html">אימון בר</a></li></ul></div>
     <div><div class="ft">צרי קשר</div><div class="fc">📍 פולג, נתניה</div><div class="fc">📞 052-792-7575</div><div class="fc">⏰ א׳-ה׳ 6:00-22:00 | ו׳ 7:00-14:00</div></div>
@@ -700,8 +694,8 @@ const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isInters
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-<script>AOS.init({duration:800,once:true,offset:100})</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
+<script>document.addEventListener('DOMContentLoaded',function(){AOS.init({duration:800,once:true,offset:100})})</script>
 <script>
 // Cookie consent logic
 (function(){
