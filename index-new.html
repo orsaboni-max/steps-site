@@ -88,7 +88,7 @@ a{color:inherit}
 .n-links a:hover{color:#fff}
 .n-cta{background:var(--c-yellow)!important;color:var(--c-yellow-ink)!important;padding:10px 24px;font-weight:700;font-size:12px;letter-spacing:.03em}
 .n-cta:hover{filter:brightness(1.08)}
-.mob{display:none;background:none;border:none;color:#fff;cursor:pointer;z-index:1001}
+.mob{display:none;width:44px;height:44px;background:none;border:none;color:#fff;cursor:pointer;z-index:1001;align-items:center;justify-content:center}
 .mob svg{width:24px;height:24px;display:block}
 .mob .mob-x{display:none}
 .mob.open .mob-burger{display:none}
@@ -99,15 +99,22 @@ a{color:inherit}
 .n-links.open{display:flex;transform:translateX(0)}
 .n-links a{font-size:18px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.06);color:rgba(255,255,255,.82);width:100%;display:block}
 .n-links a:last-child{border-bottom:none;margin-top:12px;text-align:center}
-.mob{display:block}
+.mob{display:flex}
 .mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:998}
 .mob-overlay.open{display:block}
 }
 
 /* ============ SCENE FRAMEWORK (pinned cinematic scenes) ============ */
-.scene{position:relative;height:190vh}
-.scene__sticky{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
-.scene__bg{position:absolute;inset:-6% -6%;background-size:cover;background-position:center;transform:scale(calc(1.18 - 0.18 * var(--p, 0)));will-change:transform}
+.scene{position:relative;height:380vh}
+.scene--arrival{height:400vh}
+/* svh->dvh cascade: dvh (dynamic viewport, tracks the browser chrome collapsing) wins where
+   supported so the sticky pin — and therefore the full-bleed video inside it — never falls
+   short of the real visible area once the toolbar hides (the "doesn't fill the screen" bug). */
+.scene__sticky{position:sticky;top:0;height:100vh;height:100svh;height:100dvh;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+/* full-bleed always: no inset/width tricks (they were fighting the explicit 100% below and
+   could undercover by a hair). Scale never drops to 1.0 — floor stays >1 so cover always has
+   overscan margin regardless of aspect/rounding. */
+.scene__bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(calc(1.16 - 0.11 * var(--p, 0)));transform-origin:center;will-change:transform}
 video.scene__bg,img.scene__bg{object-fit:cover;object-position:center;width:100%;height:100%}
 .scene__bg--reduced{display:none}
 @media(prefers-reduced-motion:reduce){.scene--arrival .scene__bg--video{display:none}.scene--arrival .scene__bg--reduced{display:block}}
@@ -168,20 +175,31 @@ video.scene__bg,img.scene__bg{object-fit:cover;object-position:center;width:100%
 .scene--pilates .tag-chip{border-color:oklch(74% 0.12 180 / .45)}
 .scene--pilates .scene__title em{color:var(--c-teal)}
 
-/* two-beat space scenes: room clip (beat 1) crossfades to people media (beat 2)
-   off the existing per-scene --p scroll progress. opacity-only, no JS per-frame writes needed
-   beyond the --p the rAF engine already sets. room fades 0→0.25p, people fades in 0.25→0.4p —
-   by 0.4 the room is fully gone, so the scene never settles on an empty room. */
-.scene__bg-room{opacity:clamp(0,calc((0.4 - var(--p,0)) / 0.15),1)}
-.scene__bg-people{opacity:clamp(0,calc((var(--p,0) - 0.25) / 0.15),1)}
-/* reduced motion: JS pins --p at 1, so people-beat is already fully opaque and room-beat
-   already fully transparent via the formulas above — this just stops the room video's
-   loop/decoding and swaps GYM's people-beat video for its poster, same pattern as the hero. */
-@media(prefers-reduced-motion:reduce){
-  .scene__bg-room{display:none}
-  .scene--gym .scene__bg-people.scene__bg--video{display:none}
-  .scene--gym .scene__bg-people.scene__bg--reduced{display:block}
-}
+/* ============ SPACE CAROUSEL (replaces the old room/people opacity crossfade) ============
+   Slide 1 = empty-room clip (vertically scroll-scrubbed like the hero). Slides 2+ = training
+   media. Native horizontal scroll-snap = native touch swipe, no scroll-hijacking. The track is
+   forced ltr regardless of page dir so scrollLeft semantics stay predictable across browsers —
+   arrows/keys then just mean "physically forward/back", independent of page RTL. */
+.carousel{position:absolute;inset:0}
+.carousel__track{position:absolute;inset:0;display:flex;direction:ltr;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;touch-action:pan-x;-webkit-overflow-scrolling:touch;scrollbar-width:none;outline:none}
+.carousel__track::-webkit-scrollbar{display:none}
+.carousel__slide{position:relative;flex:0 0 100%;height:100%;scroll-snap-align:start}
+.carousel__media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(calc(1.1 - 0.05 * var(--p,0)));transform-origin:center;will-change:transform}
+/* arrows/dots sized to a >=44px tap target even though the visible glyph stays small —
+   the extra box is invisible hit-area padding, not a bigger visual element */
+.carousel__arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.25);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .16s ease-out,transform .16s ease-out}
+.carousel__arrow svg{width:18px;height:18px}
+.carousel__arrow:hover{background:rgba(0,0,0,.65)}
+.carousel__arrow:active{transform:translateY(-50%) scale(.9)}
+.carousel__arrow--prev{left:10px}
+.carousel__arrow--next{right:10px}
+.carousel__dots{position:absolute;bottom:0;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:2px}
+.carousel__dot{position:relative;width:44px;height:44px;background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.carousel__dot::after{content:'';width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.15);transition:background .16s ease-out,transform .16s ease-out}
+.carousel__dot.active::after{background:#fff;transform:scale(1.4)}
+.carousel__track:focus-visible{outline:2px solid var(--c-yellow);outline-offset:-4px}
+@media(hover:none) and (pointer:coarse){.carousel__arrow{display:none}}
+@media(prefers-reduced-motion:reduce){.carousel__media{transform:none}}
 
 .space-name{display:flex;align-items:baseline;gap:16px}
 .space-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
@@ -193,12 +211,12 @@ video.scene__bg,img.scene__bg{object-fit:cover;object-position:center;width:100%
 .scene.in-view .scene-index{opacity:1}
 .scene-index b{color:var(--c-ink);font-weight:900;font-size:16px}
 
+/* content-reveal only (progressive enhancement on browsers with scroll-timeline). Background
+   zoom/scale is NOT driven here anymore — it stayed on the damped JS rAF engine (--p) for every
+   scene so there's exactly one authority over scale, and it stays damped instead of a raw
+   1:1 scroll-timeline jump. */
 @supports (animation-timeline: view()){
   .scene--arrival, .scene--gym, .scene--move, .scene--pilates, .scene--energy{ view-timeline: --track block; }
-  .scene--arrival .scene__bg{ animation:bg-scale-in linear both; animation-timeline:--track; animation-range:entry 0% cover 60%; }
-  .scene--gym .scene__bg, .scene--move .scene__bg, .scene--pilates .scene__bg, .scene--energy .scene__bg{
-    animation:bg-scale-through linear both; animation-timeline:--track; animation-range:cover 0% cover 100%;
-  }
   .scene--arrival .scene__subtitle,.scene--arrival .scene__title,.scene--arrival .scene__body,.scene--arrival .scene__tags,.scene--arrival .scene__ctas,.scene--arrival .scene__proof,
   .scene--gym .scene__eyebrow,.scene--gym .scene__title,.scene--gym .scene__body,.scene--gym .scene__tags,
   .scene--move .scene__eyebrow,.scene--move .scene__title,.scene--move .scene__body,.scene--move .scene__tags,
@@ -207,8 +225,6 @@ video.scene__bg,img.scene__bg{object-fit:cover;object-position:center;width:100%
   }
   .scene-index{opacity:1;animation:idx-fade both;animation-timeline:--track;animation-range:entry 0% cover 20%;}
 }
-@keyframes bg-scale-in{from{transform:scale(1.18);opacity:.4}to{transform:scale(1.0);opacity:1}}
-@keyframes bg-scale-through{from{transform:scale(1.0)}to{transform:scale(1.24)}}
 @keyframes content-rise{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
 @keyframes idx-fade{from{opacity:0}to{opacity:1}}
 
@@ -240,6 +256,7 @@ video.scene__bg,img.scene__bg{object-fit:cover;object-position:center;width:100%
 .pgrid .reveal:nth-child(3),.usp-grid .reveal:nth-child(3),.price-grid .reveal:nth-child(3),.people-grid .reveal:nth-child(3),.gg .reveal:nth-child(3),.stats-grid .reveal:nth-child(3){transition-delay:.16s}
 .pgrid .reveal:nth-child(4),.usp-grid .reveal:nth-child(4),.gg .reveal:nth-child(4){transition-delay:.24s}
 .gg .reveal:nth-child(5){transition-delay:.32s}
+.gg .reveal:nth-child(6){transition-delay:.4s}
 noscript{}
 
 /* ============ SECTION HEADERS ============ */
@@ -251,7 +268,7 @@ noscript{}
 
 /* ============ PAIN → SOLUTION ============ */
 .pain-sec{position:relative;padding:100px 5%;overflow:hidden}
-.pain-bg{position:absolute;inset:0;background:url('images/shoot2025/coaching-1-g.jpg') center/cover no-repeat}
+.pain-bg{position:absolute;inset:-6% 0;background:url('images/shoot2025/coaching-1-g.jpg') center/cover no-repeat;will-change:transform}
 .pain-ov{position:absolute;inset:0;background:linear-gradient(rgba(8,8,8,.65),rgba(8,8,8,.88))}
 .pain-content{position:relative;z-index:2;max-width:1000px;margin:0 auto}
 .pgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
@@ -295,7 +312,7 @@ noscript{}
 .sched-top{background:var(--c-bg-3);padding:16px 22px;display:flex;align-items:center;justify-content:space-between;color:#fff}
 .sched-top h3{font-size:17px;font-weight:700}
 .dtabs{display:flex;gap:3px;flex-wrap:wrap}
-.dt{padding:7px 15px;font-size:12px;font-weight:600;background:rgba(255,255,255,.08);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all .3s}
+.dt{min-height:44px;padding:7px 15px;font-size:12px;font-weight:600;background:rgba(255,255,255,.08);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:background .16s ease-out,color .16s ease-out}
 .dt.active{background:var(--accent);color:var(--c-yellow-ink)}
 .slist{padding:6px}
 .si{display:flex;align-items:center;padding:13px 16px;gap:12px;border-bottom:1px solid rgba(255,255,255,.05)}
@@ -374,11 +391,14 @@ noscript{}
 .cta-sec{position:relative;padding:80px 5%;text-align:center;overflow:hidden;background:var(--c-bg-3)}
 .cta-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center 30%, oklch(84% 0.16 95 / .1), transparent 60%)}
 .cta-in{position:relative;z-index:2;max-width:700px;margin:0 auto}
-.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 36px;font-size:16px;font-weight:700;text-decoration:none;transition:all .35s var(--ease);font-family:inherit;border:none;cursor:pointer}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 36px;font-size:16px;font-weight:700;text-decoration:none;transition:transform 150ms ease-out,box-shadow 150ms ease-out,background 150ms ease-out;font-family:inherit;border:none;cursor:pointer}
 .btn-primary{background:var(--c-yellow);color:var(--c-yellow-ink)}
-.btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 40px oklch(84% 0.16 95 / .35)}
 .btn-ghost{border:1px solid rgba(255,255,255,.28);color:var(--c-ink);background:rgba(255,255,255,.04)}
-.btn-ghost:hover{background:rgba(255,255,255,.1);transform:translateY(-3px)}
+@media(hover:hover) and (pointer:fine){
+  .btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 40px oklch(84% 0.16 95 / .35)}
+  .btn-ghost:hover{background:rgba(255,255,255,.1);transform:translateY(-3px)}
+}
+.btn:active{transform:scale(.97);transition-duration:120ms}
 .arbox-mobile{display:none;flex-direction:column;align-items:center;padding:20px 0;gap:12px}
 .quiet-link-plain{color:rgba(255,255,255,.55);font-size:13px;text-decoration:underline;text-underline-offset:3px}
 .quiet-link-plain:hover{color:#fff}
@@ -397,7 +417,7 @@ noscript{}
 .fb{max-width:1100px;margin:0 auto;padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .fcopy{font-size:11px;color:rgba(255,255,255,.15)}
 .fsoc{display:flex;gap:8px}
-.fsi{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;color:var(--c-ink-faint);text-decoration:none;transition:all .3s}
+.fsi{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;color:var(--c-ink-faint);text-decoration:none;transition:background .16s ease-out,color .16s ease-out}
 .fsi svg{width:14px;height:14px}
 .fsi:hover{background:var(--accent);border-color:var(--accent);color:#fff}
 @media(max-width:768px){.fg{grid-template-columns:1fr 1fr}}
@@ -424,11 +444,13 @@ noscript{}
 
 /* ============ MOBILE SCENE DEGRADE ============ */
 @media(max-width:768px){
-  .scene{height:102vh}
-  .scene--energy{height:112vh}
+  /* mobile pin runway: hero ~330vh (owner target 300-360vh), space/testimonial scenes shorter
+     since they don't need to hold a 5s clip, but still enough travel for the carousel + the
+     40%-progress auto-advance to feel deliberate rather than instant */
+  .scene{height:230vh}
+  .scene--arrival{height:330vh}
+  .scene--energy{height:200vh}
   .scene__content{padding-bottom:13vh}
-  @keyframes bg-scale-through{from{transform:scale(1.04)}to{transform:scale(1.14)}}
-  @keyframes bg-scale-in{from{transform:scale(1.1);opacity:.5}to{transform:scale(1.02);opacity:1}}
   .scene-index{top:7vh}
   .pgrid{grid-template-columns:1fr;gap:10px}
   .quote-stack{min-height:220px}
@@ -565,7 +587,7 @@ noscript{}
 <!-- 1 · ARRIVAL / HERO -->
 <section class="scene scene--arrival" id="s1">
   <div class="scene__sticky">
-    <video id="heroScrub" class="scene__bg scene__bg--video" muted loop playsinline preload="auto" poster="images/shoot2025/hero-cine-poster.jpg" aria-hidden="true">
+    <video id="heroScrub" data-scrub class="scene__bg scene__bg--video" muted loop playsinline preload="auto" poster="images/shoot2025/hero-cine-poster.jpg" aria-hidden="true">
       <source src="images/shoot2025/hero-cine.mp4" type="video/mp4">
     </video>
     <img class="scene__bg scene__bg--reduced" src="images/shoot2025/hero-cine-poster.jpg" alt="" aria-hidden="true" width="720" height="1280">
@@ -598,7 +620,7 @@ noscript{}
 
 <!-- PAIN → SOLUTION -->
 <section class="pain-sec" id="pain">
-  <div class="pain-bg"></div>
+  <div class="pain-bg" data-parallax="0.08"></div>
   <div class="pain-ov"></div>
   <div class="pain-content">
     <div class="sec-h reveal">
@@ -627,25 +649,38 @@ noscript{}
 <!-- STATS STRIP -->
 <section class="stats-strip">
   <div class="stats-grid">
-    <div class="stat-item reveal"><div class="stat-num">10</div><div class="stat-lbl">שנים של סטודיו</div></div>
-    <div class="stat-item reveal"><div class="stat-num">100+</div><div class="stat-lbl">שיעורים בשבוע</div></div>
-    <div class="stat-item reveal"><div class="stat-num">500+</div><div class="stat-lbl">מתאמנות</div></div>
+    <div class="stat-item reveal"><div class="stat-num" data-count-to="10">0</div><div class="stat-lbl">שנים של סטודיו</div></div>
+    <div class="stat-item reveal"><div class="stat-num" data-count-to="100" data-suffix="+">0</div><div class="stat-lbl">שיעורים בשבוע</div></div>
+    <div class="stat-item reveal"><div class="stat-num" data-count-to="500" data-suffix="+">0</div><div class="stat-lbl">מתאמנות</div></div>
   </div>
 </section>
 
-<!-- SPACES: 3 pinned scenes, each two beats — empty room (beat 1, ~first 40% of scroll)
-     crossfades to people training (beat 2). Never settles on the empty room. -->
+<!-- SPACES: 3 pinned scenes. Slide 1 of each carousel is the empty-room clip (vertically
+     scroll-scrubbed like the hero); slides 2+ are real training media, reached by horizontal
+     swipe/drag/arrows/keys. If nobody swipes by ~40% vertical progress, it auto-advances once —
+     the scene never settles on an empty room. -->
 <div id="spaces">
   <section class="scene scene--gym" id="s2">
-    <div class="scene-index"><b>01</b> / 03 — GYM</div>
     <div class="scene__sticky">
-      <video class="scene__bg scene__bg-room" autoplay muted loop playsinline preload="metadata" poster="images/shoot2025/room-gym-poster.jpg" aria-hidden="true">
-        <source src="images/shoot2025/room-gym.mp4" type="video/mp4">
-      </video>
-      <video class="scene__bg scene__bg-people scene__bg--video" autoplay muted loop playsinline preload="metadata" poster="images/shoot2025/gym-real-1-g-poster.jpg" aria-hidden="true">
-        <source src="images/shoot2025/gym-real-1-g.mp4" type="video/mp4">
-      </video>
-      <img class="scene__bg scene__bg-people scene__bg--reduced" src="images/shoot2025/gym-real-1-g-poster.jpg" alt="" aria-hidden="true" width="720" height="1280">
+      <div class="scene-index"><b>01</b> / 03 — GYM</div>
+      <div class="carousel" data-carousel="gym">
+        <div class="carousel__track" tabindex="0" role="group" aria-label="גלריית GYM — חלל, ואימוני כוח">
+          <div class="carousel__slide" role="group" aria-label="1 מתוך 3 — חלל ה-GYM הריק">
+            <video class="carousel__media" data-scrub muted loop playsinline preload="metadata" poster="images/shoot2025/room-gym-poster.jpg" aria-hidden="true">
+              <source src="images/shoot2025/room-gym.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="carousel__slide" role="group" aria-label="2 מתוך 3 — אימון כוח ב-GYM">
+            <video class="carousel__media" data-scrub data-lazy muted loop playsinline preload="none" poster="images/shoot2025/gym-real-1-g-poster.jpg" aria-hidden="true" data-src="images/shoot2025/gym-real-1-g.mp4"></video>
+          </div>
+          <div class="carousel__slide" role="group" aria-label="3 מתוך 3 — אימון כוח נוסף ב-GYM">
+            <video class="carousel__media" autoplay data-lazy muted loop playsinline preload="none" poster="images/shoot2025/gym-real-2-g-poster.jpg" aria-hidden="true" data-src="images/shoot2025/gym-real-2-g.mp4"></video>
+          </div>
+        </div>
+        <button class="carousel__arrow carousel__arrow--prev" type="button" aria-label="שקופית קודמת"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="carousel__arrow carousel__arrow--next" type="button" aria-label="שקופית הבאה"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="carousel__dots" role="tablist" aria-label="ניווט שקופיות GYM"></div>
+      </div>
       <div class="scene__tint"></div>
       <div class="scene__content">
         <div class="scene__eyebrow">החלל הראשון</div>
@@ -659,12 +694,26 @@ noscript{}
   </section>
 
   <section class="scene scene--move" id="s3">
-    <div class="scene-index"><b>02</b> / 03 — MOVE</div>
     <div class="scene__sticky">
-      <video class="scene__bg scene__bg-room" autoplay muted loop playsinline preload="metadata" poster="images/shoot2025/room-move-poster.jpg" aria-hidden="true">
-        <source src="images/shoot2025/room-move.mp4" type="video/mp4">
-      </video>
-      <img class="scene__bg scene__bg-people" src="images/shoot2025/move-new-1-g.jpg" alt="" aria-hidden="true" width="1920" height="1280">
+      <div class="scene-index"><b>02</b> / 03 — MOVE</div>
+      <div class="carousel" data-carousel="move">
+        <div class="carousel__track" tabindex="0" role="group" aria-label="גלריית MOVE — חלל, ושיעורים">
+          <div class="carousel__slide" role="group" aria-label="1 מתוך 3 — חלל ה-MOVE הריק">
+            <video class="carousel__media" data-scrub muted loop playsinline preload="metadata" poster="images/shoot2025/room-move-poster.jpg" aria-hidden="true">
+              <source src="images/shoot2025/room-move.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="carousel__slide" role="group" aria-label="2 מתוך 3 — שיעור MOVE">
+            <img class="carousel__media" data-lazy alt="שיעור MOVE בסטודיו STEPS" aria-hidden="true" width="1920" height="1280" data-src="images/shoot2025/move-new-1-g.jpg">
+          </div>
+          <div class="carousel__slide" role="group" aria-label="3 מתוך 3 — שיעור MOVE נוסף">
+            <img class="carousel__media" data-lazy alt="שיעור MOVE בסטודיו STEPS" aria-hidden="true" width="1920" height="1280" data-src="images/shoot2025/move-new-2.jpg">
+          </div>
+        </div>
+        <button class="carousel__arrow carousel__arrow--prev" type="button" aria-label="שקופית קודמת"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="carousel__arrow carousel__arrow--next" type="button" aria-label="שקופית הבאה"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="carousel__dots" role="tablist" aria-label="ניווט שקופיות MOVE"></div>
+      </div>
       <div class="scene__tint"></div>
       <div class="scene__content">
         <div class="scene__eyebrow">החלל השני</div>
@@ -678,12 +727,29 @@ noscript{}
   </section>
 
   <section class="scene scene--pilates" id="s4">
-    <div class="scene-index"><b>03</b> / 03 — REFORMER PILATES</div>
     <div class="scene__sticky">
-      <video class="scene__bg scene__bg-room" autoplay muted loop playsinline preload="metadata" poster="images/shoot2025/room-pilates-poster.jpg" aria-hidden="true">
-        <source src="images/shoot2025/room-pilates.mp4" type="video/mp4">
-      </video>
-      <img class="scene__bg scene__bg-people" src="images/shoot2025/pilates-main-g.jpg" alt="" aria-hidden="true" width="1280" height="1920">
+      <div class="scene-index"><b>03</b> / 03 — REFORMER PILATES</div>
+      <div class="carousel" data-carousel="pilates">
+        <div class="carousel__track" tabindex="0" role="group" aria-label="גלריית REFORMER PILATES — חלל, ואימונים">
+          <div class="carousel__slide" role="group" aria-label="1 מתוך 4 — חלל הרפורמר הריק">
+            <video class="carousel__media" data-scrub muted loop playsinline preload="metadata" poster="images/shoot2025/room-pilates-poster.jpg" aria-hidden="true">
+              <source src="images/shoot2025/room-pilates.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="carousel__slide" role="group" aria-label="2 מתוך 4 — אימון רפורמר פילאטיס">
+            <img class="carousel__media" data-lazy alt="אימון רפורמר פילאטיס בסטודיו STEPS" aria-hidden="true" width="1280" height="1920" data-src="images/shoot2025/pilates-main-g.jpg">
+          </div>
+          <div class="carousel__slide" role="group" aria-label="3 מתוך 4 — אימון רפורמר פילאטיס נוסף">
+            <img class="carousel__media" data-lazy alt="אימון רפורמר פילאטיס בסטודיו STEPS" aria-hidden="true" width="1280" height="1920" data-src="images/shoot2025/pilates-alt.jpg">
+          </div>
+          <div class="carousel__slide" role="group" aria-label="4 מתוך 4 — ליווי אישי בשיעור פילאטיס">
+            <img class="carousel__media" data-lazy alt="מאמנת מלווה מתאמנת בשיעור פילאטיס" aria-hidden="true" width="1280" height="1920" data-src="images/shoot2025/coaching-3.jpg">
+          </div>
+        </div>
+        <button class="carousel__arrow carousel__arrow--prev" type="button" aria-label="שקופית קודמת"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="carousel__arrow carousel__arrow--next" type="button" aria-label="שקופית הבאה"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="carousel__dots" role="tablist" aria-label="ניווט שקופיות REFORMER PILATES"></div>
+      </div>
       <div class="scene__tint"></div>
       <div class="scene__content">
         <div class="scene__eyebrow">החלל השלישי</div>
@@ -725,7 +791,7 @@ noscript{}
 <!-- SCHEDULE -->
 <section class="sched-sec" id="sched">
   <div class="sec-h reveal"><div class="sec-tag">מערכת שיעורים</div><h2 class="sec-title">השיעורים של היום</h2><p class="sec-sub">מתעדכנת אוטומטית</p></div>
-  <div class="sched">
+  <div class="sched reveal">
     <div class="sched-top"><h3>מערכת שעות</h3><div class="dtabs"><button class="dt active">א׳</button><button class="dt">ב׳</button><button class="dt">ג׳</button><button class="dt">ד׳</button><button class="dt">ה׳</button><button class="dt">ו׳</button></div></div>
     <div class="slist">
       <div class="sfn" id="sched-loading">טוען מערכת שעות...</div>
@@ -1008,7 +1074,7 @@ if(!supportsScrollTimeline){
 
 // Scene reveal (IntersectionObserver) — drives .in-view for eyebrow/body/tags/ctas/proof
 // (title on gym/move/pilates is driven continuously by the rAF engine below instead).
-var scenes=document.querySelectorAll('.scene');
+var scenes=[].slice.call(document.querySelectorAll('.scene')); // real array — registerScrub() needs .indexOf
 var ioScene=new IntersectionObserver(function(entries){
   entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('in-view'); });
 },{threshold:0.15,rootMargin:'-10%'});
@@ -1022,33 +1088,209 @@ var ioReveal=new IntersectionObserver(function(entries){
 },{threshold:0.15,rootMargin:'-10%'});
 document.querySelectorAll('.reveal').forEach(function(el){ioReveal.observe(el)});
 
-// Damped scroll-progress engine — the aliveness primitive (apple-design-motion skill).
-// Smooths the READ of scroll position only (never preventDefault, never hijacks scroll).
-// Writes --p (full pin-range progress, drives .scene__bg scale 1.18→1.0) and
-// --pt (early-saturating progress, drives .scene__title opacity+translateY) per scene.
+// ============================================================================
+// UNIFIED SCROLL ENGINE — one damped rAF loop drives EVERYTHING scroll-tied:
+// per-scene --p/--pt (background scale, title reveal), every data-scrub video's
+// currentTime (hero + room clips + gym-real-1-g), carousel auto-advance, and the
+// pain-section parallax layer. Single source of truth, single loop, no per-frame
+// layout reads (geometry is cached in measure(), recomputed on resize only).
+// ============================================================================
+var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 (function(){
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduceMotion){
-    scenes.forEach(function(s){ s.style.setProperty('--p','1'); s.style.setProperty('--pt','1'); });
+  function mapRange(v,a,b,c,d){ var t=Math.max(0,Math.min(1,(v-a)/(b-a))); return c+t*(d-c); }
+
+  // ---- geometry cache (recomputed on resize/orientation/load, never inside tick) ----
+  var sceneData = [], parallaxEls = [];
+  function measure(){
+    var vh = window.innerHeight;
+    sceneData = scenes.map(function(s){
+      var start = s.offsetTop, end = start + s.offsetHeight - vh;
+      return { el:s, start:start, end:Math.max(end, start+1) };
+    });
+    parallaxEls = [].slice.call(document.querySelectorAll('[data-parallax]')).map(function(el){
+      return { el:el, top:el.offsetTop, h:el.offsetHeight, speed:parseFloat(el.dataset.parallax)||0.08 };
+    });
+  }
+  measure();
+  var resizeT=null;
+  window.addEventListener('resize', function(){ clearTimeout(resizeT); resizeT=setTimeout(measure,150); });
+  window.addEventListener('orientationchange', function(){ setTimeout(measure,250); });
+  window.addEventListener('load', measure);
+
+  if (REDUCE){
+    sceneData.forEach(function(d){ d.el.style.setProperty('--p','1'); d.el.style.setProperty('--pt','1'); });
+    // no scrubbing, no autoplay ambient loops — every video[autoplay] just shows its poster
+    document.querySelectorAll('video[autoplay]').forEach(function(v){ v.removeAttribute('autoplay'); v.pause(); });
     return;
   }
+
+  // ---- scroll-scrub video registry ----
+  var scrubs = [];
+  function registerScrub(video){
+    var scene = video.closest('.scene');
+    var idx = scenes.indexOf(scene);
+    if (idx === -1) return;
+    var state = { video:video, sceneIdx:idx, dur:0, primed:false };
+    function prime(){
+      if (state.primed) return;
+      var pr = video.play();
+      if (pr && pr.then) pr.then(function(){ video.pause(); video.currentTime=0; state.primed=true; }).catch(function(){});
+      else { try { video.pause(); state.primed=true; } catch(e){} }
+    }
+    function onMeta(){ state.dur = video.duration||0; prime(); }
+    video.addEventListener('loadedmetadata', onMeta);
+    if (video.readyState >= 1) onMeta();
+    ['touchstart','pointerdown','wheel','keydown'].forEach(function(ev){
+      window.addEventListener(ev, prime, {once:true, passive:true});
+    });
+    scrubs.push(state);
+  }
+  document.querySelectorAll('video[data-scrub]').forEach(registerScrub);
+  window.__registerScrub = registerScrub; // late-bound: carousel lazy-load calls this for slide 2+ scrub videos
+
+  // ---- damped global scroll cursor (single lerp — every scene reads off the same lag) ----
   var targetScroll = window.scrollY, smoothed = window.scrollY;
-  var DAMPING = 0.1;
-  function mapRange(v,a,b,c,d){ var t=Math.max(0,Math.min(1,(v-a)/(b-a))); return c+t*(d-c); }
+  var DAMPING = 0.07; // lower = heavier/slower feel (owner asked for "slow, heavy, controlled")
   window.addEventListener('scroll', function(){ targetScroll = window.scrollY; }, {passive:true});
+
+  var FRAME = 1/28; // ~1 video frame at ~28fps — skip currentTime writes smaller than this
+  var pByScene = [];
   function tick(){
     smoothed += (targetScroll - smoothed) * DAMPING;
-    var vh = window.innerHeight;
-    scenes.forEach(function(s){
-      var start = s.offsetTop, end = start + s.offsetHeight - vh;
-      var p = mapRange(smoothed, start, Math.max(end, start+1), 0, 1);
-      var pt = Math.min(1, p/0.35);
-      s.style.setProperty('--p', p.toFixed(3));
-      s.style.setProperty('--pt', pt.toFixed(3));
+    sceneData.forEach(function(d,i){
+      var p = mapRange(smoothed, d.start, d.end, 0, 1);
+      pByScene[i] = p;
+      d.el.style.setProperty('--p', p.toFixed(3));
+      d.el.style.setProperty('--pt', Math.min(1, p/0.35).toFixed(3));
+      if (d.el._carousel) d.el._carousel.onProgress(p);
+    });
+    scrubs.forEach(function(st){
+      if (!st.dur || st.video.readyState < 1) return;
+      var t = pByScene[st.sceneIdx] * st.dur;
+      if (Math.abs(st.video.currentTime - t) > FRAME) { try { st.video.currentTime = t; } catch(e){} }
+    });
+    parallaxEls.forEach(function(pe){
+      var mid = pe.top + pe.h/2, viewMid = smoothed + window.innerHeight/2;
+      pe.el.style.transform = 'translateY(' + ((viewMid - mid) * pe.speed).toFixed(1) + 'px)';
     });
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
+})();
+
+// ============================================================================
+// SPACE CAROUSELS — native horizontal scroll-snap (real touch swipe, not hijacked).
+// Track is forced ltr so scrollLeft math stays predictable regardless of page dir.
+// ============================================================================
+(function(){
+  function initCarousel(root){
+    var track = root.querySelector('.carousel__track');
+    var slides = [].slice.call(root.querySelectorAll('.carousel__slide'));
+    var dotsWrap = root.querySelector('.carousel__dots');
+    var prevBtn = root.querySelector('.carousel__arrow--prev');
+    var nextBtn = root.querySelector('.carousel__arrow--next');
+    var scene = root.closest('.scene');
+    var current = 0, userSwiped = false, autoAdvanced = false;
+
+    slides.forEach(function(_,i){
+      var d = document.createElement('button');
+      d.type = 'button';
+      d.className = 'carousel__dot' + (i===0?' active':'');
+      d.setAttribute('aria-label','שקופית '+(i+1)+' מתוך '+slides.length);
+      d.addEventListener('click', function(){ userSwiped = true; goTo(i); });
+      dotsWrap.appendChild(d);
+    });
+    var dots = [].slice.call(dotsWrap.children);
+
+    function goTo(i){
+      i = Math.max(0, Math.min(slides.length-1, i));
+      track.scrollTo({ left: i*track.clientWidth, behavior: REDUCE ? 'auto' : 'smooth' });
+    }
+    if(prevBtn) prevBtn.addEventListener('click', function(){ userSwiped = true; goTo(current-1); });
+    if(nextBtn) nextBtn.addEventListener('click', function(){ userSwiped = true; goTo(current+1); });
+
+    track.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowLeft'){ userSwiped = true; goTo(current-1); e.preventDefault(); }
+      if (e.key === 'ArrowRight'){ userSwiped = true; goTo(current+1); e.preventDefault(); }
+    });
+
+    track.addEventListener('scroll', function(){
+      var idx = Math.round(track.scrollLeft / track.clientWidth);
+      if (idx !== current){ current = idx; dots.forEach(function(d,i){ d.classList.toggle('active', i===current); }); }
+    }, {passive:true});
+    track.addEventListener('wheel', function(){ userSwiped = true; }, {passive:true});
+
+    // pointer-drag for mouse users (touch already scrolls natively via overflow-x)
+    var dragging=false, startX=0, startScroll=0;
+    track.addEventListener('pointerdown', function(e){
+      userSwiped = true;
+      if (e.pointerType === 'touch') return;
+      dragging = true; startX = e.clientX; startScroll = track.scrollLeft;
+      try{ track.setPointerCapture(e.pointerId); }catch(err){}
+    });
+    track.addEventListener('pointermove', function(e){ if (dragging) track.scrollLeft = startScroll - (e.clientX - startX); });
+    ['pointerup','pointercancel'].forEach(function(ev){ track.addEventListener(ev, function(){ dragging = false; }); });
+
+    // lazy-load slide 2+ media just before it's needed; register scrub if applicable
+    if ('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (!e.isIntersecting) return;
+          var media = e.target.querySelector('[data-lazy]');
+          if (!media || !media.dataset.src) return;
+          media.src = media.dataset.src;
+          media.removeAttribute('data-lazy');
+          if (media.tagName === 'VIDEO'){
+            media.load();
+            var p = media.play(); if (p && p.catch) p.catch(function(){});
+            if (media.hasAttribute('data-scrub') && window.__registerScrub) window.__registerScrub(media);
+          }
+        });
+      }, { root: track, threshold: 0.5 });
+      slides.forEach(function(s){ io.observe(s); });
+    } else {
+      // no IO support: just load everything up front
+      slides.forEach(function(s){
+        var media = s.querySelector('[data-lazy]');
+        if (media && media.dataset.src){ media.src = media.dataset.src; media.removeAttribute('data-lazy'); if (media.tagName==='VIDEO') media.load(); }
+      });
+    }
+
+    if (scene) scene._carousel = {
+      onProgress: function(p){
+        if (REDUCE || userSwiped || autoAdvanced || current !== 0) return;
+        if (p > 0.4){ autoAdvanced = true; goTo(1); }
+      }
+    };
+  }
+  document.querySelectorAll('[data-carousel]').forEach(initCarousel);
+})();
+
+// ============================================================================
+// STATS COUNT-UP — runs once when the strip enters view, respects reduced-motion.
+// ============================================================================
+(function(){
+  var nums = document.querySelectorAll('.stat-num[data-count-to]');
+  if (!nums.length) return;
+  function animate(el){
+    var to = parseInt(el.dataset.countTo,10) || 0;
+    var suffix = el.dataset.suffix || '';
+    if (REDUCE){ el.textContent = to + suffix; return; }
+    var start = null, duration = 1100;
+    function step(ts){
+      if (start === null) start = ts;
+      var t = Math.min(1, (ts-start)/duration);
+      var eased = 1 - Math.pow(1-t, 3);
+      el.textContent = Math.round(eased*to) + suffix;
+      if (t < 1) requestAnimationFrame(step); else el.textContent = to + suffix;
+    }
+    requestAnimationFrame(step);
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting){ animate(e.target); io.unobserve(e.target); } });
+  }, {threshold:0.5});
+  nums.forEach(function(el){ io.observe(el); });
 })();
 
 // Navbar solid-on-scroll
@@ -1186,62 +1428,6 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
     vids.forEach(function(v){io.observe(v);});
   }
   document.addEventListener('visibilitychange',function(){ if(!document.hidden) vids.forEach(kick); });
-})();
-</script>
-<script>
-/* HERO SCROLL-SCRUB — video frozen; its playhead follows scroll through the hero scene.
-   Encoded with a 5-frame keyframe interval so seeking stays smooth.
-   iOS needs the element "primed" (play->pause) before currentTime seeking works. */
-(function(){
-  var v = document.getElementById('heroScrub');
-  if (!v) return;
-  var scene = v.closest('.scene');
-  if (!scene) return;
-
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce) { v.removeAttribute('loop'); return; }  /* poster/first frame only */
-
-  var primed = false, target = 0, current = 0, raf = null, dur = 0;
-
-  function prime(){
-    if (primed) return;
-    var pr = v.play();
-    if (pr && pr.then) pr.then(function(){ v.pause(); v.currentTime = 0; primed = true; })
-                        .catch(function(){ /* fall back below */ });
-    else { try { v.pause(); primed = true; } catch(e){} }
-  }
-  v.addEventListener('loadedmetadata', function(){ dur = v.duration || 0; prime(); });
-  ['touchstart','pointerdown','wheel','keydown'].forEach(function(ev){
-    window.addEventListener(ev, prime, {once:true, passive:true});
-  });
-
-  function progress(){
-    var r = scene.getBoundingClientRect();
-    var travel = r.height - window.innerHeight;   /* scrollable distance inside the pin */
-    if (travel <= 0) return 0;
-    var p = -r.top / travel;
-    return p < 0 ? 0 : (p > 1 ? 1 : p);
-  }
-
-  function tick(){
-    current += (target - current) * 0.12;          /* damped follow — no hard snapping */
-    if (dur && v.readyState >= 1) {
-      var t = current * dur;
-      if (Math.abs(v.currentTime - t) > 0.012) { try { v.currentTime = t; } catch(e){} }
-    }
-    if (Math.abs(target - current) > 0.0005) { raf = requestAnimationFrame(tick); }
-    else { raf = null; current = target; }
-  }
-
-  function onScroll(){
-    target = progress();
-    if (!primed) prime();
-    if (raf === null) raf = requestAnimationFrame(tick);
-  }
-
-  window.addEventListener('scroll', onScroll, {passive:true});
-  window.addEventListener('resize', onScroll, {passive:true});
-  onScroll();
 })();
 </script>
 </body>
