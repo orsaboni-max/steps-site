@@ -107,9 +107,6 @@ a{color:inherit}
 /* ============ SCENE FRAMEWORK (pinned cinematic scenes) ============ */
 .scene{position:relative;height:190vh}
 .scene__sticky{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
-.scene--arrival .scene__bg--video{animation:hero-breathe 18s ease-in-out infinite alternate}
-@keyframes hero-breathe{from{transform:scale(1.06)}to{transform:scale(1.14)}}
-@media(prefers-reduced-motion:reduce){.scene--arrival .scene__bg--video{animation:none}}
 .scene__bg{position:absolute;inset:-6% -6%;background-size:cover;background-position:center;transform:scale(calc(1.18 - 0.18 * var(--p, 0)));will-change:transform}
 video.scene__bg,img.scene__bg{object-fit:cover;object-position:center;width:100%;height:100%}
 .scene__bg--reduced{display:none}
@@ -568,7 +565,7 @@ noscript{}
 <!-- 1 · ARRIVAL / HERO -->
 <section class="scene scene--arrival" id="s1">
   <div class="scene__sticky">
-    <video class="scene__bg scene__bg--video" autoplay muted loop playsinline preload="auto" poster="images/shoot2025/hero-cine-poster.jpg" aria-hidden="true">
+    <video id="heroScrub" class="scene__bg scene__bg--video" muted loop playsinline preload="auto" poster="images/shoot2025/hero-cine-poster.jpg" aria-hidden="true">
       <source src="images/shoot2025/hero-cine.mp4" type="video/mp4">
     </video>
     <img class="scene__bg scene__bg--reduced" src="images/shoot2025/hero-cine-poster.jpg" alt="" aria-hidden="true" width="720" height="1280">
@@ -1189,6 +1186,62 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
     vids.forEach(function(v){io.observe(v);});
   }
   document.addEventListener('visibilitychange',function(){ if(!document.hidden) vids.forEach(kick); });
+})();
+</script>
+<script>
+/* HERO SCROLL-SCRUB — video frozen; its playhead follows scroll through the hero scene.
+   Encoded with a 5-frame keyframe interval so seeking stays smooth.
+   iOS needs the element "primed" (play->pause) before currentTime seeking works. */
+(function(){
+  var v = document.getElementById('heroScrub');
+  if (!v) return;
+  var scene = v.closest('.scene');
+  if (!scene) return;
+
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { v.removeAttribute('loop'); return; }  /* poster/first frame only */
+
+  var primed = false, target = 0, current = 0, raf = null, dur = 0;
+
+  function prime(){
+    if (primed) return;
+    var pr = v.play();
+    if (pr && pr.then) pr.then(function(){ v.pause(); v.currentTime = 0; primed = true; })
+                        .catch(function(){ /* fall back below */ });
+    else { try { v.pause(); primed = true; } catch(e){} }
+  }
+  v.addEventListener('loadedmetadata', function(){ dur = v.duration || 0; prime(); });
+  ['touchstart','pointerdown','wheel','keydown'].forEach(function(ev){
+    window.addEventListener(ev, prime, {once:true, passive:true});
+  });
+
+  function progress(){
+    var r = scene.getBoundingClientRect();
+    var travel = r.height - window.innerHeight;   /* scrollable distance inside the pin */
+    if (travel <= 0) return 0;
+    var p = -r.top / travel;
+    return p < 0 ? 0 : (p > 1 ? 1 : p);
+  }
+
+  function tick(){
+    current += (target - current) * 0.12;          /* damped follow — no hard snapping */
+    if (dur && v.readyState >= 1) {
+      var t = current * dur;
+      if (Math.abs(v.currentTime - t) > 0.012) { try { v.currentTime = t; } catch(e){} }
+    }
+    if (Math.abs(target - current) > 0.0005) { raf = requestAnimationFrame(tick); }
+    else { raf = null; current = target; }
+  }
+
+  function onScroll(){
+    target = progress();
+    if (!primed) prime();
+    if (raf === null) raf = requestAnimationFrame(tick);
+  }
+
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+  onScroll();
 })();
 </script>
 </body>
