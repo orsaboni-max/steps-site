@@ -690,15 +690,15 @@ html.seq-on .scene--arrival .scene__bg--video{display:none}
       <div class="carousel" data-carousel="gym">
         <div class="carousel__track" tabindex="0" role="group" aria-label="גלריית GYM — חלל, ואימוני כוח">
           <div class="carousel__slide" role="group" aria-label="1 מתוך 3 — חלל ה-GYM הריק">
-            <video autoplay class="carousel__media" muted loop playsinline preload="metadata" poster="images/shoot2025/room-gym-poster.jpg" aria-hidden="true">
+            <video class="carousel__media" muted loop playsinline preload="metadata" poster="images/shoot2025/room-gym-poster.jpg" aria-hidden="true">
               <source src="images/shoot2025/room-gym.mp4" type="video/mp4">
             </video>
           </div>
           <div class="carousel__slide" role="group" aria-label="2 מתוך 3 — אימון כוח ב-GYM">
-            <video autoplay class="carousel__media" data-lazy muted loop playsinline preload="none" poster="images/shoot2025/gym-real-1-g-poster.jpg" aria-hidden="true" data-src="images/shoot2025/gym-real-1-g.mp4"></video>
+            <video class="carousel__media" data-lazy muted loop playsinline preload="none" poster="images/shoot2025/gym-real-1-g-poster.jpg" aria-hidden="true" data-src="images/shoot2025/gym-real-1-g.mp4"></video>
           </div>
           <div class="carousel__slide" role="group" aria-label="3 מתוך 3 — אימון כוח נוסף ב-GYM">
-            <video class="carousel__media" autoplay data-lazy muted loop playsinline preload="none" poster="images/shoot2025/gym-real-2-g-poster.jpg" aria-hidden="true" data-src="images/shoot2025/gym-real-2-g.mp4"></video>
+            <video class="carousel__media" data-lazy muted loop playsinline preload="none" poster="images/shoot2025/gym-real-2-g-poster.jpg" aria-hidden="true" data-src="images/shoot2025/gym-real-2-g.mp4"></video>
           </div>
         </div>
         <button class="carousel__arrow carousel__arrow--prev" type="button" aria-label="שקופית קודמת"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -723,12 +723,12 @@ html.seq-on .scene--arrival .scene__bg--video{display:none}
       <div class="carousel" data-carousel="move">
         <div class="carousel__track" tabindex="0" role="group" aria-label="גלריית MOVE — חלל, ושיעורים">
           <div class="carousel__slide" role="group" aria-label="1 מתוך 3 — חלל ה-MOVE הריק">
-            <video autoplay class="carousel__media" muted loop playsinline preload="metadata" poster="images/shoot2025/room-move-poster.jpg" aria-hidden="true">
+            <video class="carousel__media" muted loop playsinline preload="metadata" poster="images/shoot2025/room-move-poster.jpg" aria-hidden="true">
               <source src="images/shoot2025/room-move.mp4" type="video/mp4">
             </video>
           </div>
           <div class="carousel__slide" role="group" aria-label="2 מתוך 3 — שיעור MOVE">
-            <video autoplay class="carousel__media" data-lazy muted loop playsinline preload="none" poster="images/shoot2025/class-movecls-poster.jpg" aria-hidden="true" data-src="images/shoot2025/class-movecls.mp4"></video>
+            <video class="carousel__media" data-lazy muted loop playsinline preload="none" poster="images/shoot2025/class-movecls-poster.jpg" aria-hidden="true" data-src="images/shoot2025/class-movecls.mp4"></video>
           </div>
           <div class="carousel__slide" role="group" aria-label="3 מתוך 3 — שיעור MOVE נוסף">
             <img class="carousel__media" data-lazy alt="שיעור MOVE בסטודיו STEPS" aria-hidden="true" width="1920" height="1280" data-src="images/shoot2025/move-new-2.jpg">
@@ -756,12 +756,12 @@ html.seq-on .scene--arrival .scene__bg--video{display:none}
       <div class="carousel" data-carousel="pilates">
         <div class="carousel__track" tabindex="0" role="group" aria-label="גלריית REFORMER PILATES — חלל, ואימונים">
           <div class="carousel__slide" role="group" aria-label="1 מתוך 3 — חלל הרפורמר הריק">
-            <video autoplay class="carousel__media" muted loop playsinline preload="metadata" poster="images/shoot2025/room-pilates-poster.jpg" aria-hidden="true">
+            <video class="carousel__media" muted loop playsinline preload="metadata" poster="images/shoot2025/room-pilates-poster.jpg" aria-hidden="true">
               <source src="images/shoot2025/room-pilates.mp4" type="video/mp4">
             </video>
           </div>
           <div class="carousel__slide" role="group" aria-label="2 מתוך 3 — אימון רפורמר פילאטיס">
-            <video autoplay class="carousel__media" data-lazy muted loop playsinline preload="none" poster="images/shoot2025/class-pilcls-poster.jpg" aria-hidden="true" data-src="images/shoot2025/class-pilcls.mp4"></video>
+            <video class="carousel__media" data-lazy muted loop playsinline preload="none" poster="images/shoot2025/class-pilcls-poster.jpg" aria-hidden="true" data-src="images/shoot2025/class-pilcls.mp4"></video>
           </div>
           <div class="carousel__slide" role="group" aria-label="3 מתוך 3 — אימון רפורמר פילאטיס נוסף">
             <img class="carousel__media" data-lazy alt="אימון רפורמר פילאטיס בסטודיו STEPS" aria-hidden="true" width="1280" height="1920" data-src="images/shoot2025/pilates-alt.jpg">
@@ -1202,11 +1202,19 @@ var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (dh !== lastDocH) { lastDocH = dh; measure(); }
     }
     smoothed += (targetScroll - smoothed) * DAMPING;
+    var vhNow = window.innerHeight;
     sceneData.forEach(function(d,i){
       var p = mapRange(smoothed, d.start, d.end, 0, 1);
       pByScene[i] = p;
-      d.el.style.setProperty('--p', p.toFixed(3));
-      d.el.style.setProperty('--pt', Math.min(1, p/0.35).toFixed(3));
+      // near-viewport only: writing --p on far-off scenes costs style+paint for nothing
+      var near = (targetScroll + vhNow*1.2 > d.start) && (targetScroll - vhNow*0.6 < d.end + vhNow);
+      if (!near) return;
+      var ps = p.toFixed(3);
+      if (d._lastP !== ps) {
+        d._lastP = ps;
+        d.el.style.setProperty('--p', ps);
+        d.el.style.setProperty('--pt', Math.min(1, p/0.35).toFixed(3));
+      }
       if (d.el._carousel) d.el._carousel.onProgress(p);
     });
     scrubs.forEach(function(st){
@@ -1223,8 +1231,10 @@ var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       window.__heroSeq(a0 ? Math.max(0, Math.min(1, (targetScroll - a0.start) / (a0.end - a0.start))) : 0);
     }
     parallaxEls.forEach(function(pe){
-      var mid = pe.top + pe.h/2, viewMid = smoothed + window.innerHeight/2;
-      pe.el.style.transform = 'translateY(' + ((viewMid - mid) * pe.speed).toFixed(1) + 'px)';
+      if (pe.top > targetScroll + vhNow || pe.top + pe.h < targetScroll) return;
+      var mid = pe.top + pe.h/2, viewMid = smoothed + vhNow/2;
+      var ty = ((viewMid - mid) * pe.speed).toFixed(1);
+      if (pe._last !== ty) { pe._last = ty; pe.el.style.transform = 'translateY(' + ty + 'px)'; }
     });
     requestAnimationFrame(tick);
   }
@@ -1507,43 +1517,80 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
 })();
 </script>
 <script>
-/* HERO FRAME SEQUENCE — 62 stills painted to canvas on raw scroll.
-   Video seeking cannot keep up with 60fps scroll (measured: 98% of frames stalled),
-   so the hero uses pre-decoded images: drawImage is synchronous and never waits. */
+/* HERO FRAME SEQUENCE — frames are decoded to ImageBitmaps up front.
+   Plain <img> + drawImage decodes lazily on first paint, which produced 600ms+
+   long tasks mid-scroll (measured). ImageBitmap is already decoded, so each
+   draw is a straight blit. */
 (function(){
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var N=51, BASE='images/shoot2025/heroseq/f', cv=document.getElementById('heroCanvas');
   if(!cv) return;
-  var ctx=cv.getContext('2d',{alpha:false}), imgs=new Array(N), ready=false, lastIdx=-1, p=0, queued=false;
+  var ctx=cv.getContext('2d',{alpha:false, desynchronized:true});
+  var bmps=new Array(N), ready=false, lastIdx=-1, p=0;
+  var SRC_W=620, cw=0, ch=0;
 
   function fit(){
-    var dpr=Math.min(window.devicePixelRatio||1,2), r=cv.getBoundingClientRect();
-    var w=Math.round(r.width*dpr), h=Math.round(r.height*dpr);
-    if(w&&h&&(cv.width!==w||cv.height!==h)){ cv.width=w; cv.height=h; lastIdx=-1; }
+    var r=cv.getBoundingClientRect();
+    if(!r.width||!r.height) return;
+    var w=Math.min(SRC_W, Math.round(r.width*Math.min(window.devicePixelRatio||1,2)));
+    var h=Math.round(w*r.height/r.width);
+    if(cv.width!==w||cv.height!==h){ cv.width=w; cv.height=h; cw=w; ch=h; lastIdx=-1; }
   }
   function paint(){
     if(!ready) return;
     var idx=Math.round(p*(N-1)); if(idx<0)idx=0; if(idx>N-1)idx=N-1;
     if(idx===lastIdx) return;
-    var im=imgs[idx]; if(!im) return;
-    fit();
-    var s=Math.max(cv.width/im.naturalWidth, cv.height/im.naturalHeight);
-    var dw=im.naturalWidth*s, dh=im.naturalHeight*s;
-    ctx.drawImage(im,(cv.width-dw)/2,(cv.height-dh)*0.26,dw,dh);
+    var im=bmps[idx]; if(!im) return;
+    var sc=Math.max(cw/im.width, ch/im.height);
+    var dw=im.width*sc, dh=im.height*sc;
+    ctx.drawImage(im,(cw-dw)/2,(ch-dh)*0.26,dw,dh);
     lastIdx=idx;
   }
-  window.__heroSeq=function(v){ p=v; paint(); };  /* paint inline — we are already inside the engine rAF */
-  window.addEventListener('resize',function(){ lastIdx=-1; fit(); paint(); },{passive:true});
+  var lastPaint=0;
+  window.__heroSeq=function(v){
+    p=v;
+    var now=performance.now();
+    if(now-lastPaint < 30) return;   // source is 24fps — painting at 60 costs double for nothing
+    lastPaint=now; paint();
+  };
+  window.addEventListener('resize',function(){ fit(); lastIdx=-1; paint(); },{passive:true});
 
-  var done=0;
+  var url=function(i){ return BASE+String(i).padStart(3,'0')+'.jpg'; };
+  var jobs=[];
   for(var i=1;i<=N;i++)(function(i){
-    var im=new Image(); im.decoding='async';
-    im.onload=im.onerror=function(){
-      imgs[i-1]=im.naturalWidth?im:null; done++;
-      if(done===N){ ready=true; document.documentElement.classList.add('seq-on'); lastIdx=-1; fit(); paint(); }
-    };
-    im.src=BASE+String(i).padStart(3,'0')+'.jpg';
+    jobs.push(fetch(url(i)).then(function(r){ return r.blob(); })
+      .then(function(bl){ return createImageBitmap(bl); })
+      .then(function(bm){ bmps[i-1]=bm; })
+      .catch(function(){}));
   })(i);
+  Promise.all(jobs).then(function(){
+    if(!bmps.filter(Boolean).length) return;
+    ready=true;
+    document.documentElement.classList.add('seq-on');
+    fit(); lastIdx=-1; paint();
+  });
+})();
+</script>
+<script>
+/* PLAYBACK BUDGET — only clips actually on screen may decode.
+   Measured: 6 videos were decoding at once (all offscreen), median frame time 41ms
+   on a 4x-throttled phone. Pausing offscreen media is the single biggest win. */
+(function(){
+  var vids=[].slice.call(document.querySelectorAll('video')).filter(function(v){ return v.id!=='heroScrub'; });
+  if(!vids.length) return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function play(v){ if(reduce) return; var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      var v=e.target;
+      if(e.isIntersecting){ if(v.dataset.src && !v.src){ v.src=v.dataset.src; v.load(); } play(v); }
+      else if(!v.paused){ v.pause(); }
+    });
+  },{threshold:0.12, rootMargin:'10% 0px'});
+  vids.forEach(function(v){ io.observe(v); });
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden) vids.forEach(function(v){ if(!v.paused) v.pause(); });
+  });
 })();
 </script>
 </body>
