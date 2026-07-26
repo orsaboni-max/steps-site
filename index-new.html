@@ -58,7 +58,7 @@ Sticky choreography disabled on very short viewports + reduced-motion.
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-html,body{overflow-x:hidden;max-width:100vw;background:var(--c-bg)}
+html,body{overflow-x:clip;max-width:100vw;background:var(--c-bg)}
 body{font-family:'Heebo',sans-serif;color:var(--c-ink);-webkit-font-smoothing:antialiased;font-weight:300}
 img{max-width:100%;height:auto;display:block}
 h1,h2,h3{font-weight:900;line-height:0.95;letter-spacing:-0.01em}
@@ -260,7 +260,7 @@ video.scene__bg,img.scene__bg{object-fit:cover;object-position:center;width:100%
 noscript{}
 
 /* ============ SECTION HEADERS ============ */
-.sec{padding:100px 5%;overflow-x:hidden}
+.sec{padding:100px 5%;overflow-x:clip}
 .sec-h{text-align:center;margin-bottom:50px}
 .sec-tag{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
 .sec-title{font-size:clamp(28px,4.5vw,46px);font-weight:900;line-height:1.12}
@@ -283,7 +283,7 @@ noscript{}
 .pcard-txt{font-size:14px;color:#fff;font-weight:500;line-height:1.6}
 
 /* ============ BINA ============ */
-.bina{padding:100px 5%;background:var(--c-bg);overflow-x:hidden}
+.bina{padding:100px 5%;background:var(--c-bg);overflow-x:clip}
 .bina-wrap{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
 .bina-tag{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--accent2);margin-bottom:10px}
 .bina h2{font-size:clamp(26px,3.5vw,40px);margin-bottom:14px;line-height:1.15}
@@ -307,7 +307,7 @@ noscript{}
 }
 
 /* ============ SCHEDULE ============ */
-.sched-sec{padding:100px 5%;background:var(--c-bg);overflow-x:hidden}
+.sched-sec{padding:100px 5%;background:var(--c-bg);overflow-x:clip}
 .sched{max-width:860px;margin:0 auto;background:var(--c-bg-2);border:1px solid rgba(255,255,255,.06);overflow:hidden}
 .sched-top{background:var(--c-bg-3);padding:16px 22px;display:flex;align-items:center;justify-content:space-between;color:#fff}
 .sched-top h3{font-size:17px;font-weight:700}
@@ -339,7 +339,7 @@ noscript{}
 .quote-dots span.active{background:var(--c-yellow)}
 
 /* ============ TEAM (USP) ============ */
-.team{padding:100px 5%;background:var(--c-bg);overflow-x:hidden}
+.team{padding:100px 5%;background:var(--c-bg);overflow-x:clip}
 .usp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1000px;margin:0 auto}
 .usp-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:32px 24px;text-align:center;transition:all .3s var(--ease)}
 .usp-card:hover{border-color:oklch(84% 0.16 95 / .3);transform:translateY(-4px)}
@@ -355,7 +355,7 @@ noscript{}
 @media(max-width:768px){.people-grid{grid-template-columns:1fr}}
 
 /* ============ GALLERY ============ */
-.gal{padding:100px 5%;overflow-x:hidden}
+.gal{padding:100px 5%;overflow-x:clip}
 .gg{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:220px;gap:8px;max-width:1100px;margin:0 auto}
 .gi{overflow:hidden;position:relative;cursor:pointer}
 .gi img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
