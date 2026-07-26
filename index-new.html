@@ -105,8 +105,8 @@ a{color:inherit}
 }
 
 /* ============ SCENE FRAMEWORK (pinned cinematic scenes) ============ */
-.scene{position:relative;height:380vh}
-.scene--arrival{height:400vh}
+.scene{position:relative;height:260vh}
+.scene--arrival{height:250vh}
 /* svh->dvh cascade: dvh (dynamic viewport, tracks the browser chrome collapsing) wins where
    supported so the sticky pin — and therefore the full-bleed video inside it — never falls
    short of the real visible area once the toolbar hides (the "doesn't fill the screen" bug). */
@@ -449,8 +449,8 @@ noscript{}
   /* mobile pin runway: hero ~330vh (owner target 300-360vh), space/testimonial scenes shorter
      since they don't need to hold a 5s clip, but still enough travel for the carousel + the
      40%-progress auto-advance to feel deliberate rather than instant */
-  .scene{height:230vh}
-  .scene--arrival{height:330vh}
+  .scene{height:185vh}
+  .scene--arrival{height:190vh}
   .scene--energy{height:200vh}
   .scene__content{padding-bottom:13vh}
   .scene-index{top:7vh}
@@ -555,6 +555,11 @@ noscript{}
 </script>
 <style>
 /* QA fixes (mobile, verified in headless Chrome) */
+/* hero: copy sits at the BOTTOM so the subject's face stays clear (verified in headless Chrome) */
+.scene.scene--arrival .scene__sticky{justify-content:flex-end!important}
+.scene.scene--arrival .scene__content{padding-bottom:14vh!important;padding-top:0!important}
+.scene.scene--arrival .scene__eyebrow{align-self:center;margin-bottom:14px}
+
 @media(max-width:768px){
   .waf{display:none!important}                 /* sticky CTA bar already has WhatsApp */
   #acc-btn{bottom:calc(env(safe-area-inset-bottom,0px) + 84px);left:14px;z-index:60}
@@ -597,12 +602,12 @@ noscript{}
 <!-- 1 · ARRIVAL / HERO -->
 <section class="scene scene--arrival" id="s1">
   <div class="scene__sticky">
-    <video id="heroScrub" data-scrub-from="0" data-scrub-to="1" data-scrub class="scene__bg scene__bg--video" muted loop playsinline preload="auto" poster="images/shoot2025/hero-wide-web-poster.jpg" aria-hidden="true">
-      <source src="images/shoot2025/hero-wide-web.mp4" type="video/mp4">
+    <video id="heroScrub" data-scrub-from="0.42" data-scrub-to="0.80" data-scrub class="scene__bg scene__bg--video" muted loop playsinline preload="auto" poster="images/shoot2025/hero-cine-poster.jpg" aria-hidden="true">
+      <source src="images/shoot2025/hero-cine.mp4" type="video/mp4">
     </video>
-    <img class="scene__bg scene__bg--reduced" src="images/shoot2025/hero-wide-web-poster.jpg" alt="" aria-hidden="true" width="720" height="1280">
+    <img class="scene__bg scene__bg--reduced" src="images/shoot2025/hero-cine-poster.jpg" alt="" aria-hidden="true" width="720" height="1280">
     <!-- text sits at the top over the ceiling/neon area; scrim strongest there, clear over the face mid-frame -->
-    <div class="scene__tint" style="background:linear-gradient(to bottom,rgba(6,6,6,.85) 0%,rgba(6,6,6,.55) 22%,rgba(6,6,6,0) 42%,rgba(0,0,0,0) 70%,rgba(0,0,0,.6) 100%)"></div>
+    <div class="scene__tint" style="background:linear-gradient(to bottom,rgba(6,6,6,.55) 0%,rgba(6,6,6,.12) 18%,rgba(6,6,6,0) 38%,rgba(6,6,6,.45) 62%,rgba(6,6,6,.92) 100%)"></div>
     <div class="scene__content">
       <h1 class="scene__title">פה את לעולם<em>לא לבד.</em></h1>
       <p class="scene__subtitle">סטודיו כושר לנשים בנתניה · פולג</p>
