@@ -114,13 +114,15 @@ a{color:inherit}
 /* full-bleed always: no inset/width tricks (they were fighting the explicit 100% below and
    could undercover by a hair). Scale never drops to 1.0 — floor stays >1 so cover always has
    overscan margin regardless of aspect/rounding. */
-.scene__bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(calc(1.16 - 0.11 * var(--p, 0)));transform-origin:center;will-change:transform}
+.scene__bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(calc(1.05 - 0.05 * var(--p, 0)));transform-origin:center;will-change:transform}
 video.scene__bg,img.scene__bg{object-fit:cover;object-position:center;width:100%;height:100%}
 .scene__bg--reduced{display:none}
 @media(prefers-reduced-motion:reduce){.scene--arrival .scene__bg--video{display:none}.scene--arrival .scene__bg--reduced{display:block}}
 /* desktop: same vertical video, recentered so the crop reads as shoulders/back mid-lift, not a hip-level crop */
 @media(min-width:769px){.scene--arrival .scene__bg--video{object-position:center 34%}}
+@media(max-width:768px){.scene--arrival .scene__bg--video{object-position:center 26%}}
 .scene__tint{position:absolute;inset:0}
+.scene--gym .scene__tint,.scene--move .scene__tint,.scene--pilates .scene__tint{background:linear-gradient(to bottom,rgba(6,6,6,.55) 0%,rgba(6,6,6,.15) 30%,rgba(6,6,6,.55) 62%,rgba(6,6,6,.9) 100%)}
 .scene__content{position:relative;z-index:2;padding:0 6% 9%;width:100%;max-width:1200px;margin:0 auto}
 .scene__eyebrow{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;margin-bottom:18px;opacity:0;transform:translateY(14px);transition:all .8s var(--ease)}
 .scene__title{font-size:clamp(40px,11vw,128px);margin-bottom:20px;opacity:0;transform:translateY(24px);transition:all .9s var(--ease) .05s}
@@ -551,6 +553,14 @@ noscript{}
   ]
 }
 </script>
+<style>
+/* QA fixes (mobile, verified in headless Chrome) */
+@media(max-width:768px){
+  .waf{display:none!important}                 /* sticky CTA bar already has WhatsApp */
+  #acc-btn{bottom:calc(env(safe-area-inset-bottom,0px) + 84px);left:14px;z-index:60}
+  .scene-index{top:calc(64px + env(safe-area-inset-top,0px));font-size:11px}
+}
+</style>
 </head>
 <body>
 <a href="#contact" class="skip-link">דלגי לתוכן</a>
@@ -587,10 +597,10 @@ noscript{}
 <!-- 1 · ARRIVAL / HERO -->
 <section class="scene scene--arrival" id="s1">
   <div class="scene__sticky">
-    <video id="heroScrub" data-scrub class="scene__bg scene__bg--video" muted loop playsinline preload="auto" poster="images/shoot2025/hero-cine-poster.jpg" aria-hidden="true">
-      <source src="images/shoot2025/hero-cine.mp4" type="video/mp4">
+    <video id="heroScrub" data-scrub-from="0" data-scrub-to="1" data-scrub class="scene__bg scene__bg--video" muted loop playsinline preload="auto" poster="images/shoot2025/hero-wide-web-poster.jpg" aria-hidden="true">
+      <source src="images/shoot2025/hero-wide-web.mp4" type="video/mp4">
     </video>
-    <img class="scene__bg scene__bg--reduced" src="images/shoot2025/hero-cine-poster.jpg" alt="" aria-hidden="true" width="720" height="1280">
+    <img class="scene__bg scene__bg--reduced" src="images/shoot2025/hero-wide-web-poster.jpg" alt="" aria-hidden="true" width="720" height="1280">
     <!-- text sits at the top over the ceiling/neon area; scrim strongest there, clear over the face mid-frame -->
     <div class="scene__tint" style="background:linear-gradient(to bottom,rgba(6,6,6,.85) 0%,rgba(6,6,6,.55) 22%,rgba(6,6,6,0) 42%,rgba(0,0,0,0) 70%,rgba(0,0,0,.6) 100%)"></div>
     <div class="scene__content">
@@ -1131,7 +1141,9 @@ var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var scene = video.closest('.scene');
     var idx = scenes.indexOf(scene);
     if (idx === -1) return;
-    var state = { video:video, sceneIdx:idx, dur:0, primed:false };
+    var state = { video:video, sceneIdx:idx, dur:0, primed:false,
+                 from: parseFloat(video.dataset.scrubFrom || '0'),
+                 to:   parseFloat(video.dataset.scrubTo   || '1') };
     function prime(){
       if (state.primed) return;
       var pr = video.play();
@@ -1167,7 +1179,8 @@ var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     });
     scrubs.forEach(function(st){
       if (!st.dur || st.video.readyState < 1) return;
-      var t = pByScene[st.sceneIdx] * st.dur;
+      var f0 = st.from, f1 = st.to;                      // usable slice of the clip
+      var t = (f0 + pByScene[st.sceneIdx] * (f1 - f0)) * st.dur;
       if (Math.abs(st.video.currentTime - t) > FRAME) { try { st.video.currentTime = t; } catch(e){} }
     });
     parallaxEls.forEach(function(pe){
@@ -1432,3 +1445,4 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
 </script>
 </body>
 </html>
+
