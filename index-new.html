@@ -555,10 +555,13 @@ noscript{}
 </script>
 <style>
 /* QA fixes (mobile, verified in headless Chrome) */
+#heroCanvas{display:none;position:absolute;inset:0;width:100%;height:100%}
+html.seq-on #heroCanvas{display:block}
+html.seq-on .scene--arrival .scene__bg--video{display:none}
 /* hero canvas scrubber — instant frame paint, no video seek latency */
-#heroCanvas{display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-html.canvas-on #heroCanvas{display:block}
-html.canvas-on .scene--arrival .scene__bg--video{display:none}
+
+
+
 
 /* hero: copy sits at the BOTTOM so the subject's face stays clear (verified in headless Chrome) */
 .scene.scene--arrival .scene__sticky{justify-content:flex-end!important}
@@ -725,7 +728,7 @@ html.canvas-on .scene--arrival .scene__bg--video{display:none}
             </video>
           </div>
           <div class="carousel__slide" role="group" aria-label="2 מתוך 3 — שיעור MOVE">
-            <img class="carousel__media" data-lazy alt="שיעור MOVE בסטודיו STEPS" aria-hidden="true" width="1920" height="1280" data-src="images/shoot2025/move-new-1-g.jpg">
+            <video autoplay class="carousel__media" data-lazy muted loop playsinline preload="none" poster="images/shoot2025/class-movecls-poster.jpg" aria-hidden="true" data-src="images/shoot2025/class-movecls.mp4"></video>
           </div>
           <div class="carousel__slide" role="group" aria-label="3 מתוך 3 — שיעור MOVE נוסף">
             <img class="carousel__media" data-lazy alt="שיעור MOVE בסטודיו STEPS" aria-hidden="true" width="1920" height="1280" data-src="images/shoot2025/move-new-2.jpg">
@@ -752,20 +755,18 @@ html.canvas-on .scene--arrival .scene__bg--video{display:none}
       <div class="scene-index"><b>03</b> / 03 — REFORMER PILATES</div>
       <div class="carousel" data-carousel="pilates">
         <div class="carousel__track" tabindex="0" role="group" aria-label="גלריית REFORMER PILATES — חלל, ואימונים">
-          <div class="carousel__slide" role="group" aria-label="1 מתוך 4 — חלל הרפורמר הריק">
+          <div class="carousel__slide" role="group" aria-label="1 מתוך 3 — חלל הרפורמר הריק">
             <video autoplay class="carousel__media" muted loop playsinline preload="metadata" poster="images/shoot2025/room-pilates-poster.jpg" aria-hidden="true">
               <source src="images/shoot2025/room-pilates.mp4" type="video/mp4">
             </video>
           </div>
-          <div class="carousel__slide" role="group" aria-label="2 מתוך 4 — אימון רפורמר פילאטיס">
-            <img class="carousel__media" data-lazy alt="אימון רפורמר פילאטיס בסטודיו STEPS" aria-hidden="true" width="1280" height="1920" data-src="images/shoot2025/pilates-main-g.jpg">
+          <div class="carousel__slide" role="group" aria-label="2 מתוך 3 — אימון רפורמר פילאטיס">
+            <video autoplay class="carousel__media" data-lazy muted loop playsinline preload="none" poster="images/shoot2025/class-pilcls-poster.jpg" aria-hidden="true" data-src="images/shoot2025/class-pilcls.mp4"></video>
           </div>
-          <div class="carousel__slide" role="group" aria-label="3 מתוך 4 — אימון רפורמר פילאטיס נוסף">
+          <div class="carousel__slide" role="group" aria-label="3 מתוך 3 — אימון רפורמר פילאטיס נוסף">
             <img class="carousel__media" data-lazy alt="אימון רפורמר פילאטיס בסטודיו STEPS" aria-hidden="true" width="1280" height="1920" data-src="images/shoot2025/pilates-alt.jpg">
           </div>
-          <div class="carousel__slide" role="group" aria-label="4 מתוך 4 — ליווי אישי בשיעור פילאטיס">
-            <img class="carousel__media" data-lazy alt="מאמנת מלווה מתאמנת בשיעור פילאטיס" aria-hidden="true" width="1280" height="1920" data-src="images/shoot2025/coaching-3.jpg">
-          </div>
+          
         </div>
         <button class="carousel__arrow carousel__arrow--prev" type="button" aria-label="שקופית קודמת"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <button class="carousel__arrow carousel__arrow--next" type="button" aria-label="שקופית הבאה"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -1152,7 +1153,7 @@ var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var scene = video.closest('.scene');
     var idx = scenes.indexOf(scene);
     if (idx === -1) return;
-    var state = { video:video, sceneIdx:idx, dur:0, primed:false,
+    var state = { video:video, sceneIdx:idx, dur:0, primed:false, ready:false,
                  from: parseFloat(video.dataset.scrubFrom || '0'),
                  to:   parseFloat(video.dataset.scrubTo   || '1') };
     function prime(){
@@ -1161,7 +1162,19 @@ var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (pr && pr.then) pr.then(function(){ video.pause(); video.currentTime=0; state.primed=true; }).catch(function(){});
       else { try { video.pause(); state.primed=true; } catch(e){} }
     }
-    function onMeta(){ state.dur = video.duration||0; prime(); }
+    function checkBuffered(){
+      if (state.ready || !state.dur) return;
+      try {
+        for (var i=0;i<video.buffered.length;i++){
+          if (video.buffered.start(i) <= 0.05 && video.buffered.end(i) >= state.dur - 0.15){
+            state.ready = true; video.classList.add('scrub-ready'); return;
+          }
+        }
+      } catch(e){}
+    }
+    function onMeta(){ state.dur = video.duration||0; prime(); checkBuffered(); }
+    video.addEventListener('progress', checkBuffered);
+    video.addEventListener('canplaythrough', function(){ state.ready = true; video.classList.add('scrub-ready'); });
     video.addEventListener('loadedmetadata', onMeta);
     if (video.readyState >= 1) onMeta();
     ['touchstart','pointerdown','wheel','keydown'].forEach(function(ev){
@@ -1174,12 +1187,20 @@ var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ---- damped global scroll cursor (single lerp — every scene reads off the same lag) ----
   var targetScroll = window.scrollY, smoothed = window.scrollY;
-  var DAMPING = 0.07; // lower = heavier/slower feel (owner asked for "slow, heavy, controlled")
+  var DAMPING = 0.20; // lower = heavier/slower feel (owner asked for "slow, heavy, controlled")
   window.addEventListener('scroll', function(){ targetScroll = window.scrollY; }, {passive:true});
 
-  var FRAME = 1/28; // ~1 video frame at ~28fps — skip currentTime writes smaller than this
+  var FRAME = 1/60; // ~1 video frame at ~28fps — skip currentTime writes smaller than this
   var pByScene = [];
+  var lastDocH = 0, measureTick = 0;
   function tick(){
+    targetScroll = window.scrollY;   // read every frame — scroll events arrive late/coalesced
+    // self-healing geometry: late-loading media changes page height, which would
+    // otherwise leave every scene mapped to a stale scroll range (scrub lands short).
+    if ((++measureTick & 15) === 0) {
+      var dh = document.documentElement.scrollHeight;
+      if (dh !== lastDocH) { lastDocH = dh; measure(); }
+    }
     smoothed += (targetScroll - smoothed) * DAMPING;
     sceneData.forEach(function(d,i){
       var p = mapRange(smoothed, d.start, d.end, 0, 1);
@@ -1189,12 +1210,18 @@ var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (d.el._carousel) d.el._carousel.onProgress(p);
     });
     scrubs.forEach(function(st){
-      if (!st.dur || st.video.readyState < 1) return;
+      if (!st.dur || !st.ready) return;
       var f0 = st.from, f1 = st.to;                      // usable slice of the clip
-      var t = (f0 + pByScene[st.sceneIdx] * (f1 - f0)) * st.dur;
+      var sd = sceneData[st.sceneIdx];
+      var rawP = sd ? Math.max(0, Math.min(1, (targetScroll - sd.start) / (sd.end - sd.start))) : 0;
+      var t = (f0 + rawP * (f1 - f0)) * st.dur;          // RAW — scrub tracks the finger 1:1
       if (Math.abs(st.video.currentTime - t) > FRAME) { try { st.video.currentTime = t; } catch(e){} }
     });
-    if (window.__heroDraw) window.__heroDraw(pByScene[0]);
+
+    if (window.__heroSeq) {
+      var a0 = sceneData[0];
+      window.__heroSeq(a0 ? Math.max(0, Math.min(1, (targetScroll - a0.start) / (a0.end - a0.start))) : 0);
+    }
     parallaxEls.forEach(function(pe){
       var mid = pe.top + pe.h/2, viewMid = smoothed + window.innerHeight/2;
       pe.el.style.transform = 'translateY(' + ((viewMid - mid) * pe.speed).toFixed(1) + 'px)';
@@ -1455,40 +1482,67 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   document.addEventListener('visibilitychange',function(){ if(!document.hidden) vids.forEach(kick); });
 })();
 </script>
+
 <script>
-/* HERO CANVAS SEQUENCE — 25 pre-extracted frames drawn straight to canvas.
-   Zero decode latency: scrolling repaints instantly, nothing ever feels stuck. */
+/* SCRUB PRELOADER — fetch each scrubbed clip fully into memory, then swap in a blob URL.
+   Seeking a blob never touches the network, so scroll-scrub stays instant instead of
+   stalling on range requests. Poster shows until its clip is ready. */
 (function(){
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var N=25, BASE='images/shoot2025/heroseq/f', cv=document.getElementById('heroCanvas');
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('video[data-scrub]').forEach(function(v){
+    var src = v.currentSrc || (v.querySelector('source') && v.querySelector('source').src);
+    if (!src) return;
+    fetch(src, {cache:'force-cache'})
+      .then(function(r){ return r.ok ? r.blob() : Promise.reject(r.status); })
+      .then(function(blob){
+        var url = URL.createObjectURL(blob);
+        v.removeAttribute('preload');
+        var srcEl = v.querySelector('source'); if (srcEl) srcEl.remove();
+        v.src = url;
+        v.load();
+        v.classList.add('blob-ready');
+      })
+      .catch(function(){ /* keep the streaming source as-is */ });
+  });
+})();
+</script>
+<script>
+/* HERO FRAME SEQUENCE — 62 stills painted to canvas on raw scroll.
+   Video seeking cannot keep up with 60fps scroll (measured: 98% of frames stalled),
+   so the hero uses pre-decoded images: drawImage is synchronous and never waits. */
+(function(){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var N=62, BASE='images/shoot2025/heroseq/f', cv=document.getElementById('heroCanvas');
   if(!cv) return;
-  var ctx=cv.getContext('2d'), frames=new Array(N), loaded=0, lastIdx=-1, latestP=0, on=false;
-  function size(){
-    var dpr=Math.min(window.devicePixelRatio||1,2);
-    var w=cv.clientWidth||cv.parentElement.clientWidth, h=cv.clientHeight||cv.parentElement.clientHeight;
-    if(!w||!h) return;
-    if(cv.width!==Math.round(w*dpr)||cv.height!==Math.round(h*dpr)){ cv.width=Math.round(w*dpr); cv.height=Math.round(h*dpr); lastIdx=-1; }
+  var ctx=cv.getContext('2d',{alpha:false}), imgs=new Array(N), ready=false, lastIdx=-1, p=0, queued=false;
+
+  function fit(){
+    var dpr=Math.min(window.devicePixelRatio||1,2), r=cv.getBoundingClientRect();
+    var w=Math.round(r.width*dpr), h=Math.round(r.height*dpr);
+    if(w&&h&&(cv.width!==w||cv.height!==h)){ cv.width=w; cv.height=h; lastIdx=-1; }
   }
-  function draw(force){
-    var idx=Math.max(0,Math.min(N-1,Math.round(latestP*(N-1))));
-    if(idx===lastIdx&&!force) return;
-    var img=frames[idx]||frames[lastIdx>-1?lastIdx:0]; if(!img) return;
-    size();
-    var s=Math.max(cv.width/img.naturalWidth, cv.height/img.naturalHeight);
-    var dw=img.naturalWidth*s, dh=img.naturalHeight*s;
-    ctx.drawImage(img,(cv.width-dw)/2,(cv.height-dh)*0.26,dw,dh);
+  function paint(){
+    if(!ready) return;
+    var idx=Math.round(p*(N-1)); if(idx<0)idx=0; if(idx>N-1)idx=N-1;
+    if(idx===lastIdx) return;
+    var im=imgs[idx]; if(!im) return;
+    fit();
+    var s=Math.max(cv.width/im.naturalWidth, cv.height/im.naturalHeight);
+    var dw=im.naturalWidth*s, dh=im.naturalHeight*s;
+    ctx.drawImage(im,(cv.width-dw)/2,(cv.height-dh)*0.26,dw,dh);
     lastIdx=idx;
   }
-  window.__heroDraw=function(p){ latestP=p; if(on) draw(false); };
-  window.addEventListener('resize',function(){ if(on){ size(); draw(true);} },{passive:true});
+  window.__heroSeq=function(v){ p=v; paint(); };  /* paint inline — we are already inside the engine rAF */
+  window.addEventListener('resize',function(){ lastIdx=-1; fit(); paint(); },{passive:true});
+
+  var done=0;
   for(var i=1;i<=N;i++)(function(i){
-    var img=new Image();
-    img.onload=function(){
-      frames[i-1]=img; loaded++;
-      if(!on&&i===1){ on=true; document.documentElement.classList.add('canvas-on'); size(); draw(true); }
-      else if(on){ lastIdx=-1; draw(true); }
+    var im=new Image(); im.decoding='async';
+    im.onload=im.onerror=function(){
+      imgs[i-1]=im.naturalWidth?im:null; done++;
+      if(done===N){ ready=true; document.documentElement.classList.add('seq-on'); lastIdx=-1; fit(); paint(); }
     };
-    img.src=BASE+String(i).padStart(3,'0')+'.jpg';
+    im.src=BASE+String(i).padStart(3,'0')+'.jpg';
   })(i);
 })();
 </script>
