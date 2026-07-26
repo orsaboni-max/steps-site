@@ -106,7 +106,7 @@ a{color:inherit}
 
 /* ============ SCENE FRAMEWORK (pinned cinematic scenes) ============ */
 .scene{position:relative;height:260vh}
-.scene--arrival{height:250vh}
+.scene--arrival{height:200vh}
 /* svh->dvh cascade: dvh (dynamic viewport, tracks the browser chrome collapsing) wins where
    supported so the sticky pin — and therefore the full-bleed video inside it — never falls
    short of the real visible area once the toolbar hides (the "doesn't fill the screen" bug). */
@@ -450,7 +450,7 @@ noscript{}
      since they don't need to hold a 5s clip, but still enough travel for the carousel + the
      40%-progress auto-advance to feel deliberate rather than instant */
   .scene{height:185vh}
-  .scene--arrival{height:190vh}
+  .scene--arrival{height:150vh}
   .scene--energy{height:200vh}
   .scene__content{padding-bottom:13vh}
   .scene-index{top:7vh}
@@ -1512,7 +1512,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
    so the hero uses pre-decoded images: drawImage is synchronous and never waits. */
 (function(){
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var N=62, BASE='images/shoot2025/heroseq/f', cv=document.getElementById('heroCanvas');
+  var N=51, BASE='images/shoot2025/heroseq/f', cv=document.getElementById('heroCanvas');
   if(!cv) return;
   var ctx=cv.getContext('2d',{alpha:false}), imgs=new Array(N), ready=false, lastIdx=-1, p=0, queued=false;
 
