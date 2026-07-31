@@ -183,7 +183,7 @@ video.scene__bg,img.scene__bg{object-fit:cover;object-position:center;width:100%
    forced ltr regardless of page dir so scrollLeft semantics stay predictable across browsers —
    arrows/keys then just mean "physically forward/back", independent of page RTL. */
 .carousel{position:absolute;inset:0}
-.carousel__track{position:absolute;inset:0;display:flex;direction:ltr;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;touch-action:pan-x;-webkit-overflow-scrolling:touch;scrollbar-width:none;outline:none}
+.carousel__track{position:absolute;inset:0;display:flex;direction:ltr;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;outline:none}
 .carousel__track::-webkit-scrollbar{display:none}
 .carousel__slide{position:relative;flex:0 0 100%;height:100%;scroll-snap-align:start}
 .carousel__media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(calc(1.1 - 0.05 * var(--p,0)));transform-origin:center;will-change:transform}
@@ -439,7 +439,8 @@ noscript{}
   .mbar{display:flex;position:fixed;bottom:0;right:0;left:0;z-index:1400;background:rgba(8,8,8,.92);backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,.08);padding:10px 12px;gap:10px;align-items:center}
   .mbar-cta{flex:1;text-align:center;background:var(--c-yellow);color:var(--c-yellow-ink);font-size:14px;font-weight:800;padding:13px;text-decoration:none}
   .mbar-wa{width:46px;height:46px;flex-shrink:0;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;color:#fff}
-  body{padding-bottom:66px}
+  /* lift the cookie banner above the sticky CTA bar so it can't cover it */
+  body{padding-bottom:66px;--cookie-bottom:66px}
   .waf{bottom:78px}
   #acc-btn{bottom:150px}
 }
@@ -596,7 +597,7 @@ html.seq-on .scene--arrival .scene__bg--video{display:none}
 <a href="#pain" class="skip-link">דלגי לתוכן</a>
 
 <!-- Cookie Consent Banner -->
-<div id="cookie-banner" role="dialog" aria-label="הסכמה לעוגיות" style="display:none;position:fixed;bottom:0;right:0;left:0;background:#1a1a1a;border-top:2px solid #F5C518;padding:14px 5%;z-index:99998;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+<div id="cookie-banner" role="dialog" aria-label="הסכמה לעוגיות" style="display:none;position:fixed;bottom:var(--cookie-bottom,0);right:0;left:0;background:#1a1a1a;border-top:2px solid #F5C518;padding:14px 5%;z-index:99998;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
   <p style="font-size:13px;color:rgba(255,255,255,0.75);margin:0;flex:1;min-width:200px">האתר משתמש בעוגיות לצורך אנליטיקה ופרסום. <a href="privacy.html" style="color:#F5C518;text-decoration:underline">מדיניות פרטיות</a></p>
   <div style="display:flex;gap:8px;flex-shrink:0">
     <button onclick="acceptCookies()" style="background:#F5C518;color:#111;border:none;padding:9px 22px;border-radius:50px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">מסכימה</button>
@@ -739,7 +740,7 @@ html.seq-on .scene--arrival .scene__bg--video{display:none}
       <div class="scene-index"><b>02</b> / 03 — MOVE</div>
       <div class="carousel" data-carousel="move">
         <div class="carousel__track" tabindex="0" role="group" aria-label="גלריית MOVE — חלל, ושיעורים">
-          <div class="carousel__slide" role="group" aria-label="1 מתוך 3 — חלל ה-MOVE הריק">
+          <div class="carousel__slide" role="group" aria-label="1 מתוך 3 — שיעור MOVE בחלל">
             <video class="carousel__media" muted loop playsinline preload="metadata" poster="images/shoot2025/room-move-poster.jpg" aria-hidden="true">
               <source src="images/shoot2025/room-move.mp4" type="video/mp4">
             </video>
@@ -1405,14 +1406,6 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
 
 // Schedule — dynamic from Arbox
 (function(){
-  var FALLBACK=[
-    {start_time:'07:00',name:'עיצוב + כוח',coach:'מאמנת STEPS'},
-    {start_time:'08:15',name:'רפורמר פילאטיס',coach:'אורי כהן'},
-    {start_time:'09:30',name:'HIIT Burn',coach:'רותם זינגר'},
-    {start_time:'17:00',name:'GYM — אימון חופשי',coach:'מעיין לזר'},
-    {start_time:'18:30',name:'קיקבוקס',coach:'ירדן נתן'},
-    {start_time:'19:45',name:'בר — Barre',coach:'אגם סימנרוב'}
-  ];
   function getName(s){return s.session_name||s.name||'';}
   function mkEl(tag,cls){var el=document.createElement(tag);if(cls)el.className=cls;return el;}
   function renderItems(items){
@@ -1432,6 +1425,20 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
       sl.appendChild(si);
     });
   }
+  // No fabricated fallback schedule — if Arbox is unreachable we say so and hand off to WhatsApp.
+  function renderError(){
+    var sl=document.querySelector('.slist');
+    while(sl.firstChild)sl.removeChild(sl.firstChild);
+    var fn=mkEl('div','sfn');
+    fn.appendChild(document.createTextNode('לא הצלחנו לטעון את מערכת השעות כרגע. '));
+    var a=document.createElement('a');
+    a.href='https://wa.me/972527927575?text='+encodeURIComponent('היי, אשמח לקבל את מערכת השעות');
+    a.target='_blank';a.rel='noopener';
+    a.style.color='#F5C518';a.style.textDecoration='underline';
+    a.textContent='קבלי אותה בוואטסאפ';
+    fn.appendChild(a);
+    sl.appendChild(fn);
+  }
   var cache={};
   function getWeekDates(){
     var today=new Date(),day=today.getDay(),sun=new Date(today);
@@ -1448,8 +1455,8 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
     var fn=mkEl('div','sfn');fn.textContent='טוען מערכת שעות...';sl.appendChild(fn);
     fetch('/api/schedule?date='+date)
       .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
-      .then(function(data){cache[date]=Array.isArray(data)&&data.length?data:FALLBACK;renderItems(cache[date]);})
-      .catch(function(){cache[date]=FALLBACK;renderItems(FALLBACK);});
+      .then(function(data){if(!Array.isArray(data))throw new Error('bad payload');cache[date]=data;renderItems(data);})
+      .catch(function(){renderError();});
   }
   var tabs=document.querySelectorAll('.dt');
   tabs.forEach(function(t,i){
@@ -1466,16 +1473,19 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
     if(typeof gtag==='function')gtag('consent','update',{'analytics_storage':'granted','ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted'});
     if(typeof fbq==='function'){fbq('init','1016773848190436');fbq('track','PageView');}
   }
+  // localStorage throws in Safari private mode / blocked-cookies — consent must still work per-session
+  function readConsent(){try{return localStorage.getItem('steps-consent');}catch(e){return null;}}
+  function saveConsent(v){try{localStorage.setItem('steps-consent',v);}catch(e){}}
   window.acceptCookies=function(){
-    localStorage.setItem('steps-consent','granted');
+    saveConsent('granted');
     document.getElementById('cookie-banner').style.display='none';
     initTracking();
   };
   window.declineCookies=function(){
-    localStorage.setItem('steps-consent','declined');
+    saveConsent('declined');
     document.getElementById('cookie-banner').style.display='none';
   };
-  var c=localStorage.getItem('steps-consent');
+  var c=readConsent();
   if(c==='granted'){initTracking();}
   else if(c!=='declined'){document.getElementById('cookie-banner').style.display='flex';}
 })();
@@ -1553,7 +1563,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   if(!cv) return;
   var ctx=cv.getContext('2d',{alpha:false, desynchronized:true});
   var bmps=new Array(N), ready=false, lastIdx=-1, p=0;
-  var SRC_W=620, cw=0, ch=0;
+  var SRC_W=720, cw=0, ch=0;   // native width of hero-cine.mp4 — the frames' source ceiling
 
   function fit(){
     var r=cv.getBoundingClientRect();
@@ -1581,7 +1591,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   };
   window.addEventListener('resize',function(){ fit(); lastIdx=-1; paint(); },{passive:true});
 
-  var url=function(i){ return BASE+String(i).padStart(3,'0')+'.jpg'; };
+  var url=function(i){ return BASE+String(i).padStart(3,'0')+'.webp'; };
   var jobs=[];
   for(var i=1;i<=N;i++)(function(i){
     jobs.push(fetch(url(i)).then(function(r){ return r.blob(); })
