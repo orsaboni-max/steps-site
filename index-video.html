@@ -630,11 +630,14 @@ html.seq-on .scene--arrival .scene__bg--video{display:none}
 <!-- 1 · ARRIVAL / HERO -->
 <section class="scene scene--arrival" id="s1">
   <div class="scene__sticky">
-    <canvas id="heroCanvas" class="scene__bg" aria-hidden="true"></canvas>
-    <video id="heroScrub" class="scene__bg scene__bg--video" autoplay muted loop playsinline preload="metadata" poster="images/shoot2025/hero-seq-poster.jpg" aria-hidden="true">
-      <source src="images/shoot2025/hero-cine.mp4" type="video/mp4">
+    <!-- Same take and same framing as hero-cine.mp4 — this is that clip with an unsharp pass
+         and a much higher bitrate (crf 19 vs the original ~1.7 Mbps). It cannot add detail the
+         720x1280 source never had; what it removes is the compression softness sitting on top
+         of it. Checked frame-by-frame for halos at the neon strips and hairline. -->
+    <video id="heroScrub" class="scene__bg scene__bg--video" autoplay muted loop playsinline preload="auto" poster="images/shoot2025/hero-cine-sharp-poster.jpg" aria-hidden="true">
+      <source src="images/shoot2025/hero-cine-sharp.mp4" type="video/mp4">
     </video>
-    <img class="scene__bg scene__bg--reduced" src="images/shoot2025/hero-cine-poster.jpg" alt="" aria-hidden="true" width="720" height="1280">
+    <img class="scene__bg scene__bg--reduced" src="images/shoot2025/hero-cine-sharp-poster.jpg" alt="" aria-hidden="true" width="720" height="1280">
     <!-- text sits at the top over the ceiling/neon area; scrim strongest there, clear over the face mid-frame -->
     <div class="scene__tint" style="background:linear-gradient(to bottom,rgba(6,6,6,.55) 0%,rgba(6,6,6,.12) 18%,rgba(6,6,6,0) 38%,rgba(6,6,6,.45) 62%,rgba(6,6,6,.92) 100%)"></div>
     <div class="scene__content">
