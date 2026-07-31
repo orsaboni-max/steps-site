@@ -1557,73 +1557,10 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   });
 })();
 </script>
-<script>
-/* HERO FRAME SEQUENCE — frames are decoded to ImageBitmaps up front.
-   Plain <img> + drawImage decodes lazily on first paint, which produced 600ms+
-   long tasks mid-scroll (measured). ImageBitmap is already decoded, so each
-   draw is a straight blit. */
-(function(){
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  // N = every frame of hero-cine.mp4 at its native 24fps. At 51 frames the runway advanced
-  // one frame per ~16px of scroll, which reads as stepping rather than motion.
-  var N=121, BASE='images/shoot2025/heroseq/f', cv=document.getElementById('heroCanvas');
-  if(!cv) return;
-  var ctx=cv.getContext('2d',{alpha:false, desynchronized:true});
-  if('imageSmoothingQuality' in ctx){ ctx.imageSmoothingQuality='high'; }
-  var bmps=new Array(N), ready=false, lastIdx=-1, p=0;
-  var cw=0, ch=0;
-
-  function fit(){
-    var r=cv.getBoundingClientRect();
-    if(!r.width||!r.height) return;
-    // Do NOT clamp the backing store to the source width. The frames are 720 wide but a
-    // phone displays this canvas at ~1080 device px, so a 720 store meant the source got
-    // resampled twice — once by drawImage, again by the compositor stretching 720->1080.
-    // Matching the CSS box (dpr capped at 2, which is where the fill cost stays sane) makes
-    // it a single high-quality upscale instead of two chained ones.
-    var w=Math.round(r.width*Math.min(window.devicePixelRatio||1,2));
-    var h=Math.round(w*r.height/r.width);
-    if(cv.width!==w||cv.height!==h){
-      cv.width=w; cv.height=h; cw=w; ch=h; lastIdx=-1;
-      if('imageSmoothingQuality' in ctx){ ctx.imageSmoothingQuality='high'; } // reset by resize
-    }
-  }
-  function paint(){
-    if(!ready) return;
-    var idx=Math.round(p*(N-1)); if(idx<0)idx=0; if(idx>N-1)idx=N-1;
-    if(idx===lastIdx) return;
-    var im=bmps[idx]; if(!im) return;
-    var sc=Math.max(cw/im.width, ch/im.height);
-    var dw=im.width*sc, dh=im.height*sc;
-    ctx.drawImage(im,(cw-dw)/2,(ch-dh)*0.26,dw,dh);
-    lastIdx=idx;
-  }
-  window.__heroSeq=function(v){
-    // no time throttle: paint() already no-ops when the frame index hasn't moved, so the
-    // only thing a throttle bought was up-to-30ms of latency on the frames that DID change.
-    p=v; paint();
-  };
-  window.addEventListener('resize',function(){ fit(); lastIdx=-1; paint(); },{passive:true});
-
-  var url=function(i){ return BASE+String(i).padStart(3,'0')+'.webp'; };
-  // Progressive: hand over to the canvas as soon as the FIRST frame decodes, then keep
-  // filling in. Waiting on Promise.all meant the hero sat frozen until the whole sequence
-  // landed — and the sequence just got 2.4x longer. Frames are requested in order, so the
-  // ones nearest the top of the runway are always the ones that arrive first.
-  for(var i=1;i<=N;i++)(function(i){
-    fetch(url(i)).then(function(r){ return r.blob(); })
-      .then(function(bl){ return createImageBitmap(bl); })
-      .then(function(bm){
-        bmps[i-1]=bm;
-        if(ready) return;
-        ready=true;
-        document.documentElement.classList.add('seq-on');
-        fit(); lastIdx=-1; paint();
-      })
-      .catch(function(){});
-  })(i);
-})();
-</script>
+<!-- HERO = plain autoplaying video loop. The scroll-scrubbed canvas frame sequence that
+     index-new.html uses is deliberately absent here: without it #heroCanvas stays
+     display:none (its default) and .scene__bg--video is never hidden, so the <video>
+     below simply autoplays and loops. Also drops the 5.3MB frame download. -->
 <script>
 /* PLAYBACK BUDGET — only clips actually on screen may decode.
    Measured: 6 videos were decoding at once (all offscreen), median frame time 41ms
