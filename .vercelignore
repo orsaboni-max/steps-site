@@ -9,3 +9,6 @@ images/hero-video-web.mp4
 netlify/
 marketing/
 *.md
+_preview/
+_review.html
+.impeccable/

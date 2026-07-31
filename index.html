@@ -28,235 +28,469 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<!--
+====================================================================
+DESIGN SYSTEM — "Cinematic Journey" (production build v1)
+STEPS Fitness · dark, immersive, pinned scroll scenes
+Colors in oklch. Yellow is the only accent that travels through the
+whole page. Purple (MOVE) and teal (PILATES) live only inside their
+own scene. Motion: CSS animation-timeline (view()/scroll()) behind
+@supports, IntersectionObserver fallback for everything else.
+Sticky choreography disabled on very short viewports + reduced-motion.
+====================================================================
+-->
 <style>
-:root{--accent:#F5C518;--accent2:#2EC4B6;--dark:#111;--white:#FAFAFA}
+:root{
+  --c-bg: oklch(15% 0.004 285);
+  --c-bg-2: oklch(19% 0.006 285);
+  --c-bg-3: oklch(11% 0.003 285);
+  --c-ink: oklch(97% 0.003 90);
+  --c-ink-dim: oklch(97% 0.003 90 / .55);
+  --c-ink-faint: oklch(97% 0.003 90 / .3);
+  --c-yellow: oklch(84% 0.16 95);
+  --c-yellow-ink: oklch(20% 0.05 95);
+  --c-purple: oklch(64% 0.19 320);
+  --c-teal: oklch(74% 0.12 180);
+  --ease: cubic-bezier(.16,.84,.44,1);
+  /* legacy aliases used by ported production components */
+  --accent:#F5C518;--accent2:#2EC4B6;--dark:#111;--white:#FAFAFA;
+}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html,body{overflow-x:hidden;max-width:100vw}
-body{font-family:'Heebo',sans-serif;background:var(--dark);color:var(--white);-webkit-font-smoothing:antialiased}
-img{max-width:100%;height:auto}
+html{scroll-behavior:smooth}
+html,body{overflow-x:clip;max-width:100vw;background:var(--c-bg)}
+body{font-family:'Heebo',sans-serif;color:var(--c-ink);-webkit-font-smoothing:antialiased;font-weight:300}
+img{max-width:100%;height:auto;display:block}
+h1,h2,h3{font-weight:900;line-height:0.95;letter-spacing:-0.01em}
+a{color:inherit}
+::selection{background:var(--c-yellow);color:var(--c-yellow-ink)}
 
-/* NAV */
-.nav{position:fixed;top:0;right:0;left:0;z-index:1000;padding:14px 5%;display:flex;align-items:center;justify-content:space-between;transition:all .4s}
-.nav.solid{background:rgba(17,17,17,0.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.05)}
-.logo{font-weight:900;font-size:22px;letter-spacing:3px;color:#fff}
-.logo img{height:44px;width:auto}
-.hero-logo{height:90px;width:auto;display:block;margin:0 auto 28px;animation:fadeIn 1s}
-.logo span{color:var(--accent)}
-.n-links{display:flex;gap:24px;list-style:none;align-items:center}
-.n-links a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:14px;font-weight:500;transition:color .3s}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+}
+
+.skip-link{position:absolute;top:-100px;left:0;background:var(--accent);color:#111;padding:8px 16px;z-index:100000;font-size:14px;text-decoration:none;transition:top .3s}
+.skip-link:focus{top:0}
+
+/* ============ PROGRESS + NAV CHROME ============ */
+.progress-track{position:fixed;top:0;right:0;left:0;height:3px;z-index:1500;background:rgba(255,255,255,.06)}
+.progress-fill{height:100%;width:100%;background:var(--c-yellow);transform:scaleX(0);transform-origin:right center;box-shadow:0 0 12px oklch(84% 0.16 95 / .6)}
+@supports (animation-timeline: scroll()){
+  .progress-fill{animation:progress-grow linear both;animation-timeline:scroll(root)}
+}
+@keyframes progress-grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+.nav{position:fixed;top:0;right:0;left:0;z-index:1000;padding:14px 5%;display:flex;align-items:center;justify-content:space-between;transition:background .4s,backdrop-filter .4s,border-color .4s}
+.nav.solid{background:rgba(8,8,8,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+.logo img{height:44px;width:auto;display:block}
+.n-links{display:flex;gap:26px;list-style:none;align-items:center}
+.n-links a{color:rgba(255,255,255,.72);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.02em;transition:color .3s}
 .n-links a:hover{color:#fff}
-.n-cta{background:var(--accent)!important;color:#fff!important;padding:9px 22px;border-radius:50px;font-weight:700;font-size:13px;transition:all .3s}
-.n-cta:hover{filter:brightness(1.15);transform:translateY(-1px)}
-.mob{display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;z-index:1001}
+.n-cta{background:var(--c-yellow)!important;color:var(--c-yellow-ink)!important;padding:10px 24px;font-weight:700;font-size:12px;letter-spacing:.03em}
+.n-cta:hover{filter:brightness(1.08)}
+.mob{display:none;width:44px;height:44px;background:none;border:none;color:#fff;cursor:pointer;z-index:1001;align-items:center;justify-content:center}
+.mob svg{width:24px;height:24px;display:block}
+.mob .mob-x{display:none}
+.mob.open .mob-burger{display:none}
+.mob.open .mob-x{display:block}
 
-/* MOBILE MENU */
 @media(max-width:768px){
-.n-links{display:none;position:fixed;top:0;right:0;width:75%;max-width:320px;height:100vh;background:rgba(17,17,17,0.98);backdrop-filter:blur(20px);flex-direction:column;padding:80px 32px 40px;gap:0;z-index:999;transform:translateX(100%);transition:transform .35s ease}
+.n-links{display:none;position:fixed;top:0;right:0;width:75%;max-width:320px;height:100vh;background:rgba(8,8,8,.98);backdrop-filter:blur(20px);flex-direction:column;padding:80px 32px 40px;gap:0;z-index:999;transform:translateX(100%);transition:transform .35s var(--ease)}
 .n-links.open{display:flex;transform:translateX(0)}
-.n-links a{font-size:18px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.06);color:rgba(255,255,255,0.8);width:100%;display:block}
+.n-links a{font-size:18px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.06);color:rgba(255,255,255,.82);width:100%;display:block}
 .n-links a:last-child{border-bottom:none;margin-top:12px;text-align:center}
-.mob{display:block}
-.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:998}
+.mob{display:flex}
+.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:998}
 .mob-overlay.open{display:block}
 }
 
-/* HERO - FULL BLEED PHOTO */
-.hero{min-height:100svh;position:relative;display:flex;overflow:hidden}
-.hero-img{position:absolute;inset:0;background:none}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.05) 40%,rgba(0,0,0,0.05) 60%,rgba(0,0,0,0.7) 100%)}
-.hero-inner{position:relative;z-index:2;padding:100px 7% 60px;width:100%;min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;align-items:center;text-align:center;text-shadow:0 2px 8px rgba(0,0,0,0.5)}
-.hero-tag{display:inline-block;border:1px solid rgba(255,255,255,0.2);padding:10px 24px;border-radius:50px;font-size:clamp(24px,4vw,36px);font-weight:800;color:#fff;margin-bottom:20px;letter-spacing:1px}
-.hero h1{font-size:clamp(38px,6.5vw,68px);font-weight:900;line-height:1.05;margin-bottom:16px;animation:slideR .8s .1s both}
-.hero h1 em{font-style:normal;color:var(--accent);display:block}
-.hero-sub{font-size:clamp(15px,2vw,18px);font-weight:300;color:rgba(255,255,255,0.6);line-height:1.8;margin-bottom:36px;max-width:520px;margin-left:auto;margin-right:auto;animation:slideR .8s .25s both}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap;animation:slideR .8s .4s both;justify-content:center}
-.btn-a{background:var(--accent);color:#fff;border:none;padding:14px 34px;border-radius:50px;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
-.btn-a:hover{filter:brightness(1.15);transform:translateY(-2px) scale(1.04);box-shadow:0 8px 30px rgba(245,197,24,0.45),0 0 60px rgba(245,197,24,0.15)}
-.btn-b{background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.25);padding:14px 34px;border-radius:50px;font-size:16px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .4s;text-decoration:none;backdrop-filter:blur(8px)}
-.btn-b:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.5);transform:translateY(-2px) scale(1.04);box-shadow:0 8px 30px rgba(255,255,255,0.1),0 0 40px rgba(255,255,255,0.05)}
+/* ============ SCENE FRAMEWORK (pinned cinematic scenes) ============ */
+.scene{position:relative;height:260vh}
+.scene--arrival{height:200vh}
+/* svh->dvh cascade: dvh (dynamic viewport, tracks the browser chrome collapsing) wins where
+   supported so the sticky pin — and therefore the full-bleed video inside it — never falls
+   short of the real visible area once the toolbar hides (the "doesn't fill the screen" bug). */
+.scene__sticky{position:sticky;top:0;height:100vh;height:100svh;height:100dvh;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+/* full-bleed always: no inset/width tricks (they were fighting the explicit 100% below and
+   could undercover by a hair). Scale never drops to 1.0 — floor stays >1 so cover always has
+   overscan margin regardless of aspect/rounding. */
+.scene__bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(calc(1.05 - 0.05 * var(--p, 0)));transform-origin:center;will-change:transform}
+video.scene__bg,img.scene__bg{object-fit:cover;object-position:center;width:100%;height:100%}
+.scene__bg--reduced{display:none}
+@media(prefers-reduced-motion:reduce){.scene--arrival .scene__bg--video{display:none}.scene--arrival .scene__bg--reduced{display:block}}
+/* desktop: same vertical video, recentered so the crop reads as shoulders/back mid-lift, not a hip-level crop */
+@media(min-width:769px){.scene--arrival .scene__bg--video{object-position:center 34%}}
+@media(max-width:768px){.scene--arrival .scene__bg--video{object-position:center 26%}}
+.scene__tint{position:absolute;inset:0}
+.scene--gym .scene__tint,.scene--move .scene__tint,.scene--pilates .scene__tint{background:linear-gradient(to bottom,rgba(6,6,6,.55) 0%,rgba(6,6,6,.15) 30%,rgba(6,6,6,.55) 62%,rgba(6,6,6,.9) 100%)}
+.scene__content{position:relative;z-index:2;padding:0 6% 9%;width:100%;max-width:1200px;margin:0 auto}
+.scene__eyebrow{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;margin-bottom:18px;opacity:0;transform:translateY(14px);transition:all .8s var(--ease)}
+.scene__title{font-size:clamp(40px,11vw,128px);margin-bottom:20px;opacity:0;transform:translateY(24px);transition:all .9s var(--ease) .05s}
+.scene__body{font-size:clamp(15px,1.8vw,19px);color:var(--c-ink-dim);max-width:520px;line-height:1.8;font-weight:300;opacity:0;transform:translateY(18px);transition:all .9s var(--ease) .15s}
+.scene__body b{color:#fff;font-weight:700}
+.scene__tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;opacity:0;transform:translateY(14px);transition:all .9s var(--ease) .25s}
+.scene__ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px;opacity:0;transform:translateY(14px);transition:all .9s var(--ease) .3s}
+.scene__proof{margin-top:22px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;opacity:0;transform:translateY(14px);transition:all .9s var(--ease) .4s}
+.tag-chip{border:1px solid rgba(255,255,255,.22);padding:7px 16px;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;background:rgba(0,0,0,.2);backdrop-filter:blur(4px);border-radius:2px}
+.scene.in-view .scene__eyebrow,
+.scene.in-view .scene__body,
+.scene.in-view .scene__tags,
+.scene.in-view .scene__ctas,
+.scene.in-view .scene__proof{opacity:1;transform:none}
+.scene--arrival.in-view .scene__title{opacity:1;transform:none}
+/* GYM/MOVE/PILATES titles are driven continuously by the rAF scroll engine (--pt), not a one-shot reveal */
+.scene--gym .scene__title,.scene--move .scene__title,.scene--pilates .scene__title{
+  transition:none;opacity:var(--pt,0);transform:translateY(calc(60px - 60px * var(--pt,0)))
+}
 
-/* PAIN SECTION - photo bg */
-.pain-sec{position:relative;padding:90px 5%;overflow:hidden}
-.pain-bg{position:absolute;inset:0;background:url('images/pain-bg.jpg') center/cover no-repeat}
-.pain-ov{position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.7))}
+.scene--arrival .scene__sticky{justify-content:flex-start;padding-top:12vh}
+.scene--arrival .scene__content{text-align:center;max-width:900px;padding-bottom:0}
+.scene--arrival .scene__title{font-size:clamp(34px,7.5vw,84px)}
+.scene--arrival .scene__title em{font-style:normal;display:block;color:var(--c-yellow)}
+.scene--arrival .scene__subtitle{opacity:0;transform:translateY(14px);transition:all .8s var(--ease) .1s;font-size:clamp(14px,2vw,18px);color:rgba(255,255,255,.78);font-weight:500;margin:0 auto 10px;max-width:520px}
+.scene--arrival .scene__body{margin:0 auto}
+.scene--arrival .scene__ctas{justify-content:center}
+.scene--arrival .quiet-link{opacity:0;transform:translateY(14px);transition:all .9s var(--ease) .35s;color:rgba(255,255,255,.6);font-size:13px;text-decoration:underline;text-underline-offset:3px;margin-top:14px;display:inline-block}
+.scene--arrival .quiet-link:hover{color:#fff}
+.scene--arrival.in-view .quiet-link{opacity:1;transform:none}
+.scene--arrival.in-view .scene__subtitle{opacity:1;transform:none}
+.scroll-cue{position:absolute;bottom:5vh;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;animation:cue-fade 1s var(--ease) 1.4s forwards}
+.scroll-cue span{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--c-ink-faint)}
+.scroll-cue svg{animation:cue-bob 1.8s ease-in-out infinite}
+@keyframes cue-fade{to{opacity:1}}
+@keyframes cue-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+@keyframes ambient-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.scene--arrival .scene__subtitle{animation:ambient-float 4s ease-in-out 1.2s infinite}
+.scene__proof{--float-ready:1}
+.scene__proof span:first-child{display:inline-block;animation:ambient-float 3.6s ease-in-out 1.6s infinite}
+
+.scene--gym .scene__tint{background:linear-gradient(to top,rgba(8,8,8,.95) 0%,rgba(8,8,8,.35) 45%,rgba(8,8,8,.1) 70%)}
+.scene--gym .scene__eyebrow{color:var(--c-yellow)}
+.scene--gym .tag-chip{border-color:oklch(84% 0.16 95 / .4)}
+.scene--gym .scene__title em{color:var(--c-yellow)}
+.scene--move .scene__tint{background:linear-gradient(to top,rgba(8,8,8,.95) 0%,rgba(8,8,8,.3) 45%,rgba(8,8,8,.08) 70%)}
+.scene--move .scene__eyebrow{color:var(--c-purple)}
+.scene--move .tag-chip{border-color:oklch(64% 0.19 320 / .45)}
+.scene--move .scene__title em{color:var(--c-purple)}
+.scene--pilates .scene__tint{background:linear-gradient(to top,rgba(8,8,8,.95) 0%,rgba(8,8,8,.3) 45%,rgba(8,8,8,.08) 70%)}
+.scene--pilates .scene__eyebrow{color:var(--c-teal)}
+.scene--pilates .tag-chip{border-color:oklch(74% 0.12 180 / .45)}
+.scene--pilates .scene__title em{color:var(--c-teal)}
+
+/* ============ SPACE CAROUSEL (replaces the old room/people opacity crossfade) ============
+   Slide 1 = empty-room clip (vertically scroll-scrubbed like the hero). Slides 2+ = training
+   media. Native horizontal scroll-snap = native touch swipe, no scroll-hijacking. The track is
+   forced ltr regardless of page dir so scrollLeft semantics stay predictable across browsers —
+   arrows/keys then just mean "physically forward/back", independent of page RTL. */
+.carousel{position:absolute;inset:0}
+.carousel__track{position:absolute;inset:0;display:flex;direction:ltr;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;outline:none}
+.carousel__track::-webkit-scrollbar{display:none}
+/* overflow:hidden is load-bearing — .carousel__media is scaled to 1.1, so without it the
+   neighbouring slide's oversized media bleeds past the snap edge ("video escaping from the side") */
+.carousel__slide{position:relative;flex:0 0 100%;height:100%;scroll-snap-align:start;overflow:hidden}
+.carousel__media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(calc(1.1 - 0.05 * var(--p,0)));transform-origin:center;will-change:transform}
+/* arrows/dots sized to a >=44px tap target even though the visible glyph stays small —
+   the extra box is invisible hit-area padding, not a bigger visual element */
+.carousel__arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.25);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .16s ease-out,transform .16s ease-out}
+.carousel__arrow svg{width:18px;height:18px}
+.carousel__arrow:hover{background:rgba(0,0,0,.65)}
+.carousel__arrow:active{transform:translateY(-50%) scale(.9)}
+.carousel__arrow--prev{left:10px}
+.carousel__arrow--next{right:10px}
+.carousel__dots{position:absolute;bottom:0;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:2px}
+.carousel__dot{position:relative;width:44px;height:44px;background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.carousel__dot::after{content:'';width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.15);transition:background .16s ease-out,transform .16s ease-out}
+.carousel__dot.active::after{background:#fff;transform:scale(1.4)}
+.carousel__track:focus-visible{outline:2px solid var(--c-yellow);outline-offset:-4px}
+@media(hover:none) and (pointer:coarse){.carousel__arrow{display:none}}
+@media(prefers-reduced-motion:reduce){.carousel__media{transform:none}}
+
+.space-name{display:flex;align-items:baseline;gap:16px}
+.space-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
+.scene--gym .space-dot{background:var(--c-yellow);box-shadow:0 0 22px oklch(84% 0.16 95 / .7)}
+.scene--move .space-dot{background:var(--c-purple);box-shadow:0 0 22px oklch(64% 0.19 320 / .7)}
+.scene--pilates .space-dot{background:var(--c-teal);box-shadow:0 0 22px oklch(74% 0.12 180 / .7)}
+
+.scene-index{position:absolute;top:8vh;left:6%;z-index:2;font-size:13px;font-weight:700;color:var(--c-ink-faint);letter-spacing:.15em;opacity:0;transition:opacity .8s var(--ease) .1s}
+.scene.in-view .scene-index{opacity:1}
+.scene-index b{color:var(--c-ink);font-weight:900;font-size:16px}
+
+/* content-reveal only (progressive enhancement on browsers with scroll-timeline). Background
+   zoom/scale is NOT driven here anymore — it stayed on the damped JS rAF engine (--p) for every
+   scene so there's exactly one authority over scale, and it stays damped instead of a raw
+   1:1 scroll-timeline jump. */
+@supports (animation-timeline: view()){
+  .scene--arrival, .scene--gym, .scene--move, .scene--pilates, .scene--energy{ view-timeline: --track block; }
+  .scene--arrival .scene__subtitle,.scene--arrival .scene__title,.scene--arrival .scene__body,.scene--arrival .scene__tags,.scene--arrival .scene__ctas,.scene--arrival .scene__proof,
+  .scene--gym .scene__eyebrow,.scene--gym .scene__title,.scene--gym .scene__body,.scene--gym .scene__tags,
+  .scene--move .scene__eyebrow,.scene--move .scene__title,.scene--move .scene__body,.scene--move .scene__tags,
+  .scene--pilates .scene__eyebrow,.scene--pilates .scene__title,.scene--pilates .scene__body,.scene--pilates .scene__tags{
+    opacity:1; animation:content-rise both; animation-timeline:--track; animation-range:entry 10% cover 30%;
+  }
+  .scene-index{opacity:1;animation:idx-fade both;animation-timeline:--track;animation-range:entry 0% cover 20%;}
+}
+@keyframes content-rise{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+@keyframes idx-fade{from{opacity:0}to{opacity:1}}
+
+/* short-viewport degrade: no pinned choreography when there's no runway */
+@media(max-height:480px){
+  .scene,.scene--energy{height:auto}
+  .scene__sticky{position:relative;height:auto;min-height:100vh;min-height:100svh;padding:80px 0 40px}
+}
+
+/* ============ SPOTLIGHT STRIP ============ */
+.strip{background:var(--c-bg-3);border-top:1px solid oklch(84% 0.16 95 / .25);border-bottom:1px solid oklch(84% 0.16 95 / .25);padding:20px 5%;overflow:hidden}
+.strip-track{display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+.strip-word{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--c-ink-faint);transition:color .5s,text-shadow .5s}
+.strip-word.hot{color:var(--c-ink);text-shadow:0 0 18px oklch(84% 0.16 95 / .55)}
+.strip-sep{color:oklch(97% 0.003 90 / .12);font-size:11px;align-self:center}
+
+/* ============ STATS STRIP ============ */
+.stats-strip{padding:56px 5%;background:var(--c-bg);border-bottom:1px solid rgba(255,255,255,.05)}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:900px;margin:0 auto;text-align:center}
+.stat-num{font-size:clamp(28px,4vw,44px);font-weight:900;color:var(--c-yellow);line-height:1}
+.stat-lbl{font-size:13px;color:var(--c-ink-dim);margin-top:8px}
+@media(max-width:768px){.stats-grid{grid-template-columns:1fr;gap:28px}}
+
+/* ============ GENERIC REVEAL (replaces AOS) ============ */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.is-visible{opacity:1;transform:none}
+/* staggered entrance for grid/list groups */
+.pgrid .reveal:nth-child(2),.usp-grid .reveal:nth-child(2),.price-grid .reveal:nth-child(2),.people-grid .reveal:nth-child(2),.gg .reveal:nth-child(2),.stats-grid .reveal:nth-child(2){transition-delay:.08s}
+.pgrid .reveal:nth-child(3),.usp-grid .reveal:nth-child(3),.price-grid .reveal:nth-child(3),.people-grid .reveal:nth-child(3),.gg .reveal:nth-child(3),.stats-grid .reveal:nth-child(3){transition-delay:.16s}
+.pgrid .reveal:nth-child(4),.usp-grid .reveal:nth-child(4),.gg .reveal:nth-child(4){transition-delay:.24s}
+.gg .reveal:nth-child(5){transition-delay:.32s}
+.gg .reveal:nth-child(6){transition-delay:.4s}
+noscript{}
+
+/* ============ SECTION HEADERS ============ */
+.sec{padding:100px 5%;overflow-x:clip}
+.sec-h{text-align:center;margin-bottom:50px}
+.sec-tag{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.sec-title{font-size:clamp(28px,4.5vw,46px);font-weight:900;line-height:1.12}
+.sec-sub{font-size:16px;color:var(--c-ink-dim);margin-top:10px;font-weight:300}
+
+/* ============ PAIN → SOLUTION ============ */
+.pain-sec{position:relative;padding:100px 5%;overflow:hidden}
+.pain-bg{position:absolute;inset:-6% 0;background:url('images/shoot2025/coaching-1-g.jpg') center/cover no-repeat;will-change:transform}
+.pain-ov{position:absolute;inset:0;background:linear-gradient(rgba(8,8,8,.65),rgba(8,8,8,.88))}
 .pain-content{position:relative;z-index:2;max-width:1000px;margin:0 auto}
-.pain-header{text-align:center;margin-bottom:48px}
-.pain-header h2{font-size:clamp(28px,4vw,42px);font-weight:900;line-height:1.15}
-.pain-header h2 span{color:var(--accent)}
-.pain-header p{font-size:16px;color:rgba(255,255,255,0.5);margin-top:8px}
-.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.pcard{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:24px;transition:all .4s;position:relative;overflow:hidden}
-.pcard:hover{background:rgba(255,255,255,0.07);transform:translateY(-3px);border-color:rgba(245,197,24,0.2)}
-.pcard-x{font-size:13px;color:var(--accent);font-weight:600;margin-bottom:6px}
-.pcard-q{font-size:14px;color:rgba(255,255,255,0.45);font-style:italic;margin-bottom:14px;line-height:1.6;padding-right:10px;border-right:2px solid rgba(255,255,255,0.06)}
+.pgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.pcard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:26px;transition:all .4s var(--ease)}
+.pcard:hover{background:rgba(255,255,255,.07);transform:translateY(-3px);border-color:oklch(84% 0.16 95 / .3)}
+.pcard-x{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--accent);font-weight:700;letter-spacing:.05em;margin-bottom:10px}
+.pcard-x svg{width:13px;height:13px;flex-shrink:0}
+.pcard-q{font-size:14px;color:var(--c-ink-dim);margin-bottom:16px;line-height:1.7;padding-right:12px;border-right:2px solid rgba(255,255,255,.1)}
 .pcard-a{display:flex;align-items:flex-start;gap:10px}
-.pcard-chk{width:26px;height:26px;border-radius:50%;background:rgba(46,196,182,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent2);font-size:13px;font-weight:700}
+.pcard-chk{width:26px;height:26px;border-radius:50%;background:rgba(46,196,182,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent2)}
+.pcard-chk svg{width:13px;height:13px}
 .pcard-txt{font-size:14px;color:#fff;font-weight:500;line-height:1.6}
 
-/* SPACES - PHOTO CARDS */
-.sec{padding:90px 5%;overflow-x:hidden}
-.sec-h{text-align:center;margin-bottom:50px}
-.sec-tag{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
-.sec-title{font-size:clamp(28px,4vw,42px);font-weight:900;line-height:1.15}
-.sec-sub{font-size:16px;color:rgba(255,255,255,0.45);margin-top:8px}
-.spaces{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1100px;margin:0 auto}
-.sp{border-radius:14px;overflow:hidden;position:relative;height:380px;cursor:pointer}
-.sp-img{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .6s}
-.sp:hover .sp-img{transform:scale(1.05)}
-.sp-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.1) 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:24px}
-.sp-name{font-size:22px;font-weight:900;margin-bottom:4px}
-.sp-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-left:6px}
-.sp-desc{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.7;margin-bottom:10px}
-.sp-tags{display:flex;gap:6px;flex-wrap:wrap}
-.st{background:rgba(255,255,255,0.08);padding:4px 10px;border-radius:50px;font-size:10px;font-weight:500;color:rgba(255,255,255,0.6)}
-
-/* BINA */
-.bina{padding:90px 5%;background:var(--dark);overflow-x:hidden}
+/* ============ BINA ============ */
+.bina{padding:100px 5%;background:var(--c-bg);overflow-x:clip}
 .bina-wrap{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
-.bina-tag{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent2);margin-bottom:8px}
-.bina h2{font-size:clamp(26px,3.5vw,38px);font-weight:900;margin-bottom:12px;line-height:1.15}
+.bina-tag{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--accent2);margin-bottom:10px}
+.bina h2{font-size:clamp(26px,3.5vw,40px);margin-bottom:14px;line-height:1.15}
 .bina h2 span{color:var(--accent2)}
-.bina-p{font-size:14px;color:rgba(255,255,255,0.55);line-height:1.8;margin-bottom:20px}
-.bf{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,0.7);font-weight:500;margin-bottom:12px}
-.bf-i{width:30px;height:30px;border-radius:8px;background:rgba(46,196,182,0.08);border:1px solid rgba(46,196,182,0.12);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.phone{width:210px;height:380px;background:#1a1a1a;border-radius:26px;border:2px solid rgba(255,255,255,0.06);padding:12px;display:flex;flex-direction:column;gap:8px;box-shadow:0 20px 50px rgba(0,0,0,0.5);margin:0 auto}
-.phone::before{content:'';display:block;width:44px;height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin:0 auto 4px}
-.msg{padding:8px 10px;border-radius:10px;font-size:10px;line-height:1.5;max-width:88%}
-.m-bot{background:rgba(46,196,182,0.1);border:1px solid rgba(46,196,182,0.12);color:rgba(46,196,182,0.9);align-self:flex-start;margin-top:10px}
-.m-usr{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.04);color:rgba(255,255,255,0.65);align-self:flex-end}
-.m-menu{background:rgba(245,197,24,0.08);border:1px solid rgba(245,197,24,0.12);color:var(--accent);align-self:flex-start;font-weight:600}
-
-/* SCHEDULE */
-.sched-sec{padding:90px 5%;background:#fafaf8;overflow-x:hidden}
-.sched-sec .sec-tag{color:var(--accent)}
-.sched-sec .sec-title,.sched-sec .sec-sub{color:#222}
-.sched-sec .sec-sub{color:#999}
-.sched{max-width:860px;margin:0 auto;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.06)}
-.sched-top{background:var(--dark);padding:16px 22px;display:flex;align-items:center;justify-content:space-between;color:#fff}
-.sched-top h3{font-size:17px;font-weight:700}
-.dtabs{display:flex;gap:3px}
-.dt{padding:6px 14px;border-radius:50px;font-size:12px;font-weight:600;background:rgba(255,255,255,0.08);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all .3s}
-.dt.active{background:var(--accent);color:#fff}
-.slist{padding:6px}
-.si{display:flex;align-items:center;padding:13px 16px;gap:12px;border-bottom:1px solid rgba(0,0,0,0.03);transition:background .2s;border-radius:8px}
-.si:hover{background:rgba(245,197,24,0.03)}
-.s-time{font-size:16px;font-weight:700;color:#222;min-width:50px}
-.s-cls{flex:1}.s-n{font-size:14px;font-weight:700;color:#222}.s-t{font-size:11px;color:#aaa}
-.s-bdg{padding:4px 10px;border-radius:50px;font-size:10px;font-weight:600}
-.bg{background:rgba(245,197,24,0.08);color:var(--accent)}
-.bm{background:rgba(168,85,247,0.08);color:#A855F7}
-.bp{background:rgba(46,196,182,0.08);color:#0F6E56}
-.sfn{text-align:center;padding:10px;font-size:11px;color:#bbb;border-top:1px solid rgba(0,0,0,0.03)}
-
-/* TESTIMONIALS - photo bg */
-.test-sec{position:relative;padding:90px 5%;overflow:hidden}
-.test-bg{position:absolute;inset:0;background:url('images/testimonials-bg.jpg') center/cover no-repeat}
-.test-ov{position:absolute;inset:0;background:rgba(0,0,0,0.85)}
-.test-content{position:relative;z-index:2}
-.test-content .sec-h{margin-bottom:40px}
-.tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;max-width:1100px;margin:0 auto}
-.tc{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:24px;transition:all .3s;position:relative}
-.tc:hover{background:rgba(255,255,255,0.07);transform:translateY(-2px)}
-.tc::after{content:'';position:absolute;bottom:0;right:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:0 0 14px 14px;opacity:0;transition:opacity .3s}
-.tc:hover::after{opacity:1}
-.stars{color:#FFB800;font-size:13px;letter-spacing:2px;margin-bottom:10px}
-.tc-txt{font-size:13px;line-height:1.8;color:rgba(255,255,255,0.6);margin-bottom:16px}
-.tc-auth{display:flex;align-items:center;gap:10px}
-.tc-av{width:36px;height:36px;border-radius:50%;background:rgba(245,197,24,0.15);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:var(--accent)}
-.tc-name{font-weight:700;font-size:13px}.tc-info{font-size:10px;color:rgba(255,255,255,0.35)}
-
-/* TEAM */
-.team{padding:0;background:var(--dark);overflow-x:hidden}
-
-/* GALLERY */
-.gal{padding:90px 5%;overflow-x:hidden}
-.gg{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,170px);gap:8px;max-width:1100px;margin:0 auto}
-.gi{border-radius:10px;overflow:hidden;position:relative;cursor:pointer}
-.gi:first-child{grid-column:span 2;grid-row:span 2}
-.gi-bg{position:absolute;inset:0;background:#1a1a1a;display:flex;align-items:center;justify-content:center;font-size:24px;opacity:.25;transition:transform .5s}
-.gi:hover .gi-bg{transform:scale(1.05)}
-.gi-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6),transparent);display:flex;align-items:flex-end;padding:12px;opacity:0;transition:opacity .3s}
-.gi:hover .gi-ov{opacity:1}
-.gi-l{color:#fff;font-size:12px;font-weight:600}
-
-/* CTA - photo bg */
-.cta-sec{position:relative;padding:80px 5%;text-align:center;overflow:hidden}
-.cta-bg{position:absolute;inset:0;background:url('images/gym-card.jpg') center/cover no-repeat}
-.cta-ov{position:absolute;inset:0;background:rgba(245,197,24,0.88)}
-.cta-in{position:relative;z-index:2;max-width:520px;margin:0 auto}
-.cta-price{display:inline-block;background:#fff;color:var(--accent);font-size:24px;font-weight:900;padding:7px 26px;border-radius:50px;margin-bottom:16px}
-.cta-h{font-size:clamp(24px,4vw,38px);font-weight:900;color:#fff;margin-bottom:8px;line-height:1.2}
-.cta-p{font-size:16px;color:rgba(255,255,255,0.85);margin-bottom:28px;line-height:1.6}
-.cta-t{margin-top:14px;font-size:12px;color:rgba(255,255,255,0.6)}
-
-/* FOOTER */
-.foot{background:#080808;padding:48px 5% 20px;overflow-x:hidden}
-.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;max-width:1100px;margin:0 auto;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,0.04)}
-.fd{font-size:12px;color:#666;line-height:1.7;margin-top:10px}
-.foot .logo img{height:38px}
-.ft{font-size:13px;font-weight:700;margin-bottom:14px;color:var(--accent)}
-.fl{list-style:none;display:flex;flex-direction:column;gap:8px}
-.fl a{color:#666;text-decoration:none;font-size:12px;transition:color .3s}.fl a:hover{color:var(--accent)}
-.fc{display:flex;align-items:center;gap:6px;color:#666;font-size:12px;margin-bottom:8px}
-.fb{max-width:1100px;margin:0 auto;padding-top:16px;display:flex;justify-content:space-between;align-items:center}
-.fcopy{font-size:11px;color:rgba(255,255,255,0.15)}
-.fsoc{display:flex;gap:8px}
-.fsi{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;font-size:13px;color:#666;text-decoration:none;transition:all .3s}
-.fsi:hover{background:var(--accent);border-color:var(--accent);color:#fff}
-
-/* WA FLOAT */
-.waf{position:fixed;bottom:18px;left:18px;z-index:999;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,0.4);transition:transform .3s;animation:bounceIn 1s 1.5s both}
-.waf:hover{transform:scale(1.08)}
-
-/* ANIMATIONS */
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes slideR{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:none}}
-@keyframes bounceIn{0%{opacity:0;transform:scale(.3)}50%{transform:scale(1.1)}70%{transform:scale(.95)}100%{opacity:1;transform:scale(1)}}
-
-/* AOS OVERFLOW FIX */
-[data-aos="fade-left"],[data-aos="fade-right"]{overflow-x:hidden}
-
-/* SCROLL REVEAL */
-.reveal{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.22,.68,0,1)}
-.reveal.visible{opacity:1;transform:none}
-
-/* RESPONSIVE */
+.bina-p{font-size:14px;color:var(--c-ink-dim);line-height:1.8;margin-bottom:20px}
+.bf{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.75);font-weight:500;margin-bottom:12px}
+.bf-i{width:30px;height:30px;background:rgba(46,196,182,.08);border:1px solid rgba(46,196,182,.14);display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:50%}
+.bf-i svg{width:15px;height:15px;color:var(--accent2)}
+.bina-addon{background:rgba(245,197,24,.06);border:1px solid rgba(245,197,24,.16);padding:14px 16px;font-size:13px;color:rgba(255,255,255,.8);line-height:1.7;margin-bottom:20px}
+.bina-addon b{color:var(--accent)}
+.phone{width:210px;height:380px;background:var(--c-bg-2);border:2px solid rgba(255,255,255,.06);padding:12px;display:flex;flex-direction:column;gap:8px;box-shadow:0 20px 50px rgba(0,0,0,.5);margin:0 auto}
+.phone::before{content:'';display:block;width:44px;height:4px;background:rgba(255,255,255,.06);margin:0 auto 4px}
+.msg{padding:8px 10px;font-size:10px;line-height:1.5;max-width:88%}
+.m-bot{background:rgba(46,196,182,.1);border:1px solid rgba(46,196,182,.14);color:oklch(74% 0.12 180 / .95);align-self:flex-start;margin-top:10px}
+.m-usr{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.04);color:rgba(255,255,255,.65);align-self:flex-end}
+.m-menu{background:rgba(245,197,24,.08);border:1px solid rgba(245,197,24,.14);color:var(--accent);align-self:flex-start;font-weight:600}
 @media(max-width:768px){
-  .pgrid,.spaces{grid-template-columns:1fr}
-  .spaces .sp{height:280px}
-  .bina-wrap{grid-template-columns:1fr;text-align:center}
-  .gg{grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,130px)}
-  .gi:first-child{grid-column:span 2;grid-row:span 1}
-  .fg{grid-template-columns:1fr 1fr}
-
-  .dtabs{flex-wrap:wrap}
-  .sched-top{flex-direction:column;gap:8px}
-  .hero-overlay{background:linear-gradient(to bottom,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.05) 35%,rgba(0,0,0,0.05) 60%,rgba(0,0,0,0.75) 100%)}
-  .hero-inner{padding:90px 5% 40px}
-  .hero-tag{font-size:clamp(20px,5vw,28px)}
-  .hero h1{font-size:clamp(26px,6.2vw,42px);max-width:100%;padding:0 10px;overflow-wrap:break-word}
-  .hero-sub{font-size:12px;max-width:320px}
-  .hero-btns{flex-direction:column;align-items:center}
-  .hero-btns .btn-b{width:100%;text-align:center}
-  .btn-a,.btn-b{min-height:48px;display:inline-flex;align-items:center;justify-content:center}
+  .bina-wrap{grid-template-columns:1fr;text-align:center;gap:32px}
+  .phone{width:170px;height:300px}
+  .bf{justify-content:center}
 }
-@media(max-width:480px){.fg{grid-template-columns:1fr}}
-@media(max-width:768px){.bina-sec{display:none}}
-.arbox-mobile{display:none;flex-direction:column;align-items:center;padding:20px 0;gap:12px}
-@media(max-width:768px){.arbox-desktop{display:none}.arbox-mobile{display:flex!important}}
-.faq-item{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;overflow:hidden;transition:border-color .3s}
-.faq-item:hover{border-color:rgba(245,197,24,0.2)}
+
+/* ============ SCHEDULE ============ */
+.sched-sec{padding:100px 5%;background:var(--c-bg);overflow-x:clip}
+.sched{max-width:860px;margin:0 auto;background:var(--c-bg-2);border:1px solid rgba(255,255,255,.06);overflow:hidden}
+.sched-top{background:var(--c-bg-3);padding:16px 22px;display:flex;align-items:center;justify-content:space-between;color:#fff}
+.sched-top h3{font-size:17px;font-weight:700}
+.dtabs{display:flex;gap:3px;flex-wrap:wrap}
+.dt{min-height:44px;padding:7px 15px;font-size:12px;font-weight:600;background:rgba(255,255,255,.08);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:background .16s ease-out,color .16s ease-out}
+.dt.active{background:var(--accent);color:var(--c-yellow-ink)}
+.slist{padding:6px}
+.si{display:flex;align-items:center;padding:13px 16px;gap:12px;border-bottom:1px solid rgba(255,255,255,.05)}
+.s-time{font-size:16px;font-weight:700;color:#fff;min-width:50px}
+.s-cls{flex:1}.s-n{font-size:14px;font-weight:700;color:#fff}.s-t{font-size:11px;color:var(--c-ink-faint)}
+.sfn{text-align:center;padding:14px;font-size:12px;color:var(--c-ink-faint);border-top:1px solid rgba(255,255,255,.05)}
+
+/* ============ TESTIMONIALS / ENERGY SCENE ============ */
+.scene--energy{height:220vh}
+.scene--energy .scene__tint{background:rgba(0,0,0,.82)}
+.scene--energy .scene__sticky{justify-content:center;align-items:center}
+.scene--energy .scene__content{text-align:center;max-width:820px;padding:0 6%}
+.energy-eyebrow{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--c-yellow);margin-bottom:22px}
+.energy-h2{font-size:clamp(24px,4vw,44px);margin-bottom:52px;color:var(--c-ink)}
+.quote-stack{position:relative;min-height:260px}
+.quote{position:absolute;inset:0;opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease),transform .7s var(--ease);pointer-events:none}
+.quote.active{opacity:1;transform:none;pointer-events:auto;position:relative}
+.quote-mark{font-size:15px;color:var(--c-yellow);letter-spacing:.3em;margin-bottom:14px}
+.quote-txt{font-size:clamp(16px,2.2vw,24px);font-weight:500;line-height:1.55;color:var(--c-ink);margin-bottom:20px}
+.quote-name{font-size:13px;color:var(--c-ink-dim);letter-spacing:.04em}
+.quote-name b{color:var(--c-ink);font-weight:700}
+.quote-dots{display:flex;justify-content:center;gap:8px;margin-top:30px;flex-wrap:wrap}
+.quote-dots span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2);transition:background .4s}
+.quote-dots span.active{background:var(--c-yellow)}
+
+/* ============ TEAM (USP) ============ */
+.team{padding:100px 5%;background:var(--c-bg);overflow-x:clip}
+.usp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1000px;margin:0 auto}
+.usp-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:32px 24px;text-align:center;transition:all .3s var(--ease)}
+.usp-card:hover{border-color:oklch(84% 0.16 95 / .3);transform:translateY(-4px)}
+.usp-i{width:52px;height:52px;border-radius:50%;background:rgba(245,197,24,.08);border:1px solid rgba(245,197,24,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.usp-i svg{width:22px;height:22px;color:var(--accent)}
+.usp-t{font-weight:700;font-size:16px;margin-bottom:10px;color:#fff}
+.usp-p{font-size:13px;color:var(--c-ink-faint);line-height:1.7}
+@media(max-width:768px){.usp-grid{grid-template-columns:1fr 1fr}}
+.people-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:760px;margin:44px auto 0}
+.people-card{border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02);padding:22px;text-align:center}
+.people-name{font-weight:700;font-size:15px;color:#fff;margin-bottom:4px}
+.people-role{font-size:12px;color:var(--c-ink-faint)}
+@media(max-width:768px){.people-grid{grid-template-columns:1fr}}
+
+/* ============ GALLERY ============ */
+.gal{padding:100px 5%;overflow-x:clip}
+.gg{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:220px;gap:8px;max-width:1100px;margin:0 auto}
+.gi{overflow:hidden;position:relative;cursor:pointer}
+.gi img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.gi:hover img{transform:scale(1.06)}
+.gi-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.78) 0%,rgba(0,0,0,.35) 45%,transparent 75%);display:flex;align-items:flex-end;padding:14px}
+.gi-l{color:#fff;font-size:12px;font-weight:600}
+@media(max-width:768px){.gg{grid-template-columns:1fr 1fr;grid-auto-rows:150px}}
+
+/* ============ FAQ ============ */
+.faq-item{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);overflow:hidden;transition:border-color .3s}
+.faq-item:hover{border-color:oklch(84% 0.16 95 / .3)}
 .faq-item summary{font-weight:700;font-size:15px;color:#fff;padding:20px 24px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .faq-item summary::-webkit-details-marker{display:none}
 .faq-item summary::after{content:'+';color:var(--accent);font-size:22px;font-weight:300;flex-shrink:0;transition:transform .3s}
 .faq-item[open] summary::after{transform:rotate(45deg)}
-.faq-item p{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.8;padding:0 24px 20px}
-.usp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1000px;margin:0 auto}
-@media(max-width:768px){.usp-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:480px){.usp-grid{grid-template-columns:1fr}}
+.faq-item p{font-size:14px;color:var(--c-ink-dim);line-height:1.8;padding:0 24px 20px}
 
+/* ============ PRICING ============ */
+.pricing{padding:100px 5%;background:var(--c-bg-3)}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1000px;margin:0 auto}
+.price-card{position:relative;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);padding:36px 26px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
+.price-card.mid{border-color:oklch(84% 0.16 95 / .45);background:rgba(245,197,24,.05)}
+.price-slot{font-size:15px;font-weight:700;color:#fff}
+.price-badge{position:absolute;top:-12px;right:50%;transform:translateX(50%);background:var(--accent);color:var(--c-yellow-ink);font-size:11px;font-weight:700;letter-spacing:.05em;padding:5px 14px;border-radius:20px}
+.price-amount{font-size:34px;font-weight:900;color:#fff}
+@media(max-width:768px){.price-grid{grid-template-columns:1fr}}
+.price-addon{max-width:820px;margin:28px auto 0;text-align:center;padding:20px 24px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02)}
+.price-addon p{font-size:14px;color:var(--c-ink-dim);line-height:1.9}
+.price-addon b{color:var(--c-teal);font-weight:700}
+.price-note{text-align:center;margin-top:18px;font-size:12px;color:var(--c-ink-faint)}
+
+/* ============ CTA ============ */
+.cta-sec{position:relative;padding:80px 5%;text-align:center;overflow:hidden;background:var(--c-bg-3)}
+.cta-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center 30%, oklch(84% 0.16 95 / .1), transparent 60%)}
+.cta-in{position:relative;z-index:2;max-width:700px;margin:0 auto}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 36px;font-size:16px;font-weight:700;text-decoration:none;transition:transform 150ms ease-out,box-shadow 150ms ease-out,background 150ms ease-out;font-family:inherit;border:none;cursor:pointer}
+.btn-primary{background:var(--c-yellow);color:var(--c-yellow-ink)}
+.btn-ghost{border:1px solid rgba(255,255,255,.28);color:var(--c-ink);background:rgba(255,255,255,.04)}
+@media(hover:hover) and (pointer:fine){
+  .btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 40px oklch(84% 0.16 95 / .35)}
+  .btn-ghost:hover{background:rgba(255,255,255,.1);transform:translateY(-3px)}
+}
+.btn:active{transform:scale(.97);transition-duration:120ms}
+.arbox-mobile{display:none;flex-direction:column;align-items:center;padding:20px 0;gap:12px}
+.quiet-link-plain{color:rgba(255,255,255,.55);font-size:13px;text-decoration:underline;text-underline-offset:3px}
+.quiet-link-plain:hover{color:#fff}
+@media(max-width:768px){.arbox-desktop{display:none}.arbox-mobile{display:flex!important}}
+
+/* ============ FOOTER ============ */
+.foot{background:var(--c-bg-3);padding:48px 5% 20px;overflow-x:hidden;border-top:1px solid rgba(255,255,255,.05)}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;max-width:1100px;margin:0 auto;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.05)}
+.fd{font-size:12px;color:var(--c-ink-faint);line-height:1.7;margin-top:10px}
+.foot .logo img{height:38px}
+.ft{font-size:13px;font-weight:700;margin-bottom:14px;color:var(--accent)}
+.fl{list-style:none;display:flex;flex-direction:column;gap:8px}
+.fl a{color:var(--c-ink-faint);text-decoration:none;font-size:12px;transition:color .3s}
+.fl a:hover{color:var(--accent)}
+.fc{display:flex;align-items:center;gap:6px;color:var(--c-ink-faint);font-size:12px;margin-bottom:8px}
+.fb{max-width:1100px;margin:0 auto;padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.fcopy{font-size:11px;color:rgba(255,255,255,.15)}
+.fsoc{display:flex;gap:8px}
+.fsi{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;color:var(--c-ink-faint);text-decoration:none;transition:background .16s ease-out,color .16s ease-out}
+.fsi svg{width:14px;height:14px}
+.fsi:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+@media(max-width:768px){.fg{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.fg{grid-template-columns:1fr}}
+
+/* ============ WA FLOAT + ACCESSIBILITY BTN ============ */
+.waf{position:fixed;bottom:18px;left:18px;z-index:999;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,.4);transition:transform .3s;animation:bounceIn 1s 1.5s both}
+.waf svg{width:24px;height:24px}
+.waf:hover{transform:scale(1.08)}
+@keyframes bounceIn{0%{opacity:0;transform:scale(.3)}50%{transform:scale(1.1)}70%{transform:scale(.95)}100%{opacity:1;transform:scale(1)}}
+#acc-btn{position:fixed;bottom:90px;left:20px;z-index:9999;width:48px;height:48px;border-radius:50%;background:#1565C0;color:#fff;border:none;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center}
+#acc-btn svg{width:22px;height:22px}
+
+/* ============ MOBILE STICKY CTA BAR ============ */
+.mbar{display:none}
+@media(max-width:768px){
+  .mbar{display:flex;position:fixed;bottom:0;right:0;left:0;z-index:1400;background:rgba(8,8,8,.92);backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,.08);padding:10px 12px;gap:10px;align-items:center}
+  .mbar-cta{flex:1;text-align:center;background:var(--c-yellow);color:var(--c-yellow-ink);font-size:14px;font-weight:800;padding:13px;text-decoration:none}
+  .mbar-wa{width:46px;height:46px;flex-shrink:0;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;color:#fff}
+  /* lift the cookie banner above the sticky CTA bar so it can't cover it */
+  body{padding-bottom:66px;--cookie-bottom:66px}
+  .waf{bottom:78px}
+  #acc-btn{bottom:150px}
+}
+
+/* ============ MOBILE SCENE DEGRADE ============ */
+@media(max-width:768px){
+  /* mobile pin runway: hero ~330vh (owner target 300-360vh), space/testimonial scenes shorter
+     since they don't need to hold a 5s clip, but still enough travel for the carousel + the
+     40%-progress auto-advance to feel deliberate rather than instant */
+  .scene{height:185vh}
+  .scene--arrival{height:150vh}
+  .scene--energy{height:200vh}
+  .scene__content{padding-bottom:13vh}
+  .scene-index{top:7vh}
+  .pgrid{grid-template-columns:1fr;gap:10px}
+  .quote-stack{min-height:220px}
+  /* tighter mobile section rhythm — keeps total page length reasonable */
+  .pain-sec,.bina,.sched-sec,.team,.gal,.pricing,.sec{padding:44px 5%}
+  .stats-strip{padding:24px 5%}
+  .cta-sec{padding:32px 5%}
+  .foot{padding:24px 5% 10px}
+  .fg{gap:22px}
+  .price-card{padding:18px 14px}
+  .price-grid{gap:12px}
+  .gg{grid-template-rows:repeat(3,95px)}
+  .gi:first-child{height:150px}
+  .sec-h{margin-bottom:20px}
+  .people-grid{margin-top:24px}
+  .people-card{padding:16px}
+  .usp-card{padding:20px 16px}
+  .price-addon{margin-top:16px}
+  .price-note{margin-top:10px}
+  .pcard{padding:18px}
+  .pcard-q{margin-bottom:10px}
+  .phone{height:260px}
+  .bf{margin-bottom:8px}
+  .si{padding:10px 16px}
+  .sched-top{padding:12px 22px}
+}
 </style>
-<link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"></noscript>
+
+<noscript><style>
+/* no-JS: content must stay readable, motion is optional */
+.scene__eyebrow,.scene__subtitle,.scene__title,.scene__body,.scene__tags,.scene__ctas,.scene__proof,.scene-index,.reveal,.quiet-link{opacity:1!important;transform:none!important}
+.quote{opacity:1!important;position:static!important;margin-bottom:36px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.08)}
+.quote-dots{display:none}
+</style></noscript>
+
 <!-- Consent Mode v2 — must run BEFORE GA4 loads -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
 <!-- GA4 -->
@@ -287,13 +521,12 @@ img{max-width:100%;height:auto}
   },
   "openingHoursSpecification": [
     {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday"], "opens": "07:00", "closes": "22:00"},
-    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "07:00", "closes": "14:00"},
-    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "18:30", "closes": "22:00"}
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "07:00", "closes": "14:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "18:30", "closes": "22:00"}
   ],
   "aggregateRating": {
     "@type": "AggregateRating",
-    "ratingValue": "4.7",
-    "reviewCount": "26"
+    "ratingValue": "4.8",
+    "reviewCount": "27"
   },
   "priceRange": "$$",
   "description": "סטודיו כושר לנשים בנתניה — אימוני כוח, פילאטיס מכשירים, יוגה, בר. 3 חללי אימון, צוות מקצועי, יחס אישי.",
@@ -322,12 +555,51 @@ img{max-width:100%;height:auto}
   ]
 }
 </script>
+<style>
+/* QA fixes (mobile, verified in headless Chrome) */
+/* team portraits */
+.people-photo{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 22%;border-radius:3px;display:block;margin-bottom:14px;filter:saturate(.95)}
+.people-card{text-align:center}
+@media(max-width:768px){
+  /* 3 columns put portraits at 76px — too small to read a face. Stack as rows instead. */
+  .people-grid{grid-template-columns:1fr;gap:12px}
+  .people-card{display:grid;grid-template-columns:104px 1fr;grid-template-rows:auto auto;
+               column-gap:16px;row-gap:4px;align-content:center;text-align:right;
+               background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:12px}
+  .people-photo{grid-row:1/3;grid-column:1}
+  .people-name{grid-column:2;align-self:end}
+  .people-role{grid-column:2;align-self:start}
+  .people-photo{margin-bottom:0;aspect-ratio:4/5;border-radius:3px}
+  .people-name{font-size:18px}
+  .people-role{font-size:13px;line-height:1.45;opacity:.75}
+}
+
+.dt{min-width:44px}
+#heroCanvas{display:none;position:absolute;inset:0;width:100%;height:100%}
+html.seq-on #heroCanvas{display:block}
+html.seq-on .scene--arrival .scene__bg--video{display:none}
+/* hero canvas scrubber — instant frame paint, no video seek latency */
+
+
+
+
+/* hero: copy sits at the BOTTOM so the subject's face stays clear (verified in headless Chrome) */
+.scene.scene--arrival .scene__sticky{justify-content:flex-end!important}
+.scene.scene--arrival .scene__content{padding-bottom:14vh!important;padding-top:0!important}
+.scene.scene--arrival .scene__eyebrow{align-self:center;margin-bottom:14px}
+
+@media(max-width:768px){
+  .waf{display:none!important}                 /* sticky CTA bar already has WhatsApp */
+  #acc-btn{bottom:calc(env(safe-area-inset-bottom,0px) + 84px);left:14px;z-index:60}
+  .scene-index{top:calc(64px + env(safe-area-inset-top,0px));font-size:11px}
+}
+</style>
 </head>
 <body>
-<a href="#contact" class="skip-link" style="position:absolute;top:-100px;left:0;background:#F5C518;color:#fff;padding:8px 16px;z-index:100000;font-size:14px;text-decoration:none;transition:top 0.3s" onfocus="this.style.top='0'" onblur="this.style.top='-100px'">דלגי לתוכן</a>
+<a href="#pain" class="skip-link">דלגי לתוכן</a>
 
 <!-- Cookie Consent Banner -->
-<div id="cookie-banner" role="dialog" aria-label="הסכמה לעוגיות" style="display:none;position:fixed;bottom:0;right:0;left:0;background:#1a1a1a;border-top:2px solid #F5C518;padding:14px 5%;z-index:99998;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+<div id="cookie-banner" role="dialog" aria-label="הסכמה לעוגיות" style="display:none;position:fixed;bottom:var(--cookie-bottom,0);right:0;left:0;background:#1a1a1a;border-top:2px solid #F5C518;padding:14px 5%;z-index:99998;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
   <p style="font-size:13px;color:rgba(255,255,255,0.75);margin:0;flex:1;min-width:200px">האתר משתמש בעוגיות לצורך אנליטיקה ופרסום. <a href="privacy.html" style="color:#F5C518;text-decoration:underline">מדיניות פרטיות</a></p>
   <div style="display:flex;gap:8px;flex-shrink:0">
     <button onclick="acceptCookies()" style="background:#F5C518;color:#111;border:none;padding:9px 22px;border-radius:50px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">מסכימה</button>
@@ -335,9 +607,11 @@ img{max-width:100%;height:auto}
   </div>
 </div>
 
+<div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
 <!-- NAV -->
 <nav class="nav" id="nav" role="navigation" aria-label="ניווט ראשי">
-  <div class="logo"><img src="steps-logo-white.png" alt="STEPS Fitness Center לוגו" width="149" height="36" style="height:36px;width:auto"></div>
+  <div class="logo"><img src="steps-logo-white.png" alt="STEPS Fitness Center לוגו" width="149" height="44" style="height:44px;width:auto"></div>
   <ul class="n-links">
     <li><a href="#pain">למה STEPS</a></li>
     <li><a href="#spaces">החללים</a></li>
@@ -346,126 +620,214 @@ img{max-width:100%;height:auto}
     <li><a href="#reviews">המלצות</a></li>
     <li><a href="#contact" class="n-cta" data-track="trial-cta">אימון היכרות</a></li>
   </ul>
-  <button class="mob" id="mobBtn">☰</button>
+  <button class="mob" id="mobBtn" aria-label="תפריט">
+    <svg class="mob-burger" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg class="mob-x" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
 </nav>
 <div class="mob-overlay" id="mobOverlay"></div>
 
-<!-- HERO - FULL BG IMAGE -->
-<section class="hero" style="background-image:url('images/hero-new.jpg');background-size:cover;background-position:center 30%">
-  <div class="hero-overlay"></div>
-  <div class="hero-inner" style="position:relative;z-index:1">
-    <div class="hero-tag" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1200">פה את לעולם לא לבד.</div>
-    <div>
-      <h1 data-aos="fade-up">סטודיו כושר לנשים<em>בנתניה.</em></h1>
-      <p class="hero-sub" data-aos="fade-up" data-aos-delay="200">כוח, בר, יוגה ופילאטיס מכשירים — הכל תחת קורת גג אחת.</p>
-      <div class="hero-btns" data-aos="fade-up" data-aos-delay="400">
-        <a href="#contact" class="btn-a" data-track="trial-cta">אימון היכרות ב-50 ₪</a>
-        <a href="#sched" class="btn-b" data-track="schedule-view">לצפייה במערכת שעות</a>
+<!-- 1 · ARRIVAL / HERO -->
+<section class="scene scene--arrival" id="s1">
+  <div class="scene__sticky">
+    <!-- Same take and same framing as hero-cine.mp4 — this is that clip with an unsharp pass
+         and a much higher bitrate (crf 19 vs the original ~1.7 Mbps). It cannot add detail the
+         720x1280 source never had; what it removes is the compression softness sitting on top
+         of it. Checked frame-by-frame for halos at the neon strips and hairline. -->
+    <video id="heroScrub" class="scene__bg scene__bg--video" autoplay muted loop playsinline preload="auto" poster="images/shoot2025/hero-cine-sharp-poster.jpg" aria-hidden="true">
+      <source src="images/shoot2025/hero-cine-sharp.mp4" type="video/mp4">
+    </video>
+    <img class="scene__bg scene__bg--reduced" src="images/shoot2025/hero-cine-sharp-poster.jpg" alt="" aria-hidden="true" width="720" height="1280">
+    <!-- text sits at the top over the ceiling/neon area; scrim strongest there, clear over the face mid-frame -->
+    <div class="scene__tint" style="background:linear-gradient(to bottom,rgba(6,6,6,.55) 0%,rgba(6,6,6,.12) 18%,rgba(6,6,6,0) 38%,rgba(6,6,6,.45) 62%,rgba(6,6,6,.92) 100%)"></div>
+    <div class="scene__content">
+      <h1 class="scene__title">פה את לעולם <em>לא לבד.</em></h1>
+      <p class="scene__subtitle">סטודיו כושר לנשים בנתניה · פולג</p>
+      <p class="scene__body">כוח, בר, יוגה ופילאטיס מכשירים — הכל תחת קורת גג אחת.</p>
+      <div class="scene__ctas">
+        <a href="#contact" class="btn btn-primary" data-track="trial-cta">אימון היכרות ב-50 ₪</a>
       </div>
-      <div data-aos="fade-up" data-aos-delay="600" style="margin-top:22px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap">
-        <span style="color:#FFB800;font-size:15px;letter-spacing:1px">★★★★★</span>
-        <span style="color:rgba(255,255,255,0.75);font-size:13px;font-weight:600">קהילה ספורטיבית של מאות לקוחות</span>
-        <span style="display:inline-block;width:1px;height:14px;background:rgba(255,255,255,0.2)"></span>
-        <span style="color:rgba(255,255,255,0.45);font-size:12px">נתניה · פולג</span>
+      <a href="#sched" class="quiet-link" data-track="schedule-view">או לצפייה במערכת השעות</a>
+      <div class="scene__proof">
+        <span style="color:#FFB800;font-size:15px;letter-spacing:1px">★</span>
+        <span style="color:rgba(255,255,255,.8);font-size:13px;font-weight:600">4.8 בגוגל</span>
       </div>
+    </div>
+    <div class="scroll-cue">
+      <span>גללי להמשיך</span>
+      <svg width="16" height="24" viewBox="0 0 16 24" fill="none" aria-hidden="true"><path d="M8 1v20M1 15l7 7 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
   </div>
 </section>
 
-<!-- SPOTLIGHT -->
-<div style="background:#1a1a1a;border-top:2px solid #F5C518;border-bottom:2px solid #F5C518;padding:14px 5%;overflow:hidden">
-  <div id="spotTrack" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap"></div>
+<!-- SPOTLIGHT STRIP -->
+<div class="strip">
+  <div class="strip-track" id="stripTrack"></div>
 </div>
-<script>
-(function(){
-  var items=['GYM','BOOTCAMP','ENDURANCE','GYM & RUN','Pilates Reformer','BAR','YOGA','Flexibility'];
-  var t=document.getElementById('spotTrack');
-  for(var i=0;i<items.length;i++){
-    if(i>0){var sep=document.createElement('span');sep.style.cssText='color:rgba(255,255,255,0.1);font-size:11px;align-self:center';sep.textContent='|';t.appendChild(sep);}
-    var span=document.createElement('span');
-    span.className='spot-w';
-    span.style.cssText='font-size:11px;font-weight:700;color:rgba(255,255,255,0.15);letter-spacing:2px;text-transform:uppercase;transition:all 0.6s';
-    span.textContent=items[i];
-    t.appendChild(span);
-  }
-  var words=document.querySelectorAll('.spot-w');
-  var idx=0;
-  setInterval(function(){
-    for(var i=0;i<words.length;i++){words[i].style.color='rgba(255,255,255,0.15)';words[i].style.textShadow='none';}
-    words[idx].style.color='#fff';
-    words[idx].style.textShadow='0 0 20px rgba(245,197,24,0.6)';
-    idx=(idx+1)%words.length;
-  },800);
-})();
-</script>
 
-<!-- PAIN → SOLUTION (photo bg) -->
+<!-- PAIN → SOLUTION -->
 <section class="pain-sec" id="pain">
-  <div class="pain-bg"></div>
+  <div class="pain-bg" data-parallax="0.08"></div>
   <div class="pain-ov"></div>
   <div class="pain-content">
-    <div class="pain-header">
-      <h2 data-aos="fade-up">מכירה את <span>ההרגשה?</span></h2>
-      <p>הבעיות שהן מספרות לנו — ואיך אנחנו פותרים אותן</p>
+    <div class="sec-h reveal">
+      <h2 class="sec-title">מכירה את ההרגשה?</h2>
     </div>
     <div class="pgrid">
-      <div class="pcard" data-aos="fade-up" data-aos-delay="100"><div class="pcard-x">✕ הבעיה</div><div class="pcard-q">"הלכתי למכון כושר ולא ידעתי מה לעשות שם. עמדתי ליד המכשירים והרגשתי אבודה."</div><div class="pcard-a"><div class="pcard-chk">✓</div><div class="pcard-txt">ב-STEPS כל אימון מובנה וכל מאמנת מלווה אותך צעד אחר צעד. את לא לבד פה.</div></div></div>
-      <div class="pcard" data-aos="fade-up" data-aos-delay="200"><div class="pcard-x">✕ הבעיה</div><div class="pcard-q">"נפצעתי באימון כי אף אחד לא תיקן לי תנועות. לא היה שם מי שיסתכל עליי."</div><div class="pcard-a"><div class="pcard-chk">✓</div><div class="pcard-txt">צוות מקצועי ומוסמך שרואה אותך, מתקן תנועה ומתאים את האימון לרמה שלך.</div></div></div>
-      <div class="pcard" data-aos="fade-up" data-aos-delay="300"><div class="pcard-x">✕ הבעיה</div><div class="pcard-q">"התאמנתי חודשים ולא ראיתי תוצאות. בלי תוכנית ובלי כיוון."</div><div class="pcard-a"><div class="pcard-chk">✓</div><div class="pcard-txt">כשיש אימון מובנה, ליווי ותוכנית שמתאימה לשגרה שלך — הרבה יותר קל להתמיד.</div></div></div>
-      <div class="pcard" data-aos="fade-up" data-aos-delay="400"><div class="pcard-x">✕ הבעיה</div><div class="pcard-q">"הרגשתי אבודה במכון כושר ענק. סתם עוד מספר, בלי שם ובלי יחס."</div><div class="pcard-a"><div class="pcard-chk">✓</div><div class="pcard-txt">STEPS הוא סטודיו בוטיק, לא מפעל. פה יודעים את השם שלך, ואת הסיפור שלך.</div></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- SPACES - PHOTO CARDS -->
-<section class="sec" id="spaces">
-  <div class="sec-h" data-aos="fade-up"><div class="sec-tag">החללים שלנו</div><h2 class="sec-title">שלושה חללי אימון. חוויה אחת.</h2></div>
-  <div class="spaces">
-    <div class="sp" data-aos="fade-left">
-      <div class="sp-img" style="background-image:url('images/gym-card.jpg')"></div>
-      <div class="sp-ov">
-        <div class="sp-name">GYM <span class="sp-dot" style="background:var(--accent)"></span></div>
-        <p class="sp-desc">סטודיו כושר שמרגיש אחרת. מכשירים מתקדמים, משקולות חופשיות, ומאמנות שיודעות בדיוק מה את צריכה.</p>
-        <div class="sp-tags"><span class="st">אימוני כוח</span><span class="st">BOOTCAMP</span><span class="st">ENDURANCE</span><span class="st">GYM &amp; RUN</span></div>
+      <div class="pcard reveal">
+        <div class="pcard-x"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg> הבעיה</div>
+        <div class="pcard-q">הרבה מגיעות אלינו אחרי שעמדו מול המכשירים ולא ידעו מה לעשות</div>
+        <div class="pcard-a"><div class="pcard-chk"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12l6 6L20 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="pcard-txt">פה כל אימון מובנה, ומאמנת מלווה אותך צעד אחר צעד</div></div>
       </div>
-    </div>
-    <div class="sp" data-aos="fade-right">
-      <div class="sp-img" style="background-image:url('images/move-card.jpg')"></div>
-      <div class="sp-ov">
-        <div class="sp-name">MOVE <span class="sp-dot" style="background:#A855F7"></span></div>
-        <p class="sp-desc">השיעורים שגורמים לך לחזור. בר, יוגה, גמישות — כל יום אנרגיה אחרת.</p>
-        <div class="sp-tags"><span class="st">BAR</span><span class="st">YOGA</span><span class="st">Flexibility</span></div>
+      <div class="pcard reveal">
+        <div class="pcard-x"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg> הבעיה</div>
+        <div class="pcard-q">מגיעות אחרי פציעה, כי אף אחד לא תיקן להן תנועה</div>
+        <div class="pcard-a"><div class="pcard-chk"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12l6 6L20 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="pcard-txt">צוות מוסמך שרואה אותך, מתקן ומתאים את האימון לרמה שלך</div></div>
       </div>
-    </div>
-    <div class="sp" data-aos="fade-left">
-      <div class="sp-img" style="background-image:url('images/pilates-card.jpg')"></div>
-      <div class="sp-ov">
-        <div class="sp-name">REFORMER PILATES <span class="sp-dot" style="background:var(--accent2)"></span></div>
-        <p class="sp-desc">קבוצות קטנות, מכשירים ברמה הגבוהה ביותר, ותחושה שהגוף שלך מודה לך אחרי כל שיעור.</p>
-        <div class="sp-tags"><span class="st">רפורמר</span><span class="st">קבוצות קטנות</span><span class="st">גמישות</span></div>
+      <div class="pcard reveal">
+        <div class="pcard-x"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg> הבעיה</div>
+        <div class="pcard-q">מגיעות ממכונים גדולים, שבהם היו סתם עוד מספר</div>
+        <div class="pcard-a"><div class="pcard-chk"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12l6 6L20 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="pcard-txt">STEPS הוא סטודיו בוטיק, לא מפעל. פה יודעים את השם שלך</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- BINA -->
+<!-- STATS STRIP -->
+<section class="stats-strip">
+  <div class="stats-grid">
+    <div class="stat-item reveal"><div class="stat-num" data-count-to="10">0</div><div class="stat-lbl">שנים של סטודיו</div></div>
+    <div class="stat-item reveal"><div class="stat-num" data-count-to="100" data-suffix="+">0</div><div class="stat-lbl">שיעורים בשבוע</div></div>
+    <div class="stat-item reveal"><div class="stat-num" data-count-to="500" data-suffix="+">0</div><div class="stat-lbl">מתאמנות</div></div>
+  </div>
+</section>
+
+<!-- SPACES: 3 pinned scenes. Slide 1 of each carousel is the empty-room clip (vertically
+     scroll-scrubbed like the hero); slides 2+ are real training media, reached by horizontal
+     swipe/drag/arrows/keys. If nobody swipes by ~40% vertical progress, it auto-advances once —
+     the scene never settles on an empty room. -->
+<div id="spaces">
+  <section class="scene scene--gym" id="s2">
+    <div class="scene__sticky">
+      <div class="scene-index"><b>01</b> / 03 — GYM</div>
+      <div class="carousel" data-carousel="gym">
+        <div class="carousel__track" tabindex="0" role="group" aria-label="גלריית GYM — חלל, ואימוני כוח">
+          <div class="carousel__slide" role="group" aria-label="1 מתוך 3 — חלל ה-GYM הריק">
+            <video class="carousel__media" muted loop playsinline preload="metadata" poster="images/shoot2025/room-gym-poster.jpg" aria-hidden="true">
+              <source src="images/shoot2025/room-gym.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="carousel__slide" role="group" aria-label="2 מתוך 3 — אימון כוח ב-GYM">
+            <video class="carousel__media" data-lazy muted loop playsinline preload="none" poster="images/shoot2025/gym-real-1-g-poster.jpg" aria-hidden="true" data-src="images/shoot2025/gym-real-1-g.mp4"></video>
+          </div>
+          <div class="carousel__slide" role="group" aria-label="3 מתוך 3 — אימון כוח נוסף ב-GYM">
+            <video class="carousel__media" data-lazy muted loop playsinline preload="none" poster="images/shoot2025/gym-real-2-g-poster.jpg" aria-hidden="true" data-src="images/shoot2025/gym-real-2-g.mp4"></video>
+          </div>
+        </div>
+        <button class="carousel__arrow carousel__arrow--prev" type="button" aria-label="שקופית קודמת"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="carousel__arrow carousel__arrow--next" type="button" aria-label="שקופית הבאה"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="carousel__dots" role="tablist" aria-label="ניווט שקופיות GYM"></div>
+      </div>
+      <div class="scene__tint"></div>
+      <div class="scene__content">
+        <div class="scene__eyebrow">החלל הראשון</div>
+        <h2 class="scene__title"><span class="space-name"><span class="space-dot"></span>GYM</span></h2>
+        <p class="scene__body">סטודיו כושר שמרגיש אחרת. מכשירים מתקדמים, משקולות חופשיות, ומאמנות שיודעות בדיוק מה את צריכה.</p>
+        <div class="scene__tags">
+          <span class="tag-chip">אימוני כוח</span><span class="tag-chip">BOOTCAMP</span><span class="tag-chip">ENDURANCE</span><span class="tag-chip">GYM &amp; RUN</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene scene--move" id="s3">
+    <div class="scene__sticky">
+      <div class="scene-index"><b>02</b> / 03 — MOVE</div>
+      <div class="carousel" data-carousel="move">
+        <div class="carousel__track" tabindex="0" role="group" aria-label="גלריית MOVE — חלל, ושיעורים">
+          <div class="carousel__slide" role="group" aria-label="1 מתוך 3 — שיעור MOVE בחלל">
+            <video class="carousel__media" muted loop playsinline preload="metadata" poster="images/shoot2025/room-move-poster.jpg" aria-hidden="true">
+              <source src="images/shoot2025/room-move.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="carousel__slide" role="group" aria-label="2 מתוך 3 — שיעור MOVE">
+            <video class="carousel__media" data-lazy muted loop playsinline preload="none" poster="images/shoot2025/class-movecls-poster.jpg" aria-hidden="true" data-src="images/shoot2025/class-movecls.mp4"></video>
+          </div>
+          <div class="carousel__slide" role="group" aria-label="3 מתוך 3 — שיעור MOVE נוסף">
+            <img class="carousel__media" data-lazy alt="שיעור MOVE בסטודיו STEPS" aria-hidden="true" width="1920" height="1280" data-src="images/shoot2025/move-new-2.jpg">
+          </div>
+        </div>
+        <button class="carousel__arrow carousel__arrow--prev" type="button" aria-label="שקופית קודמת"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="carousel__arrow carousel__arrow--next" type="button" aria-label="שקופית הבאה"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="carousel__dots" role="tablist" aria-label="ניווט שקופיות MOVE"></div>
+      </div>
+      <div class="scene__tint"></div>
+      <div class="scene__content">
+        <div class="scene__eyebrow">החלל השני</div>
+        <h2 class="scene__title"><span class="space-name"><span class="space-dot"></span>MOVE</span></h2>
+        <p class="scene__body">השיעורים שגורמים לך לחזור. <b>בר, יוגה, גמישות, פילאטיס מזרן ו-SCULPT</b> — כל יום אנרגיה אחרת.</p>
+        <div class="scene__tags">
+          <span class="tag-chip">BAR</span><span class="tag-chip">YOGA</span><span class="tag-chip">פילאטיס מזרן</span><span class="tag-chip">SCULPT</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene scene--pilates" id="s4">
+    <div class="scene__sticky">
+      <div class="scene-index"><b>03</b> / 03 — REFORMER PILATES</div>
+      <div class="carousel" data-carousel="pilates">
+        <div class="carousel__track" tabindex="0" role="group" aria-label="גלריית REFORMER PILATES — חלל, ואימונים">
+          <div class="carousel__slide" role="group" aria-label="1 מתוך 3 — חלל הרפורמר הריק">
+            <video class="carousel__media" muted loop playsinline preload="metadata" poster="images/shoot2025/room-pilates-poster.jpg" aria-hidden="true">
+              <source src="images/shoot2025/room-pilates.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="carousel__slide" role="group" aria-label="2 מתוך 3 — אימון רפורמר פילאטיס">
+            <video class="carousel__media" data-lazy muted loop playsinline preload="none" poster="images/shoot2025/class-pilcls-poster.jpg" aria-hidden="true" data-src="images/shoot2025/class-pilcls.mp4"></video>
+          </div>
+          <div class="carousel__slide" role="group" aria-label="3 מתוך 3 — אימון רפורמר פילאטיס נוסף">
+            <img class="carousel__media" data-lazy alt="אימון רפורמר פילאטיס בסטודיו STEPS" aria-hidden="true" width="1280" height="1920" data-src="images/shoot2025/pilates-alt.jpg">
+          </div>
+          
+        </div>
+        <button class="carousel__arrow carousel__arrow--prev" type="button" aria-label="שקופית קודמת"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="carousel__arrow carousel__arrow--next" type="button" aria-label="שקופית הבאה"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="carousel__dots" role="tablist" aria-label="ניווט שקופיות REFORMER PILATES"></div>
+      </div>
+      <div class="scene__tint"></div>
+      <div class="scene__content">
+        <div class="scene__eyebrow">החלל השלישי</div>
+        <h2 class="scene__title" style="font-size:clamp(32px,7.2vw,84px)"><span class="space-name"><span class="space-dot"></span>REFORMER PILATES</span></h2>
+        <p class="scene__body"><b>קבוצה קטנה — עד 11 מתאמנות.</b> מכשירים ברמה הגבוהה ביותר, ותחושה שהגוף שלך מודה לך אחרי כל שיעור.</p>
+        <div class="scene__tags">
+          <span class="tag-chip">רפורמר</span><span class="tag-chip">קבוצות קטנות</span><span class="tag-chip">גמישות</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- BINA (nutrition) — visible on mobile too -->
 <section class="bina bina-sec" id="bina">
   <div class="bina-wrap">
     <div class="reveal">
       <div class="bina-tag">תזונה חכמה</div>
       <h2>גם תזונה?<br><span>גם תזונה.</span></h2>
       <p class="bina-p">ליווי תזונה אישי ישירות לוואטסאפ, עם תפריט שמתחשב במטרות, בהעדפות ובסגנון החיים שלך. פשוט, ברור, ובלי להעמיס עלייך עוד מערכת.</p>
-      <div class="bf"><span class="bf-i">📱</span> תפריט אישי ישירות לוואטסאפ</div>
-      <div class="bf"><span class="bf-i">🎯</span> מותאם למטרות שלך</div>
-      <div class="bf"><span class="bf-i">⚖️</span> שקילות ומעקב שבועי</div>
-      <div class="bf"><span class="bf-i">📊</span> דוחות התקדמות</div>
+      <div class="bina-addon"><b>שירות נוסף בתשלום נפרד</b> — לא כלול במנוי הסטודיו. הליווי אישי, עם אור סבוני, אחד מבעלי הסטודיו.</div>
+      <div class="bf"><span class="bf-i"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.36 7.58L4 20l1.02-4.44A8.5 8.5 0 1 1 21 11.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span> תפריט אישי ישירות לוואטסאפ</div>
+      <div class="bf"><span class="bf-i"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="0.9" fill="currentColor"/></svg></span> מותאם למטרות שלך</div>
+      <div class="bf"><span class="bf-i"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v3M5 8h14M8 8l-3 7a3 3 0 0 0 6 0l-3-7Zm8 0l-3 7a3 3 0 0 0 6 0l-3-7Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span> שקילות ומעקב שבועי</div>
+      <div class="bf"><span class="bf-i"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20V10M12 20V4M20 20v-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span> דוחות התקדמות</div>
+      <a href="https://wa.me/972527927575?text=היי%20אני%20מעוניינת%20בליווי%20תזונה" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:22px" data-track="whatsapp-click">לפרטים על ליווי תזונה בוואטסאפ</a>
     </div>
     <div class="reveal">
       <div class="phone">
         <div class="msg m-bot">היי! בואי נבנה תפריט שמתאים בדיוק לך</div>
         <div class="msg m-usr">רוצה לרדת במשקל, צמחונית</div>
-        <div class="msg m-bot">מעולה! הנה התפריט שלך 🥗</div>
-        <div class="msg m-menu">📋 תפריט אישי — שבוע 1<br>בוקר: שקשוקה + לחם מלא<br>ביניים: יוגורט + גרנולה<br>צהריים: סלמון + ירקות...</div>
+        <div class="msg m-bot">מעולה! הנה התפריט שלך</div>
+        <div class="msg m-menu">תפריט אישי — שבוע 1<br>בוקר: שקשוקה + לחם מלא<br>ביניים: יוגורט + גרנולה<br>צהריים: סלמון + ירקות...</div>
       </div>
     </div>
   </div>
@@ -473,129 +835,187 @@ img{max-width:100%;height:auto}
 
 <!-- SCHEDULE -->
 <section class="sched-sec" id="sched">
-  <div class="sec-h" data-aos="fade-up"><div class="sec-tag">מערכת שיעורים</div><h2 class="sec-title">השיעורים של היום</h2><p class="sec-sub">מתעדכנת אוטומטית</p></div>
-  <div class="sched">
-    <div class="sched-top"><h3>📅 מערכת שעות</h3><div class="dtabs"><button class="dt active">א׳</button><button class="dt">ב׳</button><button class="dt">ג׳</button><button class="dt">ד׳</button><button class="dt">ה׳</button><button class="dt">ו׳</button></div></div>
+  <div class="sec-h reveal"><div class="sec-tag">מערכת שיעורים</div><h2 class="sec-title">השיעורים של היום</h2><p class="sec-sub">מתעדכנת אוטומטית</p></div>
+  <div class="sched reveal">
+    <div class="sched-top"><h3>מערכת שעות</h3><div class="dtabs"><button class="dt active">א׳</button><button class="dt">ב׳</button><button class="dt">ג׳</button><button class="dt">ד׳</button><button class="dt">ה׳</button><button class="dt">ו׳</button></div></div>
     <div class="slist">
-      <div class="sfn" id="sched-loading">⏳ טוען מערכת שעות...</div>
+      <div class="sfn" id="sched-loading">טוען מערכת שעות...</div>
     </div>
-    <div class="sfn">⚡ מערכת שעות חיה — מתעדכנת אוטומטית מ-Arbox</div>
+    <div class="sfn">מערכת שעות חיה — מתעדכנת אוטומטית מ-Arbox</div>
   </div>
   <div style="text-align:center;margin-top:28px">
-    <a href="#contact" class="btn-a" style="background:var(--accent);color:#fff;padding:14px 36px;border-radius:50px;text-decoration:none;font-size:16px;font-weight:700;display:inline-flex;align-items:center;gap:8px" data-aos="zoom-in" data-aos-delay="300">💬 קבעי אימון היכרות</a>
+    <a href="#contact" class="btn btn-primary reveal" data-track="trial-cta">קבעי אימון היכרות</a>
   </div>
 </section>
 
-<!-- TESTIMONIALS - photo bg -->
-<section class="test-sec" id="reviews">
-  <div class="test-bg"></div>
-  <div class="test-ov"></div>
-  <div class="test-content">
-    <div class="sec-h"><div class="sec-tag" style="color:var(--accent)">מה אומרות עלינו</div><h2 class="sec-title">הן באו בשביל האימון.<br>הן נשארו בשביל המשפחה.</h2></div>
-    <div class="tg">
-      <div class="tc" data-aos="fade-up" data-aos-delay="100"><div class="stars">★★★★★</div><p class="tc-txt">אתם הלב שלי. אין סטודיו כזה בעולם ויצא לי לנסות המון. היחס האישי באימונים, האכפתיות, הדחיפה להתקדם ולהשתפר כל הזמן, אתם יחידים ומיוחדים באמת. כלכך שמחה להיות חלק מהמשפחה ❤️</p><div class="tc-auth"><div class="tc-av">ל</div><div><div class="tc-name">לימור מ.</div><div class="tc-info">חברה ותיקה · STEPS</div></div></div></div>
-      <div class="tc" data-aos="fade-up" data-aos-delay="200"><div class="stars">★★★★★</div><p class="tc-txt">מילה טובה על מעיין לזר — איזה שיעור מהמם של אירובי וכוח. הפעלנו את כל השרירים ואנרגיה מקסימה שלה! לאורך כל השיעור עברה אחד אחד, דייקה את התנועה. פשוט מעולה.</p><div class="tc-auth"><div class="tc-av">ח</div><div><div class="tc-name">חני ל.</div><div class="tc-info">מתאמנת MOVE</div></div></div></div>
-      <div class="tc" data-aos="fade-up" data-aos-delay="300"><div class="stars">★★★★★</div><p class="tc-txt">אני מאוד נהנית באימונים, כל המדריכות מצוינות, כל אחת עם הסגנון שלה. לאחרונה כולן התחילו לגוון יותר בשיעורים וזה מבורך מאוד מבחינתי!</p><div class="tc-auth"><div class="tc-av">מ</div><div><div class="tc-name">מיכל ר.</div><div class="tc-info">מתאמנת קבועה</div></div></div></div>
-      <div class="tc" data-aos="fade-up" data-aos-delay="400"><div class="stars">★★★★★</div><p class="tc-txt">אחלה סטודיו, מאוד מרוצה מכל המאמנים! גם של הכוח וגם בפילאטיס 🌻</p><div class="tc-auth"><div class="tc-av">ש</div><div><div class="tc-name">שירה כ.</div><div class="tc-info">GYM + Pilates</div></div></div></div>
-      <div class="tc" data-aos="fade-up" data-aos-delay="500"><div class="stars">★★★★★</div><p class="tc-txt">אני איתכם כבר המון שנים, מאוד מרוצה! ירדן אלופה, מקצועית, נותנת יחס אישי ושומרת על רמה סופר גבוהה. ותמיד יש אצלה אווירה מאוד כיפית ומדברנת.</p><div class="tc-auth"><div class="tc-av">נ</div><div><div class="tc-name">נעמה ג.</div><div class="tc-info">מתאמנת GYM ותיקה</div></div></div></div>
-      <div class="tc" data-aos="fade-up" data-aos-delay="600"><div class="stars">★★★★★</div><p class="tc-txt">הכל מושלם, אין על האימונים שלכם! מושלם כמו תמיד, הכי כיף בעולם 😍</p><div class="tc-auth"><div class="tc-av">ד</div><div><div class="tc-name">דנה ב.</div><div class="tc-info">מתאמנת קבועה</div></div></div></div>
+<!-- 5 · ENERGY / TESTIMONIALS (pinned) -->
+<section class="scene scene--energy" id="reviews">
+  <div class="scene__sticky">
+    <div class="scene__bg" style="background-image:url('images/shoot2025/testimonials-new-g.jpg')"></div>
+    <div class="scene__tint"></div>
+    <div class="scene__content">
+      <div class="energy-eyebrow">מה אומרות עלינו</div>
+      <h2 class="energy-h2">הן באו בשביל האימון.<br>הן נשארו בשביל המשפחה.</h2>
+      <div class="quote-stack" id="quoteStack">
+        <div class="quote active">
+          <div class="quote-mark">★★★★★</div>
+          <p class="quote-txt">"אתם הלב שלי. אין סטודיו כזה בעולם ויצא לי לנסות המון. היחס האישי באימונים, האכפתיות, הדחיפה להתקדם ולהשתפר כל הזמן, אתם יחידים ומיוחדים באמת. כלכך שמחה להיות חלק מהמשפחה ❤️"</p>
+          <div class="quote-name"><b>לימור מ.</b> · חברה ותיקה, STEPS</div>
+        </div>
+        <div class="quote">
+          <div class="quote-mark">★★★★★</div>
+          <p class="quote-txt">"מילה טובה על מעיין לזר — איזה שיעור מהמם של אירובי וכוח. הפעלנו את כל השרירים ואנרגיה מקסימה שלה! לאורך כל השיעור עברה אחד אחד, דייקה את התנועה. פשוט מעולה."</p>
+          <div class="quote-name"><b>חני ל.</b> · מתאמנת MOVE</div>
+        </div>
+        <div class="quote">
+          <div class="quote-mark">★★★★★</div>
+          <p class="quote-txt">"אני מאוד נהנית באימונים, כל המדריכות מצוינות, כל אחת עם הסגנון שלה. לאחרונה כולן התחילו לגוון יותר בשיעורים וזה מבורך מאוד מבחינתי!"</p>
+          <div class="quote-name"><b>מיכל ר.</b> · מתאמנת קבועה</div>
+        </div>
+        <div class="quote">
+          <div class="quote-mark">★★★★★</div>
+          <p class="quote-txt">"אחלה סטודיו, מאוד מרוצה מכל המאמנים! גם של הכוח וגם בפילאטיס 🌻"</p>
+          <div class="quote-name"><b>שירה כ.</b> · GYM + Pilates</div>
+        </div>
+        <div class="quote">
+          <div class="quote-mark">★★★★★</div>
+          <p class="quote-txt">"אני איתכם כבר המון שנים, מאוד מרוצה! ירדן אלופה, מקצועית, נותנת יחס אישי ושומרת על רמה סופר גבוהה. ותמיד יש אצלה אווירה מאוד כיפית ומדברנת."</p>
+          <div class="quote-name"><b>נעמה ג.</b> · מתאמנת GYM ותיקה</div>
+        </div>
+        <div class="quote">
+          <div class="quote-mark">★★★★★</div>
+          <p class="quote-txt">"הכל מושלם, אין על האימונים שלכם! מושלם כמו תמיד, הכי כיף בעולם 😍"</p>
+          <div class="quote-name"><b>דנה ב.</b> · מתאמנת קבועה</div>
+        </div>
+      </div>
+      <div class="quote-dots" id="quoteDots">
+        <span class="active"></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- TEAM -->
+<!-- TEAM (USP) -->
 <section class="team" id="team">
-  <div style="text-align:center;padding:70px 5% 20px">
-    <p style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#F5C518;margin-bottom:8px" data-aos="fade-up">הצוות שלנו</p>
-    <h2 style="font-size:clamp(24px,5vw,36px);font-weight:900;color:#fff;margin-bottom:12px" data-aos="fade-up" data-aos-delay="100">מאמנות. אפס פשרות.</h2>
-    <p style="font-size:15px;color:rgba(255,255,255,0.5);max-width:420px;margin:0 auto 48px" data-aos="fade-up" data-aos-delay="150">ארבעה דברים שמבדילים את המאמנות שלנו מכל מאמנת אחרת</p>
+  <div class="sec-h reveal">
+    <div class="sec-tag">הצוות שלנו</div>
+    <h2 class="sec-title">מאמנות. אפס פשרות.</h2>
+    <p class="sec-sub" style="max-width:420px;margin-left:auto;margin-right:auto">ארבעה דברים שמבדילים את המאמנות שלנו מכל מאמנת אחרת</p>
   </div>
-  <div class="usp-grid" style="padding:0 5% 70px">
-    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:32px 24px;text-align:center;transition:all .3s" data-aos="fade-up" data-aos-delay="100" onmouseover="this.style.borderColor='rgba(245,197,24,0.25)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.transform='none'">
-      <div style="width:52px;height:52px;border-radius:50%;background:rgba(245,197,24,0.08);border:1px solid rgba(245,197,24,0.15);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 16px">🎓</div>
-      <div style="font-weight:700;font-size:16px;margin-bottom:10px;color:#fff">מוסמכות</div>
-      <div style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7">כל מאמנת מוסמכת, מתמחה ומתעדכנת. לא סתם תואר — ידע אמיתי שמגיע לכל שיעור</div>
+  <div class="usp-grid">
+    <div class="usp-card reveal"><div class="usp-i"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5-10-5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M6 10.5v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div><div class="usp-t">מוסמכות</div><div class="usp-p">כל מאמנת מוסמכת, מתמחה ומתעדכנת. לא סתם תואר — ידע אמיתי שמגיע לכל שיעור</div></div>
+    <div class="usp-card reveal"><div class="usp-i"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/></svg></div><div class="usp-t">רואות אותך</div><div class="usp-p">לא סתם שם בחדר. כל תנועה נבדקת, כל תיקון ניתן. את לא נופלת בין הכיסאות</div></div>
+    <div class="usp-card reveal"><div class="usp-i"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 8.5 3 12l3.5 3.5M17.5 8.5 21 12l-3.5 3.5M14 5l-4 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="usp-t">מתאמנות בעצמן</div><div class="usp-p">הן לא עומדות בצד. הן שם, עם ידיים, עם זיעה, עם אנרגיה — בשבילך</div></div>
+    <div class="usp-card reveal"><div class="usp-i"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 20.5S3.5 15 3.5 9.4C3.5 6.4 5.8 4.5 8.3 4.5c1.6 0 3 .8 3.7 2 .7-1.2 2.1-2 3.7-2 2.5 0 4.8 1.9 4.8 4.9 0 5.6-8.5 11.1-8.5 11.1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div><div class="usp-t">אוהבות מה שהן עושות</div><div class="usp-p">כשמאמנת עובדת מהלב — את מרגישה את זה. ולא שוכחת את זה</div></div>
+  </div>
+  <div class="people-grid">
+    <div class="people-card reveal">
+      <img class="people-photo" src="images/shoot2025/team-or-saboni.jpg" width="560" height="700" loading="lazy" alt="אור סבוני — בעלים ומאמן ב-STEPS">
+      <div class="people-name">אור סבוני</div><div class="people-role">בעלים ומאמן · ליווי תזונתי</div>
     </div>
-    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:32px 24px;text-align:center;transition:all .3s" data-aos="fade-up" data-aos-delay="200" onmouseover="this.style.borderColor='rgba(245,197,24,0.25)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.transform='none'">
-      <div style="width:52px;height:52px;border-radius:50%;background:rgba(245,197,24,0.08);border:1px solid rgba(245,197,24,0.15);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 16px">👁️</div>
-      <div style="font-weight:700;font-size:16px;margin-bottom:10px;color:#fff">רואות אותך</div>
-      <div style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7">לא סתם שם בחדר. כל תנועה נבדקת, כל תיקון ניתן. את לא נופלת בין הכיסאות</div>
+    <div class="people-card reveal">
+      <img class="people-photo" src="images/shoot2025/team-or-turgeman.jpg" width="560" height="700" loading="lazy" alt="אור תורג'מן — בעלים ומאמן ב-STEPS">
+      <div class="people-name">אור תורג'מן</div><div class="people-role">בעלים ומאמן</div>
     </div>
-    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:32px 24px;text-align:center;transition:all .3s" data-aos="fade-up" data-aos-delay="300" onmouseover="this.style.borderColor='rgba(245,197,24,0.25)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.transform='none'">
-      <div style="width:52px;height:52px;border-radius:50%;background:rgba(245,197,24,0.08);border:1px solid rgba(245,197,24,0.15);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 16px">💪</div>
-      <div style="font-weight:700;font-size:16px;margin-bottom:10px;color:#fff">מתאמנות בעצמן</div>
-      <div style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7">הן לא עומדות בצד. הן שם, עם ידיים, עם זיעה, עם אנרגיה — בשבילך</div>
-    </div>
-    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:32px 24px;text-align:center;transition:all .3s" data-aos="fade-up" data-aos-delay="400" onmouseover="this.style.borderColor='rgba(245,197,24,0.25)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.transform='none'">
-      <div style="width:52px;height:52px;border-radius:50%;background:rgba(245,197,24,0.08);border:1px solid rgba(245,197,24,0.15);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 16px">❤️</div>
-      <div style="font-weight:700;font-size:16px;margin-bottom:10px;color:#fff">אוהבות מה שהן עושות</div>
-      <div style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7">כשמאמנת עובדת מהלב — את מרגישה את זה. ולא שוכחת את זה</div>
+    <div class="people-card reveal">
+      <img class="people-photo" src="images/shoot2025/team-tali.jpg" width="560" height="700" loading="lazy" alt="טלי טרחובסקי — מנהלת חלל MOVE ומדריכת בר ב-STEPS">
+      <div class="people-name">טלי טרחובסקי</div><div class="people-role">מנהלת חלל MOVE · מדריכת בר</div>
     </div>
   </div>
 </section>
 
 <!-- GALLERY -->
 <section class="gal" id="gallery">
-  <div class="sec-h"><div class="sec-tag">הצצה פנימה</div><h2 class="sec-title">ככה זה נראה אצלנו</h2></div>
+  <div class="sec-h reveal"><div class="sec-tag">הצצה פנימה</div><h2 class="sec-title">ככה זה נראה אצלנו</h2></div>
   <div class="gg">
-    <div class="gi" data-aos="zoom-in" data-aos-delay="100"><img src="images/gallery-1.jpg" width="853" height="1280" alt="אימון כוח בסטודיו STEPS" loading="lazy" style="object-fit:cover;width:100%;height:100%;border-radius:14px"><div class="gi-ov"><span class="gi-l">אימון כוח בסטודיו STEPS</span></div></div>
-    <div class="gi" data-aos="zoom-in" data-aos-delay="200"><img src="images/gallery-2.jpg" width="853" height="1280" alt="ליווי אישי של מאמנת" loading="lazy" style="object-fit:cover;width:100%;height:100%;border-radius:14px"><div class="gi-ov"><span class="gi-l">ליווי אישי של מאמנת</span></div></div>
-    <div class="gi" data-aos="zoom-in" data-aos-delay="300"><img src="images/gallery-3.jpg" width="874" height="1311" alt="מאמנת בשיעור בר" loading="lazy" style="object-fit:cover;width:100%;height:100%;border-radius:14px"><div class="gi-ov"><span class="gi-l">מאמנת בשיעור בר</span></div></div>
-    <div class="gi" data-aos="zoom-in" data-aos-delay="400"><img src="images/gallery-4.jpg" width="1311" height="874" alt="יוגה וגמישות" loading="lazy" style="object-fit:cover;width:100%;height:100%;border-radius:14px"><div class="gi-ov"><span class="gi-l">יוגה וגמישות</span></div></div>
-    <div class="gi" data-aos="zoom-in" data-aos-delay="500"><img src="images/gallery-5.jpg" width="873" height="1311" alt="שיעור בר קבוצתי" loading="lazy" style="object-fit:cover;width:100%;height:100%;border-radius:14px"><div class="gi-ov"><span class="gi-l">שיעור בר קבוצתי</span></div></div>
+    <div class="gi reveal"><img src="images/gallery-1.jpg" width="853" height="1280" alt="אימון כוח בסטודיו STEPS" loading="lazy"><div class="gi-ov"><span class="gi-l">אימון כוח בסטודיו STEPS</span></div></div>
+    <div class="gi reveal"><img src="images/gallery-2.jpg" width="853" height="1280" alt="ליווי אישי של מאמנת" loading="lazy"><div class="gi-ov"><span class="gi-l">ליווי אישי של מאמנת</span></div></div>
+    <div class="gi reveal"><img src="images/gallery-3.jpg" width="874" height="1311" alt="מאמנת בשיעור בר" loading="lazy"><div class="gi-ov"><span class="gi-l">מאמנת בשיעור בר</span></div></div>
+    <div class="gi reveal"><img src="images/gallery-4.jpg" width="1311" height="874" alt="יוגה וגמישות" loading="lazy"><div class="gi-ov"><span class="gi-l">יוגה וגמישות</span></div></div>
+    <div class="gi reveal"><img src="images/gallery-5.jpg" width="873" height="1311" alt="שיעור בר קבוצתי" loading="lazy"><div class="gi-ov"><span class="gi-l">שיעור בר קבוצתי</span></div></div>
+    <div class="gi reveal"><img src="images/gallery-6.jpg" width="873" height="1311" alt="אימון עם משקולות" loading="lazy"><div class="gi-ov"><span class="gi-l">אימון עם משקולות</span></div></div>
   </div>
 </section>
 
 <!-- FAQ -->
-<section style="padding:80px 5%;background:#0d0d0d">
+<section class="sec" style="background:var(--c-bg-3)">
   <div style="max-width:760px;margin:0 auto">
-    <div style="text-align:center;margin-bottom:48px">
-      <p style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#F5C518;margin-bottom:8px" data-aos="fade-up">שאלות נפוצות</p>
-      <h2 style="font-size:clamp(24px,4vw,38px);font-weight:900;color:#fff" data-aos="fade-up" data-aos-delay="100">יש לך שאלות? יש לנו תשובות.</h2>
+    <div class="sec-h reveal">
+      <div class="sec-tag">שאלות נפוצות</div>
+      <h2 class="sec-title">יש לך שאלות? יש לנו תשובות.</h2>
     </div>
     <div style="display:flex;flex-direction:column;gap:10px">
-      <details class="faq-item" data-aos="fade-up">
+      <details class="faq-item reveal">
         <summary>כמה עולה המנוי?</summary>
-        <p>אימון היכרות עולה 50 ₪ בלבד. לאחר מכן יש מסלולים שונים — חודשי, חצי-שנתי ושנתי. לפרטי מחירים מדויקים <a href="https://wa.me/972527927575" style="color:#F5C518;text-decoration:underline" target="_blank">שלחי לנו הודעה בוואטסאפ</a> ונשמח לעזור.</p>
+        <p>אימון היכרות עולה 50 ₪ בלבד. אחר כך אפשר לבחור מסלול לפי מספר הכניסות בחודש, ללא התחייבות. לפרטי מחירים מדויקים <a href="https://wa.me/972527927575" style="color:#F5C518;text-decoration:underline" target="_blank">שלחי לנו הודעה בוואטסאפ</a> ונשמח לעזור.</p>
       </details>
-      <details class="faq-item" data-aos="fade-up" data-aos-delay="100">
+      <details class="faq-item reveal">
         <summary>מה ההבדל בין GYM, MOVE ו-REFORMER PILATES?</summary>
         <p>GYM הוא חלל הכוח שלנו — משקולות, מכשירים, BOOTCAMP ואימוני עוצמה. MOVE הוא חלל השיעורים הקבוצתיים — בר, יוגה, גמישות, אנרגיה. REFORMER PILATES הוא חלל הפילאטיס עם מכשירי רפורמר מקצועיים, 11 מיטות רפורמר, בקבוצות קטנות.</p>
       </details>
-      <details class="faq-item" data-aos="fade-up" data-aos-delay="150">
+      <details class="faq-item reveal">
         <summary>האם אני צריכה ניסיון קודם?</summary>
         <p>בכלל לא. STEPS מתאים לכל רמה — גם אם מעולם לא נכנסת לסטודיו כושר. אימון ההיכרות בדיוק לשם כך: להכיר את המקום, לדבר עם המאמנת, ולהרגיש בנוח לפני שמחליטים על מנוי.</p>
       </details>
-      <details class="faq-item" data-aos="fade-up" data-aos-delay="200">
+      <details class="faq-item reveal">
         <summary>יש חנייה ליד הסטודיו?</summary>
         <p>כן! STEPS נמצאת בקניון פולג, נתניה — עם חנייה חינמית ונוחה ישירות בקניון. קל להגיע, קל לחנות, קל להתחיל.</p>
       </details>
-      <details class="faq-item" data-aos="fade-up" data-aos-delay="250">
+      <details class="faq-item reveal">
         <summary>איך מבטלים שיעור?</summary>
-        <p>ביטול עד 12 שעות לפני השיעור — ניתן בוואטסאפ או דרך Arbox. ביטול פחות מ-12 שעות מראש — נספר כנוכחות. מומלץ לסמן שיעורים מראש ולבטל ברגע שיודעים שלא מגיעים.</p>
+        <p>ביטול שיעור אפשרי בוואטסאפ או דרך Arbox. לפרטי מדיניות הביטולים המלאה — דברי איתנו בוואטסאפ. מומלץ לסמן שיעורים מראש ולבטל ברגע שיודעים שלא מגיעים.</p>
       </details>
     </div>
   </div>
 </section>
 
-<!-- CTA - Arbox iframe -->
-<section class="cta-sec" id="contact">
-  <div style="background:#111;padding:60px 5%">
-    <div style="max-width:700px;margin:0 auto;text-align:center">
-      <h2 style="font-size:clamp(24px,4vw,38px);font-weight:900;color:#fff;margin-bottom:8px" data-aos="fade-up">קבעי אימון היכרות</h2>
-      <p style="font-size:16px;color:rgba(255,255,255,0.6);margin-bottom:24px">בחרי שיעור, הירשמי ושלמי — הכל כאן. בלי טלפונים, בלי המתנה.</p>
-      <!-- דסקטופ: iframe -->
-      <div class="arbox-desktop" style="background:#fff;border-radius:16px;overflow:hidden" data-aos="fade-up" data-aos-delay="200" data-track="arbox-open">
-        <iframe src="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&lang=he&location=18259&referrer=PLUGIN&filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" width="100%" height="600" style="border:none;display:block" allow="payment *" title="קביעת אימון היכרות ב-STEPS"></iframe>
-      </div>
-      <!-- מובייל: כפתור ישיר (iframe נחסם בדפדפני מובייל) -->
-      <div class="arbox-mobile" data-aos="fade-up" data-aos-delay="200">
-        <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&lang=he&location=18259&referrer=PLUGIN&filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener" data-track="trial-cta arbox-open" style="display:inline-flex;align-items:center;gap:10px;background:#F5C518;color:#111;padding:18px 40px;border-radius:50px;font-size:18px;font-weight:900;text-decoration:none;box-shadow:0 8px 30px rgba(245,197,24,0.4)">אימון היכרות ב-50 ₪</a>
-        <p style="margin-top:16px;font-size:14px;color:rgba(255,255,255,0.5)">נפתח בטאב חדש — הרשמה מלאה ב-Arbox</p>
-      </div>
-      <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.5)">💬 שאלות? <a href="https://wa.me/972527927575" style="color:#F5C518;text-decoration:underline" target="_blank" rel="noopener" data-track="whatsapp-click">דברי איתנו בוואטסאפ</a></p>
-      <p style="margin-top:10px;font-size:11px;color:rgba(255,255,255,0.25);line-height:1.7">מדיניות ביטולים: ביטול עד 24 שעות לפני האימון — ניתן לקבוע מועד חלופי. ביטול פחות מ-24 שעות מראש או אי-הגעה — אין זיכוי. לביטול: <a href="https://wa.me/972527927575" style="color:rgba(255,255,255,0.4);text-decoration:underline" target="_blank">וואטסאפ</a> · <a href="privacy.html#ביטולים" style="color:rgba(255,255,255,0.4);text-decoration:underline">פרטים נוספים</a></p>
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="sec-h reveal">
+    <div class="sec-tag">מסלולים</div>
+    <h2 class="sec-title">בחרי את המסלול שלך</h2>
+    <p class="sec-sub">המסלולים הנפוצים — יש מסלולים נוספים</p>
+  </div>
+  <div class="price-grid">
+    <div class="price-card reveal">
+      <div class="price-slot">5 כניסות בחודש</div>
+      <div class="price-amount">₪230</div>
+      <a href="#contact" class="btn btn-ghost" style="justify-content:center">קבעי אימון היכרות</a>
     </div>
+    <div class="price-card mid reveal">
+      <div class="price-badge">הכי פופולרי</div>
+      <div class="price-slot">9 כניסות בחודש</div>
+      <div class="price-amount">₪400</div>
+      <a href="#contact" class="btn btn-primary" style="justify-content:center">קבעי אימון היכרות</a>
+    </div>
+    <div class="price-card reveal">
+      <div class="price-slot">13 כניסות בחודש</div>
+      <div class="price-amount">₪460</div>
+      <a href="#contact" class="btn btn-ghost" style="justify-content:center">קבעי אימון היכרות</a>
+    </div>
+  </div>
+  <div class="price-addon reveal">
+    <p>רוצה גם פילאטיס מכשירים? <b>5 כניסות ₪320</b> · <b>9 כניסות ₪475</b> · <b>13 כניסות ₪530</b></p>
+  </div>
+  <p class="price-note">ללא התחייבות · ביטול בהתראה של 30 יום מראש</p>
+</section>
+
+<!-- CTA — Arbox iframe -->
+<section class="cta-sec" id="contact">
+  <div class="cta-in">
+    <h2 style="font-size:clamp(24px,4vw,38px);font-weight:900;color:#fff;margin-bottom:8px" class="reveal">קבעי אימון היכרות</h2>
+    <p style="font-size:16px;color:rgba(255,255,255,0.6);margin-bottom:24px">בחרי שיעור, הירשמי ושלמי — הכל כאן. בלי טלפונים, בלי המתנה.</p>
+    <!-- דסקטופ: iframe -->
+    <div class="arbox-desktop reveal" style="background:#fff;overflow:hidden" data-track="arbox-open">
+      <iframe src="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&lang=he&location=18259&referrer=PLUGIN&filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" width="100%" height="600" style="border:none;display:block" allow="payment *" title="קביעת אימון היכרות ב-STEPS"></iframe>
+    </div>
+    <!-- מובייל: וואטסאפ ראשי (iframe נחסם בדפדפני מובייל), Arbox כקישור משני -->
+    <div class="arbox-mobile reveal">
+      <a href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%94%D7%99%D7%9B%D7%A8%D7%95%D7%AA%20%D7%91-50%20%E2%82%AA" target="_blank" rel="noopener" data-track="trial-cta whatsapp-click" class="btn btn-primary">אימון היכרות ב-50 ₪ בוואטסאפ</a>
+      <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&lang=he&location=18259&referrer=PLUGIN&filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener" data-track="arbox-open" class="quiet-link-plain" style="margin-top:16px">או להרשמה ותשלום אונליין</a>
+    </div>
+    <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.5)">שאלות? <a href="https://wa.me/972527927575" style="color:#F5C518;text-decoration:underline" target="_blank" rel="noopener" data-track="whatsapp-click">דברי איתנו בוואטסאפ</a></p>
+    <p style="margin-top:10px;font-size:11px;color:rgba(255,255,255,0.25);line-height:1.7">מדיניות ביטולים: ביטול עד 24 שעות לפני האימון — ניתן לקבוע מועד חלופי. ביטול פחות מ-24 שעות מראש או אי-הגעה — אין זיכוי. לביטול: <a href="https://wa.me/972527927575" style="color:rgba(255,255,255,0.4);text-decoration:underline" target="_blank">וואטסאפ</a> · <a href="privacy.html#ביטולים" style="color:rgba(255,255,255,0.4);text-decoration:underline">פרטים נוספים</a></p>
   </div>
 </section>
 
@@ -604,125 +1024,44 @@ img{max-width:100%;height:auto}
   <div class="fg">
     <div><div class="logo"><img src="steps-logo-white.png" alt="STEPS Fitness Center לוגו" width="158" height="38" loading="lazy"></div><p class="fd">הבית שלך לאימונים. כוח · אירובי · פילאטיס מכשירים · יוגה · בר · תזונה חכמה. הכל תחת קורת גג אחת.</p></div>
     <div><div class="ft">ניווט</div><ul class="fl"><li><a href="#pain">למה STEPS</a></li><li><a href="#spaces">החללים</a></li><li><a href="#sched">מערכת שעות</a></li><li><a href="#bina">תזונה חכמה</a></li><li><a href="#reviews">המלצות</a></li><li><a href="privacy.html">מדיניות פרטיות</a></li></ul></div>
-    <div><div class="ft">החללים</div><ul class="fl"><li><a href="#spaces">GYM — חדר כושר</a></li><li><a href="#spaces">MOVE — שיעורים</a></li><li><a href="pilates.html">רפורמר פילאטיס</a></li><li><a href="#bina">ליווי תזונה</a></li><li><a href="barre.html">אימון בר</a></li></ul></div>
-    <div><div class="ft">צרי קשר</div><div class="fc">📍 פולג, נתניה</div><div class="fc">📞 052-792-7575</div><div class="fc">⏰ א׳-ה׳ 6:00-22:00 | ו׳ 7:00-14:00</div></div>
+    <div><div class="ft">החללים</div><ul class="fl"><li><a href="gym-women.html">GYM — חדר כושר לנשים</a></li><li><a href="#spaces">MOVE — שיעורים</a></li><li><a href="pilates.html">רפורמר פילאטיס</a></li><li><a href="#bina">ליווי תזונה</a></li><li><a href="barre.html">אימון בר</a></li></ul></div>
+    <div><div class="ft">צרי קשר</div>
+      <div class="fc"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="13" height="13"><path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.4" stroke="currentColor" stroke-width="1.6"/></svg> פולג, נתניה</div>
+      <div class="fc"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="13" height="13"><path d="M4 5c0 8.3 6.7 15 15 15l1-4-4.5-2-1.5 1.5A11.4 11.4 0 0 1 8.5 9.5L10 8 8 3.5 4 4.5V5Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg> 052-792-7575</div>
+      <div class="fc"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="13" height="13"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> א׳-ה׳ 7:00-22:00 · ו׳ 7:00-14:00 · מוצ״ש 18:30-22:00</div>
+    </div>
   </div>
   <p style="font-size:10px;color:rgba(255,255,255,0.18);text-align:center;max-width:1100px;margin:0 auto 10px;line-height:1.6">פעילות גופנית מומלץ לבצע לאחר התייעצות עם רופא. STEPS אינה אחראית לנזקי בריאות הנובעים משימוש בשירותיה.</p>
-  <div class="fb"><span class="fcopy">© 2026 Studio Steps. כל הזכויות שמורות. &nbsp;·&nbsp; <a href="privacy.html" style="color:rgba(255,255,255,0.25);text-decoration:underline">מדיניות פרטיות</a></span><div class="fsoc"><a href="https://www.instagram.com/steps_netanya/" class="fsi" target="_blank" rel="noopener noreferrer">📷</a><a href="https://www.facebook.com/stepsnetanya/" class="fsi" target="_blank" rel="noopener noreferrer">📘</a><a href="https://wa.me/972527927575" class="fsi" target="_blank" rel="noopener noreferrer">💬</a></div></div>
+  <div class="fb"><span class="fcopy">© 2026 Studio Steps. כל הזכויות שמורות. &nbsp;·&nbsp; <a href="privacy.html" style="color:rgba(255,255,255,0.25);text-decoration:underline">מדיניות פרטיות</a></span><div class="fsoc">
+    <a href="https://www.instagram.com/steps_netanya/" class="fsi" target="_blank" rel="noopener noreferrer" aria-label="אינסטגרם"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg></a>
+    <a href="https://www.facebook.com/stepsnetanya/" class="fsi" target="_blank" rel="noopener noreferrer" aria-label="פייסבוק"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 21v-7h2.5l.5-3H14V9.2c0-.9.3-1.6 1.6-1.6H17V4.9C16.6 4.8 15.6 4.7 14.5 4.7c-2.3 0-3.9 1.4-3.9 4v2.3H8v3h2.6v7H14Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg></a>
+    <a href="https://wa.me/972527927575" class="fsi" target="_blank" rel="noopener noreferrer" aria-label="וואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.7.44 3.36 1.28 4.82L2.05 22l5.4-1.42a9.9 9.9 0 0 0 4.6 1.17h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.13-2.9-7C17.2 3.03 14.7 2 12.05 2Zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.03.13-2.1-.24-.48-.17-1.1-.35-1.9-.7-3.35-1.45-5.53-4.8-5.7-5.02-.17-.22-1.36-1.8-1.36-3.44 0-1.63.86-2.43 1.16-2.77.3-.33.66-.42.88-.42h.63c.2 0 .47-.04.73.55.27.6.9 2.08.98 2.23.08.16.13.34.02.55-.1.2-.16.33-.32.5-.16.18-.34.4-.48.53-.16.15-.33.32-.14.63.19.32.85 1.4 1.83 2.27 1.26 1.12 2.32 1.47 2.65 1.63.33.16.52.14.71-.08.2-.22.83-.97 1.05-1.3.22-.34.44-.28.74-.17.3.11 1.9.9 2.23 1.06.32.16.54.24.62.38.08.13.08.77-.16 1.45Z"/></svg></a>
+  </div></div>
 </footer>
 
 <!-- ACCESSIBILITY BUTTON -->
-<button id="acc-btn" onclick="document.getElementById('acc-modal').style.display='flex'" aria-label="נגישות" style="position:fixed;bottom:90px;left:20px;z-index:9999;width:48px;height:48px;border-radius:50%;background:#1565C0;color:#fff;border:none;cursor:pointer;font-size:22px;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center">♿</button>
+<button id="acc-btn" onclick="document.getElementById('acc-modal').style.display='flex'" aria-label="נגישות">
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="4.5" r="1.8" fill="currentColor"/><path d="M12 8v5m0 0-3 7m3-7 3 7M7 11h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+</button>
 
 <!-- FLOATING WA -->
-<a href="https://wa.me/972527927575?text=היי%20אני%20מעוניינת%20באימון%20היכרות%20ב-STEPS" class="waf" target="_blank" rel="noopener" aria-label="שלחי הודעה בוואטסאפ" data-track="whatsapp-click">💬</a>
+<a href="https://wa.me/972527927575?text=היי%20אני%20מעוניינת%20באימון%20היכרות%20ב-STEPS" class="waf" target="_blank" rel="noopener" aria-label="שלחי הודעה בוואטסאפ" data-track="whatsapp-click">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.7.44 3.36 1.28 4.82L2.05 22l5.4-1.42a9.9 9.9 0 0 0 4.6 1.17h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.13-2.9-7C17.2 3.03 14.7 2 12.05 2Zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.03.13-2.1-.24-.48-.17-1.1-.35-1.9-.7-3.35-1.45-5.53-4.8-5.7-5.02-.17-.22-1.36-1.8-1.36-3.44 0-1.63.86-2.43 1.16-2.77.3-.33.66-.42.88-.42h.63c.2 0 .47-.04.73.55.27.6.9 2.08.98 2.23.08.16.13.34.02.55-.1.2-.16.33-.32.5-.16.18-.34.4-.48.53-.16.15-.33.32-.14.63.19.32.85 1.4 1.83 2.27 1.26 1.12 2.32 1.47 2.65 1.63.33.16.52.14.71-.08.2-.22.83-.97 1.05-1.3.22-.34.44-.28.74-.17.3.11 1.9.9 2.23 1.06.32.16.54.24.62.38.08.13.08.77-.16 1.45Z"/></svg>
+</a>
 
-<script>
-// Navbar
-window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('solid',scrollY>80)});
-
-// Mobile menu toggle
-const mobBtn=document.getElementById('mobBtn');
-const nLinks=document.querySelector('.n-links');
-const mobOv=document.getElementById('mobOverlay');
-function toggleMenu(){nLinks.classList.toggle('open');mobOv.classList.toggle('open');mobBtn.textContent=nLinks.classList.contains('open')?'✕':'☰'}
-mobBtn.addEventListener('click',toggleMenu);
-mobOv.addEventListener('click',toggleMenu);
-
-// Smooth scroll + close mobile menu
-document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();if(nLinks.classList.contains('open'))toggleMenu();const t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
-
-// Schedule — Dynamic from Arbox
-(function(){
-  var FALLBACK=[
-    {start_time:'07:00',name:'עיצוב + כוח',coach:'מאמנת STEPS'},
-    {start_time:'08:15',name:'רפורמר פילאטיס',coach:'אורי כהן'},
-    {start_time:'09:30',name:'HIIT Burn',coach:'רותם זינגר'},
-    {start_time:'17:00',name:'GYM — אימון חופשי',coach:'מעיין לזר'},
-    {start_time:'18:30',name:'קיקבוקס',coach:'ירדן נתן'},
-    {start_time:'19:45',name:'בר — Barre',coach:'אגם סימנרוב'}
-  ];
-  function getName(s){return s.session_name||s.name||'';}
-  function mkEl(tag,cls){var el=document.createElement(tag);if(cls)el.className=cls;return el;}
-  function renderItems(items){
-    var sl=document.querySelector('.slist');
-    while(sl.firstChild)sl.removeChild(sl.firstChild);
-    if(!items||!items.length){var fn=mkEl('div','sfn');fn.textContent='אין שיעורים ביום זה';sl.appendChild(fn);return;}
-    items.forEach(function(s){
-      var nm=getName(s);
-      var si=mkEl('div','si');
-      var tm=mkEl('div','s-time');tm.textContent=(s.start_time||'').slice(0,5);
-      var cls=mkEl('div','s-cls');
-      var sn=mkEl('div','s-n');sn.textContent=nm;
-      var coachName=s.coach||(s.staff_member&&s.staff_member.name)||'';
-      var st=mkEl('div','s-t');st.textContent=coachName?'מאמנת: '+coachName:'';
-      cls.appendChild(sn);cls.appendChild(st);
-      si.appendChild(tm);si.appendChild(cls);
-      sl.appendChild(si);
-    });
-  }
-  var cache={};
-  function getWeekDates(){
-    var today=new Date(),day=today.getDay(),sun=new Date(today);
-    sun.setDate(today.getDate()-day);
-    return Array.from({length:6},function(_,i){var d=new Date(sun);d.setDate(sun.getDate()+i);return d.toISOString().split('T')[0];});
-  }
-  var weekDates=getWeekDates();
-  var todayIdx=Math.min(new Date().getDay(),5);
-  function loadDay(idx){
-    var date=weekDates[idx];if(!date)return;
-    if(cache[date]){renderItems(cache[date]);return;}
-    var sl=document.querySelector('.slist');
-    while(sl.firstChild)sl.removeChild(sl.firstChild);
-    var fn=mkEl('div','sfn');fn.textContent='⏳ טוען מערכת שעות...';sl.appendChild(fn);
-    fetch('/api/schedule?date='+date)
-      .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
-      .then(function(data){cache[date]=Array.isArray(data)&&data.length?data:FALLBACK;renderItems(cache[date]);})
-      .catch(function(){cache[date]=FALLBACK;renderItems(FALLBACK);});
-  }
-  var tabs=document.querySelectorAll('.dt');
-  tabs.forEach(function(t,i){
-    t.addEventListener('click',function(){tabs.forEach(function(d){d.classList.remove('active');});this.classList.add('active');loadDay(i);});
-  });
-  tabs.forEach(function(d){d.classList.remove('active');});
-  if(tabs[todayIdx])tabs[todayIdx].classList.add('active');else tabs[0].classList.add('active');
-  loadDay(todayIdx);
-})();
-
-// Scroll Reveal
-const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
-<script>document.addEventListener('DOMContentLoaded',function(){AOS.init({duration:800,once:true,offset:100})})</script>
-<script>
-// Cookie consent logic
-(function(){
-  function initTracking(){
-    if(typeof gtag==='function')gtag('consent','update',{'analytics_storage':'granted','ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted'});
-    if(typeof fbq==='function'){fbq('init','1016773848190436');fbq('track','PageView');}
-  }
-  window.acceptCookies=function(){
-    localStorage.setItem('steps-consent','granted');
-    document.getElementById('cookie-banner').style.display='none';
-    initTracking();
-  };
-  window.declineCookies=function(){
-    localStorage.setItem('steps-consent','declined');
-    document.getElementById('cookie-banner').style.display='none';
-  };
-  var c=localStorage.getItem('steps-consent');
-  if(c==='granted'){initTracking();}
-  else if(c!=='declined'){document.getElementById('cookie-banner').style.display='flex';}
-})();
-</script>
+<!-- MOBILE STICKY CTA BAR -->
+<div class="mbar">
+  <a href="#contact" class="mbar-cta" data-track="trial-cta">אימון היכרות ב-50 ₪</a>
+  <a href="https://wa.me/972527927575" target="_blank" rel="noopener" class="mbar-wa" aria-label="וואטסאפ" data-track="whatsapp-click">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.7.44 3.36 1.28 4.82L2.05 22l5.4-1.42a9.9 9.9 0 0 0 4.6 1.17h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.13-2.9-7C17.2 3.03 14.7 2 12.05 2Zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.03.13-2.1-.24-.48-.17-1.1-.35-1.9-.7-3.35-1.45-5.53-4.8-5.7-5.02-.17-.22-1.36-1.8-1.36-3.44 0-1.63.86-2.43 1.16-2.77.3-.33.66-.42.88-.42h.63c.2 0 .47-.04.73.55.27.6.9 2.08.98 2.23.08.16.13.34.02.55-.1.2-.16.33-.32.5-.16.18-.34.4-.48.53-.16.15-.33.32-.14.63.19.32.85 1.4 1.83 2.27 1.26 1.12 2.32 1.47 2.65 1.63.33.16.52.14.71-.08.2-.22.83-.97 1.05-1.3.22-.34.44-.28.74-.17.3.11 1.9.9 2.23 1.06.32.16.54.24.62.38.08.13.08.77-.16 1.45Z"/></svg>
+  </a>
+</div>
 
 <!-- ACCESSIBILITY MODAL -->
 <div id="acc-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:99999;align-items:center;justify-content:center;padding:20px">
   <div style="background:#1a1a1a;border-radius:16px;padding:32px;max-width:500px;width:100%;color:#fff;position:relative;max-height:90vh;overflow-y:auto">
-    <button onclick="document.getElementById('acc-modal').style.display='none'" style="position:absolute;top:12px;left:12px;background:none;border:none;color:#fff;font-size:24px;cursor:pointer">&times;</button>
-    <h2 style="font-size:20px;margin-bottom:16px;text-align:center">♿ הצהרת נגישות</h2>
+    <button onclick="document.getElementById('acc-modal').style.display='none'" aria-label="סגירה" style="position:absolute;top:12px;left:12px;background:none;border:none;color:#fff;font-size:24px;cursor:pointer">&times;</button>
+    <h2 style="font-size:20px;margin-bottom:16px;text-align:center;display:flex;align-items:center;justify-content:center;gap:8px"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="20" height="20"><circle cx="12" cy="4.5" r="1.8" fill="currentColor"/><path d="M12 8v5m0 0-3 7m3-7 3 7M7 11h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg> הצהרת נגישות</h2>
     <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px">
       סטודיו STEPS שואף לספק חוויית שימוש נגישה לכל המשתמשים. אנו פועלים לשיפור הנגישות באופן מתמיד ומקבלים בברכה פניות בנושא.
     </p>
@@ -743,7 +1082,422 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     <p style="font-size:12px;color:rgba(255,255,255,0.4);text-align:center;margin-top:16px">עודכן: מרץ 2026</p>
   </div>
 </div>
+
 <script>
+// Spotlight strip
+(function(){
+  var items=['GYM','BOOTCAMP','ENDURANCE','GYM & RUN','Pilates Reformer','BAR','YOGA','Flexibility'];
+  var t=document.getElementById('stripTrack');
+  items.forEach(function(w,i){
+    if(i>0){var sep=document.createElement('span');sep.className='strip-sep';sep.textContent='|';t.appendChild(sep);}
+    var span=document.createElement('span');span.className='strip-word';span.textContent=w;t.appendChild(span);
+  });
+  var words=document.querySelectorAll('.strip-word'),idx=0;
+  setInterval(function(){
+    words.forEach(function(w){w.classList.remove('hot')});
+    words[idx].classList.add('hot');
+    idx=(idx+1)%words.length;
+  },900);
+})();
+
+// Testimonial quote cycler
+(function(){
+  var quotes=document.querySelectorAll('#quoteStack .quote');
+  var dots=document.querySelectorAll('#quoteDots span');
+  var i=0;
+  setInterval(function(){
+    quotes[i].classList.remove('active');dots[i].classList.remove('active');
+    i=(i+1)%quotes.length;
+    quotes[i].classList.add('active');dots[i].classList.add('active');
+  },4200);
+})();
+
+// Progress bar fallback (no animation-timeline: scroll support)
+var supportsScrollTimeline = CSS.supports('animation-timeline: scroll()') && CSS.supports('animation-timeline: view()');
+if(!supportsScrollTimeline){
+  var fill=document.getElementById('progressFill');
+  fill.style.animation='none';
+  function updateProgress(){
+    var h=document.documentElement;
+    var pct=(h.scrollTop)/(h.scrollHeight-h.clientHeight||1);
+    fill.style.transform='scaleX('+Math.min(Math.max(pct,0),1)+')';
+  }
+  document.addEventListener('scroll',function(){requestAnimationFrame(updateProgress)},{passive:true});
+  updateProgress();
+}
+
+// Scene reveal (IntersectionObserver) — drives .in-view for eyebrow/body/tags/ctas/proof
+// (title on gym/move/pilates is driven continuously by the rAF engine below instead).
+var scenes=[].slice.call(document.querySelectorAll('.scene')); // real array — registerScrub() needs .indexOf
+var ioScene=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('in-view'); });
+},{threshold:0.15,rootMargin:'-10%'});
+scenes.forEach(function(s){ioScene.observe(s)});
+
+// Generic reveal (.reveal) — replaces AOS for regular in-flow sections
+var ioReveal=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){ e.target.classList.add('is-visible'); ioReveal.unobserve(e.target); }
+  });
+},{threshold:0.15,rootMargin:'-10%'});
+document.querySelectorAll('.reveal').forEach(function(el){ioReveal.observe(el)});
+
+// ============================================================================
+// UNIFIED SCROLL ENGINE — one damped rAF loop drives EVERYTHING scroll-tied:
+// per-scene --p/--pt (background scale, title reveal), every data-scrub video's
+// currentTime (hero + room clips + gym-real-1-g), carousel auto-advance, and the
+// pain-section parallax layer. Single source of truth, single loop, no per-frame
+// layout reads (geometry is cached in measure(), recomputed on resize only).
+// ============================================================================
+var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+(function(){
+  function mapRange(v,a,b,c,d){ var t=Math.max(0,Math.min(1,(v-a)/(b-a))); return c+t*(d-c); }
+
+  // ---- geometry cache (recomputed on resize/orientation/load, never inside tick) ----
+  var sceneData = [], parallaxEls = [];
+  function measure(){
+    var vh = window.innerHeight;
+    sceneData = scenes.map(function(s){
+      var start = s.offsetTop, end = start + s.offsetHeight - vh;
+      return { el:s, start:start, end:Math.max(end, start+1) };
+    });
+    parallaxEls = [].slice.call(document.querySelectorAll('[data-parallax]')).map(function(el){
+      return { el:el, top:el.offsetTop, h:el.offsetHeight, speed:parseFloat(el.dataset.parallax)||0.08 };
+    });
+  }
+  measure();
+  var resizeT=null;
+  window.addEventListener('resize', function(){ clearTimeout(resizeT); resizeT=setTimeout(measure,150); });
+  window.addEventListener('orientationchange', function(){ setTimeout(measure,250); });
+  window.addEventListener('load', measure);
+
+  if (REDUCE){
+    sceneData.forEach(function(d){ d.el.style.setProperty('--p','1'); d.el.style.setProperty('--pt','1'); });
+    // no scrubbing, no autoplay ambient loops — every video[autoplay] just shows its poster
+    document.querySelectorAll('video[autoplay]').forEach(function(v){ v.removeAttribute('autoplay'); v.pause(); });
+    return;
+  }
+
+  // ---- scroll-scrub video registry ----
+  var scrubs = [];
+  function registerScrub(video){
+    var scene = video.closest('.scene');
+    var idx = scenes.indexOf(scene);
+    if (idx === -1) return;
+    var state = { video:video, sceneIdx:idx, dur:0, primed:false, ready:false,
+                 from: parseFloat(video.dataset.scrubFrom || '0'),
+                 to:   parseFloat(video.dataset.scrubTo   || '1') };
+    function prime(){
+      if (state.primed) return;
+      var pr = video.play();
+      if (pr && pr.then) pr.then(function(){ video.pause(); video.currentTime=0; state.primed=true; }).catch(function(){});
+      else { try { video.pause(); state.primed=true; } catch(e){} }
+    }
+    function checkBuffered(){
+      if (state.ready || !state.dur) return;
+      try {
+        for (var i=0;i<video.buffered.length;i++){
+          if (video.buffered.start(i) <= 0.05 && video.buffered.end(i) >= state.dur - 0.15){
+            state.ready = true; video.classList.add('scrub-ready'); return;
+          }
+        }
+      } catch(e){}
+    }
+    function onMeta(){ state.dur = video.duration||0; prime(); checkBuffered(); }
+    video.addEventListener('progress', checkBuffered);
+    video.addEventListener('canplaythrough', function(){ state.ready = true; video.classList.add('scrub-ready'); });
+    video.addEventListener('loadedmetadata', onMeta);
+    if (video.readyState >= 1) onMeta();
+    ['touchstart','pointerdown','wheel','keydown'].forEach(function(ev){
+      window.addEventListener(ev, prime, {once:true, passive:true});
+    });
+    scrubs.push(state);
+  }
+  document.querySelectorAll('video[data-scrub]').forEach(registerScrub);
+  window.__registerScrub = registerScrub; // late-bound: carousel lazy-load calls this for slide 2+ scrub videos
+
+  // ---- damped global scroll cursor (single lerp — every scene reads off the same lag) ----
+  var targetScroll = window.scrollY, smoothed = window.scrollY;
+  var DAMPING = 0.20; // lower = heavier/slower feel (owner asked for "slow, heavy, controlled")
+  window.addEventListener('scroll', function(){ targetScroll = window.scrollY; }, {passive:true});
+
+  var FRAME = 1/60; // ~1 video frame at ~28fps — skip currentTime writes smaller than this
+  var pByScene = [];
+  var lastDocH = 0, measureTick = 0;
+  function tick(){
+    targetScroll = window.scrollY;   // read every frame — scroll events arrive late/coalesced
+    // self-healing geometry: late-loading media changes page height, which would
+    // otherwise leave every scene mapped to a stale scroll range (scrub lands short).
+    if ((++measureTick & 15) === 0) {
+      var dh = document.documentElement.scrollHeight;
+      if (dh !== lastDocH) { lastDocH = dh; measure(); }
+    }
+    smoothed += (targetScroll - smoothed) * DAMPING;
+    var vhNow = window.innerHeight;
+    sceneData.forEach(function(d,i){
+      var p = mapRange(smoothed, d.start, d.end, 0, 1);
+      pByScene[i] = p;
+      // near-viewport only: writing --p on far-off scenes costs style+paint for nothing
+      var near = (targetScroll + vhNow*1.2 > d.start) && (targetScroll - vhNow*0.6 < d.end + vhNow);
+      if (!near) return;
+      var ps = p.toFixed(3);
+      if (d._lastP !== ps) {
+        d._lastP = ps;
+        d.el.style.setProperty('--p', ps);
+        d.el.style.setProperty('--pt', Math.min(1, p/0.35).toFixed(3));
+      }
+      if (d.el._carousel) d.el._carousel.onProgress(p);
+    });
+    scrubs.forEach(function(st){
+      if (!st.dur || !st.ready) return;
+      var f0 = st.from, f1 = st.to;                      // usable slice of the clip
+      var sd = sceneData[st.sceneIdx];
+      var rawP = sd ? Math.max(0, Math.min(1, (targetScroll - sd.start) / (sd.end - sd.start))) : 0;
+      var t = (f0 + rawP * (f1 - f0)) * st.dur;          // RAW — scrub tracks the finger 1:1
+      if (Math.abs(st.video.currentTime - t) > FRAME) { try { st.video.currentTime = t; } catch(e){} }
+    });
+
+    if (window.__heroSeq) {
+      // damped cursor, not raw scroll: a finger flick delivers jumpy scrollY, and with a
+      // finite frame count that reads as stepping. Everything else on the page already
+      // reads off `smoothed` — the hero was the one thing that didn't.
+      var a0 = sceneData[0];
+      window.__heroSeq(a0 ? Math.max(0, Math.min(1, (smoothed - a0.start) / (a0.end - a0.start))) : 0);
+    }
+    parallaxEls.forEach(function(pe){
+      if (pe.top > targetScroll + vhNow || pe.top + pe.h < targetScroll) return;
+      var mid = pe.top + pe.h/2, viewMid = smoothed + vhNow/2;
+      var ty = ((viewMid - mid) * pe.speed).toFixed(1);
+      if (pe._last !== ty) { pe._last = ty; pe.el.style.transform = 'translateY(' + ty + 'px)'; }
+    });
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+
+// ============================================================================
+// SPACE CAROUSELS — native horizontal scroll-snap (real touch swipe, not hijacked).
+// Track is forced ltr so scrollLeft math stays predictable regardless of page dir.
+// ============================================================================
+(function(){
+  function initCarousel(root){
+    var track = root.querySelector('.carousel__track');
+    var slides = [].slice.call(root.querySelectorAll('.carousel__slide'));
+    var dotsWrap = root.querySelector('.carousel__dots');
+    var prevBtn = root.querySelector('.carousel__arrow--prev');
+    var nextBtn = root.querySelector('.carousel__arrow--next');
+    var scene = root.closest('.scene');
+    var current = 0, userSwiped = false, autoAdvanced = false;
+
+    slides.forEach(function(_,i){
+      var d = document.createElement('button');
+      d.type = 'button';
+      d.className = 'carousel__dot' + (i===0?' active':'');
+      d.setAttribute('aria-label','שקופית '+(i+1)+' מתוך '+slides.length);
+      d.addEventListener('click', function(){ userSwiped = true; goTo(i); });
+      dotsWrap.appendChild(d);
+    });
+    var dots = [].slice.call(dotsWrap.children);
+
+    function goTo(i){
+      i = Math.max(0, Math.min(slides.length-1, i));
+      track.scrollTo({ left: i*track.clientWidth, behavior: REDUCE ? 'auto' : 'smooth' });
+    }
+    if(prevBtn) prevBtn.addEventListener('click', function(){ userSwiped = true; goTo(current-1); });
+    if(nextBtn) nextBtn.addEventListener('click', function(){ userSwiped = true; goTo(current+1); });
+
+    track.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowLeft'){ userSwiped = true; goTo(current-1); e.preventDefault(); }
+      if (e.key === 'ArrowRight'){ userSwiped = true; goTo(current+1); e.preventDefault(); }
+    });
+
+    track.addEventListener('scroll', function(){
+      var idx = Math.round(track.scrollLeft / track.clientWidth);
+      if (idx !== current){ current = idx; dots.forEach(function(d,i){ d.classList.toggle('active', i===current); }); }
+    }, {passive:true});
+    track.addEventListener('wheel', function(){ userSwiped = true; }, {passive:true});
+
+    // pointer-drag for mouse users (touch already scrolls natively via overflow-x)
+    var dragging=false, startX=0, startScroll=0;
+    track.addEventListener('pointerdown', function(e){
+      userSwiped = true;
+      if (e.pointerType === 'touch') return;
+      dragging = true; startX = e.clientX; startScroll = track.scrollLeft;
+      try{ track.setPointerCapture(e.pointerId); }catch(err){}
+    });
+    track.addEventListener('pointermove', function(e){ if (dragging) track.scrollLeft = startScroll - (e.clientX - startX); });
+    ['pointerup','pointercancel'].forEach(function(ev){ track.addEventListener(ev, function(){ dragging = false; }); });
+
+    // lazy-load slide 2+ media just before it's needed; register scrub if applicable
+    if ('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (!e.isIntersecting) return;
+          var media = e.target.querySelector('[data-lazy]');
+          if (!media || !media.dataset.src) return;
+          media.src = media.dataset.src;
+          media.removeAttribute('data-lazy');
+          if (media.tagName === 'VIDEO'){
+            media.load();
+            var p = media.play(); if (p && p.catch) p.catch(function(){});
+            if (media.hasAttribute('data-scrub') && window.__registerScrub) window.__registerScrub(media);
+          }
+        });
+      }, { root: track, threshold: 0.5 });
+      slides.forEach(function(s){ io.observe(s); });
+    } else {
+      // no IO support: just load everything up front
+      slides.forEach(function(s){
+        var media = s.querySelector('[data-lazy]');
+        if (media && media.dataset.src){ media.src = media.dataset.src; media.removeAttribute('data-lazy'); if (media.tagName==='VIDEO') media.load(); }
+      });
+    }
+
+    if (scene) scene._carousel = {
+      onProgress: function(p){
+        if (REDUCE || userSwiped || autoAdvanced || current !== 0) return;
+        if (p > 0.4){ autoAdvanced = true; goTo(1); }
+      }
+    };
+  }
+  document.querySelectorAll('[data-carousel]').forEach(initCarousel);
+})();
+
+// ============================================================================
+// STATS COUNT-UP — runs once when the strip enters view, respects reduced-motion.
+// ============================================================================
+(function(){
+  var nums = document.querySelectorAll('.stat-num[data-count-to]');
+  if (!nums.length) return;
+  function animate(el){
+    var to = parseInt(el.dataset.countTo,10) || 0;
+    var suffix = el.dataset.suffix || '';
+    if (REDUCE){ el.textContent = to + suffix; return; }
+    var start = null, duration = 1100;
+    function step(ts){
+      if (start === null) start = ts;
+      var t = Math.min(1, (ts-start)/duration);
+      var eased = 1 - Math.pow(1-t, 3);
+      el.textContent = Math.round(eased*to) + suffix;
+      if (t < 1) requestAnimationFrame(step); else el.textContent = to + suffix;
+    }
+    requestAnimationFrame(step);
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting){ animate(e.target); io.unobserve(e.target); } });
+  }, {threshold:0.5});
+  nums.forEach(function(el){ io.observe(el); });
+})();
+
+// Navbar solid-on-scroll
+window.addEventListener('scroll',function(){document.getElementById('nav').classList.toggle('solid',scrollY>80)});
+
+// Mobile menu toggle
+var mobBtn=document.getElementById('mobBtn');
+var nLinks=document.querySelector('.n-links');
+var mobOv=document.getElementById('mobOverlay');
+function toggleMenu(){nLinks.classList.toggle('open');mobOv.classList.toggle('open');mobBtn.classList.toggle('open',nLinks.classList.contains('open'))}
+mobBtn.addEventListener('click',toggleMenu);
+mobOv.addEventListener('click',toggleMenu);
+
+// Smooth scroll + close mobile menu (respects reduced motion)
+var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    e.preventDefault();
+    if(nLinks.classList.contains('open'))toggleMenu();
+    var t=document.querySelector(this.getAttribute('href'));
+    if(t)t.scrollIntoView({behavior:prefersReduced?'auto':'smooth',block:'start'});
+  });
+});
+
+// Schedule — dynamic from Arbox
+(function(){
+  function getName(s){return s.session_name||s.name||'';}
+  function mkEl(tag,cls){var el=document.createElement(tag);if(cls)el.className=cls;return el;}
+  function renderItems(items){
+    var sl=document.querySelector('.slist');
+    while(sl.firstChild)sl.removeChild(sl.firstChild);
+    if(!items||!items.length){var fn=mkEl('div','sfn');fn.textContent='אין שיעורים ביום זה';sl.appendChild(fn);return;}
+    items.forEach(function(s){
+      var nm=getName(s);
+      var si=mkEl('div','si');
+      var tm=mkEl('div','s-time');tm.textContent=(s.start_time||'').slice(0,5);
+      var cls=mkEl('div','s-cls');
+      var sn=mkEl('div','s-n');sn.textContent=nm;
+      var coachName=s.coach||(s.staff_member&&s.staff_member.name)||'';
+      var st=mkEl('div','s-t');st.textContent=coachName?'מאמנת: '+coachName:'';
+      cls.appendChild(sn);cls.appendChild(st);
+      si.appendChild(tm);si.appendChild(cls);
+      sl.appendChild(si);
+    });
+  }
+  // No fabricated fallback schedule — if Arbox is unreachable we say so and hand off to WhatsApp.
+  function renderError(){
+    var sl=document.querySelector('.slist');
+    while(sl.firstChild)sl.removeChild(sl.firstChild);
+    var fn=mkEl('div','sfn');
+    fn.appendChild(document.createTextNode('לא הצלחנו לטעון את מערכת השעות כרגע. '));
+    var a=document.createElement('a');
+    a.href='https://wa.me/972527927575?text='+encodeURIComponent('היי, אשמח לקבל את מערכת השעות');
+    a.target='_blank';a.rel='noopener';
+    a.style.color='#F5C518';a.style.textDecoration='underline';
+    a.textContent='קבלי אותה בוואטסאפ';
+    fn.appendChild(a);
+    sl.appendChild(fn);
+  }
+  var cache={};
+  function getWeekDates(){
+    var today=new Date(),day=today.getDay(),sun=new Date(today);
+    sun.setDate(today.getDate()-day);
+    return Array.from({length:6},function(_,i){var d=new Date(sun);d.setDate(sun.getDate()+i);return d.toISOString().split('T')[0];});
+  }
+  var weekDates=getWeekDates();
+  var todayIdx=Math.min(new Date().getDay(),5);
+  function loadDay(idx){
+    var date=weekDates[idx];if(!date)return;
+    if(cache[date]){renderItems(cache[date]);return;}
+    var sl=document.querySelector('.slist');
+    while(sl.firstChild)sl.removeChild(sl.firstChild);
+    var fn=mkEl('div','sfn');fn.textContent='טוען מערכת שעות...';sl.appendChild(fn);
+    fetch('/api/schedule?date='+date)
+      .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
+      .then(function(data){if(!Array.isArray(data))throw new Error('bad payload');cache[date]=data;renderItems(data);})
+      .catch(function(){renderError();});
+  }
+  var tabs=document.querySelectorAll('.dt');
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){tabs.forEach(function(d){d.classList.remove('active');});this.classList.add('active');loadDay(i);});
+  });
+  tabs.forEach(function(d){d.classList.remove('active');});
+  if(tabs[todayIdx])tabs[todayIdx].classList.add('active');else tabs[0].classList.add('active');
+  loadDay(todayIdx);
+})();
+
+// Cookie consent logic
+(function(){
+  function initTracking(){
+    if(typeof gtag==='function')gtag('consent','update',{'analytics_storage':'granted','ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted'});
+    if(typeof fbq==='function'){fbq('init','1016773848190436');fbq('track','PageView');}
+  }
+  // localStorage throws in Safari private mode / blocked-cookies — consent must still work per-session
+  function readConsent(){try{return localStorage.getItem('steps-consent');}catch(e){return null;}}
+  function saveConsent(v){try{localStorage.setItem('steps-consent',v);}catch(e){}}
+  window.acceptCookies=function(){
+    saveConsent('granted');
+    document.getElementById('cookie-banner').style.display='none';
+    initTracking();
+  };
+  window.declineCookies=function(){
+    saveConsent('declined');
+    document.getElementById('cookie-banner').style.display='none';
+  };
+  var c=readConsent();
+  if(c==='granted'){initTracking();}
+  else if(c!=='declined'){document.getElementById('cookie-banner').style.display='flex';}
+})();
+
 // Conversion tracking
 (function(){
   function trackEvent(name, params){
@@ -766,5 +1520,83 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
   });
 })();
 </script>
+<script>
+/* autoplay insurance: some browsers defer muted-autoplay until interaction/visibility.
+   nudge every decorative video once it is in view, ignore rejections. */
+(function(){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var vids=[].slice.call(document.querySelectorAll('video[autoplay]'));
+  if(!vids.length) return;
+  var kick=function(v){ if(v.paused) { var p=v.play(); if(p&&p.catch) p.catch(function(){}); } };
+  vids.forEach(kick);
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting) kick(e.target); });},{threshold:0.01});
+    vids.forEach(function(v){io.observe(v);});
+  }
+  document.addEventListener('visibilitychange',function(){ if(!document.hidden) vids.forEach(kick); });
+})();
+</script>
+
+<script>
+/* SCRUB PRELOADER — fetch each scrubbed clip fully into memory, then swap in a blob URL.
+   Seeking a blob never touches the network, so scroll-scrub stays instant instead of
+   stalling on range requests. Poster shows until its clip is ready. */
+(function(){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('video[data-scrub]').forEach(function(v){
+    var src = v.currentSrc || (v.querySelector('source') && v.querySelector('source').src);
+    if (!src) return;
+    fetch(src, {cache:'force-cache'})
+      .then(function(r){ return r.ok ? r.blob() : Promise.reject(r.status); })
+      .then(function(blob){
+        var url = URL.createObjectURL(blob);
+        v.removeAttribute('preload');
+        var srcEl = v.querySelector('source'); if (srcEl) srcEl.remove();
+        v.src = url;
+        v.load();
+        v.classList.add('blob-ready');
+      })
+      .catch(function(){ /* keep the streaming source as-is */ });
+  });
+})();
+</script>
+<!-- HERO = plain autoplaying video loop. The scroll-scrubbed canvas frame sequence that
+     index-new.html uses is deliberately absent here: without it #heroCanvas stays
+     display:none (its default) and .scene__bg--video is never hidden, so the <video>
+     below simply autoplays and loops. Also drops the 5.3MB frame download. -->
+<script>
+/* PLAYBACK BUDGET — only clips actually on screen may decode.
+   Measured: 6 videos were decoding at once (all offscreen), median frame time 41ms
+   on a 4x-throttled phone. Pausing offscreen media is the single biggest win. */
+(function(){
+  var vids=[].slice.call(document.querySelectorAll('video'));  // hero fallback included: it must loop if the frame sequence fails
+  if(!vids.length) return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function play(v){ if(reduce) return; var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
+  var onScreen=[];   // remembered so we can resume after a tab switch
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      var v=e.target, at=onScreen.indexOf(v);
+      if(e.isIntersecting){
+        if(at===-1) onScreen.push(v);
+        if(v.dataset.src && !v.src){ v.src=v.dataset.src; v.load(); }
+        play(v);
+      } else {
+        if(at>-1) onScreen.splice(at,1);
+        if(!v.paused) v.pause();
+      }
+    });
+  },{threshold:0.12, rootMargin:'10% 0px'});
+  vids.forEach(function(v){ io.observe(v); });
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden){ vids.forEach(function(v){ if(!v.paused) v.pause(); }); return; }
+    // Coming BACK needs an explicit restart: intersection hasn't changed while we were away,
+    // so the observer never fires again and every on-screen clip would stay frozen for good
+    // (switch to WhatsApp and back = dead hero).
+    onScreen.forEach(play);
+  });
+})();
+</script>
 </body>
 </html>
+
