@@ -185,7 +185,9 @@ video.scene__bg,img.scene__bg{object-fit:cover;object-position:center;width:100%
 .carousel{position:absolute;inset:0}
 .carousel__track{position:absolute;inset:0;display:flex;direction:ltr;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;outline:none}
 .carousel__track::-webkit-scrollbar{display:none}
-.carousel__slide{position:relative;flex:0 0 100%;height:100%;scroll-snap-align:start}
+/* overflow:hidden is load-bearing — .carousel__media is scaled to 1.1, so without it the
+   neighbouring slide's oversized media bleeds past the snap edge ("video escaping from the side") */
+.carousel__slide{position:relative;flex:0 0 100%;height:100%;scroll-snap-align:start;overflow:hidden}
 .carousel__media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(calc(1.1 - 0.05 * var(--p,0)));transform-origin:center;will-change:transform}
 /* arrows/dots sized to a >=44px tap target even though the visible glyph stays small —
    the extra box is invisible hit-area padding, not a bigger visual element */
@@ -1254,8 +1256,11 @@ var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     });
 
     if (window.__heroSeq) {
+      // damped cursor, not raw scroll: a finger flick delivers jumpy scrollY, and with a
+      // finite frame count that reads as stepping. Everything else on the page already
+      // reads off `smoothed` — the hero was the one thing that didn't.
       var a0 = sceneData[0];
-      window.__heroSeq(a0 ? Math.max(0, Math.min(1, (targetScroll - a0.start) / (a0.end - a0.start))) : 0);
+      window.__heroSeq(a0 ? Math.max(0, Math.min(1, (smoothed - a0.start) / (a0.end - a0.start))) : 0);
     }
     parallaxEls.forEach(function(pe){
       if (pe.top > targetScroll + vhNow || pe.top + pe.h < targetScroll) return;
@@ -1559,7 +1564,9 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
    draw is a straight blit. */
 (function(){
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var N=51, BASE='images/shoot2025/heroseq/f', cv=document.getElementById('heroCanvas');
+  // N = every frame of hero-cine.mp4 at its native 24fps. At 51 frames the runway advanced
+  // one frame per ~16px of scroll, which reads as stepping rather than motion.
+  var N=121, BASE='images/shoot2025/heroseq/f', cv=document.getElementById('heroCanvas');
   if(!cv) return;
   var ctx=cv.getContext('2d',{alpha:false, desynchronized:true});
   var bmps=new Array(N), ready=false, lastIdx=-1, p=0;
@@ -1582,29 +1589,30 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
     ctx.drawImage(im,(cw-dw)/2,(ch-dh)*0.26,dw,dh);
     lastIdx=idx;
   }
-  var lastPaint=0;
   window.__heroSeq=function(v){
-    p=v;
-    var now=performance.now();
-    if(now-lastPaint < 30) return;   // source is 24fps — painting at 60 costs double for nothing
-    lastPaint=now; paint();
+    // no time throttle: paint() already no-ops when the frame index hasn't moved, so the
+    // only thing a throttle bought was up-to-30ms of latency on the frames that DID change.
+    p=v; paint();
   };
   window.addEventListener('resize',function(){ fit(); lastIdx=-1; paint(); },{passive:true});
 
   var url=function(i){ return BASE+String(i).padStart(3,'0')+'.webp'; };
-  var jobs=[];
+  // Progressive: hand over to the canvas as soon as the FIRST frame decodes, then keep
+  // filling in. Waiting on Promise.all meant the hero sat frozen until the whole sequence
+  // landed — and the sequence just got 2.4x longer. Frames are requested in order, so the
+  // ones nearest the top of the runway are always the ones that arrive first.
   for(var i=1;i<=N;i++)(function(i){
-    jobs.push(fetch(url(i)).then(function(r){ return r.blob(); })
+    fetch(url(i)).then(function(r){ return r.blob(); })
       .then(function(bl){ return createImageBitmap(bl); })
-      .then(function(bm){ bmps[i-1]=bm; })
-      .catch(function(){}));
+      .then(function(bm){
+        bmps[i-1]=bm;
+        if(ready) return;
+        ready=true;
+        document.documentElement.classList.add('seq-on');
+        fit(); lastIdx=-1; paint();
+      })
+      .catch(function(){});
   })(i);
-  Promise.all(jobs).then(function(){
-    if(!bmps.filter(Boolean).length) return;
-    ready=true;
-    document.documentElement.classList.add('seq-on');
-    fit(); lastIdx=-1; paint();
-  });
 })();
 </script>
 <script>
