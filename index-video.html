@@ -118,10 +118,9 @@ a{color:inherit}
 video.scene__bg,img.scene__bg{object-fit:cover;object-position:center;width:100%;height:100%}
 .scene__bg--reduced{display:none}
 @media(prefers-reduced-motion:reduce){.scene--arrival .scene__bg--video{display:none}.scene--arrival .scene__bg--reduced{display:block}}
-/* The wide take frames the whole squat with the subject already centred, so the nudges that
-   the zoomed hero-cine crop needed are gone. Desktop still pulls up a little: cover crops
-   heavily on a landscape viewport, and centre would cut at the hips. */
-@media(min-width:769px){.scene--arrival .scene__bg--video{object-position:center 30%}}
+/* desktop: same vertical video, recentered so the crop reads as shoulders/back mid-lift, not a hip-level crop */
+@media(min-width:769px){.scene--arrival .scene__bg--video{object-position:center 34%}}
+@media(max-width:768px){.scene--arrival .scene__bg--video{object-position:center 26%}}
 .scene__tint{position:absolute;inset:0}
 .scene--gym .scene__tint,.scene--move .scene__tint,.scene--pilates .scene__tint{background:linear-gradient(to bottom,rgba(6,6,6,.55) 0%,rgba(6,6,6,.15) 30%,rgba(6,6,6,.55) 62%,rgba(6,6,6,.9) 100%)}
 .scene__content{position:relative;z-index:2;padding:0 6% 9%;width:100%;max-width:1200px;margin:0 auto}
@@ -631,13 +630,11 @@ html.seq-on .scene--arrival .scene__bg--video{display:none}
 <!-- 1 · ARRIVAL / HERO -->
 <section class="scene scene--arrival" id="s1">
   <div class="scene__sticky">
-    <!-- hero-wide-web.mp4, NOT hero-cine.mp4: hero-cine is a digital zoom of this same take,
-         cropped in and stretched back to 720x1280, so it carries roughly half the real detail
-         and was encoded at a lower bitrate on top of that. The wide take is native pixels. -->
-    <video id="heroScrub" class="scene__bg scene__bg--video" autoplay muted loop playsinline preload="auto" poster="images/shoot2025/hero-wide-poster.jpg" aria-hidden="true">
-      <source src="images/shoot2025/hero-wide-web.mp4" type="video/mp4">
+    <canvas id="heroCanvas" class="scene__bg" aria-hidden="true"></canvas>
+    <video id="heroScrub" class="scene__bg scene__bg--video" autoplay muted loop playsinline preload="metadata" poster="images/shoot2025/hero-seq-poster.jpg" aria-hidden="true">
+      <source src="images/shoot2025/hero-cine.mp4" type="video/mp4">
     </video>
-    <img class="scene__bg scene__bg--reduced" src="images/shoot2025/hero-wide-poster.jpg" alt="" aria-hidden="true" width="720" height="1280">
+    <img class="scene__bg scene__bg--reduced" src="images/shoot2025/hero-cine-poster.jpg" alt="" aria-hidden="true" width="720" height="1280">
     <!-- text sits at the top over the ceiling/neon area; scrim strongest there, clear over the face mid-frame -->
     <div class="scene__tint" style="background:linear-gradient(to bottom,rgba(6,6,6,.55) 0%,rgba(6,6,6,.12) 18%,rgba(6,6,6,0) 38%,rgba(6,6,6,.45) 62%,rgba(6,6,6,.92) 100%)"></div>
     <div class="scene__content">
