@@ -1569,15 +1569,24 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   var N=121, BASE='images/shoot2025/heroseq/f', cv=document.getElementById('heroCanvas');
   if(!cv) return;
   var ctx=cv.getContext('2d',{alpha:false, desynchronized:true});
+  if('imageSmoothingQuality' in ctx){ ctx.imageSmoothingQuality='high'; }
   var bmps=new Array(N), ready=false, lastIdx=-1, p=0;
-  var SRC_W=720, cw=0, ch=0;   // native width of hero-cine.mp4 — the frames' source ceiling
+  var cw=0, ch=0;
 
   function fit(){
     var r=cv.getBoundingClientRect();
     if(!r.width||!r.height) return;
-    var w=Math.min(SRC_W, Math.round(r.width*Math.min(window.devicePixelRatio||1,2)));
+    // Do NOT clamp the backing store to the source width. The frames are 720 wide but a
+    // phone displays this canvas at ~1080 device px, so a 720 store meant the source got
+    // resampled twice — once by drawImage, again by the compositor stretching 720->1080.
+    // Matching the CSS box (dpr capped at 2, which is where the fill cost stays sane) makes
+    // it a single high-quality upscale instead of two chained ones.
+    var w=Math.round(r.width*Math.min(window.devicePixelRatio||1,2));
     var h=Math.round(w*r.height/r.width);
-    if(cv.width!==w||cv.height!==h){ cv.width=w; cv.height=h; cw=w; ch=h; lastIdx=-1; }
+    if(cv.width!==w||cv.height!==h){
+      cv.width=w; cv.height=h; cw=w; ch=h; lastIdx=-1;
+      if('imageSmoothingQuality' in ctx){ ctx.imageSmoothingQuality='high'; } // reset by resize
+    }
   }
   function paint(){
     if(!ready) return;
