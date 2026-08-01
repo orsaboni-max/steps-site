@@ -27,3 +27,5 @@
 !images/shoot2025/room-pilates.mp4
 !images/shoot2025/room-gym-sm.mp4
 !images/shoot2025/room-pilates-sm.mp4
+
+.env*.local
