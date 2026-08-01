@@ -3,5 +3,6 @@
   "configurations": [
     { "name": "steps-site", "runtimeExecutable": "python",
       "runtimeArgs": [".claude/devserver.py"], "port": 5599 }
-  ]
+  ],
+  "autoVerify": true
 }
