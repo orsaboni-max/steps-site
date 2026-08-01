@@ -137,9 +137,9 @@ img{max-width:100%;height:auto}
 .s-time{font-size:16px;font-weight:700;color:var(--text);min-width:50px}
 .s-cls{flex:1}.s-n{font-size:14px;font-weight:700;color:var(--text)}.s-t{font-size:11px;color:var(--text-muted)}
 .s-bdg{padding:4px 10px;border-radius:50px;font-size:10px;font-weight:600}
-.bg{background:rgba(245,197,24,0.1);color:#856A00}
-.bm{background:rgba(168,85,247,0.1);color:#7C3AED}
-.bp{background:rgba(46,196,182,0.1);color:#0D6E5F}
+.bg{background:rgba(245,197,24,0.12);color:#F5C518}
+.bm{background:rgba(168,85,247,0.12);color:#C89BFB}
+.bp{background:rgba(46,196,182,0.12);color:#2EC4B6}
 .sfn{text-align:center;padding:10px;font-size:11px;color:#aaa;border-top:1px solid rgba(0,0,0,0.03)}
 
 /* TESTIMONIALS - photo bg, stays dark */
@@ -238,9 +238,6 @@ img{max-width:100%;height:auto}
 <!-- GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5T22VE9YHT"></script>
 <script>gtag('js',new Date());gtag('config','G-5T22VE9YHT');</script>
-<!-- Meta Pixel loader — deferred until consent -->
-<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');</script>
-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -510,7 +507,7 @@ img{max-width:100%;height:auto}
   <p class="sub" data-aos="fade-up" data-aos-delay="100">בחרי שיעור פילאטיס, הירשמי ושלמי — הכל כאן. בלי טלפונים, בלי המתנה.</p>
   <!-- דסקטופ: iframe -->
   <div class="arbox-desktop book-frame" data-aos="fade-up" data-aos-delay="200">
-    <iframe src="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&lang=he&location=18259&referrer=PLUGIN&filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" width="100%" height="600" style="border:none;display:block" allow="payment *" title="הרשמה לשיעור פילאטיס ניסיון"></iframe>
+    <div style="text-align:center;padding:8px 0 4px"><a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener" data-track="trial-cta arbox-open" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:58px;padding:0 34px;border-radius:100px;background:#F5C518;color:#111;text-decoration:none;font-weight:800;font-size:17px;line-height:1">להרשמה ותשלום אונליין <span aria-hidden="true">←</span></a><p style="margin:14px 0 0;font-size:13px;line-height:1.6;color:rgba(255,255,255,0.5)">נפתח במערכת ההרשמה של Arbox · או <a href="https://wa.me/972527927575" target="_blank" rel="noopener" data-track="whatsapp-click" style="color:#F5C518;text-decoration:underline">קבעי בוואטסאפ</a></p></div>
   </div>
   <!-- מובייל: כפתור ישיר -->
   <div class="arbox-mobile" data-aos="fade-up" data-aos-delay="200">
@@ -686,7 +683,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
 (function(){
   function initTracking(){
     if(typeof gtag==='function')gtag('consent','update',{'analytics_storage':'granted','ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted'});
-    if(typeof fbq==='function'){fbq('init','1016773848190436');fbq('track','PageView');}
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');if(typeof fbq==='function'){fbq('init','1016773848190436');fbq('track','PageView');}
   }
   window.acceptCookies=function(){localStorage.setItem('steps-consent','granted');document.getElementById('cookie-banner').style.display='none';initTracking();};
   window.declineCookies=function(){localStorage.setItem('steps-consent','declined');document.getElementById('cookie-banner').style.display='none';};
@@ -710,12 +707,15 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
       • ניגודיות צבעים מספקת בין טקסט לרקע<br>
       • מבנה כותרות (H1/H2) סדור לניווט בטכנולוגיות מסייעות
     </p>
-    <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px">
+    <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px"><strong>רכז הנגישות:</strong><br>אור סבוני · בעלים<br>טלפון ווואטסאפ: <a href="tel:+972527927575" style="color:#F5C518">052-792-7575</a><br>כתובת: אמנון ותמר 6, קניון פולג, נתניה<br>נשמח לקבל כל פנייה בנושא נגישות ולטפל בה בהקדם.</p>
+<p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px"><strong>תקן ההנגשה:</strong><br>האתר הונגש בהתאם לתקן הישראלי ת"י 5568 ברמה AA (המבוסס על WCAG 2.0).</p>
+<p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px"><strong>מגבלות ידועות:</strong><br>מערכת ההרשמה לשיעורים היא רכיב חיצוני של חברת Arbox ואינה בשליטתנו המלאה. אם נתקלת בקושי בהרשמה — התקשרי אלינו ונרשום אותך טלפונית.</p>
+<p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px">
       <strong>יצירת קשר בנושא נגישות:</strong><br>
       טלפון: <span dir="ltr">052-792-7575</span><br>
       כתובת: אמנון ותמר 6, קניון פולג, נתניה
     </p>
-    <p style="font-size:12px;color:rgba(255,255,255,0.4);text-align:center;margin-top:16px">עודכן: מאי 2026</p>
+    <p style="font-size:12px;color:rgba(255,255,255,0.4);text-align:center;margin-top:16px">עודכן: אוגוסט 2026</p>
   </div>
 </div>
 <script>
