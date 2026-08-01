@@ -332,41 +332,40 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .objection p{margin:clamp(12px,1.4vw,20px) 0 clamp(18px,2vw,26px);max-width:46ch;font-size:clamp(16px,1.3vw,18px);line-height:1.65;color:rgba(244,242,237,.8)}
 
 /* ═══ שלושה חללים ═══════════════════════════════════════════
-   מקור אחד לכל חלל. בדסקטופ — גריד וידאו/טקסט מתחלף.
-   במובייל — הטקסט יורד על הווידאו. אין שכפול תוכן. */
-.rooms{border-top:1px solid var(--line)}
-/* כל קליפי החללים אנכיים (9:16, צולמו בטלפון). בתא רחב ונמוך רואים מהם
-   רצועה צרה מהאמצע. עמודת הווידאו צרה וגבוהה יותר — כך נחשף ~70% מהפריים
-   במקום ~43%, והפריים נראה מכוון ולא חתוך. */
-.room{display:grid;grid-template-columns:.72fr 1.28fr;gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
-.room:last-child{border-bottom:0}
-.room:nth-child(even) .room__media{order:2}
-.room__media{position:relative;min-height:640px;background:#000;overflow:hidden}
+   הקליפים אנכיים (9:16, צולמו בטלפון) — ולכן הם מוצגים כפי שהם,
+   גדולים, עם אוויר מסביב. אין חיתוך, אין רצועה מהאמצע.
+   הטקסט יושב מתחת ולא עליהם. */
+.rooms{display:flex;flex-direction:column;gap:clamp(56px,9vw,128px);padding:clamp(40px,6vw,80px) 0 0}
+.room{display:flex;flex-direction:column;align-items:center;gap:clamp(20px,2.6vw,34px)}
+.room__media{
+  position:relative;width:min(420px,78vw);aspect-ratio:9/16;
+  border-radius:22px;overflow:hidden;background:#000;
+  box-shadow:0 30px 90px -20px rgba(0,0,0,.9);
+  border:1px solid var(--line-card);
+}
 .room__media video,.room__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.room__txt{background:var(--ink);padding:clamp(30px,5vw,76px) var(--gutter);display:flex;flex-direction:column;justify-content:center}
-.room__n{font-family:var(--display);font-weight:900;font-size:clamp(12px,1.2vw,15px);letter-spacing:.2em;color:var(--yellow)}
-.room__txt h3{margin-top:18px;font-size:clamp(40px,5.6vw,74px);line-height:.95;letter-spacing:-.04em}
-.room__txt h3.is-long{font-size:clamp(34px,4.1vw,54px)}
-.room__txt p{margin:22px 0 clamp(20px,2.4vw,30px);max-width:44ch;font-size:clamp(15.5px,1.4vw,19px);line-height:1.65;color:rgba(244,242,237,.78)}
-.room__txt .taglist{margin-bottom:clamp(22px,2.6vw,32px)}
-@media(max-width:1200px){.room{grid-template-columns:.85fr 1.15fr}}
-@media(max-width:900px){
-  .room{display:block;position:relative;background:none}
-  .room__media{min-height:0;height:clamp(340px,64vw,440px)}
-  .room__media::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(11,11,11,.7),rgba(11,11,11,0) 55%)}
-  /* הסקרים יושב על גוש הטקסט עצמו ולא רק על התמונה — כך הכיתוב קריא
-     גם מעל פוסטר בהיר, ולא תלוי בפריים שנתפס באותו רגע. */
-  .room__txt{position:absolute;inset:auto 0 0 0;z-index:2;padding:44px 20px 24px;justify-content:flex-end;
-    background:linear-gradient(to top,rgba(11,11,11,.97),rgba(11,11,11,.88) 55%,rgba(11,11,11,0))}
-  .room__txt h3{margin-top:8px}
-  .room__txt p{margin:8px 0 14px;font-size:15.5px;color:rgba(244,242,237,.86);max-width:38ch}
-  .room__txt .taglist{display:none}
+.room__txt{width:min(560px,90vw);text-align:center;display:flex;flex-direction:column;align-items:center}
+.room__n{font-family:var(--display);font-weight:900;font-size:clamp(12px,1.2vw,14px);letter-spacing:.2em;color:var(--yellow)}
+.room__txt h3{margin-top:14px;font-size:clamp(48px,7vw,86px);line-height:.95;letter-spacing:-.04em}
+.room__txt h3.is-long{font-size:clamp(34px,5vw,62px)}
+.room__txt p{margin:18px 0 24px;max-width:44ch;font-size:clamp(16px,1.4vw,19px);line-height:1.65;color:rgba(244,242,237,.78)}
+.room__txt .taglist{justify-content:center;margin-bottom:26px}
+.room__txt .link-rule{align-self:center}
+/* במסכים רחבים הסרטון והטקסט יושבים זה לצד זה, לסירוגין —
+   כך יש קצב ולא שלושה בלוקים זהים בטור. */
+@media(min-width:1000px){
+  .room{flex-direction:row;justify-content:center;gap:clamp(48px,6vw,96px);align-items:center}
+  .room:nth-child(even){flex-direction:row-reverse}
+  .room__media{width:min(400px,32vw)}
+  .room__txt{text-align:start;align-items:flex-start;width:auto;max-width:46ch}
+  .room__txt .taglist{justify-content:flex-start}
+  .room__txt .link-rule{align-self:flex-start}
 }
 
 /* ═══ ליווי תזונה ═══════════════════════════════════════════ */
 .bina{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);align-items:center}
 .bina__aside{display:flex;flex-direction:column;gap:14px}
-.bina__shot{width:100%;height:clamp(210px,24vw,290px);object-fit:cover;border-radius:18px;border:1px solid var(--line-card)}
+.bina__shot{width:100%;height:clamp(240px,30vw,420px);object-fit:cover;border-radius:18px;border:1px solid var(--line-card)}
 .mini{padding:22px;border:1px solid rgba(244,242,237,.14);border-radius:var(--r-md)}
 .mini b{display:block;font-weight:700;font-size:17px;line-height:1.25}
 .mini span{display:block;margin-top:8px;font-size:15px;line-height:1.55;color:var(--t60)}
@@ -621,6 +620,12 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .cookie .no{background:var(--fill-2);color:var(--bone);border:1px solid var(--line-strong);font-weight:500;padding:0 16px}
 @media(max-width:760px){body.has-cookie .bar{bottom:78px}}
 
+/* השלבים נכנסים אחד-אחד כשגוללים אליהם. ההשהיה מדורגת ב-JS לפי המיקום,
+   כך שהעין עוקבת אחרי הרצף במקום לקבל הכל בבת אחת. */
+.js .sv{opacity:0;transform:translateY(26px) scale(.985)}
+.js .sv.in{opacity:1;transform:none;transition:opacity .55s var(--ease),transform .55s var(--ease)}
+@media (prefers-reduced-motion:reduce){.js .sv{opacity:1;transform:none}}
+
 /* חשיפה בגלילה — נכנסת לתוקף רק אחרי ש-JS עלה (html.js).
    בלי זה התוכן גלוי כרגיל, כדי ששגיאת JS לעולם לא תסתיר תוכן. */
 .js .rv{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
@@ -629,7 +634,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 </style>
 </head>
 <body>
-<a class="skip" href="#why">דלגי לתוכן</a>
+<a class="skip" href="#spaces">דלגי לתוכן</a>
 
 <!-- ═══ HEADER ═══ -->
 <header class="hdr">
@@ -704,64 +709,10 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   <div class="mq__track" id="mqTrack"></div>
 </div>
 
-<!-- ═══ למה בוחרות ═══ -->
-<section class="sec" id="why" style="border-top:0">
-  <div class="shell">
-    <div class="sec-head">
-      <h2 class="h-lg">למה בוחרות ב-STEPS.</h2>
-      <p class="body muted">שלוש סיבות שבגללן נשים עוזבות מכונים גדולים ומגיעות אלינו.</p>
-    </div>
-    <div class="grid g-3">
-      <article class="card rv" style="background:var(--fill)">
-        <p class="reason__n">01</p>
-        <p class="reason__q">עמדת מול המכשירים ולא ידעת מה לעשות.</p>
-        <p class="reason__a body">פה כל אימון מובנה מראש. מאמנת מלווה אותך צעד אחר צעד.</p>
-      </article>
-      <article class="card rv" style="background:var(--fill)">
-        <p class="reason__n">02</p>
-        <p class="reason__q">נפצעת, כי אף אחד לא תיקן לך את התנועה.</p>
-        <p class="reason__a body">צוות מוסמך שרואה אותך, מתקן, ומתאים את האימון לרמה שלך.</p>
-      </article>
-      <article class="card rv" style="background:var(--fill)">
-        <p class="reason__n">03</p>
-        <p class="reason__q">היית עוד מספר במכון גדול.</p>
-        <p class="reason__a body">STEPS הוא סטודיו בוטיק, לא מפעל. פה יודעים את השם שלך.</p>
-      </article>
-    </div>
-
-    <div class="split">
-      <h3>מוטיבציה לא באה לפני האימון הראשון.</h3>
-      <span>היא באה אחריו.</span>
-    </div>
-    <div class="grid g-2">
-      <article class="card card--lg objection objection--hot rv">
-        <p class="objection__quote">"אין לי מוטיבציה להתחיל"</p>
-        <p class="objection__hook">אז אל תחכי לה.</p>
-        <p>מוטיבציה מגיעה אחרי שלושה אימונים, לא לפניהם. התפקיד שלנו הוא שתגיעי לשלושה: שיעור קבוע בלוח, מאמנת שיודעת את השם שלך, וקבוצה ששמה לב כשאת לא מגיעה.</p>
-        <div class="taglist">
-          <span class="tagpill">שיעור קבוע בלוח</span>
-          <span class="tagpill">מאמנת שמחכה לך</span>
-          <span class="tagpill">קבוצה ששמה לב</span>
-          <span class="tagpill" style="background:none;border:1px dashed rgba(255,212,0,.5);color:var(--yellow);font-weight:700">בלי להתחיל מחדש כל פעם</span>
-        </div>
-      </article>
-      <article class="card card--lg objection rv">
-        <p class="objection__quote">"אני לא בכושר מספיק"</p>
-        <p class="objection__hook">בדיוק בשבילך.</p>
-        <p>אף אחת לא מגיעה לפה בכושר. המאמנת שואלת מה כואב ומה עשית עד היום, ומתאימה לך משקל ותרגיל. לכל תרגיל יש גרסה קלה יותר. וכולן עסוקות בעצמן, לא בך.</p>
-        <div class="taglist">
-          <span class="tagpill">נשים בלבד</span>
-          <span class="tagpill">קבוצות קטנות</span>
-          <span class="tagpill">כל הרמות באותו שיעור</span>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
 
 <!-- ═══ שלושה חללים ═══ -->
-<section class="sec sec--flush" id="spaces">
-  <div class="shell" style="padding-inline:var(--gutter)">
+<section class="sec" id="spaces">
+  <div class="shell">
     <div class="sec-head sec-head--keep">
       <h2 class="h-lg">שלושה חללים.<br>קורת גג אחת.</h2>
       <span class="eyebrow">01 — 03</span>
@@ -830,73 +781,41 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 <section class="sec" id="bina">
   <div class="shell bina">
     <div>
-      <p class="badge" style="margin-bottom:20px">תזונה חכמה</p>
-      <h2 class="h-lg">גם תזונה?<br>גם תזונה.</h2>
-      <p class="body" style="margin:22px 0 18px;max-width:44ch;font-size:clamp(15.5px,1.4vw,19px)">ליווי תזונה אישי ישירות לוואטסאפ. תפריט שמתחשב במטרות שלך, בהעדפות ובסגנון החיים. בלי עוד אפליקציה, בלי עוד מערכת להתעסק איתה.</p>
-      <p class="fine" style="margin-bottom:28px;max-width:46ch">שירות נוסף בתשלום נפרד, לא כלול במנוי הסטודיו. הליווי אישי, עם אור סבוני — אחד מבעלי הסטודיו.</p>
+      <p class="badge" style="margin-bottom:20px">תזונה</p>
+      <h2 class="h-lg">גם תזונה.</h2>
+      <p class="lede" style="margin:22px 0 12px;max-width:42ch">ליווי תזונה אישי עם אור סבוני, ישירות לוואטסאפ. בלי עוד אפליקציה.</p>
+      <p class="fine" style="margin-bottom:28px;max-width:44ch">שירות נוסף בתשלום נפרד, לא כלול במנוי.</p>
       <a class="btn btn--wa btn--lg" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%A0%D7%AA%20%D7%91%D7%9C%D7%99%D7%95%D7%95%D7%99%20%D7%AA%D7%96%D7%95%D7%A0%D7%94" target="_blank" rel="noopener" data-track="whatsapp-click">לפרטים בוואטסאפ</a>
     </div>
     <div class="bina__aside rv">
       <img class="bina__shot" src="images/bina-nutrition.jpg" alt="תפריט תזונה אישי שמגיע לוואטסאפ" width="1200" height="675" loading="lazy" decoding="async">
-      <div class="grid g-2" style="gap:14px">
-        <div class="mini"><b>תפריט אישי לוואטסאפ</b><span>מגיע אלייך לצ׳אט. בלי הורדות ובלי סיסמאות.</span></div>
-        <div class="mini"><b>מותאם למטרות שלך</b><span>ירידה, עלייה או שמירה — התפריט נבנה סביב זה.</span></div>
-        <div class="mini"><b>שקילות ומעקב שבועי</b><span>רואים מה עובד, ומשנים מה שלא.</span></div>
-        <div class="mini"><b>דוחות התקדמות</b><span>מספרים אמיתיים, לא תחושות בטן.</span></div>
-      </div>
     </div>
   </div>
 </section>
 
 <!-- ═══ האימון הראשון ═══ -->
-<section class="sec light">
+<section class="sec light" id="first">
   <div class="shell">
     <div class="sec-head">
       <div>
-        <p class="badge" style="margin-bottom:18px">האימון הראשון שלך</p>
-        <h2 class="h-lg">בדיוק מה שיקרה<br>ביום שתגיעי.</h2>
+        <p class="badge" style="margin-bottom:18px">אימון ההיכרות</p>
+        <h2 class="h-lg">איך זה עובד<br>בפעם הראשונה.</h2>
       </div>
-      <p class="body">בלי הפתעות. בלי שיחת מכירה בסוף. 60 דקות.</p>
+      <p class="body">חמישה שלבים, שעה אחת, 50 ₪. בלי שיחת מכירה בסוף.</p>
     </div>
     <ol class="steps">
-      <li class="step"><span class="step__n" aria-hidden="true">01</span><div><b>בוחרת שיעור</b><p>כאן בעמוד או בוואטסאפ. 30 שניות, 50 ₪, אישור מיידי.</p></div></li>
-      <li class="step"><span class="step__n" aria-hidden="true">02</span><div><b>מגיעה 10 דק׳ לפני</b><p>חנייה חינם בקניון. מקבלת סיור קצר בשלושת החללים.</p></div></li>
-      <li class="step"><span class="step__n" aria-hidden="true">03</span><div><b>שיחה של 3 דקות</b><p>המאמנת שואלת על פציעות, מטרות ומה עשית עד היום.</p></div></li>
-      <li class="step"><span class="step__n" aria-hidden="true">04</span><div><b>מתאמנת בקצב שלך</b><p>כל תרגיל עם חלופה קלה יותר. את לא תישארי מאחור.</p></div></li>
-      <li class="step"><span class="step__n" aria-hidden="true">05</span><div><b>מחליטות יחד</b><p>מה מתאים לך ובאיזו תדירות. גם "אני חושבת על זה" זו תשובה.</p></div></li>
+      <li class="step sv"><span class="step__n" aria-hidden="true">01</span><div><b>כותבת לנו בוואטסאפ</b><p>אומרת מתי נוח לך, ואנחנו מוצאים שיעור שמתאים.</p></div></li>
+      <li class="step sv"><span class="step__n" aria-hidden="true">02</span><div><b>מגיעה 10 דק׳ לפני</b><p>חנייה חינם בקניון. מקבלת סיור קצר בשלושת החללים.</p></div></li>
+      <li class="step sv"><span class="step__n" aria-hidden="true">03</span><div><b>שיחה של 3 דקות</b><p>המאמנת שואלת על פציעות, מטרות ומה עשית עד היום.</p></div></li>
+      <li class="step sv"><span class="step__n" aria-hidden="true">04</span><div><b>מתאמנת בקצב שלך</b><p>לכל תרגיל יש חלופה קלה יותר. את לא תישארי מאחור.</p></div></li>
+      <li class="step sv"><span class="step__n" aria-hidden="true">05</span><div><b>מחליטות יחד</b><p>מה מתאים לך ובאיזו תדירות. גם "אני חושבת על זה" זו תשובה.</p></div></li>
     </ol>
+    <div style="text-align:center;margin-top:clamp(28px,3.4vw,44px)">
+      <a class="btn btn--wa btn--lg" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%94%D7%99%D7%9B%D7%A8%D7%95%D7%AA" target="_blank" rel="noopener" data-track="trial-cta whatsapp-click">קבעי אימון היכרות בוואטסאפ</a>
+    </div>
   </div>
 </section>
 
-<!-- ═══ החודש הראשון ═══ -->
-<section class="sec shot-bg shot-bg--month">
-  <div class="shell">
-    <div class="sec-head">
-      <div>
-        <p class="eyebrow" style="margin-bottom:18px">אחרי אימון ההיכרות</p>
-        <h2 class="h-lg">החודש הראשון שלך.</h2>
-      </div>
-      <p class="body muted">לא מבטיחים לך גוף חדש בחודש. מבטיחים לך שתרצי לחזור.</p>
-    </div>
-    <div class="grid g-3 month">
-      <article class="card card--lg rv">
-        <p class="month__k">שבוע 1</p>
-        <b>מגלה שאת שורדת.</b>
-        <p class="body">שני אימונים. המאמנת רושמת מה עשית ומה לתקן. כואב קצת למחרת — וזה בסדר.</p>
-      </article>
-      <article class="card card--lg rv">
-        <p class="month__k">שבוע 2–3</p>
-        <b>יש לך שיעור קבוע.</b>
-        <p class="body">אותה שעה, אותה קבוצה. מתחילות לומר לך שלום בשם, והגוף מתחיל לזכור את התנועות.</p>
-      </article>
-      <article class="card card--lg card--hot rv">
-        <p class="month__k">אחרי חודש</p>
-        <b>לא צריכה מוטיבציה.</b>
-        <p class="body">זה כבר חלק מהשבוע שלך. בשלב הזה בוחרות מסלול לפי כמה פעמים באמת מגיעות.</p>
-      </article>
-    </div>
-  </div>
-</section>
 
 <!-- ═══ מערכת שעות ═══ -->
 <section class="sec" id="sched">
@@ -1102,7 +1021,6 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <div>
       <p class="ftr__h">ניווט</p>
       <nav class="ftr__col" aria-label="ניווט בפוטר">
-        <a href="#why">למה STEPS</a>
         <a href="#spaces">החללים</a>
         <a href="#sched">מערכת שעות</a>
         <a href="#prices">מחירים</a>
@@ -1283,13 +1201,20 @@ $('#cancelLink').addEventListener('click',function(e){
 
 /* ── חשיפה בגלילה ── */
 (function(){
-  var els=[].slice.call(document.querySelectorAll('.rv'));
+  var els=[].slice.call(document.querySelectorAll('.rv,.sv'));
   if(!els.length)return;
   if(reduce||!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return}
   var io=new IntersectionObserver(function(es){
     es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
   },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
-  els.forEach(function(e,i){e.style.transitionDelay=(i%3)*70+'ms';io.observe(e)});
+  els.forEach(function(e,i){
+    // שלבי "האימון הראשון" נחשפים ברצף; שאר האלמנטים בקבוצות של 3
+    var d=e.classList.contains('sv')
+      ? [].indexOf.call(e.parentNode.children,e)*110
+      : (i%3)*70;
+    e.style.transitionDelay=d+'ms';
+    io.observe(e);
+  });
 })();
 
 /* ═══ מערכת שעות חיה (Arbox דרך /api/schedule) ═══
