@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<title>מודעות STEPS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:oklch(0.185 0.012 70); --panel:oklch(0.235 0.013 70); --line:oklch(0.33 0.013 70);
+    --ink:oklch(0.96 0.008 85); --muted:oklch(0.74 0.015 80); --faint:oklch(0.58 0.015 80);
+    --good:oklch(0.76 0.15 152); --good-bg:oklch(0.33 0.07 152);
+    --warn:oklch(0.83 0.14 84); --warn-bg:oklch(0.33 0.07 84);
+    --bad:oklch(0.71 0.17 28); --bad-bg:oklch(0.34 0.09 30);
+    --brand:oklch(0.85 0.16 92); --track:oklch(0.32 0.012 80);
+    --shadow:0 1px 2px oklch(0 0 0 / 0.35), 0 10px 28px oklch(0 0 0 / 0.3);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:Heebo,system-ui,sans-serif;font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:560px;margin:0 auto;padding:20px 16px 56px}
+  .head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}
+  .head h1{font-size:21px;font-weight:800;letter-spacing:-0.02em;margin:0}
+  .head .meta{font-size:12.5px;color:var(--muted);margin-top:3px}
+  .live{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;color:var(--good)}
+  .live i{width:7px;height:7px;border-radius:50%;background:var(--good);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 oklch(0.76 0.15 152 / .5)}70%{box-shadow:0 0 0 7px oklch(0.76 0.15 152 / 0)}100%{box-shadow:0 0 0 0 oklch(0.76 0.15 152 / 0)}}
+  .seg{display:inline-flex;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px;margin-bottom:18px}
+  .seg button{appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-size:13px;font-weight:600;padding:6px 13px;border-radius:7px;cursor:pointer;transition:background .18s,color .18s}
+  .seg button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+  .verdict{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow);margin-bottom:14px}
+  .verdict .k{font-size:11.5px;font-weight:700;letter-spacing:.04em;color:var(--faint);margin-bottom:6px}
+  .verdict p{margin:0;font-size:16px;font-weight:600;line-height:1.5}
+  .verdict b{color:var(--brand)}
+  .totals{display:flex;flex-wrap:wrap;gap:18px 22px;padding:2px 4px 4px;margin-bottom:14px}
+  .totals .t .n{font-size:22px;font-weight:800;letter-spacing:-0.02em}
+  .totals .t .l{font-size:11.5px;color:var(--muted);margin-top:1px}
+  .note{font-size:12px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 13px;margin-bottom:20px;line-height:1.55}
+  .sect{font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--faint);margin:0 4px 12px;text-transform:uppercase}
+  .ad{padding:15px 4px;border-top:1px solid var(--line)}
+  .ad:last-child{border-bottom:1px solid var(--line)}
+  .ad .top{display:flex;align-items:center;gap:9px;margin-bottom:11px}
+  .ad .name{font-size:14.5px;font-weight:700;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .pill{font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap}
+  .pill.good{background:var(--good-bg);color:var(--good)} .pill.warn{background:var(--warn-bg);color:var(--warn)} .pill.bad{background:var(--bad-bg);color:var(--bad)} .pill.neutral{background:var(--track);color:var(--muted)}
+  .stats{display:flex;flex-wrap:wrap;gap:6px 20px;margin-bottom:8px}
+  .stats .s{display:flex;flex-direction:column;gap:1px}
+  .stats .s .n{font-size:17px;font-weight:800;letter-spacing:-.01em}
+  .stats .s .l{font-size:11px;color:var(--muted)}
+  .sub{font-size:12px;color:var(--muted);line-height:1.5}
+  .sub b{color:var(--ink);font-weight:700} .sub .ok{color:var(--good);font-weight:700}
+  .rec{font-size:12.5px;font-weight:600;margin-top:6px}
+  .rec.good{color:var(--good)} .rec.warn{color:var(--warn)} .rec.bad{color:var(--bad)} .rec.neutral{color:var(--muted)}
+  .viewad{display:inline-flex;align-items:center;gap:6px;margin-top:11px;font-size:12.5px;font-weight:700;color:var(--brand);text-decoration:none;background:var(--track);padding:7px 13px;border-radius:9px}
+  .viewad:active{opacity:.7}
+  .state{text-align:center;color:var(--muted);padding:50px 14px;font-size:14.5px;line-height:1.6}
+  .foot{text-align:center;color:var(--faint);font-size:11px;margin-top:22px}
+  .gate{max-width:320px;margin:18vh auto 0;text-align:center}
+  .gate h1{font-size:22px;font-weight:800;margin:0 0 4px} .gate p{color:var(--muted);font-size:14px;margin:0 0 18px}
+  .gate input{width:100%;padding:13px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:inherit;font-size:17px;text-align:center;letter-spacing:.3em}
+  .gate button{width:100%;margin-top:12px;padding:13px;border-radius:12px;border:0;background:var(--brand);color:oklch(0.2 0.02 80);font:inherit;font-weight:700;font-size:15px;cursor:pointer}
+  .sk{background:linear-gradient(90deg,var(--panel) 25%,oklch(0.29 0.012 75) 37%,var(--panel) 63%);background-size:400% 100%;animation:sh 1.4s infinite;border-radius:10px}
+  @keyframes sh{0%{background-position:100% 0}100%{background-position:-100% 0}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+const ILS = n => "₪" + Math.round(n||0).toLocaleString("he-IL");
+const NUM = n => Number(n||0).toLocaleString("he-IL");
+const qs = new URLSearchParams(location.search);
+let WINDOW = qs.get("days") || "30";
+const WINDOWS = [["7","7 ימים"],["30","30 יום"],["90","90 יום"],["all","הכל"]];
+
+// per-campaign verdict on cost-per-result (blended lead+chat target ≈ ₪25)
+function verdict(r){
+  if ((r.spend||0) >= 100 && r.metaResults === 0) return { cls:"bad", chip:"לכבות", rec:`${ILS(r.spend)} ללא תוצאות — לבדוק/לכבות` };
+  if (r.cpResult == null) return { cls:"neutral", chip:"מעט דאטה", rec:"" };
+  if (r.cpResult <= 20) return { cls:"good", chip:"חזק", rec:`${ILS(r.cpResult)} לתוצאה — זול, שווה להגדיל` };
+  if (r.cpResult <= 40) return { cls:"warn", chip:"סביר", rec:`${ILS(r.cpResult)} לתוצאה — בסדר, לעקוב` };
+  return { cls:"bad", chip:"יקר", rec:`${ILS(r.cpResult)} לתוצאה — יקר יחסית` };
+}
+
+function bottomLine(rows,t){
+  if(!rows.length) return "אין קמפיינים עם הוצאה בטווח הזה.";
+  const withCp = rows.filter(r=>r.cpResult!=null);
+  const best = withCp.slice().sort((a,b)=>a.cpResult-b.cpResult)[0];
+  let s = `<b>${t.campaigns}</b> קמפיינים פעילים · <b>${ILS(t.spend)}</b> הוצאה · <b>${NUM(t.metaResults)}</b> תוצאות מאומתות.`;
+  if(best) s += ` הכי משתלם: ${best.campaign} (${ILS(best.cpResult)}/תוצאה).`;
+  return s;
+}
+
+function render(data){
+  const t=data.totals||{}, rows=data.rows||[];
+  const upd=new Date(data.updated_at||Date.now()).toLocaleString("he-IL",{hour:"2-digit",minute:"2-digit"});
+  const seg=WINDOWS.map(([v,l])=>`<button data-w="${v}" aria-pressed="${WINDOW===v}">${l}</button>`).join("");
+  const totals=[
+    ["קמפיינים", t.campaigns||0],
+    ["הוצאה", ILS(t.spend)],
+    ["תוצאות מאומתות", NUM(t.metaResults)],
+    ["₪ לתוצאה", t.cpResult!=null?ILS(t.cpResult):"—"],
+    ["מנויים מאומתים", t.confirmedPaying||0],
+  ].map(([l,n])=>`<div class="t"><div class="n">${n}</div><div class="l">${l}</div></div>`).join("");
+
+  let ads="";
+  for(const r of rows){
+    const v=verdict(r);
+    const breakdown=[
+      r.metaLeads>0?`${NUM(r.metaLeads)} לידים (טענת מטא)`:"",
+      r.metaChats>0?`${NUM(r.metaChats)} שיחות וואטסאפ`:"",
+    ].filter(Boolean).join(" · ");
+    const conf=[r.leads>0?`✓ ${r.leads} לידים אצלנו`:"",r.intro>0?`${r.intro} היכרות`:"",r.paying>0?`${r.paying} מנויים`:""].filter(Boolean).join(" · ");
+    const confirmed = conf?`<span class="ok">${conf}</span>`:"";
+    ads+=`<div class="ad">
+      <div class="top"><div class="name">${r.campaign}</div><span class="pill ${v.cls}">${v.chip}</span></div>
+      <div class="stats">
+        <div class="s"><div class="n">${ILS(r.spend)}</div><div class="l">הוצאה</div></div>
+        <div class="s"><div class="n">${NUM(r.metaResults)}</div><div class="l">תוצאות</div></div>
+        <div class="s"><div class="n" style="color:${v.cls==='good'?'var(--good)':v.cls==='bad'?'var(--bad)':'var(--ink)'}">${r.cpResult!=null?ILS(r.cpResult):"—"}</div><div class="l">₪/תוצאה</div></div>
+        ${r.impressions?`<div class="s"><div class="n">${NUM(r.impressions)}</div><div class="l">חשיפות</div></div>`:""}
+      </div>
+      ${breakdown||confirmed?`<div class="sub">${breakdown}${breakdown&&confirmed?" · ":""}${confirmed}</div>`:""}
+      ${v.rec?`<div class="rec ${v.cls}">${v.rec}</div>`:""}
+      ${r.previewUrl?`<a class="viewad" href="${r.previewUrl}" target="_blank" rel="noopener">👁 לראות את המודעה</a>`:""}
+    </div>`;
+  }
+  if(!rows.length) ads=`<div class="state">אין קמפיינים עם הוצאה ב${WINDOW==="all"?"כלל":"טווח הזה"}.<br>נסה טווח רחב יותר למעלה.</div>`;
+
+  document.getElementById("app").innerHTML=`
+    <div class="head"><div><h1>מודעות STEPS</h1><div class="meta">פולג · עודכן ${upd}</div></div><span class="live"><i></i>חי</span></div>
+    <div class="seg">${seg}</div>
+    <div class="verdict"><div class="k">השורה התחתונה</div><p>${bottomLine(rows,t)}</p></div>
+    <div class="totals">${totals}</div>
+    <div class="note">ℹ️ <b>תוצאות</b> = מה ש-Meta סופרת (לידים + שיחות וואטסאפ). <b>מנויים מאומתים</b> = הצלבנו טלפון מול הקופה ב-Arbox. הפער ביניהם = הייחוס שעוד לא מלא — רוב הלידים לא מתויגים עם שם-קמפיין ב-Arbox. מתדייק אחרי תיקון ה-Zapier. בינתיים: ההוצאה והתוצאות אמיתיות.</div>
+    <div class="sect">הקמפיינים הפעילים שלך (${rows.length})${t.pausedHidden?` · ${t.pausedHidden} מושהות מוסתרות`:""}</div>
+    ${ads}
+    <div class="foot">STEPS · נמשך חי מ-Meta + Arbox · ללא עלות AI</div>`;
+  document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{ WINDOW=b.dataset.w; const u=new URL(location); u.searchParams.set("days",WINDOW); history.replaceState({},"",u); load(); });
+}
+
+function skeleton(){
+  document.getElementById("app").innerHTML=`
+    <div class="head"><div><h1>מודעות STEPS</h1><div class="meta">טוען נתונים…</div></div><span class="live"><i></i>חי</span></div>
+    <div class="sk" style="height:46px;margin-bottom:18px"></div>
+    <div class="sk" style="height:78px;margin-bottom:14px"></div>
+    <div class="sk" style="height:40px;margin-bottom:22px"></div>
+    ${[0,1,2,3].map(()=>`<div class="sk" style="height:96px;margin-bottom:12px"></div>`).join("")}`;
+}
+function gate(){
+  document.getElementById("app").innerHTML=`
+    <div class="gate"><h1>מודעות STEPS</h1><p>הכניסי קוד גישה</p>
+      <input id="k" type="tel" inputmode="numeric" placeholder="קוד" autocomplete="off" />
+      <button onclick="save()">כניסה</button></div>`;
+  const i=document.getElementById("k"); i.focus(); i.onkeydown=e=>{if(e.key==="Enter")save();};
+}
+function save(){ const k=document.getElementById("k").value.trim(); if(k){ localStorage.setItem("steps_ads_key",k); const u=new URL(location); u.searchParams.set("key",k); location.href=u; } }
+
+async function load(){
+  const key=qs.get("key")||localStorage.getItem("steps_ads_key");
+  if(!key){ gate(); return; }
+  localStorage.setItem("steps_ads_key",key);
+  skeleton();
+  try{
+    const r=await fetch(`/api/ads-performance?key=${encodeURIComponent(key)}&days=${WINDOW}`);
+    if(r.status===401){ localStorage.removeItem("steps_ads_key"); gate(); return; }
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    render(await r.json());
+  }catch(e){
+    document.getElementById("app").innerHTML=`<div class="state">רגע, לא הצלחתי למשוך נתונים — מנסה שוב בעוד דקה.<br><small>${e}</small></div>`;
+  }
+}
+load();
+setInterval(load,300000);
+</script>
+</body>
+</html>
