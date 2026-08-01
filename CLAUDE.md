@@ -1,6 +1,17 @@
 # CLAUDE.md — STEPS Fitness Website
 
-> Last updated: 2026-05-02
+> Last updated: 2026-08-01
+
+## 🚨 אזהרה: התיקייה הראשית מיושנת — אל תעלה ממנה
+נכון ל-1/8/26, `C:\Users\USER\steps-site\index.html` הוא **גרסה ישנה** של הדף
+(וגם לא-מקומיטת). האתר החי נבנה מהענף `claude/build-designed-website-e50334`.
+זו כבר הפעם השנייה שהאתר החי מגיע מענף צדדי ולא מ-main.
+
+**לפני כל deploy:** לוודא שהתיקייה שממנה מעלים מכילה את הדף החי
+(`grep -c FFD400 index.html` צריך להחזיר 1). אם 0 — אתה בתיקייה הלא נכונה.
+
+**פתוח:** למזג את הענף ל-main ולנקות את השינויים הלא-מקומיטים בתיקייה
+הראשית. **לא נעשה — דורש אישור אור, כי יש שם עבודה לא שמורה.**
 
 ## חוק יסוד - חובת קריאה
 
@@ -127,6 +138,7 @@ npx vercel --yes --prod
 ## Deploy Log
 | Date | Platform | Deploy ID | Changes |
 |------|----------|-----------|---------|
+| 2026-08-01 | Vercel | dpl_5E6NaN12jq5mwd4vsqfShp9UXAdY | **רידיזיין דף הבית** מחבילת ההנדאוף של Claude Design. מערכת ויזואלית חדשה (ink/bone/#FFD400, Heebo+Assistant), 17 מקטעים, מערכת שעות חיה עם סינון חלל + 8 שורות וכפתור "לכל השיעורים", תפריט מובייל, טופס ליד→וואטסאפ. ⚠️ הועלה מ-worktree `build-designed-website-e50334`, **לא מ-`C:\Users\USER\steps-site`** — ראה אזהרה למטה. |
 | 2026-04-04 | Vercel | dpl_3mW4BBEc56JQxD6YGQs8snZJ5xVW | New SEO landing page: barre.html (אימון בר בנתניה), added to sitemap.xml, footer link in index.html |
 | 2026-03-30 | Vercel | dpl_4QvzJ5qMLjWKE6vKBtA7z1Endh7Q | Technical SEO: canonical trailing slash, Schema.org HealthClub JSON-LD, updated meta description, added hreflang=he |
 | 2026-03-29 | Vercel | dpl_9XerSvUA6h6V | SEO fix: canonical+og:url→stepsnetanya.co.il (was stepsfitness.netlify.app), og:image→stepsnetanya.co.il, added robots.txt with sitemap pointer |
