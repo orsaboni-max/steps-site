@@ -1321,11 +1321,19 @@ $('#cancelLink').addEventListener('click',function(e){
     var all=cache[dates[state.day]];
     if(!all)return;
     var list=all.filter(function(s){return state.room==='all'||roomOf(s.session_name)===state.room});
+    /* בטאב "היום" מסתירים שיעורים שכבר התחילו — כפתור "קבעי"
+       על שיעור שרץ הוא אותה הבטחה שבורה, רק בקטן. */
+    if(state.day===0){
+      var now=new Date(), hhmm=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+      list=list.filter(function(s){return (s.start_time||'').slice(0,5) > hhmm});
+    }
     var lim=narrow.matches?4:8;
     clear(rowsEl);
     if(!list.length){
       var e=el('div','board__empty');
-      e.appendChild(document.createTextNode('אין שיעורים בחלל הזה ביום שבחרת. נסי יום אחר, או '));
+      e.appendChild(document.createTextNode(
+        state.day===0 ? 'להיום כבר לא נשארו שיעורים. נסי מחר, או '
+                        : 'אין שיעורים בחלל הזה ביום שבחרת. נסי יום אחר, או '));
       var a=el('a',null,'שאלי אותנו בוואטסאפ');
       a.href=WA+'?text='+encodeURIComponent('היי, לא מצאתי שיעור מתאים במערכת. תוכלו לעזור לי?');
       a.target='_blank';a.rel='noopener';a.setAttribute('data-track','whatsapp-click');
