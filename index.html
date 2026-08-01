@@ -336,7 +336,11 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
    גדולים, עם אוויר מסביב. אין חיתוך, אין רצועה מהאמצע.
    הטקסט יושב מתחת ולא עליהם. */
 .rooms{display:flex;flex-direction:column;gap:clamp(56px,9vw,128px);padding:clamp(40px,6vw,80px) 0 0}
-.room{display:flex;flex-direction:column;align-items:center;gap:clamp(20px,2.6vw,34px)}
+.room{display:grid;justify-items:center;gap:clamp(18px,2.4vw,30px);
+  grid-template-areas:"head" "media" "body"}
+.room__head{grid-area:head;text-align:center}
+.room__media{grid-area:media}
+.room__body{grid-area:body;width:min(560px,90vw);text-align:center;display:flex;flex-direction:column;align-items:center}
 .room__media{
   position:relative;width:min(420px,78vw);aspect-ratio:9/16;
   border-radius:22px;overflow:hidden;background:#000;
@@ -344,22 +348,29 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   border:1px solid var(--line-card);
 }
 .room__media video,.room__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.room__txt{width:min(560px,90vw);text-align:center;display:flex;flex-direction:column;align-items:center}
+
 .room__n{font-family:var(--display);font-weight:900;font-size:clamp(12px,1.2vw,14px);letter-spacing:.2em;color:var(--yellow)}
-.room__txt h3{margin-top:14px;font-size:clamp(48px,7vw,86px);line-height:.95;letter-spacing:-.04em}
-.room__txt h3.is-long{font-size:clamp(34px,5vw,62px)}
-.room__txt p{margin:18px 0 24px;max-width:44ch;font-size:clamp(16px,1.4vw,19px);line-height:1.65;color:rgba(244,242,237,.78)}
-.room__txt .taglist{justify-content:center;margin-bottom:26px}
-.room__txt .link-rule{align-self:center}
+.room__head h3{margin-top:12px;font-size:clamp(48px,7vw,86px);line-height:.95;letter-spacing:-.04em}
+.room__head h3.is-long{font-size:clamp(34px,5vw,62px)}
+.room__body p{margin:0 0 24px;max-width:44ch;font-size:clamp(16px,1.4vw,19px);line-height:1.65;color:rgba(244,242,237,.78)}
+.room__body .taglist{justify-content:center;margin-bottom:26px}
+.room__body .link-rule{align-self:center}
 /* במסכים רחבים הסרטון והטקסט יושבים זה לצד זה, לסירוגין —
    כך יש קצב ולא שלושה בלוקים זהים בטור. */
 @media(min-width:1000px){
-  .room{flex-direction:row;justify-content:center;gap:clamp(48px,6vw,96px);align-items:center}
-  .room:nth-child(even){flex-direction:row-reverse}
-  .room__media{width:min(400px,32vw)}
-  .room__txt{text-align:start;align-items:flex-start;width:auto;max-width:46ch}
-  .room__txt .taglist{justify-content:flex-start}
-  .room__txt .link-rule{align-self:flex-start}
+  /* בדסקטופ הכותרת והגוף חוזרים להיות גוש אחד לצד הסרטון — שם אין בלבול,
+     והסרטון ממשיך לסירוגין ימין/שמאל כדי לשמור על קצב. */
+  .room{grid-template-columns:min(400px,32vw) minmax(0,46ch);
+        grid-template-areas:"media head" "media body";
+        justify-content:center;align-content:center;
+        column-gap:clamp(48px,6vw,96px);row-gap:18px}
+  .room:nth-child(even){grid-template-columns:minmax(0,46ch) min(400px,32vw);
+        grid-template-areas:"head media" "body media"}
+  .room__media{width:100%;align-self:center}
+  .room__head{align-self:end;text-align:start;justify-self:start}
+  .room__body{align-self:start;text-align:start;align-items:flex-start;width:auto;max-width:46ch;justify-self:start}
+  .room__body .taglist{justify-content:flex-start}
+  .room__body .link-rule{align-self:flex-start}
 }
 
 /* ═══ ליווי תזונה ═══════════════════════════════════════════ */
@@ -720,57 +731,63 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   </div>
   <div class="rooms">
     <article class="room">
+      <header class="room__head">
+        <p class="room__n">01 / החלל הראשון</p>
+        <h3>GYM</h3>
+      </header>
       <div class="room__media">
         <video preload="none" muted loop playsinline poster="images/shoot2025/room-gym-poster.jpg"
                data-src="images/shoot2025/room-gym.mp4" data-src-sm="images/shoot2025/room-gym-sm.mp4" aria-label="חלל הכוח בסטודיו STEPS" tabindex="-1"></video>
       </div>
-      <div class="room__txt">
-        <p class="room__n">01 / החלל הראשון</p>
-        <h3>GYM</h3>
-        <p>סטודיו כושר שמרגיש אחרת. מכשירים מתקדמים, משקולות חופשיות, ומאמנות שיודעות בדיוק מה את צריכה.</p>
+      <div class="room__body">
+<p>סטודיו כושר שמרגיש אחרת. מכשירים מתקדמים, משקולות חופשיות, ומאמנות שיודעות בדיוק מה את צריכה.</p>
         <div class="taglist">
           <span class="tagpill tagpill--out">אימוני כוח</span>
           <span class="tagpill tagpill--out">BOOTCAMP</span>
           <span class="tagpill tagpill--out">ENDURANCE</span>
           <span class="tagpill tagpill--out">GYM &amp; RUN</span>
-        </div>
+      </div>
         <a class="link-rule" href="#sched">לשיעורי הכוח השבוע <span class="arw" aria-hidden="true">←</span></a>
       </div>
     </article>
 
     <article class="room">
+      <header class="room__head">
+        <p class="room__n">02 / החלל השני</p>
+        <h3>MOVE</h3>
+      </header>
       <div class="room__media">
         <video preload="none" muted loop playsinline poster="images/shoot2025/room-move-poster.jpg"
                data-src="images/shoot2025/room-move.mp4" aria-label="חלל MOVE בסטודיו STEPS" tabindex="-1"></video>
       </div>
-      <div class="room__txt">
-        <p class="room__n">02 / החלל השני</p>
-        <h3>MOVE</h3>
-        <p>השיעורים שגורמים לך לחזור. בר, יוגה, גמישות, פילאטיס מזרן ו-SCULPT — כל יום אנרגיה אחרת.</p>
+      <div class="room__body">
+<p>השיעורים שגורמים לך לחזור. בר, יוגה, גמישות, פילאטיס מזרן ו-SCULPT — כל יום אנרגיה אחרת.</p>
         <div class="taglist">
           <span class="tagpill tagpill--out">BARRE</span>
           <span class="tagpill tagpill--out">YOGA</span>
           <span class="tagpill tagpill--out">פילאטיס מזרן</span>
           <span class="tagpill tagpill--out">SCULPT</span>
-        </div>
+      </div>
         <a class="link-rule" href="#sched">לשיעורי MOVE השבוע <span class="arw" aria-hidden="true">←</span></a>
       </div>
     </article>
 
     <article class="room">
+      <header class="room__head">
+        <p class="room__n">03 / החלל השלישי</p>
+        <h3 class="is-long">REFORMER PILATES</h3>
+      </header>
       <div class="room__media">
         <video preload="none" muted loop playsinline poster="images/shoot2025/room-pilates-poster.jpg"
                data-src="images/shoot2025/room-pilates.mp4" data-src-sm="images/shoot2025/room-pilates-sm.mp4" aria-label="חלל הרפורמר פילאטיס בסטודיו STEPS" tabindex="-1"></video>
       </div>
-      <div class="room__txt">
-        <p class="room__n">03 / החלל השלישי</p>
-        <h3 class="is-long">REFORMER PILATES</h3>
-        <p>קבוצה קטנה, עד 11 מתאמנות. מכשירים ברמה הגבוהה ביותר, ותחושה שהגוף שלך מודה לך אחרי כל שיעור.</p>
+      <div class="room__body">
+<p>קבוצה קטנה, עד 11 מתאמנות. מכשירים ברמה הגבוהה ביותר, ותחושה שהגוף שלך מודה לך אחרי כל שיעור.</p>
         <div class="taglist">
           <span class="tagpill tagpill--out">עד 11 מתאמנות</span>
           <span class="tagpill tagpill--out">מתאים לשיקום</span>
           <span class="tagpill tagpill--out">כל הגילאים</span>
-        </div>
+      </div>
         <a class="link-rule" href="#sched">לשיעורי רפורמר השבוע <span class="arw" aria-hidden="true">←</span></a>
       </div>
     </article>
