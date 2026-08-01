@@ -62,7 +62,7 @@ img{max-width:100%;height:auto}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.05) 40%,rgba(0,0,0,0.05) 60%,rgba(0,0,0,0.7) 100%);z-index:1}
 .hero-inner{position:relative;z-index:2;padding:100px 7% 60px;width:100%;min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;align-items:center;text-align:center;text-shadow:0 2px 8px rgba(0,0,0,0.5)}
 .hero-tag{display:inline-block;border:1px solid rgba(255,255,255,0.2);padding:5px 14px;border-radius:50px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.7);margin-bottom:20px;letter-spacing:1px;animation:fadeIn 1s}
-.hero h1{font-size:clamp(38px,6.5vw,68px);font-weight:900;line-height:1.05;margin-bottom:16px}
+.hero h1{font-size:clamp(38px,6.5vw,68px);font-weight:900;line-height:1.05;margin-bottom:16px;opacity:0;animation:charIn .8s .3s forwards}
 .hero h1 em{font-style:normal;color:var(--accent);display:block}
 .hero-sub{font-size:clamp(15px,2vw,18px);font-weight:300;color:rgba(255,255,255,0.6);line-height:1.8;margin-bottom:36px;max-width:520px;margin-left:auto;margin-right:auto;opacity:0;animation:fadeInUp .8s 1.1s both}
 .hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeInUp .8s 1.4s both}
@@ -121,10 +121,6 @@ img{max-width:100%;height:auto}
 @keyframes charIn{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 
-/* HERO LETTER ANIMATION */
-.hero h1 .char{display:inline-block;opacity:0;animation:charIn .45s cubic-bezier(.215,.61,.355,1) forwards;animation-delay:var(--d)}
-.hero h1 .char-space{width:.3em}
-
 /* SECTION DIVIDERS */
 .sec-divider{text-align:center;padding:0;margin:0}
 .sec-divider span{display:inline-block;width:80px;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);border-radius:1px}
@@ -175,14 +171,22 @@ img{max-width:100%;height:auto}
   .sched-top{flex-direction:column;gap:8px}
   .trial-wrap{padding:24px 16px}
 }
+
+/* Arbox booking — iframe on desktop, button on mobile */
+.arbox-mobile{display:none;flex-direction:column;align-items:center;padding:20px 0}
+@media(max-width:768px){
+  .arbox-desktop{display:none}
+  .arbox-mobile{display:flex}
+}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+<!-- Consent Mode v2 — must run BEFORE GA4 loads -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
 <!-- GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5T22VE9YHT"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-5T22VE9YHT');</script>
-<!-- Meta Pixel -->
-<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1016773848190436');fbq('track','PageView');</script>
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1016773848190436&ev=PageView&noscript=1"/></noscript>
+<script>gtag('js',new Date());gtag('config','G-5T22VE9YHT');</script>
+<!-- Meta Pixel loader — init deferred until consent -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -206,8 +210,7 @@ img{max-width:100%;height:auto}
   },
   "openingHoursSpecification": [
     {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday"], "opens": "07:00", "closes": "22:00"},
-    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "07:00", "closes": "14:00"},
-    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "18:30", "closes": "22:00"}
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "07:00", "closes": "14:00"}
   ],
   "priceRange": "$$",
   "description": "אימון בר בנתניה בסטודיו סטפס פולג. חלל ייעודי עם בר על הקיר ומדריכות מוסמכות. שיעורים כל יום בוקר וערב."
@@ -264,6 +267,13 @@ img{max-width:100%;height:auto}
 </head>
 <body>
 <a href="#content" class="skip-link" style="position:absolute;top:-100px;left:0;background:#F5C518;color:#fff;padding:8px 16px;z-index:100000;font-size:14px;text-decoration:none;transition:top 0.3s" onfocus="this.style.top='0'" onblur="this.style.top='-100px'">דלגי לתוכן</a>
+<div id="cookie-banner" role="dialog" aria-label="הסכמה לעוגיות" style="display:none;position:fixed;bottom:0;right:0;left:0;background:#1a1a1a;border-top:2px solid #F5C518;padding:14px 5%;z-index:99998;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+  <p style="font-size:13px;color:rgba(255,255,255,0.75);margin:0;flex:1;min-width:200px">האתר משתמש בעוגיות לצורך אנליטיקה ופרסום. <a href="privacy.html" style="color:#F5C518;text-decoration:underline">מדיניות פרטיות</a></p>
+  <div style="display:flex;gap:8px;flex-shrink:0">
+    <button onclick="acceptCookies()" style="background:#F5C518;color:#111;border:none;padding:9px 22px;border-radius:50px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">מסכימה</button>
+    <button onclick="declineCookies()" style="background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:9px 16px;border-radius:50px;font-size:13px;cursor:pointer;font-family:inherit">דחייה</button>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav class="nav" id="nav" role="navigation" aria-label="ניווט ראשי">
@@ -274,12 +284,12 @@ img{max-width:100%;height:auto}
     <li><a href="https://stepsnetanya.co.il/#sched">מערכת שעות</a></li>
     <li><a href="https://stepsnetanya.co.il/#contact" class="n-cta">צרי קשר</a></li>
   </ul>
-  <button class="mob" id="mobBtn">☰</button>
+  <button class="mob" id="mobBtn" aria-label="פתיחת תפריט" aria-expanded="false">☰</button>
 </nav>
 <div class="mob-overlay" id="mobOverlay"></div>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" role="banner">
   <video class="hero-video" autoplay muted loop playsinline poster="images/barre-workout.jpeg">
     <source src="images/barre-hero.mp4" type="video/mp4">
   </video>
@@ -287,17 +297,17 @@ img{max-width:100%;height:auto}
   <div class="hero-inner">
     <div class="hero-tag">BARRE — סטודיו סטפס פולג</div>
     <div>
-      <h1><span class="char" style="--d:.3s">א</span><span class="char" style="--d:.35s">י</span><span class="char" style="--d:.4s">מ</span><span class="char" style="--d:.45s">ו</span><span class="char" style="--d:.5s">ן</span><span class="char char-space" style="--d:.55s">&nbsp;</span><span class="char" style="--d:.6s">ב</span><span class="char" style="--d:.65s">ר</span><em><span class="char" style="--d:.8s">ב</span><span class="char" style="--d:.85s">נ</span><span class="char" style="--d:.9s">ת</span><span class="char" style="--d:.95s">נ</span><span class="char" style="--d:1s">י</span><span class="char" style="--d:1.05s">ה</span></em></h1>
+      <h1>אימון בר <em>בנתניה</em></h1>
       <p class="hero-sub">השיעור שאת לא מפסיקה לדבר עליו אחרי</p>
       <div class="hero-btns">
-        <a href="#trial" class="btn-a">לשיעור ניסיון ב-50 ₪</a>
+        <a href="#trial" class="btn-a" data-track="trial-cta">אימון היכרות ב-50 ₪</a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- מה זה בכלל אימון בר? -->
-<section class="sec" id="content">
+<section class="sec" id="content" role="main">
   <div class="sec-h" data-aos="fade-up">
     <div class="sec-tag">BARRE</div>
     <h2 class="sec-title">מה זה בכלל אימון בר?</h2>
@@ -396,9 +406,17 @@ img{max-width:100%;height:auto}
     <div class="sec-tag">TRIAL</div>
     <h2 class="sec-title">קבעי אימון היכרות ב-50 ₪</h2>
   </div>
-  <div class="trial-wrap">
-    <iframe src="https://bp4jsudd1589999012.web.arboxapp.com/group?whitelabel=Arbox&lang=he&location=18259&referrer=SITE&allLocations=false&filters=%7B%22boxCategories%22%3A%5B45670%5D%2C%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" width="100%" height="600" style="border:none;border-radius:12px;background:#fff" loading="lazy" title="אימון היכרות בר — סטודיו סטפס נתניה"></iframe>
+  <!-- דסקטופ: iframe -->
+  <div class="arbox-desktop trial-wrap">
+    <iframe src="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&lang=he&location=18259&referrer=SITE&allLocations=false&filters=%7B%22boxCategories%22%3A%5B45670%5D%2C%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" width="100%" height="600" style="border:none;border-radius:12px;background:#fff" title="אימון היכרות בר — סטודיו סטפס נתניה" allow="payment *"></iframe>
   </div>
+  <!-- מובייל: כפתור ישיר -->
+  <div class="arbox-mobile">
+    <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&lang=he&location=18259&referrer=SITE&allLocations=false&filters=%7B%22boxCategories%22%3A%5B45670%5D%2C%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener" data-track="trial-cta arbox-open" style="display:inline-flex;align-items:center;gap:10px;background:#F5C518;color:#111;padding:18px 40px;border-radius:50px;font-size:18px;font-weight:900;text-decoration:none;box-shadow:0 8px 30px rgba(245,197,24,0.4)">אימון היכרות ב-50 ₪</a>
+    <p style="margin-top:16px;font-size:14px;color:rgba(255,255,255,0.5)">נפתח בטאב חדש — הרשמה מלאה ב-Arbox</p>
+  </div>
+  <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.5);text-align:center">💬 שאלות? <a href="https://wa.me/972527927575" style="color:#F5C518;text-decoration:underline" target="_blank" rel="noopener" data-track="whatsapp-click">דברי איתנו בוואטסאפ</a></p>
+  <p style="margin-top:10px;font-size:11px;color:rgba(255,255,255,0.25);line-height:1.7;text-align:center;max-width:600px;margin-left:auto;margin-right:auto"><strong>מדיניות אימון היכרות:</strong> בקשה לשינוי מועד עד 24 שעות מראש מאפשרת לקבוע מועד חלופי. הודעה מאוחרת או אי-הגעה אינן מזכות בהחזר. לשינוי: <a href="https://wa.me/972527927575" style="color:rgba(255,255,255,0.4);text-decoration:underline" target="_blank" rel="noopener">וואטסאפ</a></p>
 </section>
 
 <div class="sec-divider" data-aos="zoom-in" data-aos-duration="600"><span></span></div>
@@ -438,8 +456,8 @@ img{max-width:100%;height:auto}
 <!-- CTA BOTTOM -->
 <section class="cta-bottom" data-aos="zoom-in" data-aos-duration="600">
   <h2>בואי לנסות</h2>
-  <p>שיעור ניסיון ב-50 ₪. בואי תרגישי מה זה בר בסטפס</p>
-  <a href="#trial" class="btn-a">לשיעור ניסיון ב-50 ₪</a>
+  <p>אימון היכרות ב-50 ₪. בואי להרגיש אם בר מתאים לך</p>
+  <a href="#trial" class="btn-a" data-track="trial-cta">אימון היכרות ב-50 ₪</a>
   <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.5)">💬 שאלות? <a href="https://wa.me/972527927575" style="color:#F5C518;text-decoration:underline" target="_blank">דברי איתנו בוואטסאפ</a></p>
 </section>
 
@@ -449,16 +467,17 @@ img{max-width:100%;height:auto}
     <div><div class="logo"><a href="https://stepsnetanya.co.il/"><img src="steps-logo-white.png" alt="STEPS Fitness Center לוגו"></a></div><p class="fd">הבית שלך לאימונים. כוח · אירובי · פילאטיס מכשירים · יוגה · בר · תזונה חכמה. הכל תחת קורת גג אחת.</p></div>
     <div><div class="ft">ניווט</div><ul class="fl"><li><a href="https://stepsnetanya.co.il/">דף הבית</a></li><li><a href="https://stepsnetanya.co.il/#spaces">החללים</a></li><li><a href="https://stepsnetanya.co.il/#sched">מערכת שעות</a></li><li><a href="https://stepsnetanya.co.il/#reviews">המלצות</a></li></ul></div>
     <div><div class="ft">שירותים</div><ul class="fl"><li><a href="barre.html">אימון בר</a></li><li><a href="https://stepsnetanya.co.il/#spaces">GYM — חדר כושר</a></li><li><a href="https://stepsnetanya.co.il/#spaces">MOVE — שיעורים</a></li><li><a href="https://stepsnetanya.co.il/#spaces">רפורמר פילאטיס</a></li></ul></div>
-    <div><div class="ft">צרי קשר</div><div class="fc">📍 אמנון ותמר 6, קניון פולג, נתניה</div><div class="fc" dir="ltr">📞 052-792-7575</div><div class="fc">📸 <a href="https://www.instagram.com/steps_netanya/" style="color:#666;text-decoration:none" target="_blank" rel="noopener noreferrer">@steps_netanya</a></div></div>
+    <div><div class="ft">צרי קשר</div><div class="fc">📍 אמנון ותמר 6, קניון פולג, נתניה</div><div class="fc" dir="ltr">📞 052-792-7575</div><div class="fc">⏰ א׳-ה׳ 07:00-22:00 | ו׳ 07:00-14:00 | שבת סגור</div><div class="fc">📸 <a href="https://www.instagram.com/steps_netanya/" style="color:#666;text-decoration:none" target="_blank" rel="noopener noreferrer">@steps_netanya</a></div></div>
   </div>
-  <div class="fb"><span class="fcopy">© 2026 Studio Steps. כל הזכויות שמורות.</span><div class="fsoc"><a href="https://www.instagram.com/steps_netanya/" class="fsi" target="_blank" rel="noopener noreferrer">📷</a><a href="https://www.facebook.com/stepsnetanya/" class="fsi" target="_blank" rel="noopener noreferrer">📘</a><a href="https://wa.me/972527927575" class="fsi" target="_blank" rel="noopener noreferrer">💬</a></div></div>
+  <p style="font-size:10px;color:rgba(255,255,255,0.15);text-align:center;max-width:1100px;margin:0 auto 10px;line-height:1.6">פעילות גופנית מומלץ לבצע לאחר התייעצות עם רופא. STEPS אינה אחראית לנזקי בריאות הנובעים משימוש בשירותיה.</p>
+  <div class="fb"><span class="fcopy">© 2026 Studio Steps. כל הזכויות שמורות. &nbsp;·&nbsp; <a href="privacy.html" style="color:rgba(255,255,255,0.25);text-decoration:underline">מדיניות פרטיות</a></span><div class="fsoc"><a href="https://www.instagram.com/steps_netanya/" class="fsi" target="_blank" rel="noopener noreferrer">📷</a><a href="https://www.facebook.com/stepsnetanya/" class="fsi" target="_blank" rel="noopener noreferrer">📘</a><a href="https://wa.me/972527927575" class="fsi" target="_blank" rel="noopener noreferrer">💬</a></div></div>
 </footer>
 
 <!-- ACCESSIBILITY BUTTON -->
 <button id="acc-btn" onclick="document.getElementById('acc-modal').style.display='flex'" aria-label="נגישות" style="position:fixed;bottom:90px;left:20px;z-index:9999;width:48px;height:48px;border-radius:50%;background:#1565C0;color:#fff;border:none;cursor:pointer;font-size:22px;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center">♿</button>
 
 <!-- FLOATING WA -->
-<a href="https://wa.me/972527927575?text=היי%20אני%20מעוניינת%20בשיעור%20בר%20ב-STEPS%20🔥" class="waf" target="_blank">💬</a>
+<a href="https://wa.me/972527927575?text=היי%20אני%20מעוניינת%20באימון%20היכרות%20בר%20ב-STEPS" class="waf" target="_blank" rel="noopener" aria-label="שלחי הודעה בוואטסאפ" data-track="whatsapp-click">💬</a>
 
 <script>
 // Hero video fade-in on play
@@ -472,7 +491,7 @@ window.addEventListener('scroll',()=>{document.getElementById('nav').classList.t
 const mobBtn=document.getElementById('mobBtn');
 const nLinks=document.querySelector('.n-links');
 const mobOv=document.getElementById('mobOverlay');
-function toggleMenu(){nLinks.classList.toggle('open');mobOv.classList.toggle('open');mobBtn.textContent=nLinks.classList.contains('open')?'✕':'☰'}
+function toggleMenu(){var o=nLinks.classList.toggle('open');mobOv.classList.toggle('open');mobBtn.textContent=o?'✕':'☰';mobBtn.setAttribute('aria-expanded',o?'true':'false');}
 mobBtn.addEventListener('click',toggleMenu);
 mobOv.addEventListener('click',toggleMenu);
 
@@ -481,6 +500,19 @@ document.querySelectorAll('.n-links a').forEach(a=>{a.addEventListener('click',f
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>AOS.init({duration:800,once:true,offset:100})</script>
+<script>
+(function(){
+  function initTracking(){
+    if(typeof gtag==='function')gtag('consent','update',{'analytics_storage':'granted','ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted'});
+    if(typeof fbq==='function'){fbq('init','1016773848190436');fbq('track','PageView');}
+  }
+  window.acceptCookies=function(){localStorage.setItem('steps-consent','granted');document.getElementById('cookie-banner').style.display='none';initTracking();};
+  window.declineCookies=function(){localStorage.setItem('steps-consent','declined');document.getElementById('cookie-banner').style.display='none';};
+  var c=localStorage.getItem('steps-consent');
+  if(c==='granted'){initTracking();}
+  else if(c!=='declined'){document.getElementById('cookie-banner').style.display='flex';}
+})();
+</script>
 <script>
 // Parallax on images
 (function(){
@@ -561,9 +593,9 @@ document.querySelectorAll('.n-links a').forEach(a=>{a.addEventListener('click',f
 </script>
 
 <!-- ACCESSIBILITY MODAL -->
-<div id="acc-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:99999;align-items:center;justify-content:center;padding:20px">
+<div id="acc-modal" role="dialog" aria-modal="true" aria-label="הצהרת נגישות" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:99999;align-items:center;justify-content:center;padding:20px">
   <div style="background:#1a1a1a;border-radius:16px;padding:32px;max-width:500px;width:100%;color:#fff;position:relative;max-height:90vh;overflow-y:auto">
-    <button onclick="document.getElementById('acc-modal').style.display='none'" style="position:absolute;top:12px;left:12px;background:none;border:none;color:#fff;font-size:24px;cursor:pointer">&times;</button>
+    <button onclick="document.getElementById('acc-modal').style.display='none'" aria-label="סגירה" style="position:absolute;top:12px;left:12px;background:none;border:none;color:#fff;font-size:24px;cursor:pointer">&times;</button>
     <h2 style="font-size:20px;margin-bottom:16px;text-align:center">♿ הצהרת נגישות</h2>
     <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px">
       סטודיו STEPS מחויב לספק חוויית שימוש נגישה לכל המשתמשים, כולל אנשים עם מוגבלויות. אנו פועלים בהתאם לתקן הישראלי SI 5568 ולהנחיות WCAG 2.1 ברמה AA.
@@ -584,5 +616,28 @@ document.querySelectorAll('.n-links a').forEach(a=>{a.addEventListener('click',f
     <p style="font-size:12px;color:rgba(255,255,255,0.4);text-align:center;margin-top:16px">עודכן: מרץ 2026</p>
   </div>
 </div>
+<script>
+// Conversion tracking
+(function(){
+  function trackEvent(name, params){
+    params=params||{};
+    params.page_location=location.href;
+    if(typeof gtag==='function')gtag('event',name,params);
+    if(typeof fbq==='function'){
+      if(name==='cta_trial_click')fbq('track','Lead',params);
+      else fbq('trackCustom',name,params);
+    }
+  }
+  document.querySelectorAll('[data-track]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var t=el.getAttribute('data-track')||'';
+      if(t.indexOf('trial-cta')>-1)trackEvent('cta_trial_click',{cta_text:(el.textContent||'').trim()});
+      if(t.indexOf('whatsapp-click')>-1)trackEvent('whatsapp_click',{link_url:el.href||''});
+      if(t.indexOf('arbox-open')>-1)trackEvent('arbox_open',{link_url:el.href||''});
+      if(t.indexOf('schedule-view')>-1)trackEvent('schedule_view',{});
+    });
+  });
+})();
+</script>
 </body>
 </html>

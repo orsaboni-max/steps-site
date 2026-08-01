@@ -6,3 +6,4 @@
 !images/barre-hero.mp4
 !images/barre-class.mp4
 *.mov
+.env*.local

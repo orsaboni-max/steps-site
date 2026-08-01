@@ -1,3 +1,5 @@
+declare const process: { env: { ARBOX_API_KEY?: string } };
+
 export default async function handler(req: any, res: any) {
   const apiKey = process.env.ARBOX_API_KEY;
   if (!apiKey) {

@@ -1,5 +1,14 @@
 # CLAUDE.md — STEPS Fitness Website
 
+## ⚡ שיטת עבודה (Fable 5 — anthropic.com/news/claude-fable-5, אומץ 10/6/26)
+- אור מתאר **תוצאה**, לא צעדים — Claude מתכנן לבד את הדרך, חוקר לעומק, ומאמת את עצמו. שערי go (כסף/deploy) נשארים.
+- בעיות עמומות ("משהו לא מסתדר") = לתת ל-Claude לחקור עד השורש, לא לנחש (לקח salesReport 10/6).
+- אודיט/חקירה רחבה → סוכני-משנה במקביל. משימה ענקית → "ultracode".
+- **קוד הבוט (`C:\Users\USER\steps-brain`) תחת git מקומי** מ-10/6: לפני כל deploy — `git commit` (נקודת שמירה); rollback מקומי זמין בנוסף ל-Railway.
+
+> Last updated: 2026-05-02
+
+
 > Last updated: 2026-05-02
 
 ## חוק יסוד - חובת קריאה
@@ -252,9 +261,10 @@ Single-file static HTML (`index.html`, 625 lines). All CSS inline in `<style>` (
 - **landing-page-skill** (`~/.claude/skills/landing-page-skill/`, בשם `landing-page`) — נוסף 2026-04-24. מקור: https://github.com/Aston1690/claude-skill-landing-page. Pipeline מלא לבניית דפי נחיתה מוכנים ל-deploy מאתר לקוח + מסמכי תוכן (PDF/Word). 6 שלבים: Research (extract brand/colors/fonts/logo) → Content Extraction (טקסט + **תמונות** — "images are content, not decoration") → Image Catalog (verify every URL 200) → Build (`index.html` + `styles.css` בלבד, אין inline CSS, BEM, `clamp()` לטיפוגרפיה, scroll-reveal) → Verify (בדיקת `naturalWidth === 0` לכל img, רספונסיביות 1280/768/375) → Deploy (`npx vercel`). כולל **Anti-Slop Rules מנדטוריות**: איסור "Revolutionize/Transform/Unleash/Cutting-edge/Seamlessly/In today's fast-paced world", איסור gradient mesh blobs, הצעות CTA ספציפיות ("Get Instant Quote" במקום "Learn More").
 
 ## Token Optimization
-- Default model: /model opusplan (Opus for planning, Sonnet for execution)
+- `effort` הוא ידית העלות: `low`/`medium` לרוב המשימות, `xhigh` רק לקוד-אגנטי כבד.
+  (`/model opusplan` התיישן — אופוס 5 הוא ברירת-המחדל ומכוון את עצמו לפי `effort`.)
 - In plan mode: respond in 100 words or less
-- Never use Opus for simple file edits, formatting, or mechanical tasks
+- `/clear` כשמשימה נסגרת — הידית עם ההחזר הגדול ביותר.
 
 ## Claude Code Advanced Features
 
