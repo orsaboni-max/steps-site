@@ -12,11 +12,31 @@ const LOCATION_POLEG = 18259;
 const SOURCE_WEBSITE = 19357; // "Website" — פעיל אצל סניף פולג
 const IL_MOBILE = /^0(5[0-9])\d{7}$/;
 
+/* חלון קצב פשוט. בלעדיו סקריפט אחד יכול לפתוח אלפי כרטיסי-ליד מזויפים
+   ב-Arbox האמיתי — המזכירות מתקשרות לאוויר, ודוחות ה-₪/ליד נהרסים.
+   ponytail: מפה בזיכרון = פר-מופע של הפונקציה, ומתאפס בקירור. עוצר הצפה
+   נאיבית, לא תוקף שמסובב IP. אם זה יקרה — Vercel Firewall / KV. */
+const HITS = new Map<string, number[]>();
+const WINDOW_MS = 10 * 60 * 1000;
+const MAX_PER_WINDOW = 5;
+
+function tooMany(key: string): boolean {
+  const now = Date.now();
+  const seen = (HITS.get(key) ?? []).filter((t) => now - t < WINDOW_MS);
+  seen.push(now);
+  HITS.set(key, seen);
+  if (HITS.size > 5000) HITS.clear(); // תקרת זיכרון
+  return seen.length > MAX_PER_WINDOW;
+}
+
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "method_not_allowed" });
   }
+
+  const ip = String(req.headers["x-forwarded-for"] ?? "").split(",")[0].trim() || "unknown";
+  if (tooMany(ip)) return res.status(429).json({ error: "too_many_requests" });
 
   const apiKey = process.env.ARBOX_API_KEY;
   if (!apiKey) return res.status(500).json({ error: "server_not_configured" });

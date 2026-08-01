@@ -568,12 +568,16 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .capture p{margin-top:14px;font-weight:400;font-size:clamp(16px,1.4vw,18px);line-height:1.5;color:rgba(11,11,11,.72)}
 .capture form{display:flex;gap:10px}
 .capture input{width:250px;height:56px;padding:0 20px;border-radius:var(--r-pill);border:1px solid rgba(11,11,11,.3);background:rgba(255,255,255,.6);font-weight:500;font-size:16px;color:var(--ink)}
-.capture input::placeholder{color:rgba(11,11,11,.5)}
+/* התוויות מוסתרות ויזואלית, ולכן ה-placeholder הוא התווית היחידה שנראית —
+   וחייב לעמוד ב-4.5:1. ב-.5 הוא היה 3.57:1 ונכשל; ב-.65 הוא 5.89:1. */
+.capture input::placeholder{color:rgba(11,11,11,.65)}
 .capture input:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .capture button{height:56px;padding:0 30px;border-radius:var(--r-pill);background:var(--ink);color:var(--yellow);font-weight:800;font-size:16px}
 .capture button:hover{filter:brightness(1.4)}
 .capture__msg{margin-top:10px;font-weight:700;font-size:13.5px;color:#7a1b1b}
 .capture__msg.ok{color:#0b3f22}
+.capture__note{margin-top:12px;max-width:44ch;font-weight:400;font-size:12.5px;line-height:1.5;color:rgba(11,11,11,.72)}
+.capture__note a{text-decoration:underline;font-weight:700}
 .capture input{width:190px}
 @media(max-width:860px){.capture input{width:100%}}
 @media(max-width:860px){
@@ -710,7 +714,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 </style>
 </head>
 <body>
-<a class="skip" href="#spaces">דלגי לתוכן</a>
+<a class="skip" href="#top">דלגי לתוכן</a>
 
 <!-- ═══ HEADER ═══ -->
 <header class="hdr">
@@ -753,7 +757,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   </div>
 </div>
 
-<main id="top">
+<main id="top" tabindex="-1">
 
 <!-- ═══ HERO ═══ -->
 <section class="hero" aria-label="STEPS — סטודיו כושר לנשים בפולג נתניה">
@@ -927,17 +931,17 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </div>
     <div class="grid g-3" style="margin-bottom:clamp(30px,4vw,48px)">
       <blockquote class="card sv">
-        <p class="stars" aria-label="חמישה כוכבים מתוך חמישה">★★★★★</p>
+        <p class="stars" role="img" aria-label="חמישה כוכבים מתוך חמישה">★★★★★</p>
         <p class="quote">"אתם הלב שלי. אין סטודיו כזה בעולם ויצא לי לנסות המון. היחס האישי, האכפתיות, הדחיפה להתקדם."</p>
         <footer class="who">לימור מ.<span>חברה ותיקה</span></footer>
       </blockquote>
       <blockquote class="card sv">
-        <p class="stars" aria-label="חמישה כוכבים מתוך חמישה">★★★★★</p>
+        <p class="stars" role="img" aria-label="חמישה כוכבים מתוך חמישה">★★★★★</p>
         <p class="quote">"לאורך כל השיעור עברה אחת אחת, דייקה את התנועה. הפעלנו את כל השרירים ואנרגיה מקסימה."</p>
         <footer class="who">חני ל.<span>מתאמנת MOVE</span></footer>
       </blockquote>
       <blockquote class="card sv">
-        <p class="stars" aria-label="חמישה כוכבים מתוך חמישה">★★★★★</p>
+        <p class="stars" role="img" aria-label="חמישה כוכבים מתוך חמישה">★★★★★</p>
         <p class="quote">"אני איתכם כבר המון שנים. ירדן מקצועית, נותנת יחס אישי ושומרת על רמה סופר גבוהה."</p>
         <footer class="who">נעמה ג.<span>מתאמנת GYM ותיקה</span></footer>
       </blockquote>
@@ -988,7 +992,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       <a class="link-rule" style="color:var(--yellow)" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94" target="_blank" rel="noopener" data-track="whatsapp-click">לא מצאת? שאלי בוואטסאפ</a>
     </div>
     <div class="faq">
-      <details class="sv"><summary>כמה עולה המנוי?</summary><p>אימון היכרות 50 ₪. אחר כך בוחרים מסלול לפי מספר הכניסות בחודש: 230, 400 או 460 ₪. רוצה גם רפורמר? 320, 475 או 530 ₪. הכל בלי התחייבות.</p></details>
+      <details class="sv"><summary>כמה עולה המנוי?</summary><p>אימון היכרות 50 ₪. אחר כך בוחרים מסלול לפי מספר הכניסות בחודש: 230, 400 או 460 ₪. רוצה גם רפורמר? 320, 475 או 530 ₪. כל המחירים כוללים מע״מ, והכל בלי התחייבות.</p></details>
       <details class="sv"><summary>מה ההבדל בין שלושת החללים?</summary><p><bdi>GYM</bdi> זה הכוח — משקולות, מכשירים, <bdi>BOOTCAMP</bdi>. <bdi>MOVE</bdi> זה השיעורים הקבוצתיים — בר, יוגה, גמישות, <bdi>SCULPT</bdi>. <bdi>REFORMER</bdi> זה מיטות רפורמר בקבוצה קטנה, עד 11 מתאמנות.</p></details>
       <details class="sv"><summary>אני צריכה ניסיון קודם?</summary><p>בכלל לא. גם אם מעולם לא נכנסת לסטודיו כושר. אימון ההיכרות בדיוק בשביל זה — להכיר את המקום, לדבר עם המאמנת, ולהחליט אחר כך.</p></details>
       <details class="sv"><summary>יש חנייה?</summary><p>כן. אנחנו בקניון פולג, עם חנייה חינמית ונוחה ישירות בקניון. קל להגיע, קל לחנות.</p></details>
@@ -1026,7 +1030,8 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         <a class="btn btn--ghost" href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener" data-track="trial-cta">אימון היכרות</a>
       </article>
     </div>
-    <p class="fine" style="margin-top:20px">ללא התחייבות · ביטול בהתראה של 30 יום מראש · ליווי תזונה אישי עם אור סבוני בתשלום נפרד</p>
+    <!-- חובה: מחיר המוצג לצרכן הוא המחיר הסופי, ויש לציין שהוא כולל מע״מ. -->
+    <p class="fine" style="margin-top:20px">כל המחירים כוללים מע״מ · ללא התחייבות · ביטול בהתראה של 30 יום מראש · ליווי תזונה אישי עם אור סבוני בתשלום נפרד</p>
   </div>
 </section>
 
@@ -1075,6 +1080,11 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         <button type="submit" data-track="lead-form">שלחו לי</button>
       </form>
       <p class="capture__msg" id="leadErr" role="status" hidden></p>
+      <!-- חובת יידוע — תיקון 13 לחוק הגנת הפרטיות (בתוקף מ-14.8.2025):
+           מה נאסף · למה · לאן זה עובר · קישור למדיניות. -->
+      <p class="capture__note">השם והטלפון נשמרים אצלנו במערכת ניהול הסטודיו (Arbox)
+        כדי שנחזור אלייך בעניין האימונים בלבד. אין חובה למסור אותם, ואפשר לבקש
+        לעיין בהם, לתקן או למחוק בכל רגע. <a href="privacy.html">מדיניות הפרטיות</a></p>
     </div>
   </div>
 </section>
@@ -1126,11 +1136,18 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </div>
   </div>
   <div class="ftr__bar">
-    <span>© 2026 Studio Steps. כל הזכויות שמורות.</span>
+    <!-- זיהוי העוסק — נדרש בעסקה מרחוק: שם, מספר עוסק וכתובת.
+         הכתובת והטלפון יושבים למעלה בבלוק "צרי קשר". -->
+    <span>© 2026 STEPS Fitness Center · עוסק מורשה 558306098 · כל הזכויות שמורות.</span>
     <div class="ftr__links">
       <a href="privacy.html">מדיניות פרטיות</a>
-      <button type="button" id="accLink">הצהרת נגישות</button>
-      <a href="#faq-cancel" id="cancelLink">מדיניות ביטולים</a>
+      <a href="accessibility.html">הצהרת נגישות</a>
+      <!-- מצביע למדיניות המלאה, לא לשאלה הנפוצה: שם יושבת גם זכות
+           הביטול הסטטוטורית של 14 יום, ולא רק כלל 24 השעות. -->
+      <a href="privacy.html#cancel">מדיניות ביטולים</a>
+      <!-- תיקון 13 מחייב שאפשר יהיה לחזור בך מהסכמה. בלי זה, ההבטחה
+           "ניתן לשנות בכל עת" שבמדיניות הפרטיות הייתה הבטחה ריקה. -->
+      <button type="button" id="ckReset">הגדרות עוגיות</button>
     </div>
   </div>
   <p class="ftr__legal">פעילות גופנית מומלץ לבצע לאחר התייעצות עם רופא. STEPS אינה אחראית לנזקי בריאות הנובעים משימוש בשירותיה.</p>
@@ -1165,6 +1182,10 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       • ניגודיות הצבעים עומדת בתקן WCAG AA<br>
       • מבנה כותרות סדור לניווט בטכנולוגיות מסייעות<br>
       • תנועה באתר נעצרת אוטומטית למי שהגדירה "צמצום תנועה" במערכת ההפעלה</p>
+    <p><strong>נגישות הסטודיו:</strong><br>
+      • חניית נכים בחניון הקניון, ללא תשלום<br>
+      • מעלית מהחניון ומקומת הכניסה אל קומה 2<br>
+      • שירותי נכים</p>
     <p><strong>רכז הנגישות:</strong><br>
       אור סבוני · בעלים<br>
       טלפון ווואטסאפ: <a href="tel:+972527927575" style="color:var(--yellow)">052-792-7575</a><br>
@@ -1175,6 +1196,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       האתר הונגש בהתאם לתקן הישראלי ת"י 5568 ברמה AA (המבוסס על WCAG 2.0).</p>
     <p><strong>מגבלות ידועות:</strong><br>
       מערכת השעות נטענת ממערכת חיצונית (Arbox). אם נתקלת בקושי בהרשמה — התקשרי אלינו ונרשום אותך טלפונית.</p>
+    <p style="text-align:center"><a href="accessibility.html" style="color:var(--yellow);font-weight:700">להצהרת הנגישות המלאה ←</a></p>
     <p class="fine" style="text-align:center;margin:0">עודכן: אוגוסט 2026</p>
   </div>
 </div>
@@ -1234,23 +1256,12 @@ var $=function(s,r){return (r||document).querySelector(s)};
     if(open){last=document.activeElement;$('#accClose').focus()}
     else if(last)last.focus();
   }
+  // בפוטר יושב קישור אמיתי ל-accessibility.html; הכפתור הצף פותח תקציר.
   $('#accBtn').addEventListener('click',function(){set(true)});
-  $('#accLink').addEventListener('click',function(e){e.preventDefault();set(true)});
   $('#accClose').addEventListener('click',function(){set(false)});
   m.addEventListener('click',function(e){if(e.target===m)set(false)});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&m.dataset.open==='true')set(false)});
 })();
-
-/* קישור "מדיניות ביטולים" → פותח את השאלה המתאימה ומגלגל אליה */
-$('#cancelLink').addEventListener('click',function(e){
-  e.preventDefault();
-  var d=[].slice.call(document.querySelectorAll('.faq details')).filter(function(x){
-    return /מבטלים/.test(x.querySelector('summary').textContent);
-  })[0];
-  if(!d)return;
-  d.open=true;
-  d.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});
-});
 
 /* ── וידאו: טוענים ומנגנים רק מה שעל המסך ── */
 (function(){
@@ -1501,12 +1512,22 @@ $('#cancelLink').addEventListener('click',function(e){
   }
   function read(){try{return localStorage.getItem('steps-consent')}catch(e){return null}}
   function save(v){try{localStorage.setItem('steps-consent',v)}catch(e){}}
+  function open(){bar.dataset.open='true';document.body.classList.add('has-cookie')}
   function close(v){save(v);bar.dataset.open='false';document.body.classList.remove('has-cookie')}
   $('#ckOk').addEventListener('click',function(){close('granted');init()});
   $('#ckNo').addEventListener('click',function(){close('declined')});
+
+  /* חזרה מהסכמה. פיקסל מטא שכבר נטען אי-אפשר להוריד מהדף — הוא ימשיך
+     לירות אירועים עד רענון. לכן מוחקים את הבחירה וטוענים את הדף מחדש:
+     בטעינה החדשה ההסכמה ריקה, הפיקסל לא עולה בכלל, והבאנר חוזר. */
+  $('#ckReset').addEventListener('click',function(){
+    try{localStorage.removeItem('steps-consent')}catch(e){}
+    location.reload();
+  });
+
   var c=read();
   if(c==='granted')init();
-  else if(c!=='declined'){bar.dataset.open='true';document.body.classList.add('has-cookie')}
+  else if(c!=='declined')open();
 })();
 
 /* ── מדידת המרות ── */
