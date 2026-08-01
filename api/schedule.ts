@@ -27,7 +27,11 @@ export default async function handler(req: any, res: any) {
         end_time: s.end_time,
         coach: s.staff_member?.name ?? "",
         location_name: s.location_name,
-        registration_link: s.registration_link ?? "",
+        // גודל הקבוצה. Arbox לא מחזיר כמה מקומות כבר נתפסו, ולכן האתר
+        // מציג את גודל הקבוצה בפועל ולא ספירת מקומות פנויים.
+        max_participants: s.max_participants ?? null,
+        // Arbox מחזיר http:// — משודרג ל-https כדי לא לשלוח מדף מאובטח לקישור לא מאובטח
+        registration_link: (s.registration_link ?? "").replace(/^http:\/\//, "https://"),
       }));
 
     res.setHeader("Cache-Control", "public, max-age=300");

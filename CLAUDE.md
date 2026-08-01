@@ -52,13 +52,15 @@ C:\Users\USER\steps-site\
 6. SEO landing pages: verify accessibility (♿ button, הצהרת נגישות, skip link, ARIA, alt text, WCAG AA contrast, keyboard nav)
 
 ### Mandatory Pre-Commit Checks
-- [ ] Logo visible in navbar (44px height)
-- [ ] Team USP cards present (grep "אפס פשרות" = 1)
-- [ ] 6 real testimonials (grep "אתם הלב שלי")
-- [ ] Mobile menu works (grep "mobBtn")
+- [ ] Logo visible in navbar
+- [ ] Team section present (grep "אפס פשרות" = 1)
+- [ ] Real testimonials (grep "אתם הלב שלי")
+- [ ] Mobile menu works (grep "burger")
 - [ ] SEO tags present (grep "og:title")
 - [ ] WhatsApp number correct: 972527927575
 - [ ] All text in Hebrew, feminine form for clients
+- [ ] מערכת השעות טוענת שיעורים אמיתיים (לא מצב שגיאה)
+- [ ] אין גלישה אופקית ב-390px
 
 ### Deploy
 ```bash
@@ -75,19 +77,33 @@ npx vercel --yes --prod
 - Cache: 5 minutes (Cache-Control: max-age=300)
 - Filter: `location_name.includes("פולג")`
 
-### Design Tokens
+### Design Tokens — `index.html` (רידיזיין 2026-08-01)
+מקור: חבילת ההנדאוף `design_handoff_steps_homepage` שאור עיצב ב-Claude Design.
+דף הבית **בלבד** עבר לטוקנים האלה. `pilates.html` / `gym-women.html` / `barre.html`
+עדיין על הערכה הישנה (#F5C518 / Heebo בלבד) — להשוות כשמעדכנים אותם.
+
 | Token | Value |
 |-------|-------|
-| Font | Heebo |
-| Accent (GYM/CTA) | #F5C518 (yellow — changed from #E8553D on 2026-03-29) |
-| Teal (Pilates/Bina) | #2EC4B6 |
-| Purple (MOVE) | #A855F7 |
-| Dark bg | #111111 |
-| Section padding | 90px 5% |
-| Card radius | 14px |
-| Button radius | 50px |
-| Logo height navbar | 44px |
-| Logo height footer | 38px |
+| Display font | Heebo 900, letter-spacing -.035em |
+| Body font | Assistant 300/600/700/800 |
+| ink (רקע) | `#0B0B0B` |
+| bone (טקסט/סקשן בהיר) | `#F4F2ED` |
+| yellow (CTA · הצבע היחיד) | `#FFD400` |
+| WhatsApp | `#25D366` על `#062B14` |
+| Section padding | `clamp(44px,7.2vw,104px)` × `clamp(20px,4.2vw,56px)` |
+| Max width | 1360px |
+| Card radius | 16px (גדול 20px) · כפתור 100px |
+| Logo height | navbar `clamp(24px,2.2vw,30px)` |
+
+אין יותר סגול/טורקיז בדף הבית — הצהוב הוא המבטא היחיד.
+
+### כללי אמת בדף הבית (אסור לשבור)
+- **מקומות פנויים:** Arbox לא מחזיר כמה מקומות תפוסים — רק `max_participants`.
+  לכן הבאדג׳ מציג **גודל קבוצה** ("קבוצה עד 11"), לא "נותרו N מקומות".
+- **מספר שיעורים בשבוע (הירו):** נספר חי מ-6 קריאות ל-`/api/schedule`.
+  אם יום אחד נפל — התא נמחק ולא מוצג מספר חלקי.
+- **טופס הלידים:** אין CRM מחובר לאתר. הטופס מוודא מספר ישראלי ופותח וואטסאפ
+  עם המספר בהודעה. לא להציג "נחזור אלייך" בלי צינור אמיתי.
 
 ### GitHub
 - Repo: https://github.com/orsaboni-max/steps-site
