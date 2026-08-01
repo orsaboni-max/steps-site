@@ -55,7 +55,7 @@
   "telephone": "+972-52-792-7575",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "אמנון ותמר 6, קניון פולג",
+    "streetAddress": "אמנון ותמר 6, קניון רמת פולג, קומה 2",
     "addressLocality": "נתניה",
     "addressCountry": "IL"
   },
@@ -183,6 +183,13 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 
 .grid{display:grid;gap:clamp(12px,1.5vw,20px)}
 .g-3{grid-template-columns:repeat(3,1fr)}
+.g-4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:1100px){.g-4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.g-4{grid-template-columns:1fr}}
+/* מצבת זמנית עד שתגיע תמונה של אוריה */
+.coach__ph{width:64px;height:64px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+  background:var(--yellow-tint-2);border:1px solid rgba(255,212,0,.35);color:var(--yellow);
+  font-family:var(--display);font-weight:900;font-size:26px;line-height:1}
 .g-2{grid-template-columns:1fr 1fr}
 @media(max-width:1000px){.g-3{grid-template-columns:1fr 1fr}}
 @media(max-width:720px){.g-3,.g-2{grid-template-columns:1fr}}
@@ -386,7 +393,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .light{background:var(--bone);color:var(--ink)}
 .light .lede,.light .body{color:rgba(11,11,11,.65)}
 .light .badge{color:var(--ink)}
-.steps{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(11,11,11,.14);border:1px solid rgba(11,11,11,.14);border-radius:var(--r-md);overflow:hidden}
+.steps{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(11,11,11,.14);border:1px solid rgba(11,11,11,.14);border-radius:var(--r-md);overflow:clip;overflow-clip-margin:16px}
 .step{background:var(--bone);padding:clamp(20px,2.4vw,34px) clamp(18px,1.8vw,26px) clamp(22px,2.6vw,38px)}
 /* ספרה דקורטיבית — הסדר עצמו נמסר ע"י ה-<ol>, ולכן היא aria-hidden */
 .step__n{font-family:var(--display);font-weight:900;font-size:clamp(30px,3.4vw,44px);line-height:1;color:rgba(11,11,11,.5)}
@@ -404,14 +411,20 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 
 /* ═══ רקעי תמונה לסקשנים ═══════════════════════════════════ */
 .shot-bg{background-size:cover;background-position:center}
-.shot-bg--month{background-image:linear-gradient(rgba(11,11,11,.90),rgba(11,11,11,.95)),url(images/gallery-4.jpg)}
+/* רקע למקטע ההמלצות — נשים מתאמנות יחד.
+   שכבה כהה צפופה כדי שהטקסט ימשיך לעמוד בתקן הנגישות. */
+.shot-bg--team{background-image:linear-gradient(rgba(11,11,11,.88),rgba(11,11,11,.94)),url(images/shoot2025/move-main.jpg);background-attachment:scroll}
 .shot-bg--price{background-image:linear-gradient(rgba(11,11,11,.91),rgba(11,11,11,.96)),url(images/gallery-3.jpg)}
 .month__k{font-family:var(--display);font-weight:900;font-size:clamp(12px,1vw,13px);letter-spacing:.2em;color:var(--yellow)}
 .month b{display:block;margin:clamp(12px,1.4vw,18px) 0 12px;font-weight:700;font-size:clamp(21px,2vw,26px);line-height:1.2}
 
 /* ═══ מערכת שעות ═══════════════════════════════════════════ */
-.sched{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(26px,4.4vw,60px);align-items:start}
-@media(max-width:1000px){.sched{grid-template-columns:1fr}}
+/* הכותרת מעל, הלוח מתחת. עמודה צדדית קצרה ליד לוח בגובה 750px יצרה
+   חלל ריק גדול; ככה זה מתיישר עם שאר המקטעים בדף.
+   הלוח מוגבל ברוחב — שורת שיעור על פני 1248px היא בעיקר ריק. */
+.sched{display:block}
+.sched > div:first-child{margin-bottom:clamp(26px,3.4vw,44px)}
+.board{max-width:980px}
 .live{display:inline-flex;align-items:center;gap:9px;padding:8px 14px;border-radius:var(--r-pill);background:var(--yellow-tint-2);color:var(--yellow);font-weight:700;font-size:clamp(12px,.95vw,13px);line-height:1;margin-bottom:22px}
 .live i{width:7px;height:7px;border-radius:50%;background:var(--yellow);animation:blip 1.6s ease-in-out infinite}
 @keyframes blip{0%,100%{opacity:1}50%{opacity:.2}}
@@ -487,10 +500,14 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .gal figure:hover img{transform:scale(1.03)}
 .gal .big{grid-column:span 2;grid-row:span 2}
 .gal .wide{grid-column:span 2}
+.gal .tall{grid-row:span 2}
+.gal video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s var(--ease)}
+.gal figure:hover video{transform:scale(1.03)}
 @media(max-width:820px){
-  .gal{grid-template-columns:1fr 1fr;grid-auto-rows:190px;gap:10px}
-  .gal .big{grid-column:span 1;grid-row:span 1}
-  .gal .hide-sm{display:none}
+   .gal{grid-template-columns:1fr 1fr;grid-auto-rows:170px;gap:10px}
+  .gal .big{grid-column:span 2;grid-row:span 2}
+  .gal .wide{grid-column:span 2}
+  .gal .tall{grid-row:span 2}
 }
 
 /* ═══ שאלות ═══════════════════════════════════════════════ */
@@ -516,11 +533,12 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .plan__tag{position:absolute;top:-13px;inset-inline-start:32px;padding:6px 13px;border-radius:var(--r-pill);background:var(--yellow);color:var(--ink);font-weight:800;font-size:12px;line-height:1}
 
 /* ═══ CTA סופי ═══════════════════════════════════════════════ */
-.closer{position:relative;overflow:hidden;padding:clamp(56px,9vw,120px) var(--gutter)}
+.closer{position:relative;overflow:hidden}
 .closer img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.26}
 .closer::after{content:"";position:absolute;inset:0;background:linear-gradient(255deg,rgba(11,11,11,.5),rgba(11,11,11,.95))}
 .closer__in{position:relative;z-index:2;max-width:var(--max);margin-inline:auto}
 .closer__in>*{max-width:680px}
+.closer__h{font-size:clamp(40px,5.4vw,68px);line-height:.98;letter-spacing:-.04em;margin-bottom:24px}
 .closer h2{font-size:clamp(46px,6.2vw,76px);line-height:.98;letter-spacing:-.04em}
 .closer p{margin:26px 0 clamp(24px,3vw,36px);font-size:clamp(15.5px,1.5vw,20px);line-height:1.65;color:rgba(244,242,237,.8)}
 .closer p small{display:block;margin-top:8px;font-size:clamp(13.5px,1.1vw,16px);color:var(--t60)}
@@ -547,7 +565,10 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .capture input:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .capture button{height:56px;padding:0 30px;border-radius:var(--r-pill);background:var(--ink);color:var(--yellow);font-weight:800;font-size:16px}
 .capture button:hover{filter:brightness(1.4)}
-.capture__err{margin-top:10px;font-weight:700;font-size:13.5px;color:#7a1b1b}
+.capture__msg{margin-top:10px;font-weight:700;font-size:13.5px;color:#7a1b1b}
+.capture__msg.ok{color:#0b3f22}
+.capture input{width:190px}
+@media(max-width:860px){.capture input{width:100%}}
 @media(max-width:860px){
   .capture__in{grid-template-columns:1fr}
   .capture form{flex-direction:column}
@@ -642,9 +663,37 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 
 /* השלבים נכנסים אחד-אחד כשגוללים אליהם. ההשהיה מדורגת ב-JS לפי המיקום,
    כך שהעין עוקבת אחרי הרצף במקום לקבל הכל בבת אחת. */
-.js .sv{opacity:0;transform:translateY(26px) scale(.985)}
-.js .sv.in{opacity:1;transform:none;transition:opacity .55s var(--ease),transform .55s var(--ease)}
-@media (prefers-reduced-motion:reduce){.js .sv{opacity:1;transform:none}}
+/* קפיצה מוגברת: הכרטיס נכנס מלמטה, גדל, חורג מעל היעד וחוזר.
+   cubic-bezier עם ערך>1 בציר Y = חריגה. ככל שהוא גבוה יותר, הקפיצה חזקה יותר. */
+/* כניסה מעודנת: תנועה קצרה, האטה חלקה, רמז אחד של חריגה — לא קפיצה.
+   טווח קטן + משך קצר = מרגיש חי בלי לעייף אחרי הגלילה השלישית. */
+.js .sv{opacity:0}
+.js .sv.in{animation:rise .58s cubic-bezier(.22,.85,.3,1) var(--d,0ms) both}
+@keyframes rise{
+  0%  {opacity:0;transform:translateY(22px) scale(.985)}
+  70% {opacity:1;transform:translateY(-3px) scale(1.004)}
+  100%{opacity:1;transform:none}
+}
+/* הספרה מקבלת נגיעה קטנה משלה, בלי סיבוב ובלי התנפחות */
+.js .sv .step__n{display:inline-block;opacity:0}
+.js .sv.in .step__n{animation:rise-num .52s cubic-bezier(.22,.85,.3,1) calc(var(--d,0ms) + .08s) both}
+@keyframes rise-num{
+  0%  {opacity:0;transform:translateY(12px) scale(.88)}
+  72% {opacity:1;transform:scale(1.03)}
+  100%{opacity:1;transform:none}
+}
+/* הכותרת והטקסט נכנסים מיד אחרי, בעדינות */
+.js .sv b,.js .sv p{opacity:0}
+.js .sv.in b{animation:rise-line .44s ease-out calc(var(--d,0ms) + .12s) both}
+.js .sv.in p{animation:rise-line .44s ease-out calc(var(--d,0ms) + .18s) both}
+@keyframes rise-line{
+  0%  {opacity:0;transform:translateY(10px)}
+  100%{opacity:1;transform:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .js .sv,.js .sv.in,.js .sv .step__n,.js .sv.in .step__n,.js .sv b,.js .sv p,
+  .js .sv.in b,.js .sv.in p{opacity:1;transform:none;animation:none;transition:none}
+}
 
 /* חשיפה בגלילה — נכנסת לתוקף רק אחרי ש-JS עלה (html.js).
    בלי זה התוכן גלוי כרגיל, כדי ששגיאת JS לעולם לא תסתיר תוכן. */
@@ -740,7 +789,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   </div>
   <div class="rooms">
     <article class="room">
-      <header class="room__head">
+      <header class="room__head sv">
         <p class="room__n">01 / החלל הראשון</p>
         <h3>GYM</h3>
       </header>
@@ -748,7 +797,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         <video preload="none" muted loop playsinline poster="images/shoot2025/room-gym-poster.jpg"
                data-src="images/shoot2025/room-gym.mp4" data-src-sm="images/shoot2025/room-gym-sm.mp4" aria-label="חלל הכוח בסטודיו STEPS" tabindex="-1"></video>
       </div>
-      <div class="room__body">
+      <div class="room__body sv">
 <p>סטודיו כושר שמרגיש אחרת. מכשירים מתקדמים, משקולות חופשיות, ומאמנות שיודעות בדיוק מה את צריכה.</p>
         <div class="taglist">
           <span class="tagpill tagpill--out">אימוני כוח</span>
@@ -761,7 +810,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </article>
 
     <article class="room">
-      <header class="room__head">
+      <header class="room__head sv">
         <p class="room__n">02 / החלל השני</p>
         <h3>MOVE</h3>
       </header>
@@ -769,7 +818,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         <video preload="none" muted loop playsinline poster="images/shoot2025/room-move-poster.jpg"
                data-src="images/shoot2025/room-move.mp4" aria-label="חלל MOVE בסטודיו STEPS" tabindex="-1"></video>
       </div>
-      <div class="room__body">
+      <div class="room__body sv">
 <p>השיעורים שגורמים לך לחזור. בר, יוגה, גמישות, פילאטיס מזרן ו-SCULPT — כל יום אנרגיה אחרת.</p>
         <div class="taglist">
           <span class="tagpill tagpill--out">BARRE</span>
@@ -782,7 +831,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </article>
 
     <article class="room">
-      <header class="room__head">
+      <header class="room__head sv">
         <p class="room__n">03 / החלל השלישי</p>
         <h3 class="is-long">REFORMER PILATES</h3>
       </header>
@@ -790,7 +839,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         <video preload="none" muted loop playsinline poster="images/shoot2025/room-pilates-poster.jpg"
                data-src="images/shoot2025/room-pilates.mp4" data-src-sm="images/shoot2025/room-pilates-sm.mp4" aria-label="חלל הרפורמר פילאטיס בסטודיו STEPS" tabindex="-1"></video>
       </div>
-      <div class="room__body">
+      <div class="room__body sv">
 <p>קבוצה קטנה, עד 11 מתאמנות. מכשירים ברמה הגבוהה ביותר, ותחושה שהגוף שלך מודה לך אחרי כל שיעור.</p>
         <div class="taglist">
           <span class="tagpill tagpill--out">עד 11 מתאמנות</span>
@@ -808,9 +857,10 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   <div class="shell bina">
     <div>
       <p class="badge" style="margin-bottom:20px">תזונה</p>
-      <h2 class="h-lg">גם תזונה.</h2>
-      <p class="lede" style="margin:22px 0 12px;max-width:42ch">ליווי תזונה אישי עם אור סבוני, ישירות לוואטסאפ. בלי עוד אפליקציה.</p>
-      <p class="fine" style="margin-bottom:28px;max-width:44ch">שירות נוסף בתשלום נפרד, לא כלול במנוי.</p>
+      <h2 class="h-lg">ליווי תזונה<br>שמותאם לאימונים שלך.</h2>
+      <p class="lede" style="margin:22px 0 16px;max-width:44ch">מסלול ליווי תזונה אישי, לכל מטרה — ירידה במשקל, חיטוב, או פשוט ללמוד לאכול נכון.</p>
+      <p class="body" style="margin-bottom:16px;max-width:44ch">התפריט נבנה סביב סוגי האימונים שלך והתדירות, ומותאם לשגרת היום-יום שלך.</p>
+      <p class="fine" style="margin-bottom:28px;max-width:44ch">שירות של הסטודיו, בתשלום נפרד מהמנוי.</p>
       <a class="btn btn--wa btn--lg" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%A0%D7%AA%20%D7%91%D7%9C%D7%99%D7%95%D7%95%D7%99%20%D7%AA%D7%96%D7%95%D7%A0%D7%94" target="_blank" rel="noopener" data-track="whatsapp-click">לפרטים בוואטסאפ</a>
     </div>
     <div class="bina__aside rv">
@@ -827,14 +877,13 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         <p class="badge" style="margin-bottom:18px">אימון ההיכרות</p>
         <h2 class="h-lg">איך זה עובד<br>בפעם הראשונה.</h2>
       </div>
-      <p class="body">חמישה שלבים, שעה אחת. בלי שיחת מכירה בסוף.</p>
     </div>
     <ol class="steps">
       <li class="step sv"><span class="step__n" aria-hidden="true">01</span><div><b>בוחרת שיעור ונרשמת</b><p>כאן באתר, ב-30 שניות, עם אישור מיידי. מעדיפה לדבר? גם בוואטסאפ.</p></div></li>
       <li class="step sv"><span class="step__n" aria-hidden="true">02</span><div><b>מגיעה 10 דק׳ לפני</b><p>חנייה חינם בקניון. מקבלת סיור קצר בשלושת החללים.</p></div></li>
       <li class="step sv"><span class="step__n" aria-hidden="true">03</span><div><b>שיחה של 3 דקות</b><p>המאמנת שואלת על פציעות, מטרות ומה עשית עד היום.</p></div></li>
       <li class="step sv"><span class="step__n" aria-hidden="true">04</span><div><b>מתאמנת בקצב שלך</b><p>לכל תרגיל יש חלופה קלה יותר. את לא תישארי מאחור.</p></div></li>
-      <li class="step sv"><span class="step__n" aria-hidden="true">05</span><div><b>מחליטות יחד</b><p>מה מתאים לך ובאיזו תדירות. גם "אני חושבת על זה" זו תשובה.</p></div></li>
+      <li class="step sv"><span class="step__n" aria-hidden="true">05</span><div><b>מתאימים לך מסלול</b><p>אחרי אימון ההיכרות מתאימים לך את המסלול הנכון עבורך.</p></div></li>
     </ol>
     <div style="display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:clamp(28px,3.4vw,44px)">
       <a class="btn btn--y btn--lg" href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener" data-track="trial-cta arbox-open">קבעי אימון היכרות <span aria-hidden="true">←</span></a>
@@ -849,14 +898,8 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   <div class="shell sched">
     <div>
       <p class="live"><i aria-hidden="true"></i>מערכת חיה · מתעדכנת מ-Arbox</p>
-      <h2 class="h-lg">בחרי את השיעור<br>הראשון שלך.</h2>
-      <p class="lede" style="margin:24px 0 32px;max-width:40ch">בחרי שיעור, הירשמי ושלמי — הכל כאן. בלי טלפונים, בלי המתנה.</p>
-      <div class="card" style="background:rgba(244,242,237,.04);padding:26px">
-        <b style="display:block;font-weight:700;font-size:17px;line-height:1.3;margin-bottom:8px">מעדיפה לדבר קודם?</b>
-        <p class="body" style="margin-bottom:18px;font-size:15px">אנחנו עונים בוואטסאפ. בדרך כלל תוך כמה דקות.</p>
-        <a class="btn btn--wa" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A2%D7%9C%20%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA%20%D7%94%D7%A9%D7%A2%D7%95%D7%AA" target="_blank" rel="noopener" data-track="whatsapp-click">שאלה מהירה בוואטסאפ</a>
-      </div>
-    </div>
+      <h2 class="h-lg">תבחרי שעה ותגיעי,<br>את השאר תשאירי לנו.</h2>
+          </div>
 
     <div class="board" id="board" data-expanded="false">
       <div class="chips" id="chips" role="group" aria-label="סינון לפי חלל"></div>
@@ -869,24 +912,24 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 </section>
 
 <!-- ═══ המלצות + צוות ═══ -->
-<section class="sec" id="team">
+<section class="sec shot-bg shot-bg--team" id="team">
   <div class="shell">
     <div class="sec-head sec-head--keep">
       <h2 class="h-lg">הן באו בשביל האימון.<br>הן נשארו בשביל המשפחה.</h2>
-      <div class="rating"><b>4.8 ★</b><span>ממוצע ביקורות גוגל</span></div>
+      <div class="rating sv"><b>4.8 ★</b><span>ממוצע ביקורות גוגל</span></div>
     </div>
     <div class="grid g-3" style="margin-bottom:clamp(30px,4vw,48px)">
-      <blockquote class="card rv">
+      <blockquote class="card sv">
         <p class="stars" aria-label="חמישה כוכבים מתוך חמישה">★★★★★</p>
         <p class="quote">"אתם הלב שלי. אין סטודיו כזה בעולם ויצא לי לנסות המון. היחס האישי, האכפתיות, הדחיפה להתקדם."</p>
         <footer class="who">לימור מ.<span>חברה ותיקה</span></footer>
       </blockquote>
-      <blockquote class="card rv">
+      <blockquote class="card sv">
         <p class="stars" aria-label="חמישה כוכבים מתוך חמישה">★★★★★</p>
         <p class="quote">"לאורך כל השיעור עברה אחת אחת, דייקה את התנועה. הפעלנו את כל השרירים ואנרגיה מקסימה."</p>
         <footer class="who">חני ל.<span>מתאמנת MOVE</span></footer>
       </blockquote>
-      <blockquote class="card rv">
+      <blockquote class="card sv">
         <p class="stars" aria-label="חמישה כוכבים מתוך חמישה">★★★★★</p>
         <p class="quote">"אני איתכם כבר המון שנים. ירדן מקצועית, נותנת יחס אישי ושומרת על רמה סופר גבוהה."</p>
         <footer class="who">נעמה ג.<span>מתאמנת GYM ותיקה</span></footer>
@@ -894,13 +937,14 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </div>
 
     <div class="split" style="margin-top:0">
-      <h3>מאמנות. אפס פשרות.</h3>
-      <span>מוסמכות, מתאמנות בעצמן, ורואות אותך</span>
+      <h3>הצוות של הסטודיו.</h3>
+      <span>מנהלי החללים, ולצידם עוד למעלה מ-25 מאמנות מובילות בתחום</span>
     </div>
-    <div class="grid g-3">
-      <div class="coach"><img src="images/shoot2025/team-or-saboni.jpg" alt="אור סבוני, בעלים ומאמן ב-STEPS" width="64" height="64" loading="lazy" decoding="async"><div><b>אור סבוני</b><span>בעלים ומאמן · ליווי תזונה</span></div></div>
-      <div class="coach"><img src="images/shoot2025/team-or-turgeman.jpg" alt="אור תורג׳מן, בעלים ומאמן ב-STEPS" width="64" height="64" loading="lazy" decoding="async"><div><b>אור תורג׳מן</b><span>בעלים ומאמן</span></div></div>
-      <div class="coach"><img src="images/shoot2025/team-tali.jpg" alt="טלי טרחובסקי, מנהלת חלל MOVE ומדריכת בר" width="64" height="64" loading="lazy" decoding="async"><div><b>טלי טרחובסקי</b><span>מנהלת חלל MOVE · מדריכת בר</span></div></div>
+    <div class="grid g-4">
+      <div class="coach sv"><img src="images/shoot2025/team-or-saboni.jpg" alt="אור סבוני, בעלים ומאמן ב-STEPS" width="64" height="64" loading="lazy" decoding="async"><div><b>אור סבוני</b><span>בעלים · מאמן · בונה תוכניות תזונה</span></div></div>
+      <div class="coach sv"><img src="images/shoot2025/team-or-turgeman.jpg" alt="אור תורג׳מן, בעלים ומאמן ב-STEPS" width="64" height="64" loading="lazy" decoding="async"><div><b>אור תורג׳מן</b><span>בעלים · מאמן · מנהל חלל GYM</span></div></div>
+      <div class="coach sv"><span class="coach__ph" aria-hidden="true">א</span><div><b>אוריה נעמן</b><span>מנהלת קבלה · מדריכת פילאטיס מכשירים</span></div></div>
+      <div class="coach sv"><img src="images/shoot2025/team-tali.jpg" alt="טלי טרחובסקי, מנהלת חלל MOVE ומדריכת בר" width="64" height="64" loading="lazy" decoding="async"><div><b>טלי טרחובסקי</b><span>מנהלת חלל MOVE · מדריכת בר</span></div></div>
     </div>
   </div>
 </section>
@@ -913,10 +957,18 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       <span class="body muted">הצצה פנימה</span>
     </div>
     <div class="gal">
-      <figure class="big"><img src="images/gallery-1.jpg" alt="אימון כוח בסטודיו STEPS" loading="lazy" decoding="async"></figure>
-      <figure class="hide-sm"><img src="images/gallery-3.jpg" alt="ליווי אישי של מאמנת במהלך אימון" loading="lazy" decoding="async"></figure>
-      <figure><img src="images/gallery-4.jpg" alt="שיעור יוגה וגמישות בחלל MOVE" loading="lazy" decoding="async"></figure>
-      <figure class="wide"><img src="images/gallery-5.jpg" alt="שיעור רפורמר פילאטיס קבוצתי" loading="lazy" decoding="async"></figure>
+
+      <figure class="sv big"><img src="images/gallery-1.jpg" alt="אימון כוח בסטודיו STEPS" loading="lazy" decoding="async"></figure>
+      <figure class="sv tall"><video preload="none" muted loop playsinline poster="images/shoot2025/class-movecls-poster.jpg" data-src="images/shoot2025/class-movecls.mp4" aria-label="שיעור בר קבוצתי בחלל MOVE" tabindex="-1"></video></figure>
+      <figure class="sv"><img src="images/shoot2025/coaching-2.jpg" alt="מאמנת מתקנת תנועה למתאמנת" loading="lazy" decoding="async"></figure>
+      <figure class="sv"><img src="images/gallery-4.jpg" alt="שיעור יוגה וגמישות" loading="lazy" decoding="async"></figure>
+      <figure class="sv tall"><video preload="none" muted loop playsinline poster="images/shoot2025/class-pilcls-poster.jpg" data-src="images/shoot2025/class-pilcls.mp4" aria-label="שיעור פילאטיס מכשירים" tabindex="-1"></video></figure>
+      <figure class="sv"><video preload="none" muted loop playsinline poster="images/shoot2025/gym-real-1-poster.jpg" data-src="images/shoot2025/gym-real-1.mp4" aria-label="אימון על מכונת כבלים בחלל ה-GYM" tabindex="-1"></video></figure>
+      <figure class="sv wide"><img src="images/gallery-5.jpg" alt="שיעור רפורמר קבוצתי" loading="lazy" decoding="async"></figure>
+      <figure class="sv tall"><video preload="none" muted loop playsinline poster="images/shoot2025/gym-real-2-poster.jpg" data-src="images/shoot2025/gym-real-2.mp4" aria-label="סקוואט עם מוט בחלל ה-GYM" tabindex="-1"></video></figure>
+      <figure class="sv"><img src="images/shoot2025/coaching-1.jpg" alt="ליווי אישי של מאמנת" loading="lazy" decoding="async"></figure>
+      <figure class="sv"><img src="images/gallery-3.jpg" alt="מתאמנת עם מאמנת באימון" loading="lazy" decoding="async"></figure>
+      <figure class="sv wide"><video preload="none" muted loop playsinline poster="images/shoot2025/hero-clip-web-poster.jpg" data-src="images/shoot2025/hero-clip-web.mp4" aria-label="חלל הרפורמר פילאטיס" tabindex="-1"></video></figure>
     </div>
   </div>
 </section>
@@ -929,12 +981,12 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       <a class="link-rule" style="color:var(--yellow)" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94" target="_blank" rel="noopener" data-track="whatsapp-click">לא מצאת? שאלי בוואטסאפ</a>
     </div>
     <div class="faq">
-      <details><summary>כמה עולה המנוי?</summary><p>אימון היכרות 50 ₪. אחר כך בוחרים מסלול לפי מספר הכניסות בחודש: 230, 400 או 460 ₪. רוצה גם רפורמר? 320, 475 או 530 ₪. הכל בלי התחייבות.</p></details>
-      <details><summary>מה ההבדל בין שלושת החללים?</summary><p><bdi>GYM</bdi> זה הכוח — משקולות, מכשירים, <bdi>BOOTCAMP</bdi>. <bdi>MOVE</bdi> זה השיעורים הקבוצתיים — בר, יוגה, גמישות, <bdi>SCULPT</bdi>. <bdi>REFORMER</bdi> זה מיטות רפורמר בקבוצה קטנה, עד 11 מתאמנות.</p></details>
-      <details><summary>אני צריכה ניסיון קודם?</summary><p>בכלל לא. גם אם מעולם לא נכנסת לסטודיו כושר. אימון ההיכרות בדיוק בשביל זה — להכיר את המקום, לדבר עם המאמנת, ולהחליט אחר כך.</p></details>
-      <details><summary>יש חנייה?</summary><p>כן. אנחנו בקניון פולג, עם חנייה חינמית ונוחה ישירות בקניון. קל להגיע, קל לחנות.</p></details>
-      <details id="faq-cancel"><summary>איך מבטלים שיעור?</summary><p>בוואטסאפ או דרך Arbox. ביטול עד 24 שעות לפני — קובעים מועד חלופי. פחות מזה, או אי-הגעה, אין זיכוי.</p></details>
-      <details><summary>מגיל כמה ועד איזה גיל?</summary><p>הסטודיו פתוח לנשים בכל גיל. פילאטיס מכשירים מתאים גם לגילאים מבוגרים יותר ואחרי פציעה, ושיעורי הכוח והבר בנויים לכל רמה.</p></details>
+      <details class="sv"><summary>כמה עולה המנוי?</summary><p>אימון היכרות 50 ₪. אחר כך בוחרים מסלול לפי מספר הכניסות בחודש: 230, 400 או 460 ₪. רוצה גם רפורמר? 320, 475 או 530 ₪. הכל בלי התחייבות.</p></details>
+      <details class="sv"><summary>מה ההבדל בין שלושת החללים?</summary><p><bdi>GYM</bdi> זה הכוח — משקולות, מכשירים, <bdi>BOOTCAMP</bdi>. <bdi>MOVE</bdi> זה השיעורים הקבוצתיים — בר, יוגה, גמישות, <bdi>SCULPT</bdi>. <bdi>REFORMER</bdi> זה מיטות רפורמר בקבוצה קטנה, עד 11 מתאמנות.</p></details>
+      <details class="sv"><summary>אני צריכה ניסיון קודם?</summary><p>בכלל לא. גם אם מעולם לא נכנסת לסטודיו כושר. אימון ההיכרות בדיוק בשביל זה — להכיר את המקום, לדבר עם המאמנת, ולהחליט אחר כך.</p></details>
+      <details class="sv"><summary>יש חנייה?</summary><p>כן. אנחנו בקניון פולג, עם חנייה חינמית ונוחה ישירות בקניון. קל להגיע, קל לחנות.</p></details>
+      <details id="faq-cancel" class="sv"><summary>איך מבטלים שיעור?</summary><p>בוואטסאפ או דרך Arbox. ביטול עד 24 שעות לפני — קובעים מועד חלופי. פחות מזה, או אי-הגעה, אין זיכוי.</p></details>
+      <details class="sv"><summary>מגיל כמה ועד איזה גיל?</summary><p>הסטודיו פתוח לנשים בכל גיל. פילאטיס מכשירים מתאים גם לגילאים מבוגרים יותר ואחרי פציעה, ושיעורי הכוח והבר בנויים לכל רמה.</p></details>
     </div>
   </div>
 </section>
@@ -947,20 +999,20 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       <p class="body muted">המסלולים הנפוצים. יש גם נוספים — נתאים לך בשיחה.</p>
     </div>
     <div class="grid g-3">
-      <article class="plan rv">
+      <article class="plan sv">
         <p class="plan__k">5 כניסות בחודש</p>
         <p class="plan__p">230 ₪</p>
         <p class="plan__s">46 ₪ לאימון · עם רפורמר 320 ₪</p>
         <a class="btn btn--ghost" href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener" data-track="trial-cta">אימון היכרות</a>
       </article>
-      <article class="plan plan--hot rv">
+      <article class="plan plan--hot sv">
         <span class="plan__tag">הכי פופולרי</span>
         <p class="plan__k" style="color:var(--t75)">9 כניסות בחודש</p>
         <p class="plan__p">400 ₪</p>
         <p class="plan__s" style="color:var(--t60)">44 ₪ לאימון · עם רפורמר 475 ₪</p>
         <a class="btn btn--y" href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener" data-track="trial-cta">אימון היכרות</a>
       </article>
-      <article class="plan rv">
+      <article class="plan sv">
         <p class="plan__k">13 כניסות בחודש</p>
         <p class="plan__p">460 ₪</p>
         <p class="plan__s">35 ₪ לאימון · עם רפורמר 530 ₪</p>
@@ -971,34 +1023,23 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   </div>
 </section>
 
-<!-- ═══ CTA סופי ═══ -->
-<section class="closer">
-  <img src="images/gallery-1.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
-  <div class="closer__in">
-    <h2><span class="y">50 ₪.</span><br>שעה אחת.<br>בלי התחייבות.</h2>
-    <p>בחרי שיעור, הירשמי ושלמי — הכל כאן. בלי טלפונים, בלי המתנה.
-      <small>אמנון ותמר 6, קניון פולג נתניה · א׳–ה׳ 7:00–22:00 · ו׳ 7:00–14:00 · מוצ״ש 18:30–22:00</small></p>
-    <div class="closer__cta">
-      <a class="btn btn--y btn--lg" href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener" data-track="trial-cta arbox-open">קבעי אימון היכרות <span aria-hidden="true">←</span></a>
-      <a class="btn btn--ghost btn--lg" href="tel:+972527927575">052-792-7575</a>
-    </div>
-  </div>
-</section>
-
 <!-- ═══ איך מגיעים ═══ -->
-<section class="sec" id="where">
-  <div class="shell where">
+<section class="sec closer" id="where">
+  <img src="images/gallery-1.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+  <div class="shell where" style="position:relative;z-index:2">
     <div>
-      <p class="eyebrow" style="margin-bottom:18px">איך מגיעים</p>
-      <h2 style="font-size:clamp(34px,4.2vw,52px);line-height:1.02">יציאת פולג.<br>וחנייה חינם.</h2>
-      <p class="body" style="margin-top:20px;max-width:40ch;font-size:clamp(15.5px,1.35vw,18px)">אנחנו בקניון פולג, עם חנייה עילית ותת-קרקעית חינם. לא מחפשות חנייה רבע שעה לפני אימון.</p>
+      <h2 class="closer__h"><span class="y">50 ₪.</span><br>שעה אחת.<br>בלי התחייבות.</h2>
       <ul>
-        <li>אמנון ותמר 6, קניון רמת פולג, נתניה</li>
+        <li>אמנון ותמר 6, קניון רמת פולג, קומה 2, נתניה</li>
         <li>חנייה חינם בקניון — עילית ותת-קרקעית</li>
-        <li>בסטודיו: מלתחות, מקלחות ומים קרים</li>
+        <li>א׳–ה׳ 7:00–22:00 · ו׳ 7:00–14:00 · מוצ״ש 18:30–22:00</li>
       </ul>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px">
+        <a class="btn btn--y btn--lg" href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener" data-track="trial-cta arbox-open">קבעי אימון היכרות <span aria-hidden="true">←</span></a>
+        <a class="btn btn--ghost btn--lg" href="tel:+972527927575">052-792-7575</a>
+      </div>
       <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <a class="btn btn--y" href="https://waze.com/ul?q=%D7%A7%D7%A0%D7%99%D7%95%D7%9F%20%D7%A4%D7%95%D7%9C%D7%92%20%D7%A0%D7%AA%D7%A0%D7%99%D7%94" target="_blank" rel="noopener">נווטי בווייז</a>
+        <a class="btn btn--ghost" href="https://waze.com/ul?q=%D7%A7%D7%A0%D7%99%D7%95%D7%9F%20%D7%A4%D7%95%D7%9C%D7%92%20%D7%A0%D7%AA%D7%A0%D7%99%D7%94" target="_blank" rel="noopener">נווטי בווייז</a>
         <a class="btn btn--ghost" href="https://maps.google.com/?q=%D7%90%D7%9E%D7%A0%D7%95%D7%9F+%D7%95%D7%AA%D7%9E%D7%A8+6+%D7%A0%D7%AA%D7%A0%D7%99%D7%94" target="_blank" rel="noopener">Google Maps</a>
       </div>
     </div>
@@ -1014,16 +1055,19 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   <div class="capture__in">
     <div>
       <h3>עוד לא מוכנה לקבוע?</h3>
-      <p>קבלי את מערכת השעות המלאה לוואטסאפ, ותחליטי בזמן שלך.</p>
+      <p>השאירי פרטים ונחזור אלייך עם מערכת השעות וכל מה שתרצי לדעת.</p>
     </div>
     <div>
       <form id="leadForm" novalidate>
+        <label class="vh" for="leadName">השם שלך</label>
+        <input id="leadName" name="name" type="text" autocomplete="given-name" placeholder="השם שלך" aria-describedby="leadErr">
         <label class="vh" for="leadPhone">מספר הטלפון שלך</label>
-        <input id="leadPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel"
-               placeholder="מספר הטלפון שלך" aria-describedby="leadErr">
+        <input id="leadPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="מספר טלפון" aria-describedby="leadErr">
+        <label class="vh" for="leadHp" aria-hidden="true">אל תמלאי שדה זה</label>
+        <input id="leadHp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" class="vh">
         <button type="submit" data-track="lead-form">שלחו לי</button>
       </form>
-      <p class="capture__err" id="leadErr" role="alert" hidden>נא להזין מספר נייד ישראלי תקין, למשל 0521234567.</p>
+      <p class="capture__msg" id="leadErr" role="status" hidden></p>
     </div>
   </div>
 </section>
@@ -1067,7 +1111,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <div>
       <p class="ftr__h">צרי קשר</p>
       <address class="ftr__contact" style="font-style:normal">
-        אמנון ותמר 6, קניון פולג<br>נתניה · חנייה חינם<br>
+        אמנון ותמר 6, קניון פולג, קומה 2<br>נתניה · חנייה חינם<br>
         <a href="tel:+972527927575" style="color:var(--bone);font-weight:700">052-792-7575</a>
       </address>
       <p class="ftr__hours">א׳–ה׳ 7:00–22:00<br>ו׳ 7:00–14:00<br>מוצ״ש 18:30–22:00</p>
@@ -1237,9 +1281,11 @@ $('#cancelLink').addEventListener('click',function(e){
   els.forEach(function(e,i){
     // שלבי "האימון הראשון" נחשפים ברצף; שאר האלמנטים בקבוצות של 3
     var d=e.classList.contains('sv')
-      ? [].indexOf.call(e.parentNode.children,e)*110
+      ? [].indexOf.call(e.parentNode.children,e)*85
       : (i%3)*70;
-    e.style.transitionDelay=d+'ms';
+    // השלבים רצים על @keyframes ולכן צריך animation-delay; השאר על transition
+    if(e.classList.contains('sv'))e.style.setProperty('--d',d+'ms');
+    else e.style.transitionDelay=d+'ms';
     io.observe(e);
   });
 })();
@@ -1250,22 +1296,25 @@ $('#cancelLink').addEventListener('click',function(e){
 (function(){
   var DAY_LETTER=['א','ב','ג','ד','ה','ו','ש'];
   var ROOMS=[
-    {id:'all',   label:'הכל'},
-    {id:'GYM',   label:'GYM'},
-    {id:'MOVE',  label:'MOVE'},
-    {id:'REF',   label:'רפורמר'}
+    {id:'GYM',  label:'GYM'},
+    {id:'MOVE', label:'MOVE'},
+    {id:'REF',  label:'פילאטיס מכשירים'}
   ];
   var rowsEl=$('#rows'),chipsEl=$('#chips'),daysEl=$('#days'),board=$('#board'),moreBtn=$('#more');
-  var state={day:0,room:'all'};   // 0 = היום
+  var state={day:0,room:'GYM'};   // 0 = היום
   var narrow=matchMedia('(max-width:620px)');
   var cache={};
 
+  /* שיוך שיעור לחלל לפי שמו ב-Arbox. הסדר חשוב: רפורמר נבדק ראשון,
+     אחרת "פילאטיס מכשירים" היה נתפס ע"י הכלל של פילאטיס ב-MOVE. */
+  /* שיוך שיעור לחלל — המיפוי מאושר ע"י אור (1/8/26).
+     הסדר קריטי: רפורמר נבדק ראשון, אחרת "פילאטיס מזרן" היה נופל לשם.
+     אין שיעור ללא חלל: שם לא מוכר נופל ל-GYM ולא נעלם מהלוח. */
   function roomOf(name){
     var n=(name||'').toLowerCase();
-    if(/מכשירים|רפורמר|reformer/.test(n))return 'REF';
-    if(/barre|yoga|יוגה|sculpt|גמישות|מזרן|pilates/.test(n))return 'MOVE';
-    if(/gym|endurance|bootcamp|כוח|run/.test(n))return 'GYM';
-    return '';
+    if(/מכשירים|רפורמר|reformer|מתקדמים|נערות/.test(n))return 'REF';
+    if(/barre|yoga|יוגה|sculpt|גמישות|מזרן|booty|core|(^|\s)בר(\s|$)/.test(n))return 'MOVE';
+    return 'GYM';
   }
   function roomLabel(r){return r==='REF'?'רפורמר':r==='MOVE'?'MOVE':r==='GYM'?'GYM':''}
 
@@ -1321,7 +1370,7 @@ $('#cancelLink').addEventListener('click',function(e){
   function render(){
     var all=cache[dates[state.day]];
     if(!all)return;
-    var list=all.filter(function(s){return state.room==='all'||roomOf(s.session_name)===state.room});
+    var list=all.filter(function(s){return roomOf(s.session_name)===state.room});
     /* בטאב "היום" מסתירים שיעורים שכבר התחילו — כפתור "קבעי"
        על שיעור שרץ הוא אותה הבטחה שבורה, רק בקטן. */
     if(state.day===0){
@@ -1349,8 +1398,7 @@ $('#cancelLink').addEventListener('click',function(e){
 
       var c=el('div','row__c');
       c.appendChild(el('div','row__n',s.session_name||''));
-      var bits=[roomLabel(roomOf(s.session_name)),s.coach].filter(Boolean);
-      c.appendChild(el('div','row__m',bits.join(' · ')));
+      c.appendChild(el('div','row__m',s.coach||''));   // החלל כבר ידוע מהפילטר
       row.appendChild(c);
 
       var a=el('a','btn btn--y','קבעי');
@@ -1407,20 +1455,32 @@ $('#cancelLink').addEventListener('click',function(e){
   else setTimeout(countWeek,1400);
 })();
 
-/* ── טופס: מעביר את המספר לוואטסאפ העסקי (אין CRM מחובר לאתר) ── */
+/* ── טופס לידים → מוקם כרטיס ב-Arbox דרך /api/lead ── */
 (function(){
-  var form=$('#leadForm'),input=$('#leadPhone'),err=$('#leadErr');
+  var form=$('#leadForm'), name=$('#leadName'), phone=$('#leadPhone'), hp=$('#leadHp'), msg=$('#leadErr');
+  var btn=form.querySelector('button');
   var IL=/^0(5[0-9])\d{7}$/;
+  function say(t,ok){msg.textContent=t;msg.hidden=false;msg.classList.toggle('ok',!!ok)}
   form.addEventListener('submit',function(e){
     e.preventDefault();
-    var v=input.value.replace(/[\s-]/g,'');
-    if(!IL.test(v)){
-      err.hidden=false;input.setAttribute('aria-invalid','true');input.focus();return;
-    }
-    err.hidden=true;input.removeAttribute('aria-invalid');
-    window.open(WA+'?text='+encodeURIComponent('היי, אשמח לקבל את מערכת השעות המלאה. הטלפון שלי: '+v),'_blank','noopener');
+    var n=name.value.trim().replace(/\s+/g,' ');
+    var v=phone.value.replace(/[\s-]/g,'');
+    if(n.length<2){say('נא להזין שם.');name.focus();return}
+    if(!IL.test(v)){say('נא להזין מספר נייד ישראלי תקין, למשל 0521234567.');phone.focus();return}
+    msg.hidden=true; btn.disabled=true; btn.textContent='שולחת׳';
+    fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({name:n,phone:v,website:hp.value})})
+      .then(function(r){return r.ok?r.json():Promise.reject(r.status)})
+      .then(function(){
+        form.style.display='none';
+        say('קיבלנו. נחזור אלייך בקרוב.',true);
+      })
+      ['catch'](function(){
+        btn.disabled=false; btn.textContent='שלחו לי';
+        say('משהו נתקע. נסי שוב, או כתבי לנו בוואטסאפ.');
+      });
   });
-  input.addEventListener('input',function(){err.hidden=true;input.removeAttribute('aria-invalid')});
+  [name,phone].forEach(function(el){el.addEventListener('input',function(){msg.hidden=true})});
 })();
 
 /* ── עוגיות ── */
