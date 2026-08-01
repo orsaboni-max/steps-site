@@ -418,7 +418,13 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 
 .board{border:1px solid rgba(244,242,237,.18);border-radius:var(--r-lg);overflow:hidden;background:var(--fill)}
 .chips{display:flex;flex-wrap:wrap;gap:8px;padding:16px 16px 0}
-.days{display:flex;gap:6px;padding:16px;border-bottom:1px solid rgba(244,242,237,.14)}
+/* רצועה נגללת — 14 יום לא נכנסים בשורה אחת */
+.days{display:flex;gap:6px;padding:16px;border-bottom:1px solid rgba(244,242,237,.14);
+  overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:thin;
+  scrollbar-color:rgba(244,242,237,.25) transparent;-webkit-overflow-scrolling:touch}
+.days::-webkit-scrollbar{height:5px}
+.days::-webkit-scrollbar-thumb{background:rgba(244,242,237,.22);border-radius:100px}
+.days::-webkit-scrollbar-track{background:transparent}
 .chip,.day{
   min-height:40px;padding:0 15px;border-radius:var(--r-pill);
   border:1px solid var(--line-strong);color:var(--t75);
@@ -427,7 +433,10 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 }
 .chip:hover,.day:hover{border-color:rgba(244,242,237,.5);color:var(--bone)}
 .chip[aria-pressed="true"]{border-color:var(--yellow);background:rgba(255,212,0,.14);color:var(--yellow);font-weight:800}
-.day{flex:1;min-width:44px;padding:0 8px}
+.day{flex:0 0 auto;min-width:58px;padding:6px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;line-height:1}
+.day__l{font-weight:700;font-size:13.5px}
+.day__d{font-size:11px;opacity:.6;font-variant-numeric:tabular-nums}
+.day[aria-pressed="true"] .day__d{opacity:.75}
 .day[aria-pressed="true"]{background:var(--yellow);border-color:var(--yellow);color:var(--ink);font-weight:800}
 
 .row{
@@ -1238,7 +1247,7 @@ $('#cancelLink').addEventListener('click',function(e){
    ה-API מחזיר max_members (גודל הקבוצה) אך לא כמה מקומות תפוסים —
    ולכן מוצג גודל הקבוצה בפועל, ולא ספירת מקומות פנויים שאין לנו. */
 (function(){
-  var DAYS=['א׳','ב׳','ג׳','ד׳','ה׳','ו׳'];
+  var DAY_LETTER=['א','ב','ג','ד','ה','ו','ש'];
   var ROOMS=[
     {id:'all',   label:'הכל'},
     {id:'GYM',   label:'GYM'},
@@ -1246,7 +1255,7 @@ $('#cancelLink').addEventListener('click',function(e){
     {id:'REF',   label:'רפורמר'}
   ];
   var rowsEl=$('#rows'),chipsEl=$('#chips'),daysEl=$('#days'),board=$('#board'),moreBtn=$('#more');
-  var state={day:Math.min(new Date().getDay(),5),room:'all'};
+  var state={day:0,room:'all'};   // 0 = היום
   var narrow=matchMedia('(max-width:620px)');
   var cache={};
 
@@ -1259,15 +1268,22 @@ $('#cancelLink').addEventListener('click',function(e){
   }
   function roomLabel(r){return r==='REF'?'רפורמר':r==='MOVE'?'MOVE':r==='GYM'?'GYM':''}
 
-  function weekDates(){
-    var t=new Date(),s=new Date(t);
-    s.setDate(t.getDate()-t.getDay());
-    return Array.from({length:6},function(_,i){
-      var d=new Date(s);d.setDate(s.getDate()+i);
-      return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-    });
+  /* שבעה ימים קדימה מהיום, לא "השבוע של הלוח". בשבת השבוע
+     הקלנדרי כבר נגמר, והלוח הציג שיעורים שכבר עברו — אי-אפשר היה לקבוע כלום. */
+  function nextDays(n){
+    var t=new Date(),out=[];
+    for(var i=0;i<n;i++){
+      var d=new Date(t); d.setDate(t.getDate()+i);
+      out.push({
+        iso:d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'),
+        label:i===0?'היום':(i===1?'מחר':DAY_LETTER[d.getDay()]+'׳'),
+        sub:d.getDate()+'.'+(d.getMonth()+1)
+      });
+    }
+    return out;
   }
-  var dates=weekDates();
+  var days=nextDays(14);   // שבועיים — כדי שאפשר לקבוע גם לשבוע הבא
+  var dates=days.map(function(d){return d.iso});
 
   function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
   function clear(n){while(n.firstChild)n.removeChild(n.firstChild)}
@@ -1283,8 +1299,10 @@ $('#cancelLink').addEventListener('click',function(e){
     });
     chipsEl.appendChild(b);
   });
-  DAYS.forEach(function(d,i){
-    var b=el('button','day',d);
+  days.forEach(function(d,i){
+    var b=el('button','day');
+    b.appendChild(el('span','day__l',d.label));
+    b.appendChild(el('span','day__d',d.sub));
     b.type='button';b.setAttribute('aria-pressed',String(i===state.day));
     b.addEventListener('click',function(){
       state.day=i;board.dataset.expanded='false';
@@ -1364,7 +1382,8 @@ $('#cancelLink').addEventListener('click',function(e){
   /* מספר השיעורים בשבוע — נספר מהנתונים עצמם, לא מוקלד.
      נדחה לרגע פנוי כדי לא להתחרות בטעינת ההירו. */
   function countWeek(){
-    Promise.all(dates.map(function(d){return fetchDay(d)['catch'](function(){return null})}))
+    var week=dates.slice(0,7);   // "בשבוע" = שבעה ימים קדימה
+    Promise.all(week.map(function(d){return fetchDay(d)['catch'](function(){return null})}))
       .then(function(all){
         var box=$('#weekly');
         // רק אם כל ששת הימים חזרו. אם יום אחד נפל, הסכום היה נמוך מהאמת —
