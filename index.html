@@ -360,7 +360,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .mini{padding:22px;border:1px solid rgba(244,242,237,.14);border-radius:var(--r-md)}
 .mini b{display:block;font-weight:700;font-size:17px;line-height:1.25}
 .mini span{display:block;margin-top:8px;font-size:15px;line-height:1.55;color:var(--t60)}
-@media(max-width:900px){.bina{grid-template-columns:1fr}.bina__aside{order:-1}}
+@media(max-width:900px){.bina{grid-template-columns:1fr}}   /* הטקסט ראשון, התמונה אחריו */
 
 /* ═══ האימון הראשון (סקשן בהיר) ═══════════════════════════ */
 .light{background:var(--bone);color:var(--ink)}
@@ -724,7 +724,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </div>
     <div class="grid g-2">
       <article class="card card--lg objection objection--hot rv">
-        <p class="objection__quote">״אין לי מוטיבציה להתחיל״</p>
+        <p class="objection__quote">"אין לי מוטיבציה להתחיל"</p>
         <p class="objection__hook">אז אל תחכי לה.</p>
         <p>מוטיבציה מגיעה אחרי שלושה אימונים, לא לפניהם. התפקיד שלנו הוא שתגיעי לשלושה: שיעור קבוע בלוח, מאמנת שיודעת את השם שלך, וקבוצה ששמה לב כשאת לא מגיעה.</p>
         <div class="taglist">
@@ -735,7 +735,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         </div>
       </article>
       <article class="card card--lg objection rv">
-        <p class="objection__quote">״אני לא בכושר מספיק״</p>
+        <p class="objection__quote">"אני לא בכושר מספיק"</p>
         <p class="objection__hook">בדיוק בשבילך.</p>
         <p>אף אחת לא מגיעה לפה בכושר. המאמנת שואלת מה כואב ומה עשית עד היום, ומתאימה לך משקל ותרגיל. לכל תרגיל יש גרסה קלה יותר. וכולן עסוקות בעצמן, לא בך.</p>
         <div class="taglist">
@@ -760,7 +760,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <article class="room">
       <div class="room__media">
         <video preload="none" muted loop playsinline poster="images/shoot2025/room-gym-poster.jpg"
-               data-src="images/shoot2025/room-gym.mp4" aria-label="חלל הכוח בסטודיו STEPS" tabindex="-1"></video>
+               data-src="images/shoot2025/room-gym.mp4" data-src-sm="images/shoot2025/room-gym-sm.mp4" aria-label="חלל הכוח בסטודיו STEPS" tabindex="-1"></video>
       </div>
       <div class="room__txt">
         <p class="room__n">01 / החלל הראשון</p>
@@ -798,7 +798,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <article class="room">
       <div class="room__media">
         <video preload="none" muted loop playsinline poster="images/shoot2025/room-pilates-poster.jpg"
-               data-src="images/shoot2025/room-pilates.mp4" aria-label="חלל הרפורמר פילאטיס בסטודיו STEPS" tabindex="-1"></video>
+               data-src="images/shoot2025/room-pilates.mp4" data-src-sm="images/shoot2025/room-pilates-sm.mp4" aria-label="חלל הרפורמר פילאטיס בסטודיו STEPS" tabindex="-1"></video>
       </div>
       <div class="room__txt">
         <p class="room__n">03 / החלל השלישי</p>
@@ -852,7 +852,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       <li class="step"><span class="step__n" aria-hidden="true">02</span><div><b>מגיעה 10 דק׳ לפני</b><p>חנייה חינם בקניון. מקבלת סיור קצר בשלושת החללים.</p></div></li>
       <li class="step"><span class="step__n" aria-hidden="true">03</span><div><b>שיחה של 3 דקות</b><p>המאמנת שואלת על פציעות, מטרות ומה עשית עד היום.</p></div></li>
       <li class="step"><span class="step__n" aria-hidden="true">04</span><div><b>מתאמנת בקצב שלך</b><p>כל תרגיל עם חלופה קלה יותר. את לא תישארי מאחור.</p></div></li>
-      <li class="step"><span class="step__n" aria-hidden="true">05</span><div><b>מחליטות יחד</b><p>מה מתאים לך ובאיזו תדירות. גם ״אני חושבת על זה״ זו תשובה.</p></div></li>
+      <li class="step"><span class="step__n" aria-hidden="true">05</span><div><b>מחליטות יחד</b><p>מה מתאים לך ובאיזו תדירות. גם "אני חושבת על זה" זו תשובה.</p></div></li>
     </ol>
   </div>
 </section>
@@ -921,17 +921,17 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <div class="grid g-3" style="margin-bottom:clamp(30px,4vw,48px)">
       <blockquote class="card rv">
         <p class="stars" aria-label="חמישה כוכבים מתוך חמישה">★★★★★</p>
-        <p class="quote">״אתם הלב שלי. אין סטודיו כזה בעולם ויצא לי לנסות המון. היחס האישי, האכפתיות, הדחיפה להתקדם.״</p>
+        <p class="quote">"אתם הלב שלי. אין סטודיו כזה בעולם ויצא לי לנסות המון. היחס האישי, האכפתיות, הדחיפה להתקדם."</p>
         <footer class="who">לימור מ.<span>חברה ותיקה</span></footer>
       </blockquote>
       <blockquote class="card rv">
         <p class="stars" aria-label="חמישה כוכבים מתוך חמישה">★★★★★</p>
-        <p class="quote">״לאורך כל השיעור עברה אחת אחת, דייקה את התנועה. הפעלנו את כל השרירים ואנרגיה מקסימה.״</p>
+        <p class="quote">"לאורך כל השיעור עברה אחת אחת, דייקה את התנועה. הפעלנו את כל השרירים ואנרגיה מקסימה."</p>
         <footer class="who">חני ל.<span>מתאמנת MOVE</span></footer>
       </blockquote>
       <blockquote class="card rv">
         <p class="stars" aria-label="חמישה כוכבים מתוך חמישה">★★★★★</p>
-        <p class="quote">״אני איתכם כבר המון שנים. ירדן מקצועית, נותנת יחס אישי ושומרת על רמה סופר גבוהה.״</p>
+        <p class="quote">"אני איתכם כבר המון שנים. ירדן מקצועית, נותנת יחס אישי ושומרת על רמה סופר גבוהה."</p>
         <footer class="who">נעמה ג.<span>מתאמנת GYM ותיקה</span></footer>
       </blockquote>
     </div>
@@ -973,7 +973,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </div>
     <div class="faq">
       <details><summary>כמה עולה המנוי?</summary><p>אימון היכרות 50 ₪. אחר כך בוחרים מסלול לפי מספר הכניסות בחודש: 230, 400 או 460 ₪. רוצה גם רפורמר? 320, 475 או 530 ₪. הכל בלי התחייבות.</p></details>
-      <details><summary>מה ההבדל בין שלושת החללים?</summary><p>GYM זה הכוח — משקולות, מכשירים, BOOTCAMP. MOVE זה השיעורים הקבוצתיים — בר, יוגה, גמישות, SCULPT. REFORMER זה מיטות רפורמר בקבוצה קטנה, עד 11 מתאמנות.</p></details>
+      <details><summary>מה ההבדל בין שלושת החללים?</summary><p><bdi>GYM</bdi> זה הכוח — משקולות, מכשירים, <bdi>BOOTCAMP</bdi>. <bdi>MOVE</bdi> זה השיעורים הקבוצתיים — בר, יוגה, גמישות, <bdi>SCULPT</bdi>. <bdi>REFORMER</bdi> זה מיטות רפורמר בקבוצה קטנה, עד 11 מתאמנות.</p></details>
       <details><summary>אני צריכה ניסיון קודם?</summary><p>בכלל לא. גם אם מעולם לא נכנסת לסטודיו כושר. אימון ההיכרות בדיוק בשביל זה — להכיר את המקום, לדבר עם המאמנת, ולהחליט אחר כך.</p></details>
       <details><summary>יש חנייה?</summary><p>כן. אנחנו בקניון פולג, עם חנייה חינמית ונוחה ישירות בקניון. קל להגיע, קל לחנות.</p></details>
       <details id="faq-cancel"><summary>איך מבטלים שיעור?</summary><p>בוואטסאפ או דרך Arbox. ביטול עד 24 שעות לפני — קובעים מועד חלופי. פחות מזה, או אי-הגעה, אין זיכוי.</p></details>
@@ -1152,11 +1152,11 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <p><strong>פעולות הנגישות שבוצעו באתר:</strong><br>
       • לכל התמונות יש טקסט חלופי בעברית<br>
       • האתר מותאם לגלישה במובייל ובמחשב<br>
-      • קיים קישור ״דלגי לתוכן״ לניווט מהיר במקלדת<br>
+      • קיים קישור "דלגי לתוכן" לניווט מהיר במקלדת<br>
       • כל הפעולות זמינות בניווט מקלדת, עם סימון מיקוד ברור<br>
       • ניגודיות הצבעים עומדת בתקן WCAG AA<br>
       • מבנה כותרות סדור לניווט בטכנולוגיות מסייעות<br>
-      • תנועה באתר נעצרת אוטומטית למי שהגדירה ״צמצום תנועה״ במערכת ההפעלה</p>
+      • תנועה באתר נעצרת אוטומטית למי שהגדירה "צמצום תנועה" במערכת ההפעלה</p>
     <p><strong>יצירת קשר בנושא נגישות:</strong><br>
       נתקלת בבעיית נגישות? נשמח לסייע.<br>
       טלפון: <a href="tel:+972527927575" style="color:var(--yellow)">052-792-7575</a><br>
@@ -1241,7 +1241,8 @@ $('#cancelLink').addEventListener('click',function(e){
 /* ── וידאו: טוענים ומנגנים רק מה שעל המסך ── */
 (function(){
   var vids=[].slice.call(document.querySelectorAll('video[data-src]'));
-  if(!vids.length||reduce)return;                 // בצמצום תנועה נשארת התמונה הסטטית
+  if(!vids.length||reduce)return;
+  var small=matchMedia('(max-width:760px)');   // במובייל מגישים קובץ קל יותר                 // בצמצום תנועה נשארת התמונה הסטטית
   var live=[];
   function play(v){var p=v.play();if(p&&p['catch'])p['catch'](function(){})}
   var io=new IntersectionObserver(function(es){
@@ -1249,7 +1250,7 @@ $('#cancelLink').addEventListener('click',function(e){
       var v=e.target,i=live.indexOf(v);
       if(e.isIntersecting){
         if(i===-1)live.push(v);
-        if(!v.src){v.src=v.dataset.src;v.load()}
+        if(!v.src){v.src=(small.matches&&v.dataset.srcSm)?v.dataset.srcSm:v.dataset.src;v.load()}
         play(v);
       }else{
         if(i>-1)live.splice(i,1);
