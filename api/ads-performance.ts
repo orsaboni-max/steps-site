@@ -215,7 +215,8 @@ export default async function handler(req: any, res: any) {
   const apiKey = process.env.ARBOX_API_KEY;
   const token = process.env.DASHBOARD_TOKEN;
   if (!apiKey) return res.status(500).json({ error: "No Arbox key" });
-  if (token && req.query.key !== token) {
+  // fail closed: a missing DASHBOARD_TOKEN must lock the endpoint, not open it.
+  if (!token || req.query.key !== token) {
     return res.status(401).json({ error: "Unauthorized" });
   }
 

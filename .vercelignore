@@ -12,3 +12,8 @@ marketing/
 _preview/
 _review.html
 .impeccable/
+
+# כלים פנימיים — לא לפרסם בדומיין של הלקוחות
+ads.html
+ads-board.html
+api/ads-performance.ts
