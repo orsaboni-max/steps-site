@@ -1,17 +1,16 @@
 # CLAUDE.md — STEPS Fitness Website
 
-> Last updated: 2026-08-01
+> Last updated: 2026-08-02
 
-## 🚨 אזהרה: התיקייה הראשית מיושנת — אל תעלה ממנה
-נכון ל-1/8/26, `C:\Users\USER\steps-site\index.html` הוא **גרסה ישנה** של הדף
-(וגם לא-מקומיטת). האתר החי נבנה מהענף `claude/build-designed-website-e50334`.
-זו כבר הפעם השנייה שהאתר החי מגיע מענף צדדי ולא מ-main.
+## ✅ main היא המקור — מעלים מ-`C:\Users\USER\steps-site`
+נסגר ב-2/8/26: הענף `claude/build-designed-website-e50334` מוזג ל-main,
+והתיקייה הראשית מכילה את הדף החי. אין בה שינויים לא-מקומיטים.
 
 **לפני כל deploy:** לוודא שהתיקייה שממנה מעלים מכילה את הדף החי
 (`grep -c FFD400 index.html` צריך להחזיר 1). אם 0 — אתה בתיקייה הלא נכונה.
 
-**פתוח:** למזג את הענף ל-main ולנקות את השינויים הלא-מקומיטים בתיקייה
-הראשית. **לא נעשה — דורש אישור אור, כי יש שם עבודה לא שמורה.**
+עבודה ישנה שהייתה לא-שמורה בתיקייה הראשית שמורה בענף
+`backup/main-local-2026-08-01` — לא למחוק אותו.
 
 ## חוק יסוד - חובת קריאה
 
@@ -64,7 +63,7 @@ C:\Users\USER\steps-site\
 
 ### Mandatory Pre-Commit Checks
 - [ ] Logo visible in navbar
-- [ ] Team section present (grep "אפס פשרות" = 1)
+- [ ] Team section present (grep `id="team"` = 1)
 - [ ] Real testimonials (grep "אתם הלב שלי")
 - [ ] Mobile menu works (grep "burger")
 - [ ] SEO tags present (grep "og:title")
