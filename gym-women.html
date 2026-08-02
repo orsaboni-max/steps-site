@@ -19,211 +19,435 @@
 <meta name="twitter:title" content="חדר כושר לנשים בנתניה | סטודיו סטפס פולג">
 <meta name="twitter:description" content="אימוני כוח בקבוצות קטנות, עם מדריכות שמתאמנות בעצמן. אימון היכרות ב-50 ₪">
 <meta name="twitter:image" content="https://stepsnetanya.co.il/images/shoot2025/gym-main.jpg">
-<meta name="theme-color" content="#F5C518">
+<meta name="theme-color" content="#0B0B0B">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
 <!-- הגופן מתארח אצלנו. דרך Google Fonts כתובת ה-IP של הגולשת נשלחה לגוגל
      עוד לפני שנשאלה על עוגיות, וגיליון החוץ גם חסם את הציור הראשון. -->
 <link rel="preload" href="fonts/heebo-hebrew.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/assistant-hebrew.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face{font-family:'Heebo';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/heebo-hebrew.woff2) format('woff2');unicode-range:U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F}
 @font-face{font-family:'Heebo';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/heebo-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Assistant';font-style:normal;font-weight:200 800;font-display:swap;src:url(fonts/assistant-hebrew.woff2) format('woff2');unicode-range:U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F}
+@font-face{font-family:'Assistant';font-style:normal;font-weight:200 800;font-display:swap;src:url(fonts/assistant-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 </style>
 <style>
-:root{--accent:#F5C518;--accent2:#2EC4B6;--dark:#111;--white:#FAFAFA}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html,body{overflow-x:hidden;max-width:100vw}
-body{font-family:'Heebo',sans-serif;background:var(--dark);color:var(--white);-webkit-font-smoothing:antialiased}
-img{max-width:100%;height:auto}
+/* ═══════════════════════════════════════════════════════════════════
+   STEPS — דפי הנחיתה (פילאטיס · חדר כושר · בר)
+   אותה מערכת ויזואלית של דף הבית: שחור (ink) · עצם (bone) · צהוב אחד.
+   Display: Heebo 900, דחוס · גוף: Assistant 300, נושם.
+   אין יותר טורקיז/סגול/צהוב-ישן — הצהוב הוא המבטא היחיד.
 
-/* NAV */
-.nav{position:fixed;top:0;right:0;left:0;z-index:1000;padding:14px 5%;display:flex;align-items:center;justify-content:space-between;transition:all .4s}
-.nav.solid{background:rgba(17,17,17,0.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.05)}
-.logo a{text-decoration:none}
-.logo img{height:36px;width:auto}
-.n-links{display:flex;gap:24px;list-style:none;align-items:center}
-.n-links a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:14px;font-weight:500;transition:color .3s}
-.n-links a:hover{color:#fff}
-.n-cta{background:var(--accent)!important;color:#111!important;padding:9px 22px;border-radius:50px;font-weight:700;font-size:13px;transition:all .3s}
-.n-cta:hover{filter:brightness(1.15);transform:translateY(-1px)}
-.mob{display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;z-index:1001}
+   שמות המחלקות נשארו בדיוק כפי שהיו. הוחלפה השפה הוויזואלית בלבד,
+   כדי שהטקסט המשפטי, ה-schema והנגישות לא יזוזו ממקומם.
+   ═══════════════════════════════════════════════════════════════════ */
+:root{
+  --ink:#0B0B0B;
+  --ink-2:#101010;
+  --bone:#F4F2ED;
+  --yellow:#FFD400;
+  --wa:#25D366;
+  --wa-ink:#062B14;
 
-@media(max-width:768px){
-.n-links{display:none;position:fixed;top:0;right:0;width:75%;max-width:320px;height:100vh;background:rgba(17,17,17,0.98);backdrop-filter:blur(20px);flex-direction:column;padding:80px 32px 40px;gap:0;z-index:999;transform:translateX(100%);transition:transform .35s ease}
-.n-links.open{display:flex;transform:translateX(0)}
-.n-links a{font-size:18px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.06);color:rgba(255,255,255,0.8);width:100%;display:block}
-.n-links a:last-child{border-bottom:none;margin-top:12px;text-align:center}
-.mob{display:block}
-.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:998}
-.mob-overlay.open{display:block}
+  --line:rgba(244,242,237,.12);
+  --line-card:rgba(244,242,237,.16);
+  --line-strong:rgba(244,242,237,.28);
+  --fill:rgba(244,242,237,.03);
+  --fill-2:rgba(244,242,237,.08);
+  --yellow-tint:rgba(255,212,0,.07);
+  --yellow-tint-2:rgba(255,212,0,.16);
+
+  --t85:rgba(244,242,237,.85);
+  --t75:rgba(244,242,237,.75);
+  --t60:rgba(244,242,237,.6);
+  --t45:rgba(244,242,237,.55);
+
+  --display:'Heebo',system-ui,sans-serif;
+  --body:'Assistant',system-ui,sans-serif;
+
+  --gutter:clamp(20px,4.2vw,56px);
+  --pad-y:clamp(44px,7.2vw,104px);
+  --max:1360px;
+  --r-pill:100px;
+  --r-lg:20px;
+  --r-md:16px;
+  --ease:cubic-bezier(.2,.7,.3,1);
+
+  /* השם הישן נשאר ממופה לצהוב החדש — עוד יש style="color:var(--accent)"
+     בגוף הדפים, וכך הם עוברים לצבע הנכון בלי לגעת בטקסט. */
+  --accent:#FFD400;
 }
 
-/* HERO */
-.hero{min-height:100svh;position:relative;display:flex;overflow:hidden}
-.hero-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%;z-index:0}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.62) 0%,rgba(0,0,0,0.08) 40%,rgba(0,0,0,0.08) 60%,rgba(0,0,0,0.8) 100%);z-index:1}
-.hero-inner{position:relative;z-index:2;padding:100px 7% 60px;width:100%;min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;align-items:center;text-align:center;text-shadow:0 2px 8px rgba(0,0,0,0.5)}
-.hero-tag{display:inline-block;border:1px solid rgba(245,197,24,0.5);padding:5px 18px;border-radius:50px;font-size:12px;font-weight:600;color:var(--accent);margin-bottom:20px;letter-spacing:2px;animation:fadeIn 1s;text-transform:uppercase;background:rgba(245,197,24,0.08)}
-.hero h1{font-size:clamp(38px,6.5vw,68px);font-weight:900;line-height:1.05;margin-bottom:16px;color:#fff;animation:slideUp .8s .1s both}
-.hero h1 em{font-style:normal;color:var(--accent);display:block}
-.hero-sub{font-size:clamp(15px,2vw,20px);font-weight:300;color:rgba(255,255,255,0.75);line-height:1.8;margin-bottom:36px;max-width:520px;margin-left:auto;margin-right:auto;animation:slideUp .8s .3s both}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;animation:slideUp .8s .5s both}
-.btn-a{background:var(--accent);color:#111;border:none;padding:14px 34px;border-radius:50px;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
-.btn-a:hover{filter:brightness(1.1);transform:translateY(-2px) scale(1.04);box-shadow:0 8px 30px rgba(245,197,24,0.45)}
-.btn-b{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.3);padding:14px 34px;border-radius:50px;font-size:16px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .4s;text-decoration:none;backdrop-filter:blur(8px)}
-.btn-b:hover{background:rgba(255,255,255,0.16);transform:translateY(-2px)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px;-webkit-text-size-adjust:100%}
+html,body{overflow-x:clip;max-width:100vw}
+body{
+  background:var(--ink);color:var(--bone);
+  font-family:var(--body);font-weight:300;font-size:17px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+img,video{display:block;max-width:100%}
+img{height:auto}
+::selection{background:var(--yellow);color:var(--ink)}
+:focus-visible{outline:2px solid var(--yellow);outline-offset:3px;border-radius:4px}
 
-/* SECTIONS */
-.sec{padding:90px 5%;overflow-x:hidden}
-.sec-alt{background:#0d0d0d}
-.sec-h{text-align:center;margin-bottom:50px}
-.sec-tag{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
-.sec-title{font-size:clamp(28px,4vw,42px);font-weight:900;line-height:1.15}
-.sec-sub{font-size:16px;color:rgba(255,255,255,0.72);margin-top:8px}   /* היה .5 — 3.4:1 */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+}
+
+h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-height:1.05}
+
+/* ── דילוג לתוכן ────────────────────────────────────────────── */
+.skip{position:absolute;top:-200px;right:0;z-index:100000;background:var(--yellow);color:var(--ink);padding:10px 18px;font-weight:700;text-decoration:none;transition:top .25s}
+.skip:focus{top:0}
+
+/* ═══ ניווט ═══════════════════════════════════════════════════ */
+.nav{
+  position:fixed;top:0;right:0;left:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;gap:clamp(16px,3vw,40px);
+  padding:clamp(12px,1.2vw,16px) var(--gutter);
+  border-bottom:1px solid transparent;
+  transition:background .3s var(--ease),border-color .3s var(--ease);
+}
+.nav.solid{background:rgba(11,11,11,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom-color:var(--line)}
+.logo a{text-decoration:none}
+.logo img{height:clamp(24px,2.2vw,30px);width:auto}
+.n-links{display:flex;gap:clamp(18px,2.2vw,30px);list-style:none;align-items:center;font-weight:500;font-size:15px}
+.n-links a{color:rgba(244,242,237,.78);text-decoration:none;transition:color .18s var(--ease)}
+.n-links a:hover{color:var(--bone)}
+.n-cta{
+  background:var(--yellow)!important;color:var(--ink)!important;
+  display:inline-flex;align-items:center;min-height:44px;padding:0 20px;
+  border-radius:var(--r-pill);font-weight:800;font-size:14px;
+  transition:filter .18s var(--ease);
+}
+.n-cta:hover{filter:brightness(.94)}
+.mob{display:none;width:44px;height:44px;border:1px solid rgba(244,242,237,.24);border-radius:11px;background:none;color:var(--bone);font-size:20px;line-height:1;cursor:pointer;z-index:1001;align-items:center;justify-content:center}
+
+@media(max-width:960px){
+  .n-links{
+    display:none;position:fixed;top:0;right:0;width:78%;max-width:340px;height:100dvh;
+    background:rgba(11,11,11,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    flex-direction:column;align-items:stretch;padding:88px 26px 40px;gap:0;z-index:999;
+    transform:translateX(100%);transition:transform .35s var(--ease);
+  }
+  .n-links.open{display:flex;transform:none}
+  .n-links li{width:100%}
+  .n-links a{
+    display:block;width:100%;
+    font-family:var(--display);font-weight:900;font-size:26px;letter-spacing:-.03em;
+    padding:15px 0;border-bottom:1px solid var(--line);color:var(--bone);
+  }
+  /* פריט אחרון = כפתור ההזמנה. הכלל הישן היה a:last-child, שתפס כל קישור
+     (כל <a> הוא ילד יחיד ב-<li> שלו) ולכן מירכז את כל התפריט. */
+  .n-links li:last-child a{border-bottom:0;margin-top:16px;text-align:center;font-family:var(--body);font-size:16px}
+  .mob{display:flex}
+  .mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:998}
+  .mob-overlay.open{display:block}
+}
+
+/* ═══ הירו ════════════════════════════════════════════════════ */
+.hero{position:relative;min-height:min(760px,90svh);display:flex;overflow:hidden;background:#000}
+.hero-bg-img,.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%;z-index:0}
+.hero-video{opacity:0;transition:opacity 1s ease}
+.hero-bg-poster{display:none}
+@media(prefers-reduced-motion:reduce){
+  .hero-bg-video{display:none}
+  .hero-bg-poster{display:block}
+}
+/* שתי שכבות כמו בדף הבית: אלכסון שמכהה את צד הטקסט, ומעטפת תחתונה
+   שמחברת את התמונה לרקע השחור של המקטע הבא. */
+.hero-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(to top,rgba(11,11,11,.95),rgba(11,11,11,0) 46%),
+    linear-gradient(255deg,rgba(11,11,11,.06),rgba(11,11,11,.55) 55%,rgba(11,11,11,.9));
+}
+.hero-inner{
+  position:relative;z-index:2;width:100%;
+  display:flex;flex-direction:column;justify-content:flex-end;align-items:center;text-align:center;
+  padding:clamp(110px,13vw,150px) var(--gutter) clamp(34px,4.6vw,56px);
+  text-shadow:0 2px 12px rgba(0,0,0,.5);
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:12px;
+  margin-bottom:clamp(14px,1.8vw,24px);
+  background:none;border:0;padding:0;
+  font-weight:700;font-size:clamp(11.5px,.95vw,13px);letter-spacing:.16em;
+  text-transform:uppercase;color:var(--t85);
+  animation:fadeIn 1s;
+}
+.hero-tag::before{content:"";flex:none;width:clamp(20px,2vw,28px);height:2px;background:var(--yellow)}
+.hero h1{
+  font-size:clamp(40px,7vw,88px);line-height:.95;letter-spacing:-.04em;
+  margin-bottom:clamp(14px,1.8vw,22px);color:var(--bone);text-wrap:balance;
+  animation:slideUp .8s .1s both;
+}
+.hero h1 em{font-style:normal;color:var(--yellow);display:block}
+.hero-sub{
+  font-size:clamp(16px,1.6vw,21px);font-weight:300;line-height:1.6;color:var(--t85);
+  max-width:54ch;margin:0 auto clamp(24px,3vw,36px);
+  animation:slideUp .8s .3s both;
+}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;animation:slideUp .8s .5s both}
+
+/* אנימציית האותיות בכותרת (barre) */
+.hero h1 .char{display:inline-block;opacity:0;animation:charIn .45s cubic-bezier(.215,.61,.355,1) forwards;animation-delay:var(--d)}
+.hero h1 .char-space{width:.3em}
+
+/* ═══ כפתורים ═════════════════════════════════════════════════ */
+.btn-a,.btn-b{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:52px;padding:0 clamp(24px,2.4vw,34px);
+  border:0;border-radius:var(--r-pill);
+  font-family:inherit;font-weight:800;font-size:clamp(15px,1.15vw,17px);line-height:1;
+  text-decoration:none;cursor:pointer;
+  transition:filter .18s var(--ease),background .18s var(--ease),border-color .18s var(--ease);
+}
+.btn-a{background:var(--yellow);color:var(--ink)}
+.btn-a:hover{filter:brightness(.94)}
+.btn-b{background:none;border:1px solid var(--line-strong);color:var(--bone);font-weight:600}
+.btn-b:hover{border-color:rgba(244,242,237,.5)}
+
+/* ═══ מקטעים ══════════════════════════════════════════════════ */
+.sec{padding:var(--pad-y) var(--gutter);overflow-x:clip;background:var(--ink)}
+.sec-alt{background:var(--ink-2)}
+.sec-h{text-align:center;max-width:900px;margin:0 auto clamp(28px,3.6vw,52px)}
+.sec-tag{font-family:var(--body);font-weight:800;font-size:clamp(12px,.9vw,13px);letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);margin-bottom:12px}
+.sec-title{font-size:clamp(34px,4.6vw,58px);line-height:1;letter-spacing:-.035em;color:var(--bone)}
+.sec-sub{font-size:clamp(15.5px,1.2vw,17px);line-height:1.6;color:var(--t60);margin-top:14px}
 
 .sec-content{max-width:760px;margin:0 auto}
-.sec-content p{font-size:16px;color:rgba(255,255,255,0.68);line-height:1.9;margin-bottom:20px}
-.sec-content p.lead{font-size:19px;color:rgba(255,255,255,0.9);font-weight:500}
-.sec-content p.punch{font-size:22px;color:var(--accent);font-weight:900;margin-bottom:12px}
+.sec-content p{font-size:clamp(16px,1.3vw,18px);line-height:1.75;color:var(--t75);margin-bottom:20px}
+.sec-content p.lead{font-size:clamp(18px,1.6vw,22px);line-height:1.6;font-weight:400;color:var(--bone)}
+.sec-content p.punch,.sec-content p.highlight{
+  font-family:var(--display);font-weight:900;letter-spacing:-.03em;
+  font-size:clamp(22px,2.4vw,30px);line-height:1.15;color:var(--yellow);margin-bottom:14px;
+}
+.sec-content .sec-img,.sec-content .sec-video{width:100%;border-radius:var(--r-md);margin:26px 0}
+.sec-content .sec-video{background:#000}
+.sec-content strong{color:var(--bone);font-weight:700}
 
-/* STATS */
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06);border-radius:14px;overflow:hidden;max-width:760px;margin:40px auto 0;border:1px solid rgba(255,255,255,0.06)}
-.stat{background:rgba(255,255,255,0.03);padding:28px 20px;text-align:center}
-.stat-n{font-size:clamp(30px,4.5vw,44px);font-weight:900;color:var(--accent);line-height:1}
-.stat-l{font-size:13px;color:rgba(255,255,255,0.5);margin-top:6px}
+/* קו מפריד בין מקטעים */
+.sec-divider{text-align:center;padding:0;margin:0}
+.sec-divider span{display:inline-block;width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--yellow),transparent)}
+
+/* ═══ מספרים ══════════════════════════════════════════════════ */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line-card);border-radius:var(--r-md);overflow:hidden;max-width:760px;margin:clamp(32px,4vw,48px) auto 0}
+.stat{background:var(--fill);padding:clamp(22px,2.6vw,32px) 20px;text-align:center}
+.stat-n{font-family:var(--display);font-weight:900;font-size:clamp(38px,5vw,58px);line-height:1;letter-spacing:-.04em;color:var(--yellow)}
+.stat-l{margin-top:8px;font-size:14px;line-height:1.4;color:var(--t60)}
 @media(max-width:600px){.stats{grid-template-columns:1fr}}
 
-/* 2-COL */
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;max-width:1000px;margin:0 auto}
+/* ═══ שתי עמודות ══════════════════════════════════════════════ */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);align-items:center;max-width:1100px;margin:0 auto}
 .two-col.flip{direction:ltr}
 .two-col.flip>*{direction:rtl}
-.two-col img{width:100%;height:360px;object-fit:cover;border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,0.3)}
-.two-col-text h2{font-size:clamp(24px,3.5vw,36px);font-weight:900;margin-bottom:20px;line-height:1.2;color:#fff}
-.two-col-text p{font-size:15px;color:rgba(255,255,255,0.62);line-height:1.9;margin-bottom:14px}
-.two-col-text p.punch{font-size:20px;color:var(--accent);font-weight:900;margin-bottom:10px}
-.two-col-text strong{color:#fff}
+.two-col img{width:100%;height:clamp(280px,34vw,420px);object-fit:cover;border-radius:var(--r-lg);border:1px solid var(--line-card)}
+.two-col-text .sec-tag{margin-bottom:10px}
+.two-col-text h2{font-size:clamp(28px,3.4vw,42px);line-height:1.05;margin-bottom:20px;color:var(--bone)}
+.two-col-text p{font-size:clamp(15.5px,1.25vw,17px);line-height:1.75;color:var(--t75);margin-bottom:14px}
+.two-col-text p.punch{font-family:var(--display);font-weight:900;letter-spacing:-.03em;font-size:clamp(20px,2.2vw,28px);line-height:1.15;color:var(--yellow);margin-bottom:12px}
+.two-col-text strong{color:var(--bone);font-weight:700}
 @media(max-width:768px){.two-col{grid-template-columns:1fr}.two-col.flip{direction:rtl}}
 
-/* USP CARDS */
-.usp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:900px;margin:0 auto}
-.usp-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:28px 20px;text-align:center;transition:all .3s}
-.usp-card:hover{border-color:rgba(245,197,24,0.25);transform:translateY(-4px)}
-.usp-ic{width:48px;height:48px;border-radius:50%;background:rgba(245,197,24,0.08);border:1px solid rgba(245,197,24,0.15);display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 14px}
-.usp-t{font-weight:700;font-size:15px;margin-bottom:8px;color:#fff}
-.usp-d{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7}
+/* ═══ כרטיסי יתרון ════════════════════════════════════════════ */
+.usp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.5vw,20px);max-width:960px;margin:0 auto}
+.usp-card{border:1px solid var(--line-card);border-radius:var(--r-md);padding:clamp(22px,2.4vw,30px);text-align:center;transition:border-color .18s var(--ease)}
+.usp-card:hover{border-color:rgba(255,212,0,.35)}
+.usp-ic{width:48px;height:48px;border-radius:50%;background:var(--yellow-tint-2);border:1px solid rgba(255,212,0,.35);display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 16px}
+.usp-t{font-weight:700;font-size:17px;line-height:1.25;margin-bottom:8px;color:var(--bone)}
+.usp-d{font-size:14.5px;line-height:1.6;color:var(--t60)}
 @media(max-width:700px){.usp-grid{grid-template-columns:1fr}}
 
-/* DIVIDER */
-.sec-divider{text-align:center;padding:0;margin:0}
-.sec-divider span{display:inline-block;width:80px;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);border-radius:1px}
+/* ═══ מערכת שעות ══════════════════════════════════════════════
+   קודם היה מקטע בהיר יחיד בדף כהה — ומשם הגיעו כשלי הניגודיות
+   (צהוב על לבן, טקסט של רקע כהה). עכשיו הוא כהה כמו שאר הדף. */
+.sched-sec,.barre-sched{padding:var(--pad-y) var(--gutter);background:var(--ink-2);overflow-x:clip}
+.sched-sec .sec-tag,.barre-sched .sec-tag{color:var(--yellow)}
+.sched-sec .sec-title,.barre-sched .sec-title{color:var(--bone)}
+.sched-sec .sec-sub,.barre-sched .sec-sub{color:var(--t60)}
+.sched{max-width:900px;margin:0 auto;background:var(--fill);border:1px solid rgba(244,242,237,.18);border-radius:var(--r-lg);overflow:hidden}
+.sched-top{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 20px;background:rgba(244,242,237,.04);border-bottom:1px solid var(--line)}
+.sched-top h3{font-family:var(--body);font-weight:700;font-size:16px;letter-spacing:0}
+.dtabs{display:flex;gap:6px;flex-wrap:wrap}
+.dt{
+  min-height:40px;padding:0 15px;border-radius:var(--r-pill);
+  border:1px solid var(--line-strong);background:none;color:var(--t75);
+  font-family:inherit;font-weight:600;font-size:14px;line-height:1;cursor:pointer;
+  transition:border-color .18s var(--ease),background .18s var(--ease),color .18s var(--ease);
+}
+.dt:hover{border-color:rgba(244,242,237,.5);color:var(--bone)}
+.dt.active{background:var(--yellow);border-color:var(--yellow);color:var(--ink);font-weight:800}
+.slist{padding:0}
+.si{display:flex;align-items:center;gap:16px;padding:17px 20px;border-bottom:1px solid rgba(244,242,237,.09);transition:background .2s}
+.si:last-child{border-bottom:0}
+.si:hover{background:var(--fill)}
+.s-time{font-family:var(--display);font-weight:900;font-size:19px;line-height:1;min-width:56px;font-variant-numeric:tabular-nums}
+.s-cls{flex:1}
+.s-n{font-weight:700;font-size:16px;line-height:1.2}
+.s-t{margin-top:4px;font-size:13px;line-height:1.3;color:var(--t60)}
+.s-bdg{padding:5px 11px;border-radius:var(--r-pill);font-size:11px;font-weight:700;letter-spacing:.08em;white-space:nowrap;background:var(--fill-2);color:var(--t75)}
+/* הצהוב שמור לחלל של הדף הזה. השאר — ניטרלי. */
+.bp{background:var(--yellow-tint-2);color:var(--yellow)}
+.bg,.bm{background:var(--fill-2);color:var(--t75)}
+.sfn{text-align:center;padding:16px;font-size:13px;line-height:1.5;color:var(--t45);border-top:1px solid var(--line)}
+.sfn a{color:var(--yellow)}
 
-/* SCHEDULE */
-.sched-sec{padding:90px 5%;background:#fafaf8;overflow-x:hidden}
-/* מקטע השעות הוא היחיד על רקע בהיר — הצבעים כאן היו של רקע כהה. */
-.sched-sec .sec-tag{color:#7A6200}
-.sched-sec .sec-title{color:#222}
-.sched-sec .sec-sub{color:#5a5a5a}
-.sched{max-width:860px;margin:0 auto;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.06)}
-.sched-top{background:var(--dark);padding:16px 22px;display:flex;align-items:center;justify-content:space-between;color:#fff}
-.sched-top h3{font-size:17px;font-weight:700}
-.dtabs{display:flex;gap:3px}
-.dt{padding:6px 14px;border-radius:50px;font-size:12px;font-weight:600;background:rgba(255,255,255,0.08);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all .3s}
-.dt.active{background:var(--accent);color:#111}
-.slist{padding:6px}
-.si{display:flex;align-items:center;padding:13px 16px;gap:12px;border-bottom:1px solid rgba(0,0,0,0.03);transition:background .2s;border-radius:8px}
-.si:hover{background:rgba(245,197,24,0.04)}
-.s-time{font-size:16px;font-weight:700;color:#222;min-width:50px}
-.s-cls{flex:1}.s-n{font-size:14px;font-weight:700;color:#222}.s-t{font-size:11px;color:#5f5f5f}
-.sfn{text-align:center;padding:10px;font-size:11px;color:#5f5f5f;border-top:1px solid rgba(0,0,0,0.03)}
+/* ═══ המלצות ══════════════════════════════════════════════════ */
+.test-sec{position:relative;padding:var(--pad-y) var(--gutter);overflow:hidden;background:var(--ink)}
+.test-bg{position:absolute;inset:0;background:url('images/testimonials-bg.jpg') center/cover no-repeat}
+.test-ov{position:absolute;inset:0;background:rgba(11,11,11,.9)}
+.test-content{position:relative;z-index:2}
+.test-content .sec-title{color:var(--bone)}
+.tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(12px,1.5vw,20px);max-width:1100px;margin:0 auto}
+.tc{border:1px solid var(--line-card);border-radius:var(--r-md);padding:clamp(22px,2.4vw,30px);transition:border-color .18s var(--ease)}
+.tc:hover{border-color:rgba(255,212,0,.35)}
+.stars{color:var(--yellow);font-size:15px;letter-spacing:.1em;margin-bottom:12px}
+.tc-txt{font-size:15px;line-height:1.65;color:rgba(244,242,237,.85);margin-bottom:18px}
+.tc-auth{display:flex;align-items:center;gap:12px}
+.tc-av{width:40px;height:40px;border-radius:50%;background:var(--yellow-tint-2);border:1px solid rgba(255,212,0,.35);color:var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:900;font-size:16px;flex-shrink:0}
+.tc-name{font-weight:700;font-size:15px}
+.tc-info{margin-top:4px;font-size:13px;color:var(--t60)}
 
-/* TESTIMONIALS */
-.test-sec{position:relative;padding:90px 5%;overflow:hidden;background:#0a0a0a}
-.tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;max-width:1100px;margin:0 auto}
-.tc{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:24px;transition:all .3s;position:relative}
-.tc:hover{background:rgba(255,255,255,0.08);transform:translateY(-2px)}
-.stars{color:#FFB800;font-size:13px;letter-spacing:2px;margin-bottom:10px}
-.tc-txt{font-size:13px;line-height:1.8;color:rgba(255,255,255,0.6);margin-bottom:16px}
-.tc-auth{display:flex;align-items:center;gap:10px}
-.tc-av{width:36px;height:36px;border-radius:50%;background:rgba(245,197,24,0.15);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:var(--accent);flex-shrink:0}
-.tc-name{font-weight:700;font-size:13px;color:#fff}.tc-info{font-size:11px;color:rgba(255,255,255,0.65)}
+/* ═══ שאלות נפוצות ════════════════════════════════════════════ */
+.faq-list{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq-item{border:1px solid rgba(244,242,237,.14);border-radius:var(--r-md);padding:22px 26px;transition:border-color .18s var(--ease)}
+.faq-item:hover{border-color:rgba(255,212,0,.35)}
+.faq-q{font-weight:700;font-size:clamp(16.5px,1.5vw,19px);line-height:1.3;color:var(--bone);margin-bottom:10px;display:flex;align-items:flex-start;gap:12px}
+.faq-q::before{content:'?';display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--yellow-tint-2);color:var(--yellow);font-family:var(--display);font-weight:900;font-size:14px;flex-shrink:0;margin-top:1px}
+.faq-a{font-size:clamp(15px,1.25vw,16.5px);line-height:1.7;color:rgba(244,242,237,.72);padding-inline-start:40px}
+@media(max-width:600px){.faq-item{padding:18px 20px}.faq-a{padding-inline-start:0}}
 
-/* FAQ */
-.faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
-.faq-item{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:22px 24px;transition:all .3s}
-.faq-item:hover{border-color:rgba(245,197,24,0.25);background:rgba(255,255,255,0.06)}
-.faq-q{font-size:16px;font-weight:700;color:#fff;margin-bottom:10px;display:flex;align-items:flex-start;gap:10px}
-.faq-q::before{content:'?';display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:rgba(245,197,24,0.12);color:var(--accent);font-weight:900;font-size:14px;flex-shrink:0;margin-top:1px}
-.faq-a{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.8;padding-right:38px}
-
-/* CTA BOTTOM */
-.book-sec{background:var(--dark);padding:80px 5%;text-align:center}
-.book-sec h2{font-size:clamp(24px,4vw,38px);font-weight:900;color:#fff;margin-bottom:8px}
-.book-sec p.sub{font-size:16px;color:rgba(255,255,255,0.55);margin-bottom:28px;line-height:1.6}
-/* היה פאנל לבן — המסגרת של ה-iframe הישן של Arbox. אחרי שהוחלף בכפתור,
-   הטקסט הלבן שנשאר בתוכו ירד ל-1:1 ופשוט נעלם. פאנל כהה כמו בשאר הדפים. */
-.book-frame{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;max-width:700px;margin:0 auto;padding:24px 16px}
-
-/* GALLERY */
-.gal{padding:90px 5%;overflow-x:hidden}
-.gg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:1100px;margin:0 auto}
-.gi{border-radius:10px;overflow:hidden;position:relative;cursor:pointer;height:220px}
-.gi img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
-.gi:hover img{transform:scale(1.05)}
-.gi-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.65),transparent);display:flex;align-items:flex-end;padding:12px;opacity:0;transition:opacity .3s}
-.gi:hover .gi-ov{opacity:1}
-.gi-l{color:#fff;font-size:12px;font-weight:600}
-@media(max-width:768px){.gg{grid-template-columns:1fr 1fr}.gi{height:170px}}
-
-/* FOOTER */
-.foot{background:#080808;padding:48px 5% 20px;overflow-x:hidden}
-.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;max-width:1100px;margin:0 auto;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,0.05)}
-/* צבעי הפוטר היו #666 ו-rgba(255,255,255,.15) על רקע כמעט שחור — 3.5:1 ו-1.5:1.
-   הועלו כדי לעמוד ב-WCAG AA (4.5:1), כמו שנעשה בדף הבית. */
-.fd{font-size:12px;color:#8b8b8b;line-height:1.7;margin-top:10px}
-.foot .logo img{height:38px}
-.ft{font-size:13px;font-weight:700;margin-bottom:14px;color:var(--accent)}
-.fl{list-style:none;display:flex;flex-direction:column;gap:8px}
-.fl a{color:#8b8b8b;text-decoration:none;font-size:12px;transition:color .3s}.fl a:hover{color:var(--accent)}
-.fc{display:flex;align-items:center;gap:6px;color:#8b8b8b;font-size:12px;margin-bottom:8px}
-.fb{max-width:1100px;margin:0 auto;padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.fcopy{font-size:11px;color:rgba(255,255,255,0.6)}
-.flegal{display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:11px}
-.flegal a,.flegal button{color:var(--accent);text-decoration:underline;font-size:11px;font-family:inherit;background:none;border:none;padding:4px 0;cursor:pointer}
-.fsoc{display:flex;gap:8px}
-.fsi{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:13px;color:#8b8b8b;text-decoration:none;transition:all .3s}
-.fsi:hover{background:var(--accent);border-color:var(--accent);color:#fff}
-@media(max-width:768px){.fg{grid-template-columns:1fr 1fr}}
-@media(max-width:480px){.fg{grid-template-columns:1fr}}
-
-/* WA FLOAT */
-.waf{position:fixed;bottom:18px;left:18px;z-index:999;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,0.4);transition:transform .3s;animation:bounceIn 1s 1.5s both}
-.waf:hover{transform:scale(1.08)}
-
-/* ANIMATIONS */
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-@keyframes bounceIn{0%{opacity:0;transform:scale(.3)}50%{transform:scale(1.1)}70%{transform:scale(.95)}100%{opacity:1;transform:scale(1)}}
-[data-aos="fade-left"],[data-aos="fade-right"]{overflow-x:hidden}
-
-/* Arbox booking — iframe on desktop, button on mobile */
+/* ═══ הזמנה / CTA ═════════════════════════════════════════════ */
+.book-sec,.cta-bottom{background:var(--ink-2);padding:var(--pad-y) var(--gutter);text-align:center}
+.book-sec h2,.cta-bottom h2{font-size:clamp(34px,4.6vw,54px);line-height:1;letter-spacing:-.04em;margin-bottom:14px;color:var(--bone)}
+.book-sec p.sub,.cta-bottom p{font-size:clamp(16px,1.4vw,19px);line-height:1.6;color:var(--t75);margin-bottom:28px}
+.book-frame,.trial-wrap{background:var(--fill);border:1px solid var(--line-card);border-radius:var(--r-lg);max-width:720px;margin:0 auto;padding:clamp(24px,3vw,40px) 20px;overflow:hidden}
 .arbox-mobile{display:none;flex-direction:column;align-items:center;padding:20px 0}
 @media(max-width:768px){
   .arbox-desktop{display:none}
   .arbox-mobile{display:flex}
 }
+/* הערות משפטיות מתחת ל-CTA (מע״מ · ביטולים · יידוע) */
+.legal-note{max-width:64ch;margin:14px auto 0;font-size:13px;line-height:1.7;color:var(--t60)}
+.legal-note a{color:var(--yellow);text-decoration:underline}
+.cta-note{margin-top:16px;font-size:14px;line-height:1.6;color:var(--t60)}
+.cta-note a{color:var(--yellow);text-decoration:underline}
 
-/* MOBILE */
+/* ═══ גלריה ═══════════════════════════════════════════════════ */
+.gal{padding:var(--pad-y) var(--gutter);overflow-x:clip;background:var(--ink)}
+.gg{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:12px;max-width:1100px;margin:0 auto}
+.gi{position:relative;border-radius:14px;overflow:hidden}
+.gi-bg{position:absolute;inset:0;background:#151515;transition:transform .5s}
+.gi img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s var(--ease)}
+.gi:hover img{transform:scale(1.04)}
+.gi-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(11,11,11,.8),transparent 55%);display:flex;align-items:flex-end;padding:14px;opacity:0;transition:opacity .3s}
+.gi:hover .gi-ov{opacity:1}
+.gi-l{color:var(--bone);font-size:13px;font-weight:600}
+@media(max-width:768px){.gg{grid-template-columns:1fr 1fr;grid-auto-rows:170px}}
+
+/* ═══ פוטר ════════════════════════════════════════════════════ */
+.foot{background:var(--ink);border-top:1px solid var(--line);padding:clamp(40px,5vw,70px) var(--gutter) 20px;overflow-x:clip}
+.fg{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:clamp(24px,3vw,40px);max-width:var(--max);margin:0 auto;padding-bottom:clamp(26px,3.4vw,44px);border-bottom:1px solid var(--line)}
+.fd{font-size:15px;line-height:1.65;color:var(--t60);margin-top:16px;max-width:38ch}
+.foot .logo img{height:clamp(26px,2.2vw,30px)}
+.ft{font-weight:800;font-size:13px;letter-spacing:.14em;color:var(--yellow);margin-bottom:18px}
+.fl{list-style:none;display:flex;flex-direction:column;gap:12px}
+.fl a{color:rgba(244,242,237,.72);text-decoration:none;font-size:15px;transition:color .18s var(--ease)}
+.fl a:hover{color:var(--bone)}
+.fc{display:flex;align-items:center;gap:8px;color:rgba(244,242,237,.72);font-size:15px;line-height:1.6;margin-bottom:10px}
+.fc a{color:inherit;text-decoration:none}
+.fc a:hover{color:var(--bone)}
+/* אזהרת הבריאות — הייתה 11px ב-60% שקיפות. */
+.fnote{max-width:var(--max);margin:16px auto 8px;text-align:center;font-size:13px;line-height:1.6;color:var(--t45)}
+.fb{max-width:var(--max);margin:0 auto;padding:20px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.fcopy{font-size:13px;line-height:1.6;color:var(--t45)}
+.flegal{display:flex;flex-wrap:wrap;gap:2px 20px;align-items:center}
+.flegal a,.flegal button{
+  display:inline-flex;align-items:center;min-height:40px;
+  color:var(--t45);text-decoration:underline;font-size:13px;font-family:inherit;
+  background:none;border:0;padding:0;cursor:pointer;transition:color .18s var(--ease);
+}
+.flegal a:hover,.flegal button:hover{color:var(--bone)}
+.fsoc{display:flex;gap:8px}
+.fsi{width:40px;height:40px;border-radius:50%;background:none;border:1px solid rgba(244,242,237,.22);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--t60);text-decoration:none;transition:border-color .18s var(--ease),background .18s var(--ease),color .18s var(--ease)}
+.fsi:hover{background:var(--yellow);border-color:var(--yellow);color:var(--ink)}
+@media(max-width:900px){.fg{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.fg{grid-template-columns:1fr;gap:26px}}
+
+/* ═══ צף: נגישות · וואטסאפ ════════════════════════════════════ */
+#acc-btn{
+  position:fixed;bottom:22px;inset-inline-start:20px;z-index:150;
+  width:48px;height:48px;border-radius:50%;border:0;cursor:pointer;
+  background:#1565C0;color:#fff;font-size:22px;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 18px rgba(0,0,0,.45);
+}
+.waf{
+  position:fixed;bottom:22px;inset-inline-end:20px;z-index:150;
+  width:56px;height:56px;border-radius:50%;
+  background:var(--wa);color:var(--wa-ink);font-size:26px;line-height:1;text-decoration:none;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(0,0,0,.45);
+  transition:filter .18s var(--ease);animation:bounceIn 1s 1.5s both;
+}
+.waf:hover{filter:brightness(.94)}
+@media(max-width:600px){
+  #acc-btn{width:44px;height:44px;font-size:20px}
+  .waf{width:52px;height:52px;font-size:24px}
+}
+
+/* ═══ באנר עוגיות ═════════════════════════════════════════════
+   ה-display נשלט מ-JS (none/flex), ולכן הוא נשאר inline על האלמנט. */
+#cookie-banner{
+  position:fixed;bottom:0;right:0;left:0;z-index:99998;
+  align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+  padding:14px var(--gutter) calc(env(safe-area-inset-bottom,0px) + 14px);
+  background:#151515;border-top:2px solid var(--yellow);
+}
+#cookie-banner p{flex:1;min-width:220px;font-size:13px;line-height:1.5;color:var(--t75);margin:0}
+#cookie-banner a{color:var(--yellow);text-decoration:underline;display:inline-block;padding-block:6px}
+#cookie-banner button{min-height:40px;padding:0 22px;border:0;border-radius:var(--r-pill);font-family:inherit;font-weight:700;font-size:13px;cursor:pointer}
+#cookie-banner .ck-ok{background:var(--yellow);color:var(--ink)}
+#cookie-banner .ck-no{background:var(--fill-2);color:var(--bone);border:1px solid var(--line-strong);font-weight:500;padding:0 16px}
+
+/* ═══ מודאל נגישות ════════════════════════════════════════════ */
+#acc-modal{position:fixed;inset:0;z-index:99999;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.72)}
+#acc-modal .modal-box{background:#161616;border:1px solid var(--line-card);border-radius:var(--r-lg);padding:clamp(24px,3vw,34px);max-width:560px;width:100%;max-height:88vh;overflow-y:auto;position:relative}
+#acc-modal h2{font-family:var(--body);font-weight:700;font-size:20px;letter-spacing:0;margin-bottom:18px;text-align:center}
+#acc-modal p{font-size:14.5px;line-height:1.8;color:rgba(244,242,237,.8);margin-bottom:14px}
+#acc-modal strong{color:var(--bone)}
+#acc-modal a{color:var(--yellow)}
+#acc-modal .modal-x{position:absolute;top:12px;inset-inline-end:12px;width:40px;height:40px;background:none;border:0;color:var(--bone);font-size:24px;line-height:1;cursor:pointer;border-radius:8px;display:flex;align-items:center;justify-content:center}
+#acc-modal .modal-x:hover{background:var(--fill-2)}
+
+/* ═══ תנועה ═══════════════════════════════════════════════════ */
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes charIn{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}
+@keyframes bounceIn{0%{opacity:0;transform:scale(.3)}50%{transform:scale(1.1)}70%{transform:scale(.95)}100%{opacity:1;transform:scale(1)}}
+.parallax-img{will-change:transform}
+
+/* חשיפה בגלילה — במקום AOS מ-CDN. נכנסת לתוקף רק אחרי ש-JS עלה
+   (html.js), כדי ששגיאת JS לעולם לא תסתיר תוכן. */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none}}
+
+/* ═══ מובייל ══════════════════════════════════════════════════ */
 @media(max-width:768px){
-  .hero-inner{padding:90px 5% 40px}
-  .hero h1{font-size:clamp(28px,7vw,48px)}
-  .hero-sub{font-size:14px}
-  .hero-btns{flex-direction:column;align-items:center}
-  .btn-a,.btn-b{min-height:48px;display:inline-flex;align-items:center;justify-content:center}
-  .sched-top{flex-direction:column;gap:8px}
-  .dtabs{flex-wrap:wrap;justify-content:center}
+  .hero{min-height:82svh}
+  .hero-inner{padding:100px var(--gutter) 40px}
+  .hero-btns{flex-direction:column;align-items:stretch;width:100%;max-width:340px;margin-inline:auto}
+  .sched-top{flex-direction:column;align-items:stretch;gap:12px}
+  .dtabs{justify-content:center}
+  .dt{flex:1;min-width:44px;padding:0 8px}
 }
 </style>
-<link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"></noscript>
 <!-- Consent Mode v2 — must run BEFORE GA4 loads -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
 <!-- GA4 -->
@@ -272,20 +496,20 @@ img{max-width:100%;height:auto}
 </script>
 </head>
 <body>
-<a href="#content" class="skip-link" style="position:absolute;top:-100px;left:0;background:#F5C518;color:#111;padding:8px 16px;z-index:100000;font-size:14px;font-weight:700;text-decoration:none;transition:top 0.3s" onfocus="this.style.top='0'" onblur="this.style.top='-100px'">דלגי לתוכן</a>
+<a class="skip" href="#content">דלגי לתוכן</a>
 
 <!-- Cookie Consent -->
-<div id="cookie-banner" role="dialog" aria-label="הסכמה לעוגיות" style="display:none;position:fixed;bottom:0;right:0;left:0;background:#1a1a1a;border-top:2px solid #F5C518;padding:14px 5%;z-index:99998;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-  <p style="font-size:13px;color:rgba(255,255,255,0.75);margin:0;flex:1;min-width:200px">האתר משתמש בעוגיות לצורך אנליטיקה ופרסום. <a href="privacy.html" style="color:#F5C518;text-decoration:underline">מדיניות פרטיות</a></p>
+<div id="cookie-banner" role="dialog" aria-label="הסכמה לעוגיות" style="display:none">
+  <p>האתר משתמש בעוגיות לצורך אנליטיקה ופרסום. <a href="privacy.html" style="color:var(--yellow);text-decoration:underline">מדיניות פרטיות</a></p>
   <div style="display:flex;gap:8px;flex-shrink:0">
-    <button onclick="acceptCookies()" style="background:#F5C518;color:#111;border:none;padding:9px 22px;border-radius:50px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">מסכימה</button>
-    <button onclick="declineCookies()" style="background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:9px 16px;border-radius:50px;font-size:13px;cursor:pointer;font-family:inherit">דחייה</button>
+    <button onclick="acceptCookies()" class="ck-ok">מסכימה</button>
+    <button onclick="declineCookies()" class="ck-no">דחייה</button>
   </div>
 </div>
 
 <!-- NAV -->
 <nav class="nav" id="nav" role="navigation" aria-label="ניווט ראשי">
-  <div class="logo"><a href="https://stepsnetanya.co.il/"><img src="steps-logo-white.png" alt="STEPS Fitness Center" width="149" height="36" style="height:36px;width:auto"></a></div>
+  <div class="logo"><a href="https://stepsnetanya.co.il/"><img src="steps-logo-white.png" alt="STEPS Fitness Center" width="149" height="36"></a></div>
   <ul class="n-links" id="navLinks">
     <li><a href="https://stepsnetanya.co.il/">דף הבית</a></li>
     <li><a href="https://stepsnetanya.co.il/#spaces">החללים</a></li>
@@ -302,7 +526,7 @@ img{max-width:100%;height:auto}
   <img class="hero-bg-img" src="images/shoot2025/gym-main.jpg" width="1280" height="1920" alt="חדר כושר לנשים בנתניה — אימון כוח בסטודיו סטפס פולג" loading="eager">
   <div class="hero-overlay"></div>
   <div class="hero-inner">
-    <div class="hero-tag" data-aos="fade-up" data-aos-delay="200">GYM — סטפס פולג נתניה</div>
+    <div class="hero-tag">GYM — סטפס פולג נתניה</div>
     <div>
       <h1>חדר כושר לנשים<em>בנתניה</em></h1>
       <p class="hero-sub">משקולות, מכשירים ומדריכות שמתאמנות איתך. לא לבד באולם המוני.</p>
@@ -316,30 +540,30 @@ img{max-width:100%;height:auto}
 
 <!-- מה יש בחדר הכושר -->
 <section class="sec" id="content" role="main">
-  <div class="sec-h" data-aos="fade-up">
+  <div class="sec-h">
     <div class="sec-tag">GYM</div>
     <h2 class="sec-title">חדר כושר לנשים.<br>לא פינה בתוך אולם.</h2>
   </div>
   <div class="sec-content">
-    <div data-aos="fade-up" data-aos-delay="100">
+    <div>
       <p class="lead">חדר כושר לנשים בנתניה נשמע מיותר עד שאת מנסה אחד. פתאום את לא בודקת מי מסתכל, ולא מחכה שהמכשיר יתפנה מהבחור שהתיישב עליו לפני 20 דקות עם הטלפון.</p>
       <p>אצלנו יש משקולות חופשיות, מכשירים ומרחב אימון מלא — עם שיעורי GYM, BOOTCAMP, ENDURANCE ו-GYM &amp; RUN לאורך השבוע. חלל שנבנה לאימוני כוח, לא תוספת קטנה לחדר כושר מעורב.</p>
       <p>מעל 500 מתאמנות כבר עברו דרך הסטודיו שפעיל בקניון פולג כבר 10 שנים, עם יותר מ-100 שיעורים בשבוע. מתאמנות מגיעות אלינו מרמת פולג ומכל נתניה.</p>
     </div>
   </div>
-  <div class="stats" data-aos="fade-up" data-aos-delay="200">
+  <div class="stats">
     <div class="stat"><div class="stat-n">500+</div><div class="stat-l">מתאמנות בסטודיו</div></div>
     <div class="stat"><div class="stat-n">100+</div><div class="stat-l">שיעורים בשבוע</div></div>
     <div class="stat"><div class="stat-n">10</div><div class="stat-l">שנות ניסיון בפולג</div></div>
   </div>
 </section>
 
-<div class="sec-divider" data-aos="zoom-in"><span></span></div>
+<div class="sec-divider"><span></span></div>
 
 <!-- המדריכות -->
 <section class="sec sec-alt">
   <div class="two-col">
-    <div class="two-col-text" data-aos="fade-right">
+    <div class="two-col-text">
       <div class="sec-tag">הצוות</div>
       <h2>מדריכות שמתאמנות איתך. לא רק מסתכלות.</h2>
       <p>כל מדריכה בחדר הכושר מוסמכת, מתמחה ומתעדכנת. לא סתם תואר על הקיר — ידע אמיתי שמגיע לכל אימון.</p>
@@ -347,30 +571,30 @@ img{max-width:100%;height:auto}
       <p>קבוצות קטנות שבהן כל תנועה נבדקת וכל תיקון ניתן בזמן אמת. את לא נופלת בין הכיסאות, ואת לא נעלמת מול משקל שכבד עלייך.</p>
       <a href="#contact" class="btn-a" style="margin-top:12px" data-track="trial-cta">אימון היכרות ב-50 ₪</a>
     </div>
-    <img src="images/shoot2025/gym-alt.jpg" width="1280" height="1920" alt="קבוצת נשים מתאמנות עם משקולות בחדר כושר סטפס נתניה" data-aos="fade-left" data-aos-delay="150" loading="lazy">
+    <img src="images/shoot2025/gym-alt.jpg" width="1280" height="1920" alt="קבוצת נשים מתאמנות עם משקולות בחדר כושר סטפס נתניה" loading="lazy">
   </div>
 </section>
 
-<div class="sec-divider" data-aos="zoom-in"><span></span></div>
+<div class="sec-divider"><span></span></div>
 
 <!-- 3 עולמות תחת קורת גג אחת -->
 <section class="sec">
-  <div class="sec-h" data-aos="fade-up">
+  <div class="sec-h">
     <div class="sec-tag">3 עולמות</div>
     <h2 class="sec-title">כוח היום. פילאטיס מחר. אותו מקום.</h2>
   </div>
-  <div class="sec-content" data-aos="fade-right">
+  <div class="sec-content">
     <p>מי שמתאמנת אצלנו לא צריכה שלושה מנויים בשלושה מקומות. GYM לאימוני כוח, MOVE לשיעורי בר וגמישות, ו-<a href="pilates.html" style="color:var(--accent);text-decoration:underline">רפורמר פילאטיס</a> עם 11 מיטות בחלל ייעודי — הכל תחת קורת גג אחת בקניון פולג, עם אותו צוות שמכיר אותך בשם.</p>
     <p class="punch">3 מסלולי מנוי, לפי מה שמתאים לך.</p>
     <p>יש 3 אפשרויות לפי כמות כניסות בחודש: 5, 9 או 13 כניסות. מסלול GYM+MOVE עולה 230/400/460 ₪, ומסלול משולב עם גישה לפילאטיס מכשירים עולה 320/475/530 ₪. כל המחירים כוללים מע״מ. בלי התחייבות — ביטול בהודעה של 30 יום מראש.</p>
   </div>
 </section>
 
-<div class="sec-divider" data-aos="zoom-in"><span></span></div>
+<div class="sec-divider"><span></span></div>
 
 <!-- SCHEDULE -->
 <section class="sched-sec" id="sched">
-  <div class="sec-h" data-aos="fade-up">
+  <div class="sec-h">
     <div class="sec-tag">מערכת שיעורים</div>
     <h2 class="sec-title">שיעורי GYM השבוע</h2>
     <p class="sec-sub">מתעדכנת אוטומטית מ-Arbox</p>
@@ -392,63 +616,63 @@ img{max-width:100%;height:auto}
     </div>
     <div class="sfn">⚡ מערכת שעות חיה — מתעדכנת אוטומטית מ-Arbox</div>
   </div>
-  <div style="text-align:center;margin-top:28px" data-aos="zoom-in" data-aos-delay="200">
+  <div style="text-align:center;margin-top:28px">
     <a href="#contact" class="btn-a">💬 קבעי אימון היכרות</a>
   </div>
 </section>
 
 <!-- TESTIMONIALS -->
 <section class="test-sec" id="reviews">
-  <div class="sec-h" data-aos="fade-up">
+  <div class="sec-h">
     <div class="sec-tag" style="color:var(--accent)">מה אומרות עלינו</div>
     <h2 class="sec-title">הן באו בשביל האימון.<br>הן נשארו בשביל המשפחה.</h2>
   </div>
   <div class="tg">
-    <div class="tc" data-aos="fade-up" data-aos-delay="100"><div class="stars">★★★★★</div><p class="tc-txt">אתם הלב שלי. אין סטודיו כזה בעולם ויצא לי לנסות המון. היחס האישי באימונים, האכפתיות, הדחיפה להתקדם ולהשתפר כל הזמן, אתם יחידים ומיוחדים באמת. כלכך שמחה להיות חלק מהמשפחה ❤️</p><div class="tc-auth"><div class="tc-av">ט</div><div><div class="tc-name">טלי</div><div class="tc-info">חברה ותיקה</div></div></div></div>
-    <div class="tc" data-aos="fade-up" data-aos-delay="200"><div class="stars">★★★★★</div><p class="tc-txt">מילה טובה על מעיין לזר — איזה שיעור מהמם של אירובי וכוח. הפעלנו את כל השרירים ואנרגיה מקסימה שלה! לאורך כל השיעור עברה אחד אחד, דייקה את התנועה. פשוט מעולה.</p><div class="tc-auth"><div class="tc-av">מ</div><div><div class="tc-name">מיטל</div><div class="tc-info">מתאמנת MOVE</div></div></div></div>
-    <div class="tc" data-aos="fade-up" data-aos-delay="300"><div class="stars">★★★★★</div><p class="tc-txt">אני מאוד נהנית באימונים, כל המדריכות מצוינות, כל אחת עם הסגנון שלה. לאחרונה כולן התחילו לגוון יותר בשיעורים וזה מבורך מאוד מבחינתי!</p><div class="tc-auth"><div class="tc-av">נ</div><div><div class="tc-name">נועה</div><div class="tc-info">חברה בסטודיו</div></div></div></div>
-    <div class="tc" data-aos="fade-up" data-aos-delay="400"><div class="stars">★★★★★</div><p class="tc-txt">אחלה סטודיו, מאוד מרוצה מכל המאמנים! גם של הכוח וגם בפילאטיס 🌻</p><div class="tc-auth"><div class="tc-av">ע</div><div><div class="tc-name">עדן</div><div class="tc-info">GYM + פילאטיס</div></div></div></div>
-    <div class="tc" data-aos="fade-up" data-aos-delay="500"><div class="stars">★★★★★</div><p class="tc-txt">אני איתכם כבר המון שנים, מאוד מרוצה! ירדן אלופה, מקצועית, נותנת יחס אישי ושומרת על רמה סופר גבוהה. ותמיד יש אצלה אווירה מאוד כיפית ומדברנת.</p><div class="tc-auth"><div class="tc-av">נ</div><div><div class="tc-name">נופר</div><div class="tc-info">מתאמנת GYM</div></div></div></div>
-    <div class="tc" data-aos="fade-up" data-aos-delay="600"><div class="stars">★★★★★</div><p class="tc-txt">הכל מושלם, אין על האימונים שלכם! מושלם כמו תמיד, הכי כיף בעולם 😍</p><div class="tc-auth"><div class="tc-av">ק</div><div><div class="tc-name">קמיל</div><div class="tc-info">מתאמנת קבועה</div></div></div></div>
+    <div class="tc"><div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div><p class="tc-txt">אתם הלב שלי. אין סטודיו כזה בעולם ויצא לי לנסות המון. היחס האישי באימונים, האכפתיות, הדחיפה להתקדם ולהשתפר כל הזמן, אתם יחידים ומיוחדים באמת. כלכך שמחה להיות חלק מהמשפחה ❤️</p><div class="tc-auth"><div class="tc-av">ט</div><div><div class="tc-name">טלי</div><div class="tc-info">חברה ותיקה</div></div></div></div>
+    <div class="tc"><div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div><p class="tc-txt">מילה טובה על מעיין לזר — איזה שיעור מהמם של אירובי וכוח. הפעלנו את כל השרירים ואנרגיה מקסימה שלה! לאורך כל השיעור עברה אחד אחד, דייקה את התנועה. פשוט מעולה.</p><div class="tc-auth"><div class="tc-av">מ</div><div><div class="tc-name">מיטל</div><div class="tc-info">מתאמנת MOVE</div></div></div></div>
+    <div class="tc"><div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div><p class="tc-txt">אני מאוד נהנית באימונים, כל המדריכות מצוינות, כל אחת עם הסגנון שלה. לאחרונה כולן התחילו לגוון יותר בשיעורים וזה מבורך מאוד מבחינתי!</p><div class="tc-auth"><div class="tc-av">נ</div><div><div class="tc-name">נועה</div><div class="tc-info">חברה בסטודיו</div></div></div></div>
+    <div class="tc"><div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div><p class="tc-txt">אחלה סטודיו, מאוד מרוצה מכל המאמנים! גם של הכוח וגם בפילאטיס 🌻</p><div class="tc-auth"><div class="tc-av">ע</div><div><div class="tc-name">עדן</div><div class="tc-info">GYM + פילאטיס</div></div></div></div>
+    <div class="tc"><div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div><p class="tc-txt">אני איתכם כבר המון שנים, מאוד מרוצה! ירדן אלופה, מקצועית, נותנת יחס אישי ושומרת על רמה סופר גבוהה. ותמיד יש אצלה אווירה מאוד כיפית ומדברנת.</p><div class="tc-auth"><div class="tc-av">נ</div><div><div class="tc-name">נופר</div><div class="tc-info">מתאמנת GYM</div></div></div></div>
+    <div class="tc"><div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div><p class="tc-txt">הכל מושלם, אין על האימונים שלכם! מושלם כמו תמיד, הכי כיף בעולם 😍</p><div class="tc-auth"><div class="tc-av">ק</div><div><div class="tc-name">קמיל</div><div class="tc-info">מתאמנת קבועה</div></div></div></div>
   </div>
 </section>
 
 <!-- FAQ -->
 <section class="sec sec-alt">
-  <div class="sec-h" data-aos="fade-up">
+  <div class="sec-h">
     <div class="sec-tag">FAQ</div>
     <h2 class="sec-title">שאלות שאנחנו שומעות הרבה</h2>
   </div>
   <div class="faq-list">
-    <div class="faq-item" data-aos="fade-up" data-aos-delay="0">
+    <div class="faq-item">
       <div class="faq-q">מה יש בחדר הכושר של סטפס?</div>
       <div class="faq-a">משקולות חופשיות, מכשירים ומרחב אימון מלא — עם שיעורי GYM, BOOTCAMP, ENDURANCE ו-GYM &amp; RUN לאורך השבוע. חלל שנבנה לאימוני כוח, לא פינה בתוך אולם גדול.</div>
     </div>
-    <div class="faq-item" data-aos="fade-up" data-aos-delay="80">
+    <div class="faq-item">
       <div class="faq-q">זה באמת חדר כושר רק לנשים?</div>
       <div class="faq-a">כן. STEPS הוא סטודיו לנשים בלבד — חלל, אווירה וצוות שמותאמים בדיוק לזה. בלי עיניים, בלי תחרות עם מי שכבר חזק ממך.</div>
     </div>
-    <div class="faq-item" data-aos="fade-up" data-aos-delay="160">
+    <div class="faq-item">
       <div class="faq-q">אני לא מתאמנת בכלל, אפשר להתחיל אצלכם?</div>
       <div class="faq-a">בהחלט. המדריכות מתאימות משקל ועצימות לרמה שלך ומתקנות טכניקה בזמן אמת. רוב הנשים שמתחילות אצלנו מעולם לא הרימו משקולת.</div>
     </div>
-    <div class="faq-item" data-aos="fade-up" data-aos-delay="240">
+    <div class="faq-item">
       <div class="faq-q">כמה בנות יש בקבוצה?</div>
       <div class="faq-a">קבוצות קטנות, לא אולם המוני עם עשרות אנשים על אותו משקל. המדריכה עוברת בין כולן ומתקנת אישית.</div>
     </div>
-    <div class="faq-item" data-aos="fade-up" data-aos-delay="320">
+    <div class="faq-item">
       <div class="faq-q">מה כולל המנוי לחדר הכושר?</div>
       <div class="faq-a">יש 3 מסלולים לפי כמות כניסות בחודש: 5 כניסות ב-230 ₪, 9 כניסות ב-400 ₪, 13 כניסות ב-460 ₪ — כניסה חופשית ל-GYM ול-MOVE. מי שרוצה גם פילאטיס מכשירים משדרגת למסלול המשולב ב-320/475/530 ₪. כל המחירים כוללים מע״מ. בלי התחייבות, וביטול בהודעה של 30 יום מראש.</div>
     </div>
-    <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
+    <div class="faq-item">
       <div class="faq-q">יש לכן גם שיעורי בר ופילאטיס מכשירים?</div>
       <div class="faq-a">כן. אותו סטודיו, אותו צוות — GYM לכוח, MOVE ל<a href="barre.html" style="color:var(--accent);text-decoration:underline">שיעורי בר</a> וגמישות, ו<a href="pilates.html" style="color:var(--accent);text-decoration:underline">רפורמר פילאטיס</a> עם 11 מיטות בחלל ייעודי. הכל תחת קורת גג אחת בקניון פולג.</div>
     </div>
-    <div class="faq-item" data-aos="fade-up" data-aos-delay="480">
+    <div class="faq-item">
       <div class="faq-q">איפה הסטודיו ואיך מגיעים?</div>
       <div class="faq-a">אמנון ותמר 6, בקניון פולג בנתניה — עם חניה חינם בקניון. קרוב לרמת פולג וכל האזור הצפוני של העיר.</div>
     </div>
-    <div class="faq-item" data-aos="fade-up" data-aos-delay="560">
+    <div class="faq-item">
       <div class="faq-q">תוך כמה זמן רואים תוצאות מאימוני כוח?</div>
       <div class="faq-a">תלוי בך, אבל מתאמנות שמגיעות בקביעות פעמיים-שלוש בשבוע מתחילות להרגיש שינוי — כוח, יציבה, אנרגיה — תוך כמה שבועות.</div>
     </div>
@@ -457,41 +681,41 @@ img{max-width:100%;height:auto}
 
 <!-- BOOKING / CTA -->
 <section class="book-sec" id="contact">
-  <h2 data-aos="fade-up">קבעי אימון היכרות</h2>
-  <p class="sub" data-aos="fade-up" data-aos-delay="100">בחרי שיעור, הירשמי ושלמי — הכל כאן. בלי טלפונים, בלי המתנה.</p>
+  <h2>קבעי אימון היכרות</h2>
+  <p class="sub">בחרי שיעור, הירשמי ושלמי — הכל כאן. בלי טלפונים, בלי המתנה.</p>
   <!-- דסקטופ: iframe -->
-  <div class="arbox-desktop book-frame" data-aos="fade-up" data-aos-delay="200">
-    <div style="text-align:center;padding:8px 0 4px"><a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener" data-track="trial-cta arbox-open" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:58px;padding:0 34px;border-radius:100px;background:#F5C518;color:#111;text-decoration:none;font-weight:800;font-size:17px;line-height:1">להרשמה ותשלום אונליין <span aria-hidden="true">←</span></a><p style="margin:14px 0 0;font-size:13px;line-height:1.6;color:rgba(255,255,255,0.5)">נפתח במערכת ההרשמה של Arbox · או <a href="https://wa.me/972527927575" target="_blank" rel="noopener" data-track="whatsapp-click" style="color:#F5C518;text-decoration:underline">קבעי בוואטסאפ</a></p></div>
+  <div class="arbox-desktop book-frame">
+    <div style="text-align:center;padding:8px 0 4px"><a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener" data-track="trial-cta arbox-open" class="btn-a">להרשמה ותשלום אונליין <span aria-hidden="true">←</span></a><p class="cta-note">נפתח במערכת ההרשמה של Arbox · או <a href="https://wa.me/972527927575" target="_blank" rel="noopener" data-track="whatsapp-click" style="color:var(--yellow);text-decoration:underline">קבעי בוואטסאפ</a></p></div>
   </div>
   <!-- מובייל: כפתור ישיר -->
-  <div class="arbox-mobile" data-aos="fade-up" data-aos-delay="200">
-    <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&lang=he&location=18259&referrer=PLUGIN&filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" data-track="arbox-open" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:#F5C518;color:#111;padding:18px 40px;border-radius:50px;font-size:18px;font-weight:900;text-decoration:none;box-shadow:0 8px 30px rgba(245,197,24,0.4)">📅 לקביעת אימון היכרות</a>
-    <p style="margin-top:16px;font-size:14px;color:rgba(255,255,255,0.5)">נפתח בטאב חדש — הרשמה מלאה ב-Arbox</p>
+  <div class="arbox-mobile">
+    <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&lang=he&location=18259&referrer=PLUGIN&filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" data-track="arbox-open" target="_blank" rel="noopener" class="btn-a">📅 לקביעת אימון היכרות</a>
+    <p class="cta-note">נפתח בטאב חדש — הרשמה מלאה ב-Arbox</p>
   </div>
-  <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.5)">💬 שאלות? <a href="https://wa.me/972527927575?text=היי%20אני%20מעוניינת%20בחדר%20כושר%20לנשים%20ב-STEPS" style="color:var(--accent);text-decoration:underline" target="_blank" rel="noopener" data-track="whatsapp-click">דברי איתנו בוואטסאפ</a></p>
-  <p style="margin-top:10px;font-size:12px;color:rgba(255,255,255,0.66);line-height:1.7">מדיניות ביטולים: ביטול עד 24 שעות לפני האימון — ניתן לקבוע מועד חלופי. ביטול פחות מ-24 שעות מראש — אין זיכוי. <a href="privacy.html#cancel" style="color:var(--accent);text-decoration:underline">המדיניות המלאה</a></p>
+  <p class="cta-note">💬 שאלות? <a href="https://wa.me/972527927575?text=היי%20אני%20מעוניינת%20בחדר%20כושר%20לנשים%20ב-STEPS" style="color:var(--accent);text-decoration:underline" target="_blank" rel="noopener" data-track="whatsapp-click">דברי איתנו בוואטסאפ</a></p>
+  <p class="legal-note">מדיניות ביטולים: ביטול עד 24 שעות לפני האימון — ניתן לקבוע מועד חלופי. ביטול פחות מ-24 שעות מראש — אין זיכוי. <a href="privacy.html#cancel" style="color:var(--accent);text-decoration:underline">המדיניות המלאה</a></p>
 </section>
 
 <!-- GALLERY -->
 <section class="gal" id="gallery">
-  <div class="sec-h" data-aos="fade-up">
+  <div class="sec-h">
     <div class="sec-tag">הצצה פנימה</div>
     <h2 class="sec-title">ככה זה נראה אצלנו</h2>
   </div>
   <div class="gg">
-    <div class="gi" data-aos="zoom-in" data-aos-delay="100">
+    <div class="gi">
       <img src="images/shoot2025/gym-main.jpg" width="1280" height="1920" alt="אימון דדליפט בחדר כושר לנשים סטפס נתניה" loading="lazy">
       <div class="gi-ov"><span class="gi-l">אימון כוח</span></div>
     </div>
-    <div class="gi" data-aos="zoom-in" data-aos-delay="200">
+    <div class="gi">
       <img src="images/shoot2025/gym-alt.jpg" width="1280" height="1920" alt="קבוצת נשים באימון משקולות בחדר כושר סטפס פולג" loading="lazy">
       <div class="gi-ov"><span class="gi-l">קבוצות קטנות</span></div>
     </div>
-    <div class="gi" data-aos="zoom-in" data-aos-delay="300">
+    <div class="gi">
       <img src="images/shoot2025/gallery-a.jpg" width="1920" height="1280" alt="אימון עם משקולות יד בסטודיו סטפס נתניה" loading="lazy">
       <div class="gi-ov"><span class="gi-l">כוח וגמישות</span></div>
     </div>
-    <div class="gi" data-aos="zoom-in" data-aos-delay="400">
+    <div class="gi">
       <img src="images/shoot2025/gallery-b.jpg" width="1280" height="1920" alt="אימון דדליפט עם מוט בחדר כושר לנשים סטפס נתניה" loading="lazy">
       <div class="gi-ov"><span class="gi-l">מכשירים ומשקולות</span></div>
     </div>
@@ -530,10 +754,10 @@ img{max-width:100%;height:auto}
       <div class="fc">📍 אמנון ותמר 6, קניון פולג, נתניה</div>
       <div class="fc" dir="ltr">📞 052-792-7575</div>
       <div class="fc">⏰ א׳-ה׳ 7:00-22:00 · ו׳ 7:00-14:00 · מוצ״ש 18:30-22:00</div>
-      <div class="fc">📸 <a href="https://www.instagram.com/steps_netanya/" style="color:#8b8b8b;text-decoration:none" target="_blank" rel="noopener">@steps_netanya</a></div>
+      <div class="fc">📸 <a href="https://www.instagram.com/steps_netanya/" target="_blank" rel="noopener">@steps_netanya</a></div>
     </div>
   </div>
-  <p style="font-size:11px;color:rgba(255,255,255,0.6);text-align:center;max-width:1100px;margin:12px auto 6px;line-height:1.6">פעילות גופנית מומלץ לבצע לאחר התייעצות עם רופא. STEPS אינה אחראית לנזקי בריאות הנובעים משימוש בשירותיה.</p>
+  <p class="fnote">פעילות גופנית מומלץ לבצע לאחר התייעצות עם רופא. STEPS אינה אחראית לנזקי בריאות הנובעים משימוש בשירותיה.</p>
   <div class="fb">
     <!-- זיהוי העוסק — נדרש בעסקה מרחוק: שם, מספר עוסק וכתובת (הכתובת למעלה). -->
     <span class="fcopy">© 2026 STEPS Fitness Center · עוסק מורשה 558306098 · כל הזכויות שמורות.</span>
@@ -555,7 +779,7 @@ img{max-width:100%;height:auto}
 </footer>
 
 <!-- ACCESSIBILITY BUTTON -->
-<button id="acc-btn" onclick="document.getElementById('acc-modal').style.display='flex'" aria-label="נגישות" style="position:fixed;bottom:90px;left:20px;z-index:9999;width:48px;height:48px;border-radius:50%;background:#1565C0;color:#fff;border:none;cursor:pointer;font-size:22px;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center">♿</button>
+<button id="acc-btn" onclick="document.getElementById('acc-modal').style.display='flex'" aria-label="נגישות" >♿</button>
 
 <!-- FLOATING WA -->
 <a href="https://wa.me/972527927575?text=היי%20אני%20מעוניינת%20בחדר%20כושר%20לנשים%20ב-STEPS%20💛" class="waf" target="_blank" rel="noopener" aria-label="שלחי הודעה בוואטסאפ" data-track="whatsapp-click">💬</a>
@@ -638,8 +862,6 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
 })();
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
-<script>document.addEventListener('DOMContentLoaded',function(){AOS.init({duration:800,once:true,offset:100})})</script>
 
 <script>
 // Cookie consent
@@ -661,11 +883,11 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
 </script>
 
 <!-- ACCESSIBILITY MODAL -->
-<div id="acc-modal" role="dialog" aria-modal="true" aria-label="הצהרת נגישות" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:99999;align-items:center;justify-content:center;padding:20px">
-  <div style="background:#1a1a1a;border-radius:16px;padding:32px;max-width:500px;width:100%;color:#fff;position:relative;max-height:90vh;overflow-y:auto">
-    <button onclick="document.getElementById('acc-modal').style.display='none'" aria-label="סגירה" style="position:absolute;top:12px;left:12px;background:none;border:none;color:#fff;font-size:24px;cursor:pointer">&times;</button>
-    <h2 style="font-size:20px;margin-bottom:16px;text-align:center">♿ הצהרת נגישות</h2>
-    <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px">
+<div id="acc-modal" role="dialog" aria-modal="true" aria-label="הצהרת נגישות" style="display:none">
+  <div class="modal-box">
+    <button onclick="document.getElementById('acc-modal').style.display='none'" aria-label="סגירה" class="modal-x">&times;</button>
+    <h2>♿ הצהרת נגישות</h2>
+    <p>
       סטודיו STEPS שואף לאפשר גלישה נוחה ונגישה לכל המשתמשות. אנו פועלים לשיפור הנגישות באופן מתמיד ושמחים לקבל פניות בנושא.<br><br>
       <strong>פעולות נגישות שבוצעו:</strong><br>
       • כל התמונות כוללות טקסט חלופי (alt text) בעברית<br>
@@ -674,15 +896,15 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
       • ניגודיות הצבעים עומדת בתקן WCAG AA<br>
       • מבנה כותרות (H1/H2) סדור לניווט בטכנולוגיות מסייעות
     </p>
-    <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px"><strong>נגישות הסטודיו:</strong><br>
+    <p><strong>נגישות הסטודיו:</strong><br>
       • חניית נכים בחניון הקניון, ללא תשלום<br>
       • מעלית מהחניון ומקומת הכניסה אל קומה 2<br>
       • שירותי נכים</p>
-    <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px"><strong>רכז הנגישות:</strong><br>אור סבוני · בעלים<br>טלפון ווואטסאפ: <a href="tel:+972527927575" style="color:#F5C518">052-792-7575</a><br>מייל: <a href="mailto:stepsnetanya@gmail.com" style="color:#F5C518">stepsnetanya@gmail.com</a><br>כתובת: אמנון ותמר 6, קניון פולג, קומה 2, נתניה<br>נשמח לקבל כל פנייה בנושא נגישות ולטפל בה בהקדם.</p>
-<p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px"><strong>תקן ההנגשה:</strong><br>האתר הונגש בהתאם לתקן הישראלי ת"י 5568 ברמה AA (המבוסס על WCAG 2.0).</p>
-<p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px"><strong>מגבלות ידועות:</strong><br>מערכת ההרשמה לשיעורים היא רכיב חיצוני של חברת Arbox ואינה בשליטתנו המלאה. אם נתקלת בקושי בהרשמה — התקשרי אלינו ונרשום אותך טלפונית.</p>
-<p style="text-align:center;margin-bottom:8px"><a href="accessibility.html" style="color:#F5C518;font-weight:700;font-size:14px">להצהרת הנגישות המלאה ←</a></p>
-    <p style="font-size:12px;color:rgba(255,255,255,0.6);text-align:center;margin-top:16px">עודכן: אוגוסט 2026</p>
+    <p><strong>רכז הנגישות:</strong><br>אור סבוני · בעלים<br>טלפון ווואטסאפ: <a href="tel:+972527927575">052-792-7575</a><br>מייל: <a href="mailto:stepsnetanya@gmail.com">stepsnetanya@gmail.com</a><br>כתובת: אמנון ותמר 6, קניון פולג, קומה 2, נתניה<br>נשמח לקבל כל פנייה בנושא נגישות ולטפל בה בהקדם.</p>
+<p><strong>תקן ההנגשה:</strong><br>האתר הונגש בהתאם לתקן הישראלי ת"י 5568 ברמה AA (המבוסס על WCAG 2.0).</p>
+<p><strong>מגבלות ידועות:</strong><br>מערכת ההרשמה לשיעורים היא רכיב חיצוני של חברת Arbox ואינה בשליטתנו המלאה. אם נתקלת בקושי בהרשמה — התקשרי אלינו ונרשום אותך טלפונית.</p>
+<p style="text-align:center;margin-bottom:8px"><a href="accessibility.html" style="font-weight:700;font-size:14px">להצהרת הנגישות המלאה ←</a></p>
+    <p style="text-align:center;margin-top:18px" class="fcopy">עודכן: אוגוסט 2026</p>
   </div>
 </div>
 <script>
@@ -716,6 +938,22 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
   function closeAcc(){m.style.display='none';if(btn)btn.focus();}
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&m.style.display==='flex')closeAcc();});
   m.addEventListener('click',function(e){if(e.target===m)closeAcc();});
+})();
+</script>
+<script>
+/* חשיפה בגלילה — מחליפה את AOS מה-CDN (שגם שלח את הגולשת לשרת חיצוני
+   לפני שנשאלה על עוגיות). מה שכבר על המסך נשאר גלוי, בלי הבהוב. */
+(function(){
+  document.documentElement.className+=' js';
+  addEventListener('DOMContentLoaded',function(){
+    if(!('IntersectionObserver' in window))return;
+    var els=document.querySelectorAll('.sec-h,.sec-content,.stats,.usp-card,.two-col>*,.tc,.faq-item,.gi,.sched,.book-frame,.trial-wrap,.arbox-mobile');
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -8% 0px'});
+    Array.prototype.forEach.call(els,function(e){
+      if(e.getBoundingClientRect().top<innerHeight*.92)return;
+      e.classList.add('rv');io.observe(e);
+    });
+  });
 })();
 </script>
 </body>
