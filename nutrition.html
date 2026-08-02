@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תוכנית תזונה בנתניה | סטודיו STEPS פולג</title>
+<meta name="description" content="תוכנית התזונה של סטודיו STEPS — 3 חודשים, מפגשים אישיים עם אור בסטודיו וליווי יומיומי בוואטסאפ. 1,500 ₪ כולל מע״מ. למתאמנות הסטודיו בלבד, מחזור של 10.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://stepsnetanya.co.il/nutrition.html" />
+<link rel="alternate" hreflang="he" href="https://stepsnetanya.co.il/nutrition.html" />
+<meta property="og:title" content="תוכנית התזונה של STEPS | 3 חודשים, ביחד">
+<meta property="og:description" content="מפגשים אישיים איתי בסטודיו, ובינה שמלווה אותך בוואטסאפ כל יום שבדרך. 3 חודשים, 1,500 ₪ כולל מע״מ.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stepsnetanya.co.il/nutrition.html">
+<meta property="og:image" content="https://stepsnetanya.co.il/images/nutrition/og.jpg">
+<meta property="og:locale" content="he_IL">
+<meta property="og:site_name" content="STEPS Fitness Center">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="תוכנית התזונה של STEPS | 3 חודשים, ביחד">
+<meta name="twitter:description" content="מפגשים אישיים בסטודיו + ליווי יומיומי בוואטסאפ. 3 חודשים, 1,500 ₪ כולל מע״מ.">
+<meta name="twitter:image" content="https://stepsnetanya.co.il/images/nutrition/og.jpg">
+<meta name="theme-color" content="#0B0B0B">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<!-- הגופן מתארח אצלנו. דרך Google Fonts כתובת ה-IP של הגולשת נשלחה לגוגל
+     עוד לפני שנשאלה על עוגיות, וגיליון החוץ גם חסם את הציור הראשון. -->
+<link rel="preload" href="fonts/heebo-hebrew.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/assistant-hebrew.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Heebo';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/heebo-hebrew.woff2) format('woff2');unicode-range:U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F}
+@font-face{font-family:'Heebo';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/heebo-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Assistant';font-style:normal;font-weight:200 800;font-display:swap;src:url(fonts/assistant-hebrew.woff2) format('woff2');unicode-range:U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F}
+@font-face{font-family:'Assistant';font-style:normal;font-weight:200 800;font-display:swap;src:url(fonts/assistant-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+</style>
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   STEPS — דף תוכנית התזונה
+   אותה מערכת ויזואלית של דף הבית: שחור (ink) · עצם (bone) · צהוב אחד.
+   Heebo 900 לכותרות, Assistant לגוף. RTL מלא.
+
+   כל התמונות בדף אמיתיות ויושבות ב-images/nutrition/. מסגרות-המקום
+   (.ph) שהיו כאן בשלב הטיוטה ירדו לפני העלייה לאוויר.
+   ═══════════════════════════════════════════════════════════════════ */
+:root{
+  --ink:#0B0B0B;
+  --ink-2:#101010;
+  --bone:#F4F2ED;
+  --yellow:#FFD400;
+  --wa:#25D366;
+  --wa-ink:#062B14;
+
+  --line:rgba(244,242,237,.12);
+  --line-card:rgba(244,242,237,.16);
+  --line-strong:rgba(244,242,237,.28);
+  --fill:rgba(244,242,237,.03);
+  --fill-2:rgba(244,242,237,.08);
+  --yellow-tint:rgba(255,212,0,.07);
+  --yellow-tint-2:rgba(255,212,0,.16);
+
+  --t85:rgba(244,242,237,.85);
+  --t75:rgba(244,242,237,.75);
+  --t60:rgba(244,242,237,.6);
+  --t45:rgba(244,242,237,.55);
+
+  --display:'Heebo',system-ui,sans-serif;
+  --body:'Assistant',system-ui,sans-serif;
+
+  --gutter:clamp(20px,4.2vw,56px);
+  --pad-y:clamp(44px,7.2vw,104px);
+  --max:1360px;
+  --r-pill:100px;
+  --r-lg:20px;
+  --r-md:16px;
+  --ease:cubic-bezier(.2,.7,.3,1);
+
+  --accent:#FFD400;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px;-webkit-text-size-adjust:100%}
+html,body{overflow-x:clip;max-width:100vw}
+body{
+  background:var(--ink);color:var(--bone);
+  font-family:var(--body);font-weight:300;font-size:17px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+img,video{display:block;max-width:100%}
+img{height:auto}
+::selection{background:var(--yellow);color:var(--ink)}
+:focus-visible{outline:2px solid var(--yellow);outline-offset:3px;border-radius:4px}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+}
+
+h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-height:1.05}
+
+/* ── דילוג לתוכן ────────────────────────────────────────────── */
+.skip{position:absolute;top:-200px;right:0;z-index:100000;background:var(--yellow);color:var(--ink);padding:10px 18px;font-weight:700;text-decoration:none;transition:top .25s}
+.skip:focus{top:0}
+
+/* ═══ ניווט ═══════════════════════════════════════════════════ */
+.nav{
+  position:fixed;top:0;right:0;left:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;gap:clamp(16px,3vw,40px);
+  padding:clamp(12px,1.2vw,16px) var(--gutter);
+  border-bottom:1px solid transparent;
+  transition:background .3s var(--ease),border-color .3s var(--ease);
+}
+.nav.solid{background:rgba(11,11,11,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom-color:var(--line)}
+.logo a{text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+.logo img{height:clamp(24px,2.2vw,30px);width:auto}
+.n-links{display:flex;gap:clamp(18px,2.2vw,30px);list-style:none;align-items:center;font-weight:500;font-size:15px}
+.n-links a{color:rgba(244,242,237,.78);text-decoration:none;transition:color .18s var(--ease)}
+.n-links a:hover{color:var(--bone)}
+.n-cta{
+  background:var(--yellow)!important;color:var(--ink)!important;
+  display:inline-flex;align-items:center;min-height:44px;padding:0 20px;
+  border-radius:var(--r-pill);font-weight:800;font-size:14px;
+  transition:filter .18s var(--ease);
+}
+.n-cta:hover{filter:brightness(.94)}
+.mob{display:none;width:44px;height:44px;border:1px solid rgba(244,242,237,.24);border-radius:11px;background:none;color:var(--bone);font-size:20px;line-height:1;cursor:pointer;z-index:1001;align-items:center;justify-content:center}
+
+@media(max-width:960px){
+  .n-links{
+    display:none;position:fixed;top:0;right:0;width:78%;max-width:340px;height:100dvh;
+    background:rgba(11,11,11,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    flex-direction:column;align-items:stretch;padding:88px 26px 40px;gap:0;z-index:999;
+    transform:translateX(100%);transition:transform .35s var(--ease);
+  }
+  .n-links.open{display:flex;transform:none}
+  .n-links li{width:100%}
+  .n-links a{
+    display:block;width:100%;
+    font-family:var(--display);font-weight:900;font-size:26px;letter-spacing:-.03em;
+    padding:15px 0;border-bottom:1px solid var(--line);color:var(--bone);
+  }
+  .n-links li:last-child a{border-bottom:0;margin-top:16px;text-align:center;font-family:var(--body);font-size:16px}
+  .mob{display:flex}
+  .mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:998}
+  .mob-overlay.open{display:block}
+}
+
+/* ═══ הירו — פיצול טקסט/תמונה ═════════════════════════════════ */
+.hero{background:var(--ink);padding:clamp(122px,14vw,168px) var(--gutter) clamp(48px,6vw,88px);overflow-x:clip}
+.hero-grid{display:grid;grid-template-columns:1.06fr .94fr;gap:clamp(30px,4.4vw,68px);align-items:center;max-width:var(--max);margin:0 auto}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:12px;margin-bottom:clamp(16px,1.8vw,24px);
+  font-weight:700;font-size:clamp(11.5px,.95vw,13px);letter-spacing:.16em;
+  text-transform:uppercase;color:var(--t85);animation:fadeIn 1s;
+}
+.hero-tag::before{content:"";flex:none;width:clamp(20px,2vw,28px);height:2px;background:var(--yellow)}
+/* גובה-שורה בעברית לא יכול לרדת מתחת ל-1. אותיות כמו ק' ו-ן' יורדות
+   מתחת לקו הבסיס ומתנגשות בשורה הבאה — נמדד ב-.94 בכותרת הזאת. */
+.hero h1{
+  font-size:clamp(42px,6.4vw,86px);line-height:1.06;letter-spacing:-.045em;
+  margin-bottom:clamp(16px,1.8vw,24px);color:var(--bone);text-wrap:balance;
+  animation:slideUp .8s .1s both;
+}
+.hero h1 em{font-style:normal;color:var(--yellow);display:block}
+.hero-sub{
+  font-size:clamp(16px,1.5vw,20px);font-weight:300;line-height:1.65;color:var(--t85);
+  max-width:46ch;margin-bottom:clamp(26px,3vw,36px);animation:slideUp .8s .3s both;
+}
+/* רמז גלילה במקום כפתור. מזמין להמשיך, בלי ללחוץ לסגור עסקה. */
+.hero-cue{
+  display:inline-flex;align-items:center;gap:11px;min-height:44px;
+  color:var(--t75);font-size:15px;font-weight:600;letter-spacing:.03em;
+  text-decoration:none;animation:slideUp .8s .5s both;
+  transition:color .18s var(--ease);
+}
+.hero-cue:hover{color:var(--bone)}
+/* גבולות פיזיים ולא לוגיים: זו צורה מסובבת, לא טקסט. עם
+   border-inline-start ה-RTL הופך אותה והחץ מצביע שמאלה במקום למטה. */
+.hero-cue::after{
+  content:"";width:9px;height:9px;flex:none;
+  border:2px solid var(--yellow);border-top:0;border-left:0;
+  transform:rotate(45deg);animation:cueBob 2.2s ease-in-out infinite;
+}
+@keyframes cueBob{
+  0%,100%{transform:rotate(45deg) translate(0,0)}
+  50%{transform:rotate(45deg) translate(3px,3px)}
+}
+.hero-media{animation:slideUp .8s .35s both}
+/* התמונה ריבועית והמסגרת לגובה — הקרופ ממורכז מעט למעלה כדי
+   שהפנים יישארו בשליש העליון ולא ייחתכו. */
+.hero-photo{
+  width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 22%;
+  border-radius:var(--r-lg);border:1px solid var(--line-card);
+}
+
+/* ◆ הצלבת תמונות בהירו — CSS בלבד, בלי סרטון ובלי JS.
+   השקופיות מוערמות אחת על השנייה; כל אחת דוהה פנימה, נשארת, ודוהה החוצה.
+   ה-delay נגזר מ-(מספר השקופית × משך-שקופית), ולכן להוספת תמונה רביעית
+   צריך גם להאריך את ה-duration ל-4 × 7s ולהוסיף שורת nth-child. */
+.hero-slides{
+  position:relative;aspect-ratio:4/5;overflow:hidden;
+  border-radius:var(--r-lg);border:1px solid var(--line-card);
+  background:var(--ink-2);
+}
+.hero-slides img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center;
+}
+/* התמונה הראשונה היא שכבת בסיס קבועה ולא משתתפת באנימציה.
+   בלעדיה נפער חור: כששקופית דוהה החוצה לפני שהבאה נכנסה, ההירו
+   מבליח לרקע השחור לשנייה. ככה תמיד יש משהו מתחת. */
+.hero-slides img:nth-child(1){opacity:1}
+.hero-slides img:nth-child(2),
+.hero-slides img:nth-child(3){opacity:0;animation:heroOver 21s infinite}
+.hero-slides img:nth-child(2){animation-delay:6.5s}
+.hero-slides img:nth-child(3){animation-delay:13s}
+/* דהייה פנימה 1s · שהייה ~6s · דהייה החוצה 1s. החפיפה בין השקופיות
+   מכוונת כך שהבאה כבר בפנים לפני שהקודמת יצאה. */
+@keyframes heroOver{
+  0%{opacity:0}
+  5%{opacity:1}
+  33%{opacity:1}
+  38%{opacity:0}
+  100%{opacity:0}
+}
+/* מי שביקשה פחות תנועה מקבלת תמונה אחת סטטית ולא הבהוב */
+@media (prefers-reduced-motion:reduce){
+  .hero-slides img:not(:first-child){animation:none!important;opacity:0}
+}
+@media(max-width:900px){
+  .hero{padding-top:clamp(104px,24vw,130px);text-align:center}
+  .hero-grid{grid-template-columns:1fr;gap:34px}
+  .hero-tag{justify-content:center}
+  .hero-sub{margin-inline:auto}
+  .hero-media{order:-1}
+}
+
+/* ═══ כפתורים ═════════════════════════════════════════════════ */
+.btn-a,.btn-b{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:52px;padding:0 clamp(24px,2.4vw,34px);
+  border:0;border-radius:var(--r-pill);
+  font-family:inherit;font-weight:800;font-size:clamp(15px,1.15vw,17px);line-height:1;
+  text-decoration:none;cursor:pointer;
+  transition:filter .18s var(--ease),background .18s var(--ease),border-color .18s var(--ease);
+}
+.btn-a{background:var(--yellow);color:var(--ink)}
+.btn-a:hover{filter:brightness(.94)}
+.btn-b{background:none;border:1px solid var(--line-strong);color:var(--bone);font-weight:600}
+.btn-b:hover{border-color:rgba(244,242,237,.5)}
+
+/* ═══ מקטעים ══════════════════════════════════════════════════ */
+.sec{padding:var(--pad-y) var(--gutter);overflow-x:clip;background:var(--ink)}
+.sec-alt{background:var(--ink-2)}
+.sec-h{text-align:center;max-width:900px;margin:0 auto clamp(28px,3.6vw,52px)}
+.sec-tag{font-family:var(--body);font-weight:800;font-size:clamp(12px,.9vw,13px);letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);margin-bottom:12px}
+.sec-title{font-size:clamp(34px,4.6vw,58px);line-height:1.06;letter-spacing:-.035em;color:var(--bone)}
+.sec-sub{font-size:clamp(15.5px,1.2vw,17px);line-height:1.6;color:var(--t60);margin-top:14px}
+
+.sec-content{max-width:760px;margin:0 auto}
+.sec-content p{font-size:clamp(16px,1.3vw,18px);line-height:1.75;color:var(--t75);margin-bottom:20px}
+.sec-content p.lead{font-size:clamp(18px,1.6vw,22px);line-height:1.6;font-weight:400;color:var(--bone)}
+.sec-content p.punch{
+  font-family:var(--display);font-weight:900;letter-spacing:-.03em;
+  font-size:clamp(22px,2.4vw,30px);line-height:1.15;color:var(--yellow);margin-bottom:14px;
+}
+.sec-content strong{color:var(--bone);font-weight:700}
+
+/* ═══ מספרים ══════════════════════════════════════════════════ */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line-card);border-radius:var(--r-md);overflow:hidden;max-width:760px;margin:clamp(40px,5vw,64px) auto 0}
+/* המקטע יושב על רקע sec-alt, אז התאים צריכים להיות כהים ממנו ולא בהירים */
+.stat{background:var(--ink);padding:clamp(22px,2.6vw,32px) 20px;text-align:center}
+.stat-n{font-family:var(--display);font-weight:900;font-size:clamp(38px,5vw,58px);line-height:1;letter-spacing:-.04em;color:var(--yellow)}
+.stat-l{margin-top:8px;font-size:14px;line-height:1.4;color:var(--t60)}
+
+/* ═══ שתי עמודות ══════════════════════════════════════════════ */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);align-items:center;max-width:1100px;margin:0 auto}
+.two-col-text h2{font-size:clamp(28px,3.4vw,42px);line-height:1.05;margin-bottom:20px;color:var(--bone)}
+.two-col-text p{font-size:clamp(15.5px,1.25vw,17px);line-height:1.75;color:var(--t75);margin-bottom:14px}
+.two-col-text p.punch{font-family:var(--display);font-weight:900;letter-spacing:-.03em;font-size:clamp(20px,2.2vw,28px);line-height:1.15;color:var(--yellow);margin-bottom:12px}
+.two-col-text strong{color:var(--bone);font-weight:700}
+@media(max-width:768px){.two-col{grid-template-columns:1fr}}
+
+/* ═══ שאלות נפוצות ════════════════════════════════════════════
+   <details>/<summary> נייטיב: נסגר כברירת מחדל, ולכן שבע שאלות
+   תופסות בנייד רבע ממה שתפסו פתוחות. בלי JS, ונגיש למקלדת ולקורא-מסך
+   מהקופסה. ה-JSON-LD למעלה נשאר מקור-האמת לגוגל בכל מצב. */
+.faq-list{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq-item{border:1px solid rgba(244,242,237,.14);border-radius:var(--r-md);padding:20px 24px;transition:border-color .18s var(--ease)}
+.faq-item:hover,.faq-item[open]{border-color:rgba(255,212,0,.35)}
+.faq-q{
+  font-weight:700;font-size:clamp(16.5px,1.5vw,19px);line-height:1.35;color:var(--bone);
+  display:flex;align-items:flex-start;gap:12px;cursor:pointer;list-style:none;
+  /* השורה עצמה היא מה שנלחץ (לא הריפוד של הכרטיס), לכן היא צריכה
+     להגיע ל-44px גובה מגע בעצמה. */
+  padding-block:9px;min-height:44px;
+}
+.faq-q::-webkit-details-marker{display:none}
+.faq-q::before{content:'?';display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--yellow-tint-2);color:var(--yellow);font-family:var(--display);font-weight:900;font-size:14px;flex-shrink:0;margin-top:1px}
+/* גם כאן גבולות פיזיים — ראה ההערה ב-.hero-cue::after */
+.faq-q::after{
+  content:'';flex:none;margin-inline-start:auto;margin-top:9px;
+  width:11px;height:11px;border:2px solid var(--yellow);border-top:0;border-left:0;
+  transform:rotate(45deg);transition:transform .2s var(--ease);
+}
+.faq-item[open] .faq-q::after{transform:rotate(-135deg);margin-top:13px}
+.faq-a{font-size:clamp(15px,1.25vw,16.5px);line-height:1.7;color:rgba(244,242,237,.72);padding-inline-start:40px;margin-top:12px}
+@media(max-width:600px){.faq-item{padding:16px 18px}.faq-a{padding-inline-start:0}}
+
+/* ═══ הזמנה / CTA ═════════════════════════════════════════════ */
+.book-sec{background:var(--ink-2);padding:var(--pad-y) var(--gutter);text-align:center}
+.book-sec h2{font-size:clamp(34px,4.6vw,54px);line-height:1.06;letter-spacing:-.04em;margin-bottom:14px;color:var(--bone)}
+.book-sec p.sub{font-size:clamp(16px,1.4vw,19px);line-height:1.6;color:var(--t75);margin-bottom:28px}
+.legal-note{max-width:64ch;margin:14px auto 0;font-size:13px;line-height:1.7;color:var(--t60)}
+.cta-note{margin-top:16px;font-size:14px;line-height:1.6;color:var(--t60)}
+/* קישור בתוך שורת טקסט: ריפוד אנכי + מרג'ין שלילי מגדילים את שטח
+   המגע ל-44px בלי לפתוח את המרווח בין השורות. */
+.legal-note a,.cta-note a{
+  color:var(--yellow);text-decoration:underline;
+  padding-block:14px;margin-block:-14px;
+}
+
+/* ═══ פוטר ════════════════════════════════════════════════════ */
+.foot{background:var(--ink);border-top:1px solid var(--line);padding:clamp(40px,5vw,70px) var(--gutter) 20px;overflow-x:clip}
+.fg{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:clamp(24px,3vw,40px);max-width:var(--max);margin:0 auto;padding-bottom:clamp(26px,3.4vw,44px);border-bottom:1px solid var(--line)}
+.fd{font-size:15px;line-height:1.65;color:var(--t60);margin-top:16px;max-width:38ch}
+.foot .logo img{height:clamp(26px,2.2vw,30px)}
+.ft{font-weight:800;font-size:13px;letter-spacing:.14em;color:var(--yellow);margin-bottom:18px}
+/* הריפוד מחליף את ה-gap: אותו גובה כולל לפוטר, אבל כל קישור הוא
+   מטרת-מגע אמיתית ולא שורת טקסט בת 21 פיקסל. */
+.fl{list-style:none;display:flex;flex-direction:column;gap:2px}
+.fl a{display:flex;align-items:center;min-height:44px;color:rgba(244,242,237,.72);text-decoration:none;font-size:15px;transition:color .18s var(--ease)}
+.fl a:hover{color:var(--bone)}
+.fc{display:flex;align-items:center;gap:8px;color:rgba(244,242,237,.72);font-size:15px;line-height:1.6;margin-bottom:6px;min-height:36px}
+.fc a{color:inherit;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+.fc a:hover{color:var(--bone)}
+.fnote{max-width:var(--max);margin:16px auto 8px;text-align:center;font-size:13px;line-height:1.6;color:var(--t45)}
+.fb{max-width:var(--max);margin:0 auto;padding:20px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.fcopy{font-size:13px;line-height:1.6;color:var(--t45)}
+.flegal{display:flex;flex-wrap:wrap;gap:2px 20px;align-items:center}
+.flegal a,.flegal button{
+  display:inline-flex;align-items:center;min-height:44px;
+  color:var(--t45);text-decoration:underline;font-size:13px;font-family:inherit;
+  background:none;border:0;padding:0;cursor:pointer;transition:color .18s var(--ease);
+}
+.flegal a:hover,.flegal button:hover{color:var(--bone)}
+.fsoc{display:flex;gap:8px}
+.fsi{width:44px;height:44px;border-radius:50%;background:none;border:1px solid rgba(244,242,237,.22);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--t60);text-decoration:none;transition:border-color .18s var(--ease),background .18s var(--ease),color .18s var(--ease)}
+.fsi:hover{background:var(--yellow);border-color:var(--yellow);color:var(--ink)}
+@media(max-width:900px){.fg{grid-template-columns:1fr 1fr}}
+/* בנייד הפוטר נשאר בשתי עמודות (רק בלוק הלוגו נפרש על שתיהן) —
+   ארבע עמודות זו מתחת לזו הוסיפו כמעט מסך שלם של גלילה בסוף הדף. */
+@media(max-width:560px){
+  .fg{grid-template-columns:1fr 1fr;gap:24px 20px}
+  .fg>:first-child{grid-column:1/-1}
+  .fl{gap:10px}
+  .fl a,.fc{font-size:14px}
+}
+
+/* ═══ צף: נגישות · וואטסאפ ════════════════════════════════════ */
+#acc-btn{
+  position:fixed;bottom:22px;inset-inline-start:20px;z-index:150;
+  width:48px;height:48px;border-radius:50%;border:0;cursor:pointer;
+  background:#1565C0;color:#fff;font-size:22px;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 18px rgba(0,0,0,.45);
+}
+.waf{
+  position:fixed;bottom:22px;inset-inline-end:20px;z-index:150;
+  width:56px;height:56px;border-radius:50%;
+  background:var(--wa);color:var(--wa-ink);font-size:26px;line-height:1;text-decoration:none;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(0,0,0,.45);
+  transition:filter .18s var(--ease);animation:bounceIn 1s 1.5s both;
+}
+.waf:hover{filter:brightness(.94)}
+@media(max-width:600px){
+  #acc-btn{width:44px;height:44px;font-size:20px}
+  .waf{width:52px;height:52px;font-size:24px}
+}
+
+/* ═══ באנר עוגיות ═════════════════════════════════════════════ */
+#cookie-banner{
+  position:fixed;bottom:0;right:0;left:0;z-index:99998;
+  align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+  padding:14px var(--gutter) calc(env(safe-area-inset-bottom,0px) + 14px);
+  background:#151515;border-top:2px solid var(--yellow);
+}
+#cookie-banner p{flex:1;min-width:220px;font-size:13px;line-height:1.5;color:var(--t75);margin:0}
+#cookie-banner a{color:var(--yellow);text-decoration:underline;display:inline-flex;align-items:center;min-height:44px;padding-block:6px}
+#cookie-banner button{min-height:44px;padding:0 22px;border:0;border-radius:var(--r-pill);font-family:inherit;font-weight:700;font-size:13px;cursor:pointer}
+#cookie-banner .ck-ok{background:var(--yellow);color:var(--ink)}
+#cookie-banner .ck-no{background:var(--fill-2);color:var(--bone);border:1px solid var(--line-strong);font-weight:500;padding:0 16px}
+
+/* ═══ מודאל נגישות ════════════════════════════════════════════ */
+#acc-modal{position:fixed;inset:0;z-index:99999;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.72)}
+#acc-modal .modal-box{background:#161616;border:1px solid var(--line-card);border-radius:var(--r-lg);padding:clamp(24px,3vw,34px);max-width:560px;width:100%;max-height:88vh;overflow-y:auto;position:relative}
+#acc-modal h2{font-family:var(--body);font-weight:700;font-size:20px;letter-spacing:0;margin-bottom:18px;text-align:center}
+#acc-modal p{font-size:14.5px;line-height:1.8;color:rgba(244,242,237,.8);margin-bottom:14px}
+#acc-modal strong{color:var(--bone)}
+#acc-modal a{color:var(--yellow)}
+#acc-modal .modal-x{position:absolute;top:12px;inset-inline-end:12px;width:40px;height:40px;background:none;border:0;color:var(--bone);font-size:24px;line-height:1;cursor:pointer;border-radius:8px;display:flex;align-items:center;justify-content:center}
+#acc-modal .modal-x:hover{background:var(--fill-2)}
+
+/* ═══ תנועה ═══════════════════════════════════════════════════ */
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes bounceIn{0%{opacity:0;transform:scale(.3)}50%{transform:scale(1.1)}70%{transform:scale(.95)}100%{opacity:1;transform:scale(1)}}
+
+/* חשיפה בגלילה — במקום AOS מ-CDN. נכנסת לתוקף רק אחרי ש-JS עלה
+   (html.js), כדי ששגיאת JS לעולם לא תסתיר תוכן. */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none}}
+
+/* ═══════════════════════════════════════════════════════════════
+   ◆ ייחודי לדף הזה
+   ═══════════════════════════════════════════════════════════════ */
+
+/* מחלקות מסגרת-המקום (.ph) ירדו יחד עם המקטע האחרון שהשתמש בהן.
+   כל התמונות בדף הזה אמיתיות. */
+
+/* ◆ מי אני — התמונה משמאל לטקסט, ובנייד מעליו */
+.me-col{grid-template-columns:1.15fr .85fr;align-items:center}
+.me-photo{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 20%;border-radius:var(--r-lg);border:1px solid var(--line-card)}
+@media(max-width:768px){
+  .me-col{grid-template-columns:1fr}
+  .me-col img{order:-1}
+  .me-photo{aspect-ratio:5/4;object-position:center 16%}
+}
+
+/* ◆ מוקאפ שיחת הוואטסאפ — "התמונה" של בינה.
+   נבנה ב-HTML ולא כצילום מסך, כדי שהטקסט יהיה חד בכל רזולוציה,
+   ניתן לבחירה ולהקראה, ושאפשר לערוך אותו בלי לצלם מחדש. */
+.bina-col{grid-template-columns:1.05fr .95fr;align-items:center}
+/* תמונת פרופיל עגולה מעל הכותרת. הקרופ ממוקד למעלה כדי שהפנים
+   יישארו במרכז העיגול ולא ייחתכו בסנטר. */
+.bina-photo{margin:clamp(20px,2.4vw,28px) auto 0;width:clamp(96px,10vw,120px)}
+.bina-photo img{
+  width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center 18%;
+  border-radius:50%;border:2px solid rgba(255,212,0,.35);
+}
+.bina-note{margin-top:14px;font-size:12.5px;line-height:1.6;color:var(--t60)}
+.bina-human{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);font-size:15.5px;line-height:1.7;color:var(--t75)}
+.bina-human strong{color:var(--yellow)}
+.chat-wrap{max-width:400px;margin-inline:auto;width:100%}
+@media(max-width:520px){.bina-photo figcaption{width:auto}}
+.chat{
+  border:1px solid var(--line-card);border-radius:var(--r-lg);
+  background:#0F1310;overflow:hidden;box-shadow:0 18px 44px rgba(0,0,0,.45);
+}
+.chat-top{
+  display:flex;align-items:center;gap:11px;
+  padding:13px 16px;background:#151A16;border-bottom:1px solid var(--line);
+}
+.chat-ava{width:34px;height:34px;border-radius:50%;flex:none;object-fit:cover}
+.chat-top b{display:block;font-size:14.5px;font-weight:700;color:var(--bone);line-height:1.3}
+.chat-top i{display:block;font-style:normal;font-size:12px;color:var(--t60)}
+.chat-body{padding:16px 14px;display:flex;flex-direction:column;gap:9px}
+.bub{
+  max-width:84%;padding:9px 13px;border-radius:14px;
+  font-size:14.5px;line-height:1.55;
+}
+/* כמו בוואטסאפ בעברית: ההודעות שהיא שולחת ירוקות ובצד שמאל,
+   ההודעות שמגיעות מבינה אפורות ובצד ימין. */
+.bub.me{align-self:flex-end;background:#1F4B33;color:#EAF3EC;border-end-end-radius:5px}
+.bub.her{align-self:flex-start;background:#1E2620;color:var(--bone);border-end-start-radius:5px}
+.chat-note{margin-top:14px;text-align:center;font-size:12.5px;line-height:1.6;color:var(--t45)}
+
+/* ◆ הלופ — השיחה נכתבת מחדש כל 16 שניות.
+   הבועות לא נעלמות מה-DOM אלא רק משנות שקיפות, כך שגובה הקופסה קבוע
+   ואין קפיצה בפריסה. הן חולקות מחזור אחד באורך זהה, וזמן ההופעה של כל
+   אחת מקודד באחוזים בתוך ה-keyframes שלה — ככה כולן נשארות מסונכרנות
+   גם אחרי אלפי חזרות (animation-delay היה מזיז אותן זו מזו). */
+.chat-body>.bub{
+  opacity:0;
+  animation-duration:16s;animation-iteration-count:infinite;
+  animation-timing-function:cubic-bezier(.2,.7,.3,1);
+}
+.chat-body>.bub:nth-child(1){animation-name:bubIn1}
+.chat-body>.bub:nth-child(2){animation-name:bubIn2}
+.chat-body>.bub:nth-child(3){animation-name:bubIn3}
+.chat-body>.bub:nth-child(4){animation-name:bubIn4}
+.chat-body>.bub:nth-child(5){animation-name:bubIn5}
+@keyframes bubIn1{0%{opacity:0;transform:translateY(9px)}  3%{opacity:1;transform:none} 100%{opacity:1;transform:none}}
+@keyframes bubIn2{0%,10%{opacity:0;transform:translateY(9px)} 13%{opacity:1;transform:none} 100%{opacity:1;transform:none}}
+@keyframes bubIn3{0%,21%{opacity:0;transform:translateY(9px)} 24%{opacity:1;transform:none} 100%{opacity:1;transform:none}}
+@keyframes bubIn4{0%,33%{opacity:0;transform:translateY(9px)} 36%{opacity:1;transform:none} 100%{opacity:1;transform:none}}
+@keyframes bubIn5{0%,44%{opacity:0;transform:translateY(9px)} 47%{opacity:1;transform:none} 100%{opacity:1;transform:none}}
+/* הניקוי לפני הסבב הבא יושב על ההורה — אחרת כל בועה הייתה נעלמת
+   בתורה והשיחה הייתה מתפוגגת כמו גל במקום להתחיל מחדש. */
+.chat-body{animation:chatCycle 16s infinite}
+@keyframes chatCycle{0%,88%{opacity:1} 93%,96%{opacity:0} 100%{opacity:1}}
+
+/* מי שביקשה פחות תנועה רואה את השיחה המלאה, סטטית */
+@media (prefers-reduced-motion:reduce){
+  .chat-body,.chat-body>.bub{animation:none!important;opacity:1!important;transform:none!important}
+}
+@media(max-width:768px){
+  .bina-col{grid-template-columns:1fr}
+  .bina-col .chat-wrap{order:-1}
+}
+
+/* ◆ שני החצאים — אני / בינה */
+.halves{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,1.8vw,22px);max-width:1100px;margin:0 auto}
+.half{border:1px solid var(--line-card);border-radius:var(--r-lg);padding:clamp(24px,2.8vw,36px);background:var(--fill)}
+.half-head{display:flex;align-items:center;gap:16px;margin-bottom:22px}
+.half-head img{width:74px;height:74px;border-radius:50%;object-fit:cover;border:1px solid var(--line-strong);flex:none}
+.half-badge{
+  width:74px;height:74px;border-radius:50%;flex:none;
+  background:var(--yellow-tint-2);border:1px solid rgba(255,212,0,.35);
+  display:flex;align-items:center;justify-content:center;font-size:30px;
+}
+.half-who{font-family:var(--display);font-weight:900;font-size:clamp(24px,2.6vw,32px);letter-spacing:-.035em;line-height:1.05;color:var(--bone)}
+.half-role{margin-top:5px;font-size:13.5px;letter-spacing:.06em;color:var(--yellow);font-weight:700}
+.half p{font-size:15.5px;line-height:1.75;color:var(--t75);margin-bottom:18px}
+@media(max-width:860px){.halves{grid-template-columns:1fr}}
+
+/* ◆ רשימת ✓ */
+.tick{list-style:none;display:flex;flex-direction:column;gap:13px}
+.tick li{position:relative;padding-inline-start:30px;font-size:15.5px;line-height:1.65;color:var(--t75)}
+/* וי, לא חץ. גבולות פיזיים — עם border-inline-end ה-RTL מוחק את
+   הצלע ההפוכה והצורה יוצאת '‹' במקום '✓'. */
+.tick li::before{
+  content:"";position:absolute;inset-inline-start:0;top:.52em;
+  width:15px;height:8px;border:2px solid var(--yellow);border-top:0;border-right:0;
+  transform:rotate(-45deg);
+}
+.tick li strong{color:var(--bone);font-weight:700}
+
+/* ◆ ציר הזמן */
+.track{max-width:820px;margin:0 auto;position:relative;padding-inline-start:34px}
+.track::before{content:"";position:absolute;inset-inline-start:8px;top:10px;bottom:10px;width:1px;background:linear-gradient(to bottom,transparent,var(--line-strong) 8%,var(--line-strong) 92%,transparent)}
+.tstep{position:relative;padding-bottom:clamp(26px,3vw,38px)}
+.tstep:last-child{padding-bottom:0}
+.tstep::before{
+  content:"";position:absolute;inset-inline-start:-30px;top:5px;
+  width:17px;height:17px;border-radius:50%;
+  background:var(--ink);border:2px solid var(--yellow);
+}
+.sec-alt .tstep::before{background:var(--ink-2)}
+.tstep.soft::before{border-color:var(--line-strong)}
+.tstep-when{font-weight:800;font-size:12.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--yellow);margin-bottom:7px}
+.tstep.soft .tstep-when{color:var(--t60)}
+.tstep-t{font-family:var(--display);font-weight:900;font-size:clamp(20px,2.1vw,26px);letter-spacing:-.03em;line-height:1.15;color:var(--bone);margin-bottom:8px}
+.tstep-d{font-size:15.5px;line-height:1.7;color:var(--t75);max-width:56ch}
+.tstep-d strong{color:var(--bone);font-weight:700}
+
+/* ◆ רצועת שלוש תמונות (אוכל · מדידות) */
+.strip{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.6vw,20px);max-width:1100px;margin:0 auto}
+.strip>figure{margin:0}
+.strip img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:var(--r-lg);border:1px solid var(--line-card)}
+.strip figcaption{margin-top:13px;text-align:center;font-size:14.5px;line-height:1.55;color:var(--t60)}
+.strip figcaption b{display:block;color:var(--bone);font-weight:700;font-size:15.5px;margin-bottom:3px}
+
+/* ◆ מסגרות טלפון */
+.phones{display:flex;gap:clamp(16px,2.4vw,34px);justify-content:center;align-items:flex-start;flex-wrap:wrap;max-width:1100px;margin:0 auto}
+.phone{flex:0 0 clamp(230px,24vw,290px)}
+.phone-frame{
+  border:1px solid var(--line-strong);border-radius:26px;padding:9px;background:#151515;
+  box-shadow:0 18px 44px rgba(0,0,0,.5);
+}
+.phone-frame img{width:100%;height:clamp(400px,42vw,520px);object-fit:cover;object-position:top center;border-radius:18px;background:#0E110F}
+.phone-cap{margin-top:14px;text-align:center;font-size:14px;line-height:1.5;color:var(--t60)}
+.phone-cap b{display:block;color:var(--bone);font-weight:700;font-size:15px;margin-bottom:3px}
+.demo-note{max-width:66ch;margin:clamp(26px,3vw,36px) auto 0;text-align:center;font-size:13px;line-height:1.7;color:var(--t45)}
+
+/* ◆ רמז ההחלקה — מופיע רק כשהרצועות הופכות לגלילה אופקית */
+.swipe{display:none}
+
+/* ◆ צילום הדשבורד */
+.shot{max-width:1000px;margin:0 auto}
+.shot img{width:100%;border-radius:var(--r-lg);border:1px solid var(--line-card);box-shadow:0 20px 50px rgba(0,0,0,.45)}
+.shot figcaption{margin-top:16px;text-align:center;font-size:14px;line-height:1.7;color:var(--t60)}
+
+/* ◆ המחיר */
+.price-card{
+  max-width:640px;margin:0 auto;border:1px solid rgba(255,212,0,.32);border-radius:var(--r-lg);
+  background:var(--yellow-tint);padding:clamp(28px,3.4vw,46px);text-align:center;
+}
+.price-n{font-family:var(--display);font-weight:900;font-size:clamp(58px,9vw,104px);line-height:.9;letter-spacing:-.05em;color:var(--yellow)}
+.price-for{margin-top:12px;font-size:clamp(16px,1.5vw,19px);font-weight:600;color:var(--bone)}
+.price-vat{margin-top:6px;font-size:14px;color:var(--t60)}
+.price-line{height:1px;background:var(--line-card);margin:clamp(24px,3vw,32px) 0}
+.price-card .tick{text-align:start;max-width:440px;margin:0 auto}
+.price-after{
+  margin-top:clamp(24px,3vw,32px);border:1px solid var(--line-card);border-radius:var(--r-md);
+  padding:20px 22px;font-size:15px;line-height:1.7;color:var(--t75);text-align:start;
+}
+.price-after b{color:var(--bone)}
+.price-anchor{max-width:60ch;margin:clamp(22px,2.6vw,30px) auto 0;text-align:center;font-size:14.5px;line-height:1.75;color:var(--t60)}
+.spots{
+  display:inline-flex;align-items:center;gap:10px;margin-bottom:22px;
+  border:1px solid rgba(255,212,0,.35);border-radius:var(--r-pill);
+  padding:9px 18px;font-weight:700;font-size:14px;color:var(--yellow);
+}
+
+/* ◆ למי כן / למי לא */
+.fit-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,1.8vw,22px);max-width:1000px;margin:0 auto}
+.fit-card{border:1px solid var(--line-card);border-radius:var(--r-lg);padding:clamp(24px,2.6vw,32px)}
+.fit-card h3{font-family:var(--body);font-weight:800;font-size:19px;letter-spacing:0;line-height:1.3;margin-bottom:18px;color:var(--bone)}
+.fit-card.no{background:var(--fill)}
+.no-list{list-style:none;display:flex;flex-direction:column;gap:11px}
+.no-list li{position:relative;padding-inline-start:26px;font-size:15px;line-height:1.6;color:var(--t75)}
+.no-list li::before{content:"—";position:absolute;inset-inline-start:0;color:var(--t45)}
+.fit-foot{margin-top:20px;font-size:14.5px;line-height:1.7;color:var(--t60)}
+@media(max-width:768px){.fit-grid{grid-template-columns:1fr}}
+
+/* ═══════════════════════════════════════════════════════════════
+   ◆ נייד
+   הדף מלא ברצועות של שלוש תמונות לגובה. כשהן נערמות אחת מתחת
+   לשנייה הדף מגיע ל-18,000 פיקסלים — כ-46 מסכים של גלילה, ורוב
+   הנשים לא יגיעו למחיר. לכן בנייד כל רצועה הופכת לגלילה אופקית
+   עם scroll-snap (CSS נייטיב, בלי JS): התוכן נשאר שלם, הגובה נחתך.
+   הכרטיס ברוחב 74vw כדי שהבא אחריו יציץ — זה מה שמסמן שאפשר להחליק.
+   ═══════════════════════════════════════════════════════════════ */
+@media(max-width:760px){
+  .strip,.phones{
+    display:flex;flex-wrap:nowrap;align-items:flex-start;
+    gap:12px;max-width:none;
+    overflow-x:auto;overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    /* יוצא אל שולי המסך, כך שהכרטיס הראשון מיושר לגוף הטקסט */
+    margin-inline:calc(var(--gutter) * -1);
+    padding:4px var(--gutter) 12px;
+    scroll-padding-inline:var(--gutter);
+    scrollbar-width:none;
+  }
+  .strip::-webkit-scrollbar,.phones::-webkit-scrollbar{display:none}
+  .strip>figure,.phone{flex:0 0 74vw;max-width:310px;scroll-snap-align:center}
+  .strip img{aspect-ratio:4/5;min-height:0}
+
+  .swipe{
+    display:block;margin:-8px auto clamp(16px,3vw,22px);text-align:center;
+    font-size:13.5px;letter-spacing:.04em;color:var(--t60);
+  }
+
+  /* תמונת ההירו לא צריכה לתפוס מסך שלם לפני הכותרת */
+  .hero-photo{aspect-ratio:5/4;object-position:center 18%}
+  .hero-slides{aspect-ratio:5/4}
+
+  /* שלושה מספרים בשורה במקום שלוש שורות */
+  .stats{grid-template-columns:repeat(3,1fr)}
+  .stat{padding:18px 8px}
+  .stat-n{font-size:34px}
+  .stat-l{font-size:12px;line-height:1.35;margin-top:6px}
+
+  /* מסך קטן: הירו נמוך יותר, כדי שתחילת הטקסט תיראה בלי לגלול. */
+  @media(max-width:400px){
+    .hero{padding-top:84px;padding-bottom:28px}
+    .hero-grid{gap:18px}
+    .hero-slides{aspect-ratio:16/9}
+    .hero h1{margin-bottom:12px}
+    .hero-sub{font-size:15.5px;margin-bottom:20px}
+  }
+
+  .track{padding-inline-start:28px}
+  .track::before{inset-inline-start:6px}
+  .tstep::before{inset-inline-start:-26px;width:15px;height:15px}
+  .tstep{padding-bottom:24px}
+  .half{padding:22px 20px}
+  .price-card{padding:26px 20px}
+}
+</style>
+<!-- Consent Mode v2 — must run BEFORE GA4 loads -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5T22VE9YHT"></script>
+<script>gtag('js',new Date());gtag('config','G-5T22VE9YHT');</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HealthClub",
+  "name": "STEPS Fitness Center",
+  "alternateName": "סטודיו סטפס",
+  "url": "https://stepsnetanya.co.il",
+  "logo": "https://stepsnetanya.co.il/steps-logo-white.png",
+  "telephone": "+972-52-792-7575",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "אמנון ותמר 6, קניון פולג",
+    "addressLocality": "נתניה",
+    "addressCountry": "IL"
+  },
+  "geo": {"@type": "GeoCoordinates","latitude": 32.2749168,"longitude": 34.8479596},
+  "openingHoursSpecification": [
+    {"@type": "OpeningHoursSpecification","dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday"],"opens": "07:00","closes": "22:00"},
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "07:00", "closes": "14:00"}, {"@type": "OpeningHoursSpecification","dayOfWeek": "Saturday","opens": "18:30","closes": "22:00"}
+  ],
+  "priceRange": "$$",
+  "description": "תוכנית התזונה של סטודיו STEPS בנתניה — 3 חודשים, מפגשים אישיים בסטודיו וליווי יומיומי בוואטסאפ, למתאמנות הסטודיו."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question","name": "צריך להיות מנוי בסטודיו?","acceptedAnswer": {"@type": "Answer","text": "כן. התוכנית היא למתאמנות STEPS בלבד, כי היא בנויה סביב האימונים שלך בסטודיו. התשלום עליה נפרד מהמנוי."}},
+    {"@type": "Question","name": "בינה זה בוט או בן אדם?","acceptedAnswer": {"@type": "Answer","text": "בינה היא מערכת AI שנבנתה כאן ב-STEPS. בכל רגע שתרצי בן אדם — כותבת \"לדבר עם אור\" ואור נכנס לשיחה."}},
+    {"@type": "Question","name": "זה מחליף דיאטנית קלינית?","acceptedAnswer": {"@type": "Answer","text": "לא. בינה מלווה ומכוונת אך אינה מחליפה דיאטנית קלינית או רופא, ואור סבוני הוא מאמן כושר ולא דיאטן. נושאים רפואיים מופנים הלאה."}},
+    {"@type": "Question","name": "צריך להוריד אפליקציה?","acceptedAnswer": {"@type": "Answer","text": "לא. הכול רץ בוואטסאפ שכבר על הטלפון שלך, ודף התפריט האישי נפתח בדפדפן."}},
+    {"@type": "Question","name": "אני צמחונית / רגישה לגלוטן או ללקטוז?","acceptedAnswer": {"@type": "Answer","text": "התפריט מסנן ומציע חלופות אוטומטית, ואפשר לעדכן את בינה בכל שלב גם אחרי שהתפריט נבנה."}},
+    {"@type": "Question","name": "יקבלו ממני הודעות בשבת?","acceptedAnswer": {"@type": "Answer","text": "לא. בינה לא שולחת הודעות יזומות בשבת ובחג. אם תכתבי לה — היא תענה."}},
+    {"@type": "Question","name": "מה קורה בסוף שלושת החודשים?","acceptedAnswer": {"@type": "Answer","text": "נפגשים, מודדים, ומסכמים. אם בא לך להמשיך עם בינה — זה 99 ₪ לחודש, בבחירה שלך. בלי חיוב אוטומטי ובלי התחייבות."}}
+  ]
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#content">דלגי לתוכן</a>
+
+<!-- Cookie Consent -->
+<div id="cookie-banner" role="dialog" aria-label="הסכמה לעוגיות" style="display:none">
+  <p>האתר משתמש בעוגיות לצורך אנליטיקה ופרסום. <a href="privacy.html">מדיניות פרטיות</a></p>
+  <div style="display:flex;gap:8px;flex-shrink:0">
+    <button onclick="acceptCookies()" class="ck-ok">מסכימה</button>
+    <button onclick="declineCookies()" class="ck-no">דחייה</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav" role="navigation" aria-label="ניווט ראשי">
+  <div class="logo"><a href="https://stepsnetanya.co.il/"><img src="steps-logo-white.png" alt="STEPS Fitness Center" width="149" height="36"></a></div>
+  <ul class="n-links" id="navLinks">
+    <li><a href="https://stepsnetanya.co.il/">דף הבית</a></li>
+    <li><a href="#track">איך זה עובד</a></li>
+    <li><a href="#included">מה כלול</a></li>
+    <li><a href="#price">מחיר</a></li>
+    <li><a href="#contact" class="n-cta">לדבר איתי</a></li>
+  </ul>
+  <button class="mob" id="mobBtn" aria-label="פתיחת תפריט" aria-expanded="false">☰</button>
+</nav>
+<div class="mob-overlay" id="mobOverlay"></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-tag">תוכנית התזונה של STEPS</div>
+      <h1>את כבר מתאמנת.<em>עכשיו נשאר רק לסדר את האוכל.</em></h1>
+      <p class="hero-sub">תוכנית תזונה של שלושה חודשים. מתחילים בפגישה אישית אחד על אחד — שאלון רפואי, הרגלי אכילה ושגרת יום. לוקחים נתונים ובונים תוכנית לפי המטרה שלך. וכל הדרך, ליווי 24/7 בוואטסאפ עם בינה.</p>
+      <!-- אין כאן כפתור בכוונה. תוכנית של 1,500 ₪ לא נסגרת מכפתור
+           בהירו — קודם קוראים את הדף, וההנעה לפעולה יושבת בסוף.
+           מי שכבר החליטה מוצאת את הוואטסאפ הצף ואת הכפתור בתפריט. -->
+      <a class="hero-cue" href="#content">מה יש בתוכנית</a>
+    </div>
+    <div class="hero-media">
+      <!-- ◆ ההירו — שלוש תמונות אוכל שמתחלפות בהצלבה.
+           רק הראשונה נושאת alt; השתיים האחרות הן וריאציות ויזואליות
+           ולכן מוסתרות מקורא-מסך, אחרת הוא יקריא שלוש ארוחות ברצף. -->
+      <div class="hero-slides">
+        <img src="images/nutrition/hero-food.jpg" width="1000" height="1250" alt="ארוחה מאוזנת — סלמון צלוי, בטטה וסלט ירוק טרי" loading="eager" fetchpriority="high">
+        <img src="images/nutrition/hero-food-2.jpg" width="1000" height="1250" alt="" aria-hidden="true" loading="eager">
+        <img src="images/nutrition/hero-food-3.jpg" width="1000" height="1250" alt="" aria-hidden="true" loading="eager">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ מי אני ═══
+     המקטע הראשון אחרי ההירו, ולכן הוא נושא את role="main" ואת יעד
+     קישור הדילוג. אם מזיזים אותו — להעביר גם את שניהם למקטע שיהיה ראשון. -->
+<section class="sec sec-alt" id="content" role="main">
+  <div class="two-col me-col">
+    <div class="two-col-text">
+      <div class="sec-tag">הסיפור</div>
+      <h2>למה הקמנו מסלול<br>תזונה בסטודיו.</h2>
+      <p>עשרות מתאמנות מגיעות לכאן שבוע אחרי שבוע. משקיעות באימונים. ולא רואות תוצאות.</p>
+      <p>לא כי הן לא משתדלות. כי אף אחד לא הסביר להן מה לאכול. ואיך להכניס את זה לשגרה שכבר עמוסה. <strong>וזה בסדר גמור.</strong> זה לא משהו שאמורים לדעת לבד.</p>
+      <p>אז הקמנו מסלול ייעודי. אימונים ותזונה במקום אחד, אצל אותם אנשים, עם אותם נתונים. ככה מוציאים את המקסימום משניהם.</p>
+      <p><strong>ותזונה היא לא רק איך שאת נראית.</strong> היא ההתקדמות שלך באימון. ההתאוששות אחריו. והאנרגיה שלך בשאר היום.</p>
+    </div>
+    <!-- ◆ תמונה 2 — אור -->
+    <img class="me-photo" src="images/nutrition/or-hero.jpg" width="1000" height="1250" alt="אור סבוני, בעלים ומאמן בסטודיו STEPS נתניה" loading="lazy">
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-n">3</div><div class="stat-l">חודשים של ליווי</div></div>
+    <div class="stat"><div class="stat-n">4</div><div class="stat-l">פגישות אישיות איתי</div></div>
+    <div class="stat"><div class="stat-n">10</div><div class="stat-l">מקומות במחזור</div></div>
+  </div>
+</section>
+
+<!-- ═══ בינה ═══ -->
+<section class="sec" id="how">
+  <div class="sec-h">
+    <div class="sec-tag">החצי השני</div>
+    <!-- ◆ תמונה 6 — בינה. עיגול קטן, כמו תמונת פרופיל.
+         הכיתוב מתחת אינו קישוט: בלעדיו פורטרט מציאותי על דף שגובה כסף
+         ייקרא כדיאטנית אנושית, ובינה היא מערכת. -->
+    <h2 class="sec-title">תכירי את בינה</h2>
+    <!-- ◆ תמונה 6 — בינה. עיגול קטן, מיד מתחת לשם.
+         הכיתוב מתחת אינו קישוט: בלעדיו פורטרט מציאותי על דף שגובה כסף
+         ייקרא כדיאטנית אנושית, ובינה היא מערכת. -->
+    <div class="bina-photo">
+      <img src="images/nutrition/bina.jpg" width="800" height="1000" alt="בינה — דמות מאמנת התזונה של סטודיו STEPS" loading="lazy">
+    </div>
+    <p class="sec-sub">מאמנת התזונה של הסטודיו. אני נפגש איתך אחת לחודש — היא איתך בכל השאר.</p>
+    <p class="bina-note">בינה היא מערכת AI שפיתחנו בסטודיו. התמונה היא דמות המותג שלה.</p>
+  </div>
+
+  <div class="two-col bina-col">
+    <div class="two-col-text">
+      <p class="punch">זמינה 24/7.<br>לא רק כשנוח.</p>
+      <p>בינה היא מערכת AI שבנינו כאן בסטודיו. היא יושבת בוואטסאפ שכבר על הטלפון שלך — בלי להוריד כלום. והיא מכירה את הנתונים שלך, את התפריט ואת האימונים.</p>
+      <ul class="tick">
+        <li><strong>שקילות בוקר, שני וחמישי</strong> — היא מזכירה, רושמת, ומראה לך את המגמה</li>
+        <li><strong>דוח בסוף כל שבוע ודוח חודשי</strong> — איפה את עומדת, בלי לנחש</li>
+        <li><strong>תמונה של הצלחת</strong> — והיא מזהה, מחשבת ורושמת</li>
+        <li><strong>שאלות על מתכונים</strong> — מה להכניס, כמה, ובמקום מה</li>
+        <li><strong>החלפות שלא בתפריט</strong> — יצא לך משהו אחר? היא מתאימה בלי לפגוע ביעד</li>
+        <li><strong>פעילות מחוץ לסטודיו</strong> — הליכה, ריצה או שחייה. גם זה נכנס לחשבון</li>
+        <li><strong>היא מכירה אותך</strong> — ההרגלים שלך, ההעדפות, ומה את לא אוהבת</li>
+        <li><strong>מחוברת לאימונים שלך</strong> — רואה מה באמת עשית, ומתאימה קלוריות כשהעומס משתנה</li>
+      </ul>
+      <p class="bina-human">ובכל רגע שתרצי בן אדם — כותבת <strong>"לדבר עם אור"</strong>, ואני נכנס לשיחה.</p>
+    </div>
+
+    <div class="chat-wrap">
+    <div class="chat" role="img" aria-label="שיחה אמיתית בוואטסאפ בין מתאמנת לבינה. המתאמנת מודיעה שביטלה אימון, ובינה מרגיעה שאין צורך לקצץ בקלוריות כדי לפצות. בהמשך המתאמנת מדווחת על ארוחת ערב, ובינה רושמת אותה ומראה לה שסגרה את יעד החלבון היומי.">
+      <div class="chat-top">
+        <img class="chat-ava" src="images/nutrition/bina-avatar.jpg" width="200" height="200" alt="" aria-hidden="true" loading="lazy">
+        <span><b>בינה</b><i>מאמנת התזונה שלך</i></span>
+      </div>
+      <!-- הבועות מופיעות אחת-אחת בלופ. הקצב נשלט משתי מקומות בלבד:
+           משך המחזור ב-.chat-body ובבועות (16s), ואחוזי ההופעה ב-bubIn1..5. -->
+      <div class="chat-body">
+        <p class="bub me">ביטלתי את האימון</p>
+        <p class="bub her">הכל טוב, ליהי! לפעמים הגוף או הלו״ז פשוט צריכים את המנוחה הזו, וזה לגמרי חלק מהתהליך 🤍</p>
+        <p class="bub her">התקציב והתפריט שלך להערב נשארים בדיוק אותו דבר. אין שום צורך לקצץ או ״לפצות״ על זה שלא התאמנת.</p>
+        <p class="bub me">ארוחת ערב: 3 חלבוני ביצה, פיתה פרו, 30 גרם גבינה בולגרית וחצי קוטג׳</p>
+        <p class="bub her">רשמתי — כ-356 קק״ל ו-44 גרם חלבון 🥚 וסגרת את יעד החלבון היומי בענק, עם 98.6 גרם.</p>
+      </div>
+    </div>
+    <p class="chat-note">שיחה אמיתית מהוואטסאפ, מפורסמת באישור המתאמנת. קוצרה לצורך התצוגה.</p>
+  </div>
+</section>
+
+<!-- ═══ המדידות ═══ -->
+<section class="sec sec-alt" id="measure">
+  <div class="sec-h">
+    <div class="sec-tag">המדידות</div>
+    <h2 class="sec-title">מספרים, לא תחושות</h2>
+    <p class="sec-sub">המשקל לבד משקר. לכן אנחנו מודדים כמה דברים, ובאותה שיטה בכל פעם.</p>
+  </div>
+  <p class="swipe">← החליקי לצדדים</p>
+  <div class="strip">
+    <figure>
+      <!-- ◆ תמונה 3 — מדידת היקפים -->
+      <img src="images/nutrition/measure-tape.jpg" width="800" height="1000" alt="מדידת היקף מותן בסרט מדידה" loading="lazy">
+      <figcaption><b>היקפים</b>מותן, ירכיים וירך — בכל מפגש, באותן נקודות בדיוק</figcaption>
+    </figure>
+    <figure>
+      <!-- ◆ תמונה 4 — אחוזי שומן -->
+      <img src="images/nutrition/measure-caliper.jpg" width="800" height="1000" alt="בדיקת אחוזי שומן בקליפר" loading="lazy">
+      <figcaption><b>אחוזי שומן</b>אחת לכשמונה שבועות — מראה מה באמת ירד</figcaption>
+    </figure>
+    <figure>
+      <!-- ◆ תמונה 5 — שקילה -->
+      <img src="images/nutrition/measure-scale.jpg" width="800" height="1000" alt="שקילה על משקל דיגיטלי" loading="lazy">
+      <figcaption><b>משקל</b>בבית, שני וחמישי — ובינה מראה לך את המגמה</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ═══ מסלול 3 החודשים ═══ -->
+<section class="sec" id="track">
+  <div class="sec-h">
+    <div class="sec-tag">איך זה מתגלגל</div>
+    <h2 class="sec-title">שלושה חודשים, צעד־צעד</h2>
+  </div>
+  <div class="track">
+
+    <div class="tstep">
+      <div class="tstep-when">מפגש ראשון</div>
+      <div class="tstep-t">פגישה אישית, אחד על אחד</div>
+      <p class="tstep-d">יושבים בסטודיו ועוברים על הכל. <strong>שאלון רפואי</strong> — כדי לוודא שהליווי הזה בטוח בשבילך. <strong>הרגלי אכילה ושגרת יום</strong> — מתי את אוכלת. מתי את בבית. מה הולך אצלך בעבודה. ואז <strong>הנתונים הפיזיולוגיים</strong>: משקל, גובה, היקפים ואחוזי שומן.</p>
+    </div>
+
+    <div class="tstep">
+      <div class="tstep-when">אותו יום</div>
+      <div class="tstep-t">התוכנית נבנית ומגיעה לוואטסאפ</div>
+      <p class="tstep-d">מכל מה שאספנו נבנה היעד הקלורי שלך. <strong>לפי המטרה שבחרת</strong>, לא לפי טבלה כללית. בינה משלימה כמה שאלות קצרות ושולחת תפריט אישי מלא. עם החלפה לכל ארוחה, ובלי להוריד שום אפליקציה.</p>
+    </div>
+
+    <div class="tstep soft">
+      <div class="tstep-when">שבוע ראשון</div>
+      <div class="tstep-t">בלי שקילות. בכוונה.</div>
+      <p class="tstep-d">השבוע הראשון הוא להסתגלות בלבד. אנחנו לא נוגעים במשקל. מספר שקופץ בימים הראשונים לא אומר כלום, הוא רק מלחיץ.</p>
+    </div>
+
+    <div class="tstep">
+      <div class="tstep-when">יום 8</div>
+      <div class="tstep-t">השקילה הראשונה</div>
+      <p class="tstep-d">ומשם — שני וחמישי בבוקר. בינה מזכירה, רושמת, ומראה לך את <strong>המגמה</strong>, לא רק את המספר של היום.</p>
+    </div>
+
+    <div class="tstep">
+      <div class="tstep-when">כל שבוע</div>
+      <div class="tstep-t">השגרה שמחזיקה את זה</div>
+      <p class="tstep-d">מדידת היקפים כל שבועיים · דוח שבועי במוצאי שבת · טיפ לפני שיעור שהזמנת בסטודיו · ומפגש איתי אחת לחודש.</p>
+    </div>
+
+    <div class="tstep">
+      <div class="tstep-when">כל 28 יום</div>
+      <div class="tstep-t">התוכנית מתעדכנת איתך</div>
+      <p class="tstep-d">בינה מחשבת מחדש את היעד שלך. לפי ממוצע המשקל, לא לפי שקילה בודדת. אם ההפרש משמעותי — היא בונה תפריט חדש. הגוף משתנה, גם התוכנית.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ מה כלול ═══ -->
+<section class="sec sec-alt" id="included">
+  <div class="sec-h">
+    <div class="sec-tag">מה את מקבלת</div>
+    <h2 class="sec-title">הכול, בשורה אחת</h2>
+  </div>
+  <div class="halves">
+    <div class="half">
+      <div class="half-head">
+        <div class="half-badge" aria-hidden="true">📋</div>
+        <div><div class="half-who">התוכנית</div><div class="half-role">ממני, בסטודיו</div></div>
+      </div>
+      <ul class="tick">
+        <li><strong>פגישה אישית אחד על אחד</strong> — שאלון רפואי, הרגלי אכילה ושגרת יום</li>
+        <li>נתונים פיזיולוגיים: משקל, גובה, היקפים ואחוזי שומן</li>
+        <li>תוכנית מסודרת שנבנית לפי המטרה שבחרת</li>
+        <li>שלושה מפגשי מעקב, אחד לחודש, עם מדידה בכל אחד</li>
+        <li>אני בלולאה כל הדרך — רואה את ההתקדמות ומתערב כשצריך</li>
+      </ul>
+    </div>
+    <div class="half">
+      <div class="half-head">
+        <div class="half-badge" aria-hidden="true">💬</div>
+        <div><div class="half-who">הליווי</div><div class="half-role">מבינה, כל יום</div></div>
+      </div>
+      <ul class="tick">
+        <li>תפריט אישי מלא, עם החלפה לכל ארוחה</li>
+        <li>זמינה בוואטסאפ בכל שעה — טקסט, תמונה או הקלטה</li>
+        <li>תזכורות שקילה בשני ובחמישי, והיקפים כל שבועיים</li>
+        <li>דוח שבועי ודוח חודשי — איפה את עומדת באמת</li>
+        <li>דף תפריט והתקדמות אישי, נפתח בדפדפן</li>
+        <li>מאגר מזון ישראלי — כולל מאגר משרד הבריאות, מוצרים ומנות בית</li>
+        <li>עונה בעברית, ברוסית, באנגלית ובצרפתית</li>
+        <li>שקט מוחלט בשבת ובחג — בלי הודעות יזומות</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ האוכל ═══ -->
+<section class="sec" id="food">
+  <div class="sec-h">
+    <div class="sec-tag">האוכל</div>
+    <h2 class="sec-title">אוכל אמיתי, לא דיאטה</h2>
+    <p class="sec-sub">בלי אבקות, בלי מוצרים שצריך להזמין. אוכל שקונים בסופר וגם המשפחה אוכלת.</p>
+  </div>
+  <p class="demo-note" style="margin:0 auto clamp(20px,2.4vw,28px)">התמונות להמחשה. התפריט שלך נבנה לפי הנתונים וההעדפות שלך.</p>
+  <p class="swipe">← החליקי לצדדים</p>
+  <div class="strip">
+    <figure>
+      <!-- ◆ תמונה 3 — בוקר -->
+      <img src="images/nutrition/food-breakfast.jpg" width="800" height="1000" alt="ארוחת בוקר — חביתה, לחם מלא, אבוקדו, לאבנה וירקות טריים" loading="lazy">
+      <figcaption><b>בוקר</b>מה שאת אוהבת, בכמות שמתאימה לך</figcaption>
+    </figure>
+    <figure>
+      <!-- ◆ תמונה 4 — ארוחה עיקרית -->
+      <img src="images/nutrition/food-main.jpg" width="800" height="1000" alt="ארוחה עיקרית — חזה עוף בגריל, אורז, ירקות צלויים, חומוס וסלט ישראלי" loading="lazy">
+      <figcaption><b>צהריים או ערב</b>מנה מלאה — לא חצי צלחת חסה</figcaption>
+    </figure>
+    <figure>
+      <!-- ◆ תמונה 5 — נשנוש -->
+      <img src="images/nutrition/food-snack.jpg" width="800" height="1000" alt="נשנוש — יוגורט יווני עם פירות יער ושקדים, לצד ריבועי שוקולד מריר ותמר" loading="lazy">
+      <figcaption><b>ובין לבין</b>יש מקום גם למתוק — הוא חלק מהתוכנית</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ═══ התפריט בטלפון ═══ -->
+<section class="sec sec-alt" id="menu">
+  <div class="sec-h">
+    <div class="sec-tag">התפריט שלך</div>
+    <h2 class="sec-title">ככה זה נראה בטלפון</h2>
+    <p class="sec-sub">לא PDF שנשמר בהורדות ונשכח. דף חי שמתעדכן איתך.</p>
+  </div>
+  <p class="swipe">← החליקי לצדדים</p>
+  <div class="phones">
+    <div class="phone">
+      <div class="phone-frame"><img src="images/nutrition/menu-hero.png" width="380" height="812" alt="דף התפריט האישי — טבעת קלוריות יומית ומעקב שתייה" loading="lazy"></div>
+      <p class="phone-cap"><b>היום שלך במבט אחד</b>כמה נשאר, כמה חלבון, כמה מים</p>
+    </div>
+    <div class="phone">
+      <div class="phone-frame"><img src="images/nutrition/menu-meals.png" width="380" height="812" alt="ארוחות היום בתפריט, עם סימון ארוחות שנאכלו והחלפות אפשריות" loading="lazy"></div>
+      <p class="phone-cap"><b>הארוחות עצמן</b>מסמנת מה אכלת, מחליפה מה שלא בא לך</p>
+    </div>
+    <div class="phone">
+      <div class="phone-frame"><img src="images/nutrition/progress.png" width="365" height="2523" alt="דף ההתקדמות — גרף משקל, טבלה שבועית וגרף היקפים" loading="lazy"></div>
+      <p class="phone-cap"><b>ההתקדמות</b>המגמה שלך לאורך זמן, לא מספר בודד</p>
+    </div>
+  </div>
+  <p class="demo-note">הצילומים מתוך חשבון הדגמה — לא נתונים של לקוחה אמיתית.</p>
+</section>
+
+<!-- ═══ צילומי מסך מלקוחות ═══
+     המקטע הזה ירד לפני העלייה לאוויר: הוא היה עדיין מסגרות-מקום עם
+     "[משפט קצר מהשיחה]" והוראות פנימיות, ובלי שלושה צילומי מסך אמיתיים
+     (באישור המתאמנות) אין לו תוכן. כשהצילומים מגיעים — מחזירים אותו,
+     ואיתו את הקישור "תוצאות" בתפריט הניווט ואת מחלקות ה-.ph בגיליון.
+     ═══ -->
+
+<!-- ═══ הדשבורד ═══ -->
+<section class="sec sec-alt" id="watch">
+  <div class="sec-h">
+    <div class="sec-tag">מאחורי הקלעים</div>
+    <h2 class="sec-title">ואני רואה את כולן</h2>
+    <p class="sec-sub">לא נשענת רק על זה שתזכרי לכתוב לי. אני עוקב אחרי כל אחת מכן, כל שבוע.</p>
+  </div>
+  <figure class="shot">
+    <img src="images/nutrition/dashboard.webp" width="900" height="380" alt="לוח הבקרה של אור — מגמת המשקל של כל מתאמנת בתוכנית, עם השמות מטושטשים" loading="lazy">
+    <figcaption>לוח הבקרה שלי. כל כרטיס הוא מתאמנת אחת, עם המגמה שלה. כשמישהי נתקעת — אני יודע לפני שהיא מספרת לי.<br>הצילום מטושטש מטעמי פרטיות.</figcaption>
+  </figure>
+</section>
+
+<!-- ═══ מחיר ═══ -->
+<section class="sec" id="price">
+  <div class="sec-h">
+    <div class="sec-tag">כמה זה עולה</div>
+    <h2 class="sec-title">מחיר אחד. הכול בפנים.</h2>
+  </div>
+  <div style="text-align:center"><span class="spots">מחזור של 10 מתאמנות בלבד</span></div>
+  <div class="price-card">
+    <div class="price-n">1,500 ₪</div>
+    <div class="price-for">לתוכנית מלאה של 3 חודשים</div>
+    <div class="price-vat">המחיר כולל מע״מ · בתשלום נפרד ממנוי הסטודיו</div>
+    <div class="price-line"></div>
+    <ul class="tick">
+      <li>4 פגישות אישיות אחד על אחד בסטודיו</li>
+      <li>שאלון רפואי, הרגלי אכילה ושגרת יום</li>
+      <li>נתונים פיזיולוגיים ומדידה בכל פגישה</li>
+      <li>תוכנית מסודרת לפי המטרה שלך, מתעדכנת לאורך הדרך</li>
+      <li>ליווי 24/7 בוואטסאפ עם בינה, 3 חודשים</li>
+      <li>שקילות, מדידות, דוחות שבועיים וחודשיים</li>
+    </ul>
+    <div class="price-after">
+      <b>ואחרי שלושת החודשים?</b><br>
+      נפגשים, מודדים ומסכמים. אם בא לך להמשיך עם בינה — 99 ₪ לחודש, בבחירה שלך.
+      בלי חיוב אוטומטי ובלי התחייבות.
+    </div>
+  </div>
+  <p class="price-anchor">תכלס, בשביל פרופורציה: פגישה אחת אצל דיאטנית קלינית פרטית עולה 150–420 ₪. זה חשוב, ולפעמים הכרחי. זה לא תחליף לזה — זה מה שקורה בין לבין.</p>
+</section>
+
+<!-- ═══ למי כן, למי לא ═══ -->
+<section class="sec sec-alt" id="fit">
+  <div class="sec-h">
+    <div class="sec-tag">לפני שנרשמות</div>
+    <h2 class="sec-title">למי זה מתאים — ולמי לא</h2>
+    <p class="sec-sub">עדיף שתדעי עכשיו ולא אחרי שתשלמי.</p>
+  </div>
+  <div class="fit-grid">
+
+    <div class="fit-card">
+      <h3>זה בשבילך אם</h3>
+      <ul class="tick">
+        <li>את מתאמנת אצלנו ורוצה שהאוכל סוף־סוף יתאים לאימונים</li>
+        <li>ניסית תפריטים ולא החזקת אותם לאורך זמן</li>
+        <li>את רוצה מישהו שמודד, עוקב ומתקן — ולא רק שולח קובץ</li>
+        <li>נוח לך לנהל את זה מהוואטסאפ, בלי עוד אפליקציה</li>
+      </ul>
+    </div>
+
+    <div class="fit-card no">
+      <h3>זה לא בשבילך כרגע אם</h3>
+      <ul class="no-list">
+        <li>את בהריון או מניקה</li>
+        <li>יש לך סוכרת (סוג 1 או 2)</li>
+        <li>את מטופלת בתרופות ליתר לחץ דם</li>
+        <li>יש לך מחלת לב, כליות או כבד פעילה</li>
+        <li>את בטיפול אקטיבי בסרטן</li>
+        <li>עברת ניתוח גדול בחצי השנה האחרונה</li>
+        <li>יש או היה לך רקע של הפרעת אכילה</li>
+      </ul>
+      <p class="fit-foot">אלה מצבים שדורשים דיאטנית קלינית או רופא. לא ליווי כמו שלנו. אז אנחנו פשוט לא מתחילים. אם את במצב כזה ורוצה שאפנה אותך לכתובת הנכונה — כתבי לי, אשמח לעזור.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section class="sec" id="faq">
+  <div class="sec-h">
+    <div class="sec-tag">שאלות נפוצות</div>
+    <h2 class="sec-title">מה שנשאלתי הכי הרבה</h2>
+  </div>
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary class="faq-q">צריך להיות מנוי בסטודיו?</summary>
+      <div class="faq-a">כן. התוכנית היא למתאמנות STEPS בלבד, כי היא בנויה סביב האימונים שלך אצלנו. התשלום עליה נפרד ממנוי הסטודיו.</div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">בינה זה בוט או בן אדם?</summary>
+      <div class="faq-a">בינה היא מערכת AI שבנינו כאן ב-STEPS. בכל רגע שתרצי בן אדם — כותבת "לדבר עם אור" ואני נכנס לשיחה.</div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">זה מחליף דיאטנית קלינית?</summary>
+      <div class="faq-a">לא. בינה מלווה ומכוונת אך אינה מחליפה דיאטנית קלינית או רופא, ואני מאמן כושר ולא דיאטן. כל נושא רפואי מופנה הלאה, לרופא או לדיאטנית קלינית.</div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">צריך להוריד אפליקציה?</summary>
+      <div class="faq-a">לא. הכול רץ בוואטסאפ שכבר על הטלפון שלך, ודף התפריט וההתקדמות נפתח בדפדפן.</div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">אני צמחונית / רגישה לגלוטן או ללקטוז?</summary>
+      <div class="faq-a">התפריט מסנן ומציע חלופות אוטומטית. ואפשר לעדכן את בינה בכל שלב, גם אחרי שהוא כבר נבנה.</div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">יקבלו ממני הודעות בשבת?</summary>
+      <div class="faq-a">לא. בינה לא שולחת הודעות יזומות בשבת ובחג. אם תכתבי לה — היא תענה.</div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">מה קורה בסוף שלושת החודשים?</summary>
+      <div class="faq-a">נפגשים, מודדים ומסכמים איפה את עומדת. אם בא לך להמשיך עם בינה — זה 99 ₪ לחודש, בבחירה שלך. בלי חיוב אוטומטי ובלי התחייבות.</div>
+    </details>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="book-sec" id="contact">
+  <h2>נדבר?</h2>
+  <p class="sub">כתבי לי בוואטסאפ. נדבר חמש דקות ונראה אם זה מתאים לך. בלי התחייבות.</p>
+  <a class="btn-a" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%20%D7%90%D7%95%D7%A8%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%A0%D7%AA%20%D7%91%D7%AA%D7%95%D7%9B%D7%A0%D7%99%D7%AA%20%D7%94%D7%AA%D7%96%D7%95%D7%A0%D7%94" target="_blank" rel="noopener" data-track="trial-cta whatsapp-click">💬 בואי נדבר בוואטסאפ</a>
+  <p class="cta-note">או בטלפון — <a href="tel:+972527927575" dir="ltr">052-792-7575</a></p>
+  <p class="legal-note">בינה מלווה ומכוונת אך אינה מחליפה דיאטנית קלינית או רופא. אור סבוני הוא מאמן כושר, לא דיאטן קליני. לפני התחלת התוכנית תתבקשי לענות על מספר שאלות בריאות קצרות. לפרטים המלאים — <a href="privacy.html#cancel">מדיניות הביטולים ותנאי השירות</a>.</p>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot" role="contentinfo">
+  <div class="fg">
+    <div>
+      <div class="logo"><a href="https://stepsnetanya.co.il/"><img src="steps-logo-white.png" alt="STEPS Fitness Center לוגו" width="158" height="38" loading="lazy"></a></div>
+      <p class="fd">הבית שלך לאימונים. כוח · אירובי · פילאטיס מכשירים · בר · תזונה חכמה. הכל תחת קורת גג אחת.</p>
+    </div>
+    <div>
+      <div class="ft">ניווט</div>
+      <ul class="fl">
+        <li><a href="https://stepsnetanya.co.il/">דף הבית</a></li>
+        <li><a href="https://stepsnetanya.co.il/#spaces">החללים</a></li>
+        <li><a href="https://stepsnetanya.co.il/#sched">מערכת שעות</a></li>
+        <li><a href="https://stepsnetanya.co.il/#reviews">המלצות</a></li>
+        <li><a href="privacy.html">מדיניות פרטיות</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="ft">שירותים</div>
+      <ul class="fl">
+        <li><a href="nutrition.html">תוכנית תזונה</a></li>
+        <li><a href="pilates.html">פילאטיס מכשירים</a></li>
+        <li><a href="barre.html">אימון בר</a></li>
+        <li><a href="gym-women.html">GYM — חדר כושר</a></li>
+        <li><a href="https://stepsnetanya.co.il/#spaces">MOVE — שיעורים</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="ft">צרי קשר</div>
+      <div class="fc">📍 אמנון ותמר 6, קניון פולג, נתניה</div>
+      <div class="fc" dir="ltr">📞 052-792-7575</div>
+      <div class="fc">⏰ א׳-ה׳ 7:00-22:00 · ו׳ 7:00-14:00 · מוצ״ש 18:30-22:00</div>
+      <div class="fc">📸 <a href="https://www.instagram.com/steps_netanya/" target="_blank" rel="noopener">@steps_netanya</a></div>
+    </div>
+  </div>
+  <p class="fnote">פעילות גופנית ושינוי תזונתי מומלץ לבצע לאחר התייעצות עם רופא. בינה מלווה ומכוונת אך אינה מחליפה דיאטנית קלינית או רופא. STEPS אינה אחראית לנזקי בריאות הנובעים משימוש בשירותיה.</p>
+  <div class="fb">
+    <!-- זיהוי העוסק — נדרש בעסקה מרחוק: שם, מספר עוסק וכתובת (הכתובת למעלה). -->
+    <span class="fcopy">© 2026 STEPS Fitness Center · עוסק מורשה 558306098 · כל הזכויות שמורות.</span>
+    <div class="flegal">
+      <a href="privacy.html">מדיניות פרטיות</a>
+      <a href="accessibility.html">הצהרת נגישות</a>
+      <a href="privacy.html#cancel">מדיניות ביטולים</a>
+      <!-- תיקון 13 מחייב שאפשר יהיה לחזור בך מהסכמה. -->
+      <button type="button" id="ckReset">הגדרות עוגיות</button>
+    </div>
+    <div class="fsoc">
+      <a href="https://www.instagram.com/steps_netanya/" class="fsi" target="_blank" rel="noopener" aria-label="אינסטגרם STEPS">📷</a>
+      <a href="https://www.facebook.com/stepsnetanya/" class="fsi" target="_blank" rel="noopener" aria-label="פייסבוק STEPS">📘</a>
+      <a href="https://wa.me/972527927575" class="fsi" target="_blank" rel="noopener" aria-label="וואטסאפ STEPS">💬</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ACCESSIBILITY BUTTON -->
+<button id="acc-btn" onclick="document.getElementById('acc-modal').style.display='flex'" aria-label="נגישות">♿</button>
+
+<!-- FLOATING WA -->
+<a href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%20%D7%90%D7%95%D7%A8%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%A0%D7%AA%20%D7%91%D7%AA%D7%95%D7%9B%D7%A0%D7%99%D7%AA%20%D7%94%D7%AA%D7%96%D7%95%D7%A0%D7%94" class="waf" target="_blank" rel="noopener" data-track="whatsapp-click" aria-label="שלחי הודעה בוואטסאפ">💬</a>
+
+<script>
+// Navbar scroll
+window.addEventListener('scroll',function(){document.getElementById('nav').classList.toggle('solid',scrollY>80)});
+
+// Mobile menu
+var mobBtn=document.getElementById('mobBtn');
+var nLinks=document.getElementById('navLinks');
+var mobOv=document.getElementById('mobOverlay');
+function toggleMenu(){var o=nLinks.classList.toggle('open');mobOv.classList.toggle('open');mobBtn.textContent=o?'✕':'☰';mobBtn.setAttribute('aria-expanded',o?'true':'false');}
+mobBtn.addEventListener('click',toggleMenu);
+mobOv.addEventListener('click',toggleMenu);
+document.querySelectorAll('.n-links a').forEach(function(a){a.addEventListener('click',function(){if(nLinks.classList.contains('open'))toggleMenu();});});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();if(nLinks.classList.contains('open'))toggleMenu();var t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});});});
+</script>
+
+<script>
+// Cookie consent
+(function(){
+  function initTracking(){
+    if(typeof gtag==='function')gtag('consent','update',{'analytics_storage':'granted','ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted'});
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');if(typeof fbq==='function'){fbq('init','1016773848190436');fbq('track','PageView');}
+  }
+  window.acceptCookies=function(){localStorage.setItem('steps-consent','granted');document.getElementById('cookie-banner').style.display='none';initTracking();};
+  window.declineCookies=function(){localStorage.setItem('steps-consent','declined');document.getElementById('cookie-banner').style.display='none';};
+  var c=localStorage.getItem('steps-consent');
+  if(c==='granted'){initTracking();}
+  else if(c!=='declined'){document.getElementById('cookie-banner').style.display='flex';}
+  /* חזרה מהסכמה (תיקון 13). פיקסל שכבר נטען אי-אפשר להוריד מהדף — לכן
+     מוחקים את הבחירה וטוענים מחדש: בטעינה החדשה הוא לא עולה והבאנר חוזר. */
+  var rst=document.getElementById('ckReset');
+  if(rst)rst.addEventListener('click',function(){try{localStorage.removeItem('steps-consent')}catch(e){}location.reload();});
+})();
+</script>
+
+<!-- ACCESSIBILITY MODAL -->
+<div id="acc-modal" role="dialog" aria-modal="true" aria-label="הצהרת נגישות" style="display:none">
+  <div class="modal-box">
+    <button onclick="document.getElementById('acc-modal').style.display='none'" aria-label="סגירה" class="modal-x">&times;</button>
+    <h2>♿ הצהרת נגישות</h2>
+    <p>
+      סטודיו STEPS שואף לאפשר גלישה נוחה ונגישה לכל המשתמשות. אנו פועלים לשיפור הנגישות באופן מתמיד ושמחים לקבל פניות בנושא.<br><br>
+      <strong>פעולות נגישות שבוצעו:</strong><br>
+      • כל התמונות כוללות טקסט חלופי (alt text) בעברית<br>
+      • האתר מותאם לגלישה במובייל ובמחשב<br>
+      • קיים קישור "דלגי לתוכן" לניווט מהיר במקלדת<br>
+      • ניגודיות הצבעים עומדת בתקן WCAG AA<br>
+      • מבנה כותרות (H1/H2) סדור לניווט בטכנולוגיות מסייעות
+    </p>
+    <p><strong>נגישות הסטודיו:</strong><br>
+      • חניית נכים בחניון הקניון, ללא תשלום<br>
+      • מעלית מהחניון ומקומת הכניסה אל קומה 2<br>
+      • שירותי נכים</p>
+    <p><strong>רכז הנגישות:</strong><br>אור סבוני · בעלים<br>טלפון ווואטסאפ: <a href="tel:+972527927575">052-792-7575</a><br>מייל: <a href="mailto:stepsnetanya@gmail.com">stepsnetanya@gmail.com</a><br>כתובת: אמנון ותמר 6, קניון פולג, קומה 2, נתניה<br>נשמח לקבל כל פנייה בנושא נגישות ולטפל בה בהקדם.</p>
+    <p><strong>תקן ההנגשה:</strong><br>האתר הונגש בהתאם לתקן הישראלי ת"י 5568 ברמה AA (המבוסס על WCAG 2.0).</p>
+    <p style="text-align:center;margin-bottom:8px"><a href="accessibility.html" style="font-weight:700;font-size:14px">להצהרת הנגישות המלאה ←</a></p>
+    <p style="text-align:center;margin-top:18px" class="fcopy">עודכן: אוגוסט 2026</p>
+  </div>
+</div>
+
+<script>
+// Conversion tracking
+(function(){
+  function trackEvent(name, params){
+    params=params||{};
+    params.page_location=location.href;
+    if(typeof gtag==='function')gtag('event',name,params);
+    if(typeof fbq==='function'){
+      if(name==='cta_trial_click')fbq('track','Lead',params);
+      else fbq('trackCustom',name,params);
+    }
+  }
+  document.querySelectorAll('[data-track]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var t=el.getAttribute('data-track')||'';
+      if(t.indexOf('trial-cta')>-1)trackEvent('cta_trial_click',{cta_text:(el.textContent||'').trim()});
+      if(t.indexOf('whatsapp-click')>-1)trackEvent('whatsapp_click',{link_url:el.href||''});
+    });
+  });
+})();
+</script>
+<script>
+// Accessibility modal — Esc / backdrop close + focus return
+(function(){
+  var m=document.getElementById('acc-modal'),btn=document.getElementById('acc-btn');
+  if(!m)return;
+  function closeAcc(){m.style.display='none';if(btn)btn.focus();}
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&m.style.display==='flex')closeAcc();});
+  m.addEventListener('click',function(e){if(e.target===m)closeAcc();});
+})();
+</script>
+<script>
+/* חשיפה בגלילה — מחליפה את AOS מה-CDN (שגם שלח את הגולשת לשרת חיצוני
+   לפני שנשאלה על עוגיות). מה שכבר על המסך נשאר גלוי, בלי הבהוב. */
+(function(){
+  document.documentElement.className+=' js';
+  addEventListener('DOMContentLoaded',function(){
+    if(!('IntersectionObserver' in window))return;
+    var els=document.querySelectorAll('.sec-h,.sec-content,.stats,.half,.tstep,.phone,.strip figure,.two-col>*,.faq-item,.price-card,.fit-card,.shot');
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -8% 0px'});
+    Array.prototype.forEach.call(els,function(e){
+      if(e.getBoundingClientRect().top<innerHeight*.92)return;
+      e.classList.add('rv');io.observe(e);
+    });
+  });
+})();
+</script>
+</body>
+</html>
