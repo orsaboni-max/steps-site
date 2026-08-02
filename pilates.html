@@ -22,9 +22,13 @@
 <meta name="theme-color" content="#2EC4B6">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<!-- הגופן מתארח אצלנו. דרך Google Fonts כתובת ה-IP של הגולשת נשלחה לגוגל
+     עוד לפני שנשאלה על עוגיות, וגיליון החוץ גם חסם את הציור הראשון. -->
+<link rel="preload" href="fonts/heebo-hebrew.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Heebo';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/heebo-hebrew.woff2) format('woff2');unicode-range:U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F}
+@font-face{font-family:'Heebo';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/heebo-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+</style>
 <style>
 :root{
   --accent:#2EC4B6;
@@ -32,7 +36,7 @@
   --bg:#1C2018;
   --bg2:#232A1E;
   --text:#F0EDE8;
-  --text-muted:rgba(240,237,232,0.5);
+  --text-muted:rgba(240,237,232,0.72);   /* היה 0.5 — 4.05:1, מתחת ל-AA */
   --dark:#141810;
   --card:rgba(255,255,255,0.04);
   --card-border:rgba(255,255,255,0.08);
@@ -158,7 +162,7 @@ img{max-width:100%;height:auto}
 .tc-txt{font-size:13px;line-height:1.8;color:rgba(255,255,255,0.62);margin-bottom:16px}
 .tc-auth{display:flex;align-items:center;gap:10px}
 .tc-av{width:36px;height:36px;border-radius:50%;background:rgba(46,196,182,0.18);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:var(--accent);flex-shrink:0}
-.tc-name{font-weight:700;font-size:13px;color:#fff}.tc-info{font-size:10px;color:rgba(255,255,255,0.35)}
+.tc-name{font-weight:700;font-size:13px;color:#fff}.tc-info{font-size:11px;color:rgba(255,255,255,0.65)}
 
 /* FAQ */
 .faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
@@ -172,7 +176,9 @@ img{max-width:100%;height:auto}
 .book-sec{background:var(--dark);padding:80px 5%;text-align:center}
 .book-sec h2{font-size:clamp(24px,4vw,38px);font-weight:900;color:#fff;margin-bottom:8px}
 .book-sec p.sub{font-size:16px;color:rgba(255,255,255,0.55);margin-bottom:28px;line-height:1.6}
-.book-frame{background:rgba(255,255,255,0.97);border-radius:16px;overflow:hidden;max-width:700px;margin:0 auto}
+/* היה פאנל לבן — המסגרת של ה-iframe הישן של Arbox. אחרי שהוחלף בכפתור,
+   הטקסט הלבן שנשאר בתוכו ירד ל-1:1 ופשוט נעלם. פאנל כהה כמו בשאר הדפים. */
+.book-frame{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;max-width:700px;margin:0 auto;padding:24px 16px}
 
 /* GALLERY */
 .gal{padding:90px 5%;overflow-x:hidden;background:var(--bg)}
@@ -190,16 +196,20 @@ img{max-width:100%;height:auto}
 /* FOOTER - stays dark */
 .foot{background:#0e0b0a;padding:48px 5% 20px;overflow-x:hidden}
 .fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;max-width:1100px;margin:0 auto;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,0.05)}
-.fd{font-size:12px;color:#666;line-height:1.7;margin-top:10px}
+/* צבעי הפוטר היו #666 ו-rgba(255,255,255,.15) על רקע כמעט שחור — 3.5:1 ו-1.5:1.
+   הועלו כדי לעמוד ב-WCAG AA (4.5:1), כמו שנעשה בדף הבית. */
+.fd{font-size:12px;color:#8b8b8b;line-height:1.7;margin-top:10px}
 .foot .logo img{height:38px}
 .ft{font-size:13px;font-weight:700;margin-bottom:14px;color:var(--accent)}
 .fl{list-style:none;display:flex;flex-direction:column;gap:8px}
-.fl a{color:#666;text-decoration:none;font-size:12px;transition:color .3s}.fl a:hover{color:var(--accent)}
-.fc{display:flex;align-items:center;gap:6px;color:#666;font-size:12px;margin-bottom:8px}
+.fl a{color:#8b8b8b;text-decoration:none;font-size:12px;transition:color .3s}.fl a:hover{color:var(--accent)}
+.fc{display:flex;align-items:center;gap:6px;color:#8b8b8b;font-size:12px;margin-bottom:8px}
 .fb{max-width:1100px;margin:0 auto;padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.fcopy{font-size:11px;color:rgba(255,255,255,0.15)}
+.fcopy{font-size:11px;color:rgba(255,255,255,0.6)}
+.flegal{display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:11px}
+.flegal a,.flegal button{color:var(--accent);text-decoration:underline;font-size:11px;font-family:inherit;background:none;border:none;padding:4px 0;cursor:pointer}
 .fsoc{display:flex;gap:8px}
-.fsi{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:13px;color:#666;text-decoration:none;transition:all .3s}
+.fsi{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:13px;color:#8b8b8b;text-decoration:none;transition:all .3s}
 .fsi:hover{background:var(--accent);border-color:var(--accent);color:#fff}
 @media(max-width:768px){.fg{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.fg{grid-template-columns:1fr}}
@@ -280,7 +290,7 @@ img{max-width:100%;height:auto}
     {"@type": "Question","name": "מה כדאי ללבוש לשיעור הראשון?","acceptedAnswer": {"@type": "Answer","text": "בגדי אימון נוחים וצמודים שמאפשרים תנועה חופשית, וגרבי החלקה (grip socks) לאחיזה טובה ובטוחה על המכשיר. כדאי גם בקבוק מים."}},
     {"@type": "Question","name": "איפה הסטודיו ואיך מגיעים?","acceptedAnswer": {"@type": "Answer","text": "אמנון ותמר 6, בקניון פולג בנתניה — עם חניה נוחה בקניון. קרובות לרמת פולג וכל אזור פולג בנתניה."}},
     {"@type": "Question","name": "יש לכן פילאטיס מכשירים ברמת פולג?","acceptedAnswer": {"@type": "Answer","text": "הסטודיו נמצא בקניון פולג בנתניה — כמה דקות נסיעה מרמת פולג וכל האזור הצפוני של העיר. חניה חינם בקניון, וקל להגיע מכל הרחובות הסמוכים."}},
-    {"@type": "Question","name": "כמה עולה פילאטיס מכשירים בסטודיו?","acceptedAnswer": {"@type": "Answer","text": "יש 3 מסלולים לפי כמות כניסות בחודש. עם גישה לפילאטיס מכשירים: 5 כניסות ב-320 ₪, 9 כניסות ב-475 ₪, 13 כניסות ב-530 ₪. בלי התחייבות, וביטול בהודעה של 30 יום מראש."}}
+    {"@type": "Question","name": "כמה עולה פילאטיס מכשירים בסטודיו?","acceptedAnswer": {"@type": "Answer","text": "יש 3 מסלולים לפי כמות כניסות בחודש. עם גישה לפילאטיס מכשירים: 5 כניסות ב-320 ₪, 9 כניסות ב-475 ₪, 13 כניסות ב-530 ₪. כל המחירים כוללים מע״מ. בלי התחייבות, וביטול בהודעה של 30 יום מראש."}}
   ]
 }
 </script>
@@ -496,7 +506,7 @@ img{max-width:100%;height:auto}
     </div>
     <div class="faq-item" data-aos="fade-up" data-aos-delay="960">
       <div class="faq-q">כמה עולה פילאטיס מכשירים בסטודיו?</div>
-      <div class="faq-a">יש 3 מסלולים לפי כמות כניסות בחודש. עם גישה לפילאטיס מכשירים: 5 כניסות ב-320 ₪, 9 כניסות ב-475 ₪, 13 כניסות ב-530 ₪. בלי התחייבות, וביטול בהודעה של 30 יום מראש.</div>
+      <div class="faq-a">יש 3 מסלולים לפי כמות כניסות בחודש. עם גישה לפילאטיס מכשירים: 5 כניסות ב-320 ₪, 9 כניסות ב-475 ₪, 13 כניסות ב-530 ₪. כל המחירים כוללים מע״מ. בלי התחייבות, וביטול בהודעה של 30 יום מראש.</div>
     </div>
   </div>
 </section>
@@ -515,7 +525,7 @@ img{max-width:100%;height:auto}
     <p style="margin-top:16px;font-size:14px;color:rgba(255,255,255,0.5)">נפתח בטאב חדש — הרשמה מלאה ב-Arbox</p>
   </div>
   <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.5)">💬 שאלות? <a href="https://wa.me/972527927575" style="color:var(--accent);text-decoration:underline" target="_blank" rel="noopener">דברי איתנו בוואטסאפ</a></p>
-  <p style="margin-top:10px;font-size:11px;color:rgba(255,255,255,0.25);line-height:1.7">מדיניות ביטולים: ביטול עד 24 שעות לפני האימון — ניתן לקבוע מועד חלופי. ביטול פחות מ-24 שעות מראש — אין זיכוי.</p>
+  <p style="margin-top:10px;font-size:12px;color:rgba(255,255,255,0.66);line-height:1.7">מדיניות ביטולים: ביטול עד 24 שעות לפני האימון — ניתן לקבוע מועד חלופי. ביטול פחות מ-24 שעות מראש — אין זיכוי. <a href="privacy.html#cancel" style="color:var(--accent);text-decoration:underline">המדיניות המלאה</a></p>
 </section>
 
 <!-- GALLERY -->
@@ -572,12 +582,22 @@ img{max-width:100%;height:auto}
       <div class="fc">📍 אמנון ותמר 6, קניון פולג, נתניה</div>
       <div class="fc" dir="ltr">📞 052-792-7575</div>
       <div class="fc">⏰ א׳-ה׳ 7:00-22:00 · ו׳ 7:00-14:00 · מוצ״ש 18:30-22:00</div>
-      <div class="fc">📸 <a href="https://www.instagram.com/steps_netanya/" style="color:#666;text-decoration:none" target="_blank" rel="noopener">@steps_netanya</a></div>
+      <div class="fc">📸 <a href="https://www.instagram.com/steps_netanya/" style="color:#8b8b8b;text-decoration:none" target="_blank" rel="noopener">@steps_netanya</a></div>
     </div>
   </div>
-  <p style="font-size:10px;color:rgba(255,255,255,0.15);text-align:center;max-width:1100px;margin:12px auto 6px;line-height:1.6">פעילות גופנית מומלץ לבצע לאחר התייעצות עם רופא. STEPS אינה אחראית לנזקי בריאות הנובעים משימוש בשירותיה.</p>
+  <p style="font-size:11px;color:rgba(255,255,255,0.6);text-align:center;max-width:1100px;margin:12px auto 6px;line-height:1.6">פעילות גופנית מומלץ לבצע לאחר התייעצות עם רופא. STEPS אינה אחראית לנזקי בריאות הנובעים משימוש בשירותיה.</p>
   <div class="fb">
-    <span class="fcopy">© 2026 Studio Steps. כל הזכויות שמורות. &nbsp;·&nbsp; <a href="privacy.html" style="color:rgba(255,255,255,0.25);text-decoration:underline">מדיניות פרטיות</a></span>
+    <!-- זיהוי העוסק — נדרש בעסקה מרחוק: שם, מספר עוסק וכתובת (הכתובת למעלה). -->
+    <span class="fcopy">© 2026 STEPS Fitness Center · עוסק מורשה 558306098 · כל הזכויות שמורות.</span>
+    <div class="flegal">
+      <a href="privacy.html">מדיניות פרטיות</a>
+      <a href="accessibility.html">הצהרת נגישות</a>
+      <!-- מצביע למדיניות המלאה, לא לשאלה הנפוצה: שם יושבת גם זכות
+           הביטול הסטטוטורית של 14 יום, ולא רק כלל 24 השעות. -->
+      <a href="privacy.html#cancel">מדיניות ביטולים</a>
+      <!-- תיקון 13 מחייב שאפשר יהיה לחזור בך מהסכמה. -->
+      <button type="button" id="ckReset">הגדרות עוגיות</button>
+    </div>
     <div class="fsoc">
       <a href="https://www.instagram.com/steps_netanya/" class="fsi" target="_blank" rel="noopener" aria-label="אינסטגרם STEPS">📷</a>
       <a href="https://www.facebook.com/stepsnetanya/" class="fsi" target="_blank" rel="noopener" aria-label="פייסבוק STEPS">📘</a>
@@ -690,6 +710,10 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
   var c=localStorage.getItem('steps-consent');
   if(c==='granted'){initTracking();}
   else if(c!=='declined'){document.getElementById('cookie-banner').style.display='flex';}
+  /* חזרה מהסכמה (תיקון 13). פיקסל שכבר נטען אי-אפשר להוריד מהדף — לכן
+     מוחקים את הבחירה וטוענים מחדש: בטעינה החדשה הוא לא עולה והבאנר חוזר. */
+  var rst=document.getElementById('ckReset');
+  if(rst)rst.addEventListener('click',function(){try{localStorage.removeItem('steps-consent')}catch(e){}location.reload();});
 })();
 </script>
 
@@ -704,18 +728,18 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
       • כל התמונות כוללות טקסט חלופי (alt text) בעברית<br>
       • האתר מותאם לגלישה במובייל ובמחשב<br>
       • קיים קישור "דלגי לתוכן" לניווט מהיר במקלדת<br>
-      • ניגודיות צבעים מספקת בין טקסט לרקע<br>
+      • ניגודיות הצבעים עומדת בתקן WCAG AA<br>
       • מבנה כותרות (H1/H2) סדור לניווט בטכנולוגיות מסייעות
     </p>
+    <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px"><strong>נגישות הסטודיו:</strong><br>
+      • חניית נכים בחניון הקניון, ללא תשלום<br>
+      • מעלית מהחניון ומקומת הכניסה אל קומה 2<br>
+      • שירותי נכים</p>
     <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px"><strong>רכז הנגישות:</strong><br>אור סבוני · בעלים<br>טלפון ווואטסאפ: <a href="tel:+972527927575" style="color:#F5C518">052-792-7575</a><br>מייל: <a href="mailto:stepsnetanya@gmail.com" style="color:#F5C518">stepsnetanya@gmail.com</a><br>כתובת: אמנון ותמר 6, קניון פולג, קומה 2, נתניה<br>נשמח לקבל כל פנייה בנושא נגישות ולטפל בה בהקדם.</p>
 <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px"><strong>תקן ההנגשה:</strong><br>האתר הונגש בהתאם לתקן הישראלי ת"י 5568 ברמה AA (המבוסס על WCAG 2.0).</p>
 <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px"><strong>מגבלות ידועות:</strong><br>מערכת ההרשמה לשיעורים היא רכיב חיצוני של חברת Arbox ואינה בשליטתנו המלאה. אם נתקלת בקושי בהרשמה — התקשרי אלינו ונרשום אותך טלפונית.</p>
-<p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:12px">
-      <strong>יצירת קשר בנושא נגישות:</strong><br>
-      טלפון: <span dir="ltr">052-792-7575</span><br>
-      כתובת: אמנון ותמר 6, קניון פולג, נתניה
-    </p>
-    <p style="font-size:12px;color:rgba(255,255,255,0.4);text-align:center;margin-top:16px">עודכן: אוגוסט 2026</p>
+<p style="text-align:center;margin-bottom:8px"><a href="accessibility.html" style="color:#2EC4B6;font-weight:700;font-size:14px">להצהרת הנגישות המלאה ←</a></p>
+    <p style="font-size:12px;color:rgba(255,255,255,0.6);text-align:center;margin-top:16px">עודכן: אוגוסט 2026</p>
   </div>
 </div>
 <script>
