@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """שרת תצוגה מקומי: מגיש את הקבצים מהתיקייה (כל עריכה נראית מיד ברענון),
    ומעביר את /api/schedule לשרת החי כדי שמערכת השעות תציג שיעורים אמיתיים."""
-import urllib.request, urllib.parse
+import os, urllib.request, urllib.parse
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 UP = "https://stepsnetanya.co.il"
 class H(SimpleHTTPRequestHandler):
@@ -23,4 +23,4 @@ class H(SimpleHTTPRequestHandler):
                 self.send_response(502); self.end_headers(); self.wfile.write(str(e).encode())
             return
         return SimpleHTTPRequestHandler.do_GET(self)
-ThreadingHTTPServer(('127.0.0.1', 5599), H).serve_forever()
+ThreadingHTTPServer(('127.0.0.1', int(os.environ.get('PORT', 5599))), H).serve_forever()

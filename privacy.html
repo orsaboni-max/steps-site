@@ -4,13 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>מדיניות פרטיות | STEPS Fitness Center</title>
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <link rel="canonical" href="https://stepsnetanya.co.il/privacy.html" />
 <link rel="icon" type="image/png" href="favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
+/* גופן מקומי. קודם נטען מ-Google Fonts — כלומר כתובת ה-IP של כל מי
+   שפתחה את מדיניות הפרטיות נשלחה לגוגל, בלי הסכמה, בדף שכל עניינו
+   להסביר מה לא נשלח. אותם קבצים שדף הבית כבר משתמש בהם. */
+@font-face{font-family:'Heebo';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/heebo-hebrew.woff2) format('woff2');unicode-range:U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F}
+@font-face{font-family:'Heebo';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/heebo-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html,body{overflow-x:hidden}
 body{font-family:'Heebo',sans-serif;background:#111;color:#fafafa;-webkit-font-smoothing:antialiased;min-height:100vh}
@@ -23,7 +25,7 @@ body{font-family:'Heebo',sans-serif;background:#111;color:#fafafa;-webkit-font-s
 main{max-width:760px;margin:0 auto;padding:60px 5% 80px}
 
 h1{font-size:clamp(28px,5vw,42px);font-weight:900;margin-bottom:8px;color:#fff}
-.updated{font-size:13px;color:rgba(255,255,255,0.35);margin-bottom:48px}
+.updated{font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:48px}   /* .35 = 3.21:1, נכשל */
 
 h2{font-size:18px;font-weight:700;color:#F5C518;margin:36px 0 12px}
 p{font-size:15px;line-height:1.8;color:rgba(255,255,255,0.7);margin-bottom:12px}
@@ -37,8 +39,9 @@ a:hover{color:#fff}
 .contact-block p{color:rgba(255,255,255,0.85);margin-bottom:6px}
 
 footer{background:#080808;padding:24px 5%;text-align:center;border-top:1px solid rgba(255,255,255,0.04)}
-footer p{font-size:12px;color:rgba(255,255,255,0.2)}
-footer a{color:rgba(255,255,255,0.35)}
+/* היה .2 / .35 — כ-1.9:1 ו-3.1:1, נכשל בתקן. */
+footer p{font-size:12px;color:rgba(255,255,255,0.6)}
+footer a{color:rgba(255,255,255,0.75)}
 </style>
 </head>
 <body>
@@ -50,15 +53,18 @@ footer a{color:rgba(255,255,255,0.35)}
 
 <main>
   <h1>מדיניות פרטיות</h1>
-  <p class="updated">עדכון אחרון: מאי 2026</p>
+  <p class="updated">עדכון אחרון: אוגוסט 2026</p>
 
   <p>ברוכות הבאות למדיניות הפרטיות של סטודיו STEPS. מסמך זה מסביר אילו נתונים אנחנו אוספים, כיצד אנחנו משתמשים בהם, ומה הזכויות שלך.</p>
 
   <h2>1. מי אנחנו</h2>
   <div class="card">
     <p><strong>סטודיו STEPS Fitness Center</strong><br>
-    אמנון ותמר 6, קניון פולג, נתניה<br>
-    טלפון: 052-792-7575</p>
+    עוסק מורשה 558306098<br>
+    אמנון ותמר 6, קניון פולג, קומה 2, נתניה<br>
+    טלפון: 052-792-7575<br>
+    דוא"ל: <a href="mailto:stepsnetanya@gmail.com">stepsnetanya@gmail.com</a></p>
+    <p style="margin-top:12px;font-size:13px">האחראי על הטיפול בפניות בנושא פרטיות: <strong>אור סבוני</strong>, בעלים.</p>
   </div>
 
   <h2>2. איזה מידע אנחנו אוספים</h2>
@@ -99,7 +105,9 @@ footer a{color:rgba(255,255,255,0.35)}
     <li><strong>עוגיות אנליטיקה:</strong> Google Analytics — רק עם הסכמתך</li>
     <li><strong>עוגיות פרסום:</strong> Meta Pixel — רק עם הסכמתך</li>
   </ul>
-  <p>ניתן לנהל עוגיות דרך הגדרות הדפדפן שלך או לחזור ולשנות את ההסכמה בכל עת.</p>
+  <p>אפשר לחזור ולשנות את ההסכמה בכל עת: בתחתית דף הבית, בשורת הקישורים,
+    יש כפתור <strong>"הגדרות עוגיות"</strong> שמחזיר את באנר ההסכמה ומאפשר לבחור מחדש.
+    בנוסף אפשר לנהל או למחוק עוגיות דרך הגדרות הדפדפן.</p>
 
   <h2>7. שיתוף מידע עם צדדים שלישיים</h2>
   <p>אנחנו <strong>לא מוכרים ולא משכירים</strong> את המידע האישי שלך. המידע עשוי לעבור רק לגורמים הבאים:</p>
@@ -114,13 +122,15 @@ footer a{color:rgba(255,255,255,0.35)}
   <p>מידע אישי שנמסר לנו (שם, טלפון) נשמר לתקופה הנדרשת ליצירת קשר ולא יותר מ-12 חודשים ללא פעילות. נתוני Analytics נשמרים על פי מדיניות Google.</p>
 
   <h2>9. זכויותיך</h2>
-  <p>בהתאם לחוק הגנת הפרטיות (ישראל, תשמ"א-1981) יש לך הזכות:</p>
+  <p>בהתאם לחוק הגנת הפרטיות, התשמ"א-1981, לרבות תיקון 13 שנכנס לתוקף ב-14 באוגוסט 2025, יש לך הזכות:</p>
   <ul>
-    <li>לעיין במידע שנאסף עליך</li>
-    <li>לבקש תיקון מידע שגוי</li>
+    <li>לדעת אילו פרטים נאספים, לשם מה, ולמי הם מועברים — עוד לפני שמסרת אותם</li>
+    <li>לעיין במידע שנאסף עליך ולקבל ממנו העתק</li>
+    <li>לבקש תיקון מידע שגוי, לא שלם או לא מעודכן</li>
     <li>לבקש מחיקת המידע שלך</li>
-    <li>לבטל הסכמה לעיבוד מידע</li>
+    <li>לחזור בך מהסכמה שנתת, בכל עת</li>
   </ul>
+  <p>אין חובה חוקית למסור לנו פרטים. מסירתם היא מרצון, ונועדה כדי שנוכל לחזור אלייך.</p>
 
   <h2>10. צרי קשר</h2>
   <div class="contact-block">
@@ -130,7 +140,7 @@ footer a{color:rgba(255,255,255,0.35)}
     <p>💬 <a href="https://wa.me/972527927575">WhatsApp</a></p>
   </div>
 
-  <h2 id="ביטולים">11. מדיניות ביטולים</h2>
+  <h2 id="cancel">11. מדיניות ביטולים</h2>
   <p>האתר מאפשר רישום לאימון היכרות (50 ₪) בלבד. מנויים וחבילות נרכשים ומנוהלים ישירות בסטודיו.</p>
   <div class="card">
     <p><strong>אימון היכרות — 50 ₪:</strong></p>

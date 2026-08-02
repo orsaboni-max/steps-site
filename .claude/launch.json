@@ -2,7 +2,7 @@
   "version": "0.0.1",
   "configurations": [
     { "name": "steps-site", "runtimeExecutable": "python",
-      "runtimeArgs": [".claude/devserver.py"], "port": 5599 }
+      "runtimeArgs": [".claude/devserver.py"], "port": 5599, "autoPort": true }
   ],
   "autoVerify": true
 }
