@@ -17,3 +17,12 @@ _review.html
 ads.html
 ads-board.html
 api/ads-performance.ts
+
+# מוקאפ בהמתנה לאישור אור — לא לפרסם עד שהוא מאשר.
+# כשמאשר: למחוק את שתי השורות האלה + להוסיף ל-sitemap.xml.
+nutrition.html
+images/nutrition/
+
+# קבצי טיוטה. שים לב: הכלל *.md למעלה לא תופס .txt, ו-llms.txt כן צריך
+# לעלות — לכן חוסמים כאן בשם ולא בתבנית רחבה.
+scratch_reviews.txt
