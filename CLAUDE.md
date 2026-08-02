@@ -45,6 +45,12 @@ C:\Users\USER\steps-site\
 │   └── schedule.ts         # Arbox API proxy → /api/schedule (Vercel)
 ├── barre.html              # SEO landing page: אימון בר בנתניה
 ├── [keyword].html          # SEO landing pages (see seo-landing-page-hebrew skill)
+├── content.css             # גיליון משותף ל-4 דפי התוכן בלבד
+├── content.js              # JS משותף ל-4 דפי התוכן (ניווט/עוגיות/נגישות/מדידה)
+├── pilates-price.html      # מדריך: כמה עולה פילאטיס מכשירים בנתניה
+├── pilates-or-gym.html     # מדריך: פילאטיס או חדר כושר
+├── pilates-postpartum.html # מדריך: פילאטיס אחרי לידה
+├── pilates-beginners.html  # מדריך: פילאטיס מכשירים למתחילות
 ├── netlify.toml            # Netlify config (kept, not in use)
 └── netlify\
     └── functions\
@@ -99,6 +105,16 @@ npx vercel --yes --prod
 (`.sec` `.sec-title` `.btn-a` `.foot` …) והוחלפה השפה הוויזואלית בלבד —
 ככה הטקסט המשפטי, ה-schema והנגישות לא זזו ממקומם. הגיליון הוא איחוד של
 המחלקות של שלושת הדפים, ולכן **שינוי בו צריך להיעשות בשלושתם יחד.**
+
+### דפי התוכן (המדריכים) — `content.css` + `content.js`
+ארבעת המדריכים (`pilates-price` / `pilates-or-gym` / `pilates-postpartum` /
+`pilates-beginners`) חולקים **קובץ CSS ו-JS חיצוני אחד**, ולא inline כמו
+דפי הנחיתה — ארבעה עותקים inline היו מתפצלים בעדכון הראשון. אותם טוקנים
+בדיוק, ולכן הם נראים זהים לשאר האתר. **דפי הנחיתה הקיימים לא נגעו.**
+
+הבדל מכוון אחד: **אין בהם חשיפה-בגלילה.** במאמר של 1,500 מילים הבהוב של
+כל פסקה מפריע לקריאה, וכל מנגנון שמסתיר טקסט בברירת מחדל הוא עוד דרך
+שבה טקסט עלול להישאר בלתי-נראה. אין `.rv` ואין IntersectionObserver.
 
 | Token | Value |
 |-------|-------|
