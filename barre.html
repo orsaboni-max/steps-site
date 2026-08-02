@@ -803,12 +803,13 @@ document.querySelectorAll('.n-links a').forEach(a=>{a.addEventListener('click',f
 <script>
 // Barre Schedule — filtered from Arbox API
 (function(){
-  var FALLBACK=[
-    {start_time:'08:00',session_name:'בר — Barre',coach:'אגם סימנרוב'},
-    {start_time:'09:15',session_name:'פילאטיס-בר',coach:'שקד נחום'},
-    {start_time:'18:00',session_name:'כוח-בר',coach:'קים הרשקו'},
-    {start_time:'19:30',session_name:'בר — Barre',coach:'טל כראדי'}
-  ];
+  function renderUnavailable(){
+    var sl=document.getElementById('barre-slist');
+    while(sl.firstChild)sl.removeChild(sl.firstChild);
+    var fn=mkEl('div','sfn');
+    fn.innerHTML='מערכת השעות נטענת. לקביעת שיעור — <a href="https://wa.me/972527927575" target="_blank" rel="noopener">דברי איתנו בוואטסאפ</a>';
+    sl.appendChild(fn);
+  }
   function isBarre(name){var n=(name||'').toLowerCase();return n.indexOf('barre')!==-1||n.indexOf('בר')!==-1;}
   function mkEl(tag,cls){var el=document.createElement(tag);if(cls)el.className=cls;return el;}
   function renderItems(items){
@@ -846,10 +847,10 @@ document.querySelectorAll('.n-links a').forEach(a=>{a.addEventListener('click',f
       .then(function(data){
         var all=Array.isArray(data)?data:[];
         var barre=all.filter(function(s){return isBarre(s.session_name||s.name);});
-        cache[date]=barre.length?barre:FALLBACK.length?FALLBACK:[];
-        renderItems(cache[date]);
+        cache[date]=barre;
+        renderItems(barre);
       })
-      .catch(function(){cache[date]=FALLBACK;renderItems(FALLBACK);});
+      .catch(function(){renderUnavailable();});
   }
   var tabs=document.querySelectorAll('#barre-dtabs .dt');
   tabs.forEach(function(t,i){

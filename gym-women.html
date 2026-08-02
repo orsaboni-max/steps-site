@@ -804,12 +804,13 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
 <script>
 // Schedule — GYM classes only, filtered from Arbox
 (function(){
-  var FALLBACK=[
-    {start_time:'07:00',session_name:'GYM',coach:'רותם זינגר'},
-    {start_time:'09:00',session_name:'BOOTCAMP',coach:'מעיין לזר'},
-    {start_time:'18:00',session_name:'ENDURANCE',coach:'ירדן נתן'},
-    {start_time:'19:30',session_name:'GYM & RUN',coach:'אור סבוני'}
-  ];
+  function renderUnavailable(){
+    var sl=document.getElementById('gym-slist');
+    while(sl.firstChild)sl.removeChild(sl.firstChild);
+    var fn=mkEl('div','sfn');
+    fn.innerHTML='מערכת השעות נטענת. לקביעת שיעור — <a href="https://wa.me/972527927575" target="_blank" rel="noopener">דברי איתנו בוואטסאפ</a>';
+    sl.appendChild(fn);
+  }
   function isGym(name){var n=(name||'').toLowerCase();return n.indexOf('gym')!==-1||n.indexOf('כוח')!==-1||n.indexOf('bootcamp')!==-1||n.indexOf('endurance')!==-1;}
   function mkEl(tag,cls){var el=document.createElement(tag);if(cls)el.className=cls;return el;}
   function renderItems(items){
@@ -847,10 +848,10 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
       .then(function(data){
         var all=Array.isArray(data)?data:[];
         var gym=all.filter(function(s){return isGym(s.session_name||s.name);});
-        cache[date]=gym.length?gym:FALLBACK;
-        renderItems(cache[date]);
+        cache[date]=gym;
+        renderItems(gym);
       })
-      .catch(function(){cache[date]=FALLBACK;renderItems(FALLBACK);});
+      .catch(function(){renderUnavailable();});
   }
   var tabs=document.querySelectorAll('#gym-dtabs .dt');
   tabs.forEach(function(t,i){
