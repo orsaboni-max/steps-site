@@ -311,6 +311,8 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .stats__l{margin-top:7px;font-size:clamp(11.5px,.95vw,13px);line-height:1.3;color:var(--t60)}
 @media(max-width:760px){
   .hero{min-height:82svh}
+  .hero__media{background:url("images/shoot2025/hero-cine-sharp-poster.jpg") center/cover no-repeat}
+  .hero__media video{display:none}
   .hero__cta{display:none}
   .stats__i--drop{display:none}
 }
@@ -368,6 +370,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .room__body p{margin:0 0 24px;max-width:44ch;font-size:clamp(16px,1.4vw,19px);line-height:1.65;color:rgba(244,242,237,.78)}
 .room__body .taglist{justify-content:center;margin-bottom:26px}
 .room__body .link-rule{align-self:center}
+.room__body .link-rule + .link-rule{margin-top:12px}
 /* במסכים רחבים הסרטון והטקסט יושבים זה לצד זה, לסירוגין —
    כך יש קצב ולא שלושה בלוקים זהים בטור. */
 @media(min-width:1000px){
@@ -818,6 +821,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
           <span class="tagpill tagpill--out">ENDURANCE</span>
           <span class="tagpill tagpill--out">GYM &amp; RUN</span>
       </div>
+        <a class="link-rule" href="gym-women.html">לפרטים על חדר כושר לנשים בנתניה <span class="arw" aria-hidden="true">←</span></a>
         <a class="link-rule" href="#sched">לשיעורי הכוח השבוע <span class="arw" aria-hidden="true">←</span></a>
       </div>
     </article>
@@ -839,6 +843,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
           <span class="tagpill tagpill--out">פילאטיס מזרן</span>
           <span class="tagpill tagpill--out">SCULPT</span>
       </div>
+        <a class="link-rule" href="barre.html">לפרטים על אימוני בר בנתניה <span class="arw" aria-hidden="true">←</span></a>
         <a class="link-rule" href="#sched">לשיעורי MOVE השבוע <span class="arw" aria-hidden="true">←</span></a>
       </div>
     </article>
@@ -859,6 +864,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
           <span class="tagpill tagpill--out">מתאים לשיקום</span>
           <span class="tagpill tagpill--out">כל הגילאים</span>
       </div>
+        <a class="link-rule" href="pilates.html">לפרטים על פילאטיס מכשירים בנתניה <span class="arw" aria-hidden="true">←</span></a>
         <a class="link-rule" href="#sched">לשיעורי רפורמר השבוע <span class="arw" aria-hidden="true">←</span></a>
       </div>
     </article>
@@ -984,7 +990,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       <figure class="sv tall"><video preload="none" muted loop playsinline poster="images/shoot2025/gym-real-2-poster.jpg" data-src="images/shoot2025/gym-real-2.mp4" aria-label="סקוואט עם מוט בחלל ה-GYM" tabindex="-1"></video></figure>
       <figure class="sv"><img src="images/shoot2025/coaching-1.jpg" alt="ליווי אישי של מאמנת" loading="lazy" decoding="async"></figure>
       <figure class="sv"><img src="images/gallery-3.jpg" alt="מתאמנת עם מאמנת באימון" loading="lazy" decoding="async"></figure>
-      <figure class="sv wide"><video preload="none" muted loop playsinline poster="images/shoot2025/hero-clip-web-poster.jpg" data-src="images/shoot2025/hero-clip-web.mp4" aria-label="חלל הרפורמר פילאטיס" tabindex="-1"></video></figure>
+      <figure class="sv wide"><video preload="none" muted loop playsinline poster="images/shoot2025/hero-wide-web-poster.jpg" data-src="images/shoot2025/hero-clip-web.mp4" aria-label="חלל הרפורמר פילאטיס" tabindex="-1"></video></figure>
     </div>
   </div>
 </section>
@@ -1277,9 +1283,11 @@ var $=function(s,r){return (r||document).querySelector(s)};
 
 /* ── וידאו: טוענים ומנגנים רק מה שעל המסך ── */
 (function(){
-  var vids=[].slice.call(document.querySelectorAll('video[data-src]'));
-  if(!vids.length||reduce)return;
   var small=matchMedia('(max-width:760px)');   // במובייל מגישים קובץ קל יותר                 // בצמצום תנועה נשארת התמונה הסטטית
+  var vids=[].slice.call(document.querySelectorAll('video[data-src]')).filter(function(v){
+    return !(small.matches&&v.id==='heroVid');
+  });
+  if(!vids.length||reduce)return;
   var live=[];
   function play(v){var p=v.play();if(p&&p['catch'])p['catch'](function(){})}
   var io=new IntersectionObserver(function(es){
