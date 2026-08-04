@@ -447,6 +447,134 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   .dtabs{justify-content:center}
   .dt{flex:1;min-width:44px;padding:0 8px}
 }
+
+/* ═══ דף המרות פילאטיס ═══════════════════════════════════════ */
+.hero-inner{max-width:1180px;justify-content:center;text-align:center;padding-top:clamp(120px,15vh,170px)}
+.hero h1{max-width:1050px;margin-inline:auto;font-size:clamp(42px,6vw,82px);text-wrap:balance}
+.hero h1 em{display:inline;color:var(--yellow)}
+.hero-sub{max-width:760px;margin:clamp(18px,2.4vw,28px) auto 0;font-size:clamp(18px,1.7vw,23px);line-height:1.55}
+.hero-btns{margin-top:clamp(24px,3vw,36px)}
+.hero-assurance{margin-top:16px;color:var(--t75);font-size:14px;font-weight:600}
+.btn-a,.btn-b{min-height:54px}
+.btn-wa{border-color:rgba(37,211,102,.55);color:#bfffd4}
+
+.trust-strip{background:var(--yellow);color:var(--ink);padding:22px var(--gutter)}
+.trust-grid{max-width:1180px;margin-inline:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(11,11,11,.18);border-radius:16px;overflow:hidden}
+.trust-item{background:var(--yellow);text-align:center;padding:12px 16px}
+.trust-item b{display:block;font-family:var(--display);font-size:clamp(25px,3vw,36px);line-height:1}
+.trust-item span{display:block;margin-top:6px;font-size:14px;font-weight:700}
+
+.conversion-sec{padding:var(--pad-y) var(--gutter);background:var(--ink)}
+.conversion-sec.alt{background:var(--ink-2)}
+.conversion-wrap{max-width:1180px;margin-inline:auto}
+.conversion-head{max-width:790px;margin-bottom:clamp(28px,4vw,48px)}
+.conversion-head.center{margin-inline:auto;text-align:center}
+.conversion-head h2{font-size:clamp(34px,4.8vw,60px);text-wrap:balance}
+.conversion-head p{margin-top:16px;color:var(--t75);font-size:clamp(17px,1.5vw,20px);line-height:1.7}
+.eyebrow{color:var(--yellow);font-size:13px;font-weight:800;letter-spacing:.13em;margin-bottom:12px}
+
+.benefits-layout{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,70px);align-items:stretch}
+.benefit-cards{display:grid;gap:14px}
+.benefit-card{padding:clamp(22px,2.7vw,30px);background:var(--fill);border:1px solid var(--line-card);border-radius:var(--r-lg)}
+.benefit-card b{display:block;font-family:var(--display);font-size:clamp(23px,2.5vw,31px);line-height:1.15;margin-bottom:10px}
+.benefit-card p{color:var(--t75);line-height:1.7}
+.benefit-media{position:relative;min-height:560px;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line-card)}
+.benefit-media img{width:100%;height:100%;object-fit:cover}
+.media-caption{position:absolute;inset-inline:18px;bottom:18px;padding:12px 16px;border-radius:12px;background:rgba(11,11,11,.86);backdrop-filter:blur(10px);font-weight:700}
+
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.first-step{padding:clamp(24px,3vw,34px);border:1px solid var(--line-card);border-radius:var(--r-lg);background:var(--fill);min-height:230px}
+.first-step .num{display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;background:var(--yellow);color:var(--ink);font-family:var(--display);font-size:24px;font-weight:900;margin-bottom:22px}
+.first-step h3{font-size:clamp(23px,2.2vw,29px);margin-bottom:10px}
+.first-step p{color:var(--t75);line-height:1.7}
+.section-cta{text-align:center;margin-top:30px}
+.section-cta .cta-note{margin-top:10px}
+
+.real-gallery{display:grid;grid-template-columns:1.2fr .8fr .8fr;grid-template-rows:260px 260px;gap:12px}
+.real-shot{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line-card);background:#151515}
+.real-shot:first-child{grid-row:span 2}
+.real-shot:nth-child(2){grid-column:span 2}
+.real-shot img{width:100%;height:100%;object-fit:cover}
+.real-shot .shot-label{position:absolute;inset-inline:14px;bottom:14px;background:rgba(11,11,11,.84);padding:9px 12px;border-radius:10px;font-size:13px;font-weight:700}
+
+.results-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.result-card{padding:26px 22px;border-top:2px solid var(--yellow);background:var(--fill);border-radius:0 0 16px 16px}
+.result-card b{display:block;font-family:var(--display);font-size:23px;line-height:1.2;margin-bottom:10px}
+.result-card p{color:var(--t75);font-size:15px;line-height:1.65}
+.results-note{margin-top:18px;color:var(--t60);font-size:14px;text-align:center}
+
+.sched-sec .sec-h{max-width:760px;margin-inline:auto;text-align:center}
+.sched-sec .sec-sub{margin-inline:auto}
+.schedule-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}
+.schedule-more{min-height:46px;padding:0 22px;border-radius:var(--r-pill);border:1px solid var(--line-strong);background:transparent;color:var(--bone);font-family:inherit;font-weight:700;cursor:pointer}
+.si{gap:14px}
+.s-cls{min-width:0}
+.schedule-row-cta{margin-inline-start:auto;min-height:40px;padding:0 16px;border-radius:var(--r-pill);background:var(--yellow);color:var(--ink);display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-size:13px;font-weight:800;white-space:nowrap}
+.schedule-skeleton{height:74px;border-radius:12px;margin-bottom:8px;background:linear-gradient(90deg,var(--fill),var(--fill-2),var(--fill));background-size:200% 100%;animation:skeleton 1.2s linear infinite}
+@keyframes skeleton{to{background-position:-200% 0}}
+
+.pilates-review{max-width:760px;margin-inline:auto;padding:clamp(28px,4vw,46px);border:1px solid rgba(255,212,0,.3);border-radius:var(--r-lg);background:var(--yellow-tint)}
+.pilates-review .tc-txt{font-size:clamp(19px,2vw,24px);line-height:1.65}
+
+.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
+.plan-card{padding:26px;border:1px solid var(--line-card);border-radius:var(--r-lg);background:var(--fill);text-align:center}
+.plan-card b{display:block;font-family:var(--display);font-size:28px}
+.plan-card strong{display:block;color:var(--yellow);font-family:var(--display);font-size:38px;margin-top:10px}
+.plans-note{margin-top:16px;color:var(--t60);font-size:14px;text-align:center}
+
+.faq-list details{border-bottom:1px solid var(--line);padding:20px 0}
+.faq-list summary{list-style:none;cursor:pointer;font-family:var(--display);font-size:clamp(20px,2vw,25px);font-weight:900;display:flex;justify-content:space-between;gap:18px}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary::after{content:'+';color:var(--yellow);font-size:28px;line-height:1}
+.faq-list details[open] summary::after{content:'−'}
+.faq-list details p{padding-top:13px;color:var(--t75);max-width:78ch;line-height:1.75}
+
+.final-cta{position:relative;overflow:hidden;text-align:center;padding:clamp(70px,9vw,120px) var(--gutter);background:linear-gradient(135deg,#151515,#080808)}
+.final-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0,rgba(255,212,0,.15),transparent 55%);pointer-events:none}
+.final-cta>*{position:relative}
+.final-cta h2{max-width:920px;margin-inline:auto;font-size:clamp(38px,5.4vw,68px);text-wrap:balance}
+.final-cta p{max-width:700px;margin:18px auto 0;color:var(--t75);font-size:19px}
+.final-cta .hero-btns{margin-top:30px}
+.final-info{margin-top:18px;color:var(--t60);font-size:14px;font-weight:700}
+
+.mobile-intro{display:none}
+@media(max-width:900px){
+  .benefits-layout{grid-template-columns:1fr}
+  .benefit-media{min-height:500px;order:-1}
+  .results-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:760px){
+  .hero{min-height:92svh}
+  .hero-inner{padding:112px 20px 46px}
+  .hero h1{font-size:clamp(38px,11.5vw,54px);line-height:1.04}
+  .hero h1 em{display:block}
+  .hero-sub{font-size:17px}
+  .hero-btns{gap:10px}
+  .hero-assurance{font-size:12.5px}
+  .trust-grid{grid-template-columns:1fr 1fr}
+  .steps-grid,.plans-grid{grid-template-columns:1fr}
+  .real-gallery{grid-template-columns:1fr 1fr;grid-template-rows:260px 190px 190px}
+  .real-shot:first-child{grid-column:span 2;grid-row:auto}
+  .real-shot:nth-child(2){grid-column:span 2}
+  .results-grid{grid-template-columns:1fr}
+  .schedule-row-cta{width:100%;margin:8px 0 0}
+  .si{flex-wrap:wrap}
+  .mobile-intro{position:fixed;z-index:140;right:0;left:0;bottom:0;display:flex;align-items:center;gap:10px;padding:10px 74px calc(10px + env(safe-area-inset-bottom,0px)) 12px;background:rgba(11,11,11,.96);border-top:1px solid var(--line-strong);backdrop-filter:blur(16px);transform:translateY(110%);visibility:hidden;transition:transform .25s var(--ease),visibility .25s}
+  .mobile-intro.is-visible{transform:none;visibility:visible}
+  .mobile-intro span{font-size:13px;font-weight:700;line-height:1.25;flex:1}
+  .mobile-intro a{min-height:44px;padding:0 16px;border-radius:var(--r-pill);background:var(--yellow);color:var(--ink);display:inline-flex;align-items:center;text-decoration:none;font-size:13px;font-weight:900;white-space:nowrap}
+  body.sticky-visible{padding-bottom:76px}
+  body.sticky-visible #acc-btn,body.sticky-visible .waf{bottom:calc(82px + env(safe-area-inset-bottom,0px))}
+}
+@media(max-width:360px){
+  .hero h1{font-size:36px}
+  .hero-inner{padding-inline:16px}
+  .trust-item{padding-inline:8px}
+  .trust-item b{font-size:24px}
+  .mobile-intro{padding-inline-start:66px;gap:7px}
+  .mobile-intro span{font-size:12px}
+  .mobile-intro a{padding-inline:12px;font-size:12px}
+}
 </style>
 <!-- Consent Mode v2 — must run BEFORE GA4 loads -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
@@ -488,19 +616,14 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type": "Question","name": "מה זה בכלל רפורמר פילאטיס?","acceptedAnswer": {"@type": "Answer","text": "מיטה עם קפיצים. נשמע פשוט — זה לא. הקפיצים יוצרים התנגדות משתנה שמכריחה את כל שרירי הגוף לעבוד בצורה נכונה ומדויקת. התוצאה: חיזוק עמוק, שיפור יציבה וגמישות שמגיעה בהדרגה ונשארת."}},
-    {"@type": "Question","name": "כמה מיטות רפורמר יש בסטודיו?","acceptedAnswer": {"@type": "Answer","text": "11 מיטות רפורמר בחלל ייעודי שנבנה רק לפילאטיס מכשירים. לא פינה בתוך חדר כושר — חלל שלם עם כל הציוד והמרחב."}},
-    {"@type": "Question","name": "מתאים למתחילות לגמרי?","acceptedAnswer": {"@type": "Answer","text": "כן. הרפורמר מתאים לכל הרמות. המדריכה מתאימה את עצימות הקפיצים ואת התרגילים בדיוק לך. רוב הנשים שמגיעות אלינו מעולם לא עשו פילאטיס — וזה בדיוק מתי הוא הכי אפקטיבי."}},
-    {"@type": "Question","name": "כמה פעמים בשבוע כדאי להגיע?","acceptedAnswer": {"@type": "Answer","text": "שתיים בשבוע זה המינימום לראות שינוי. שלוש — זה כבר סיפור אחר. אפשר לשלב עם GYM או שיעורי בר שגם הם אצלנו, אותו מקום, אותו צוות."}},
-    {"@type": "Question","name": "מה ההבדל בין פילאטיס מכשירים לפילאטיס מזרן?","acceptedAnswer": {"@type": "Answer","text": "על מזרן הגוף עובד לבד. על הרפורמר יש קפיצים שגם עוזרים וגם מקשים — תלוי בתרגיל ובמטרה. זה מאפשר עבודה מדויקת יותר, מגוון גדול יותר ותוצאות שמרגישים מהר יותר."}},
-    {"@type": "Question","name": "האם הסטודיו לנשים בלבד?","acceptedAnswer": {"@type": "Answer","text": "כן. STEPS הוא סטודיו לנשים בלבד — חלל, אווירה וצוות שמותאמים בדיוק לזה. בלי עיניים, בלי לחץ, רק את והאימון."}},
-    {"@type": "Question","name": "מתאמנת בהריון או אחרי לידה?","acceptedAnswer": {"@type": "Answer","text": "הרפורמר מתאים מאוד לתקופות האלה — אפשר להתאים את העצימות לכל שלב, לחזק את רצפת האגן והליבה ולהקל על העומס בגב. חשוב לעדכן את המדריכה מראש ולהביא אישור של רופא/ת הנשים שלך."}},
-    {"@type": "Question","name": "יש לי כאב גב או חזרתי מפציעה — מתאים לי?","acceptedAnswer": {"@type": "Answer","text": "הרפורמר מאפשר עבודה מבוקרת בטווחים קטנים, בלי עומס מיותר על המפרקים. ספרי למדריכה על כל מגבלה לפני השיעור והיא תתאים לך את התרגילים."}},
-    {"@type": "Question","name": "תוך כמה זמן רואים תוצאות?","acceptedAnswer": {"@type": "Answer","text": "פעמיים בשבוע זה הקצב שעושה את ההבדל. מרגישים שינוי בגוף תוך כמה שבועות, ורואים אותו תוך חודש-חודשיים. ככל שמגיעות בקביעות — מהר יותר."}},
-    {"@type": "Question","name": "מה כדאי ללבוש לשיעור הראשון?","acceptedAnswer": {"@type": "Answer","text": "בגדי אימון נוחים וצמודים שמאפשרים תנועה חופשית, וגרבי החלקה (grip socks) לאחיזה טובה ובטוחה על המכשיר. כדאי גם בקבוק מים."}},
-    {"@type": "Question","name": "איפה הסטודיו ואיך מגיעים?","acceptedAnswer": {"@type": "Answer","text": "אמנון ותמר 6, בקניון פולג בנתניה — עם חניה נוחה בקניון. קרובות לרמת פולג וכל אזור פולג בנתניה."}},
-    {"@type": "Question","name": "יש לכן פילאטיס מכשירים ברמת פולג?","acceptedAnswer": {"@type": "Answer","text": "הסטודיו נמצא בקניון פולג בנתניה — כמה דקות נסיעה מרמת פולג וכל האזור הצפוני של העיר. חניה חינם בקניון, וקל להגיע מכל הרחובות הסמוכים."}},
-    {"@type": "Question","name": "כמה עולה פילאטיס מכשירים בסטודיו?","acceptedAnswer": {"@type": "Answer","text": "יש 3 מסלולים לפי כמות כניסות בחודש. עם גישה לפילאטיס מכשירים: 5 כניסות ב-320 ₪, 9 כניסות ב-475 ₪, 13 כניסות ב-530 ₪. כל המחירים כוללים מע״מ. בלי התחייבות, וביטול בהודעה של 30 יום מראש."}}
+    {"@type": "Question","name": "מתאים למי שמעולם לא עשתה פילאטיס?","acceptedAnswer": {"@type": "Answer","text": "כן. מתחילות בהסבר על המכשיר ובתרגילים שמתאימים לרמה שלך. המדריכה מתאימה את הקפיצים ומלווה אותך לאורך השיעור."}},
+    {"@type": "Question","name": "כמה מתאמנות יש בשיעור?","acceptedAnswer": {"@type": "Answer","text": "בחלל יש 11 מיטות רפורמר, ולכן מספר המתאמנות בשיעור מוגבל למספר המיטות."}},
+    {"@type": "Question","name": "מה צריך להביא?","acceptedAnswer": {"@type": "Answer","text": "בגדי אימון נוחים, גרבי אחיזה ובקבוק מים. אם יש מגבלה או הנחיה רפואית, חשוב להביא גם את ההנחיות שקיבלת."}},
+    {"@type": "Question","name": "יש חניה?","acceptedAnswer": {"@type": "Answer","text": "הסטודיו נמצא בקניון פולג, אמנון ותמר 6 בנתניה, עם חניה נוחה בקניון."}},
+    {"@type": "Question","name": "מה קורה אם יש לי כאב או מגבלה?","acceptedAnswer": {"@type": "Answer","text": "במקרים רבים ניתן לבצע התאמות, אבל חשוב לעדכן את הצוות מראש. במצב רפואי, לאחר פציעה או ניתוח, יש להגיע עם אישור והנחיות של הגורם המטפל כאשר נדרש."}},
+    {"@type": "Question","name": "אפשר להתאמן בהריון או אחרי לידה?","acceptedAnswer": {"@type": "Answer","text": "ניתן לבצע אימונים מותאמים בהתאם לשלב ההריון או החזרה לאחר לידה. יש לעדכן את הצוות מראש ולהביא אישור רפואי בהתאם להנחיות שקיבלת."}},
+    {"@type": "Question","name": "כמה עולה אימון ההיכרות?","acceptedAnswer": {"@type": "Answer","text": "אימון ההיכרות עולה 50 ₪. בוחרים שיעור ומשלמים דרך מערכת ARBOX."}},
+    {"@type": "Question","name": "איך נרשמים?","acceptedAnswer": {"@type": "Answer","text": "לוחצים על הכפתור הצהוב, בוחרים שיעור במערכת ARBOX ומשלימים שם את ההרשמה והתשלום."}}
   ]
 }
 </script>
@@ -526,239 +649,210 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <li><a href="https://stepsnetanya.co.il/#spaces">החללים</a></li>
     <li><a href="#sched">מערכת שעות</a></li>
     <li><a href="#reviews">המלצות</a></li>
-    <li><a href="#contact" class="n-cta">קבעי שיעור</a></li>
+    <li><a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="n-cta js-arbox" target="_blank" rel="noopener" data-event="hero_intro_click">קובעת אימון היכרות ב-50 ₪</a></li>
   </ul>
   <button class="mob" id="mobBtn" aria-label="פתיחת תפריט" aria-expanded="false">☰</button>
 </nav>
 <div class="mob-overlay" id="mobOverlay"></div>
 
 <!-- HERO -->
-<section class="hero" role="banner">
+<section class="hero" role="banner" id="hero">
   <video class="hero-bg-img hero-bg-video" autoplay muted loop playsinline preload="metadata" poster="images/shoot2025/hero-main.jpg" width="1920" height="1080" aria-hidden="true">
     <source src="images/shoot2025/hero-clip-web.mp4" type="video/mp4">
   </video>
-  <img class="hero-bg-img hero-bg-poster" src="images/shoot2025/hero-main.jpg" width="1920" height="1080" alt="פילאטיס מכשירים נתניה — מתאמנת על מיטת רפורמר בסטודיו סטפס פולג" loading="eager">
+  <img class="hero-bg-img hero-bg-poster" src="images/shoot2025/hero-main.jpg" width="1920" height="1080" alt="חלל פילאטיס מכשירים עם 11 מיטות רפורמר בסטודיו STEPS פולג" loading="eager">
   <div class="hero-overlay"></div>
   <div class="hero-inner">
-    <div class="hero-tag">REFORMER PILATES — סטפס פולג נתניה</div>
     <div>
-      <h1>פילאטיס מכשירים<em>נתניה</em></h1>
-      <p class="hero-sub">11 מיטות רפורמר. מדריכה שרואה אותך. גוף שמתחיל להרגיש אחרת.</p>
+      <div class="hero-tag">פילאטיס מכשירים לנשים · פולג נתניה</div>
+      <h1>פילאטיס מכשירים <em>בנתניה</em>, בקבוצה קטנה — עם מדריכה שבאמת רואה אותך.</h1>
+      <p class="hero-sub">11 מיטות רפורמר בחלל ייעודי, שיעורים לכל הרמות והתאמות אישיות גם אם מעולם לא עשית פילאטיס.</p>
       <div class="hero-btns">
-        <a href="#contact" class="btn-a" data-track="trial-cta">אימון היכרות ב-50 ₪</a>
-        <a href="#sched" class="btn-b">לצפייה במערכת שעות</a>
+        <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-event="hero_intro_click">קובעת אימון היכרות ב-50 ₪</a>
+        <a href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%9C%D7%A4%D7%A0%D7%99%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%94%D7%94%D7%99%D7%9B%D7%A8%D7%95%D7%AA" class="btn-b btn-wa js-whatsapp" target="_blank" rel="noopener">יש לי שאלה לפני האימון</a>
+      </div>
+      <p class="hero-assurance">בוחרת שיעור ומשלמת דרך ARBOX · 60 דקות · פולג נתניה</p>
+    </div>
+  </div>
+</section>
+
+<section class="trust-strip" aria-label="נתונים על סטודיו STEPS">
+  <div class="trust-grid">
+    <div class="trust-item"><b>10</b><span>שנים בקניון פולג</span></div>
+    <div class="trust-item"><b>500+</b><span>מתאמנות</span></div>
+    <div class="trust-item"><b>11</b><span>מיטות רפורמר</span></div>
+    <div class="trust-item"><b>100+</b><span>שיעורים בשבוע ב-STEPS</span></div>
+  </div>
+</section>
+
+<main id="content">
+  <section class="conversion-sec" aria-labelledby="benefits-title">
+    <div class="conversion-wrap">
+      <div class="conversion-head">
+        <div class="eyebrow">למה מתאמנות בוחרות ב-STEPS</div>
+        <h2 id="benefits-title">לא רק מיטת רפורמר. הדרך שבה רואים אותך על המיטה.</h2>
+      </div>
+      <div class="benefits-layout">
+        <div class="benefit-cards">
+          <article class="benefit-card">
+            <b>מדריכה שמתקנת בזמן אמת</b>
+            <p>המדריכה עוברת בין המתאמנות, מדייקת את התנועה ומתאימה קפיצים ותרגילים לפי הרמה שלך.</p>
+          </article>
+          <article class="benefit-card">
+            <b>מתאים גם למתחילות</b>
+            <p>לא צריך להגיע גמישה, חזקה או מנוסה. מתחילות מהרמה שבה את נמצאת ומתקדמות בהדרגה.</p>
+          </article>
+          <article class="benefit-card">
+            <b>חלל ייעודי לפילאטיס</b>
+            <p>11 מיטות בחלל שנבנה לפילאטיס מכשירים — עם מרחב, ציוד ואווירה נשית ונעימה.</p>
+          </article>
+        </div>
+        <figure class="benefit-media">
+          <img src="images/shoot2025/room-pilates-poster.webp" width="720" height="1280" alt="מדריכת פילאטיס מלווה קבוצת מתאמנות על מיטות רפורמר ב-STEPS" loading="lazy">
+          <figcaption class="media-caption">המדריכה עוברת בין המיטות ורואה כל מתאמנת.</figcaption>
+        </figure>
+      </div>
+      <div class="section-cta">
+        <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-event="benefits_intro_click">קובעת אימון היכרות ב-50 ₪</a>
+        <p class="cta-note">ההרשמה והתשלום מתבצעים במערכת ARBOX</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- מה זה רפורמר -->
-<section class="sec" id="content" role="main">
-  <div class="sec-h">
-    <div class="sec-tag">REFORMER</div>
-    <h2 class="sec-title">מיטה עם קפיצים.<br>נשמע פשוט — זה לא.</h2>
-  </div>
-  <div class="sec-content">
-    <div>
-      <p class="lead">הרפורמר נראה מוזר בפעם הראשונה. אחרי כמה דקות את מתחילה להבין למה הרבה נשים חוזרות אליו.</p>
-      <p>הקפיצים יוצרים התנגדות שהגוף לא מצליח לרמות. כל תרגיל מכריח את השרירים הקטנים — אלה שבדרך כלל ישנים — להתעורר ולעבוד. גב מותני, ליבה, ישבן, פנים הירכיים. כל דבר שמרגישה שאין לו כח — הרפורמר מוצא את זה.</p>
-      <p>וזה לא אימון שמותיר אותך שבורה. זה אימון שאחריו את עומדת אחרת, הולכת אחרת, מרגישה שהגוף שלך בסדר.</p>
-    </div>
-  </div>
-  <div class="stats">
-    <div class="stat"><div class="stat-n">11</div><div class="stat-l">מיטות רפורמר בחלל</div></div>
-    <div class="stat"><div class="stat-n">60</div><div class="stat-l">דקות שיעור</div></div>
-    <div class="stat"><div class="stat-n">1</div><div class="stat-l">מדריכה לכל הקבוצה</div></div>
-  </div>
-</section>
-
-<div class="sec-divider"><span></span></div>
-
-<!-- חלל ייעודי -->
-<section class="sec sec-alt">
-  <div class="two-col">
-    <div class="two-col-text">
-      <div class="sec-tag">11 מיטות רפורמר</div>
-      <h2>חלל שלם. רק לפילאטיס.</h2>
-      <p>לא פינה בתוך חדר כושר. לא 3 מיטות בצד. 11 מיטות רפורמר בחלל ייעודי לנשים בלבד — עם כל הציוד, המראות והמרחב.</p>
-      <p>מעל 500 מתאמנות כבר עברו דרך הסטודיו שפעיל בקניון פולג כבר 10 שנים, עם יותר מ-100 שיעורים בשבוע בין GYM, MOVE ופילאטיס מכשירים. מתאמנות מגיעות אלינו מרמת פולג ומכל נתניה — כי סטודיו פילאטיס מכשירים ברמה הזו לא קל למצוא בסביבה.</p>
-      <p>אבל חלל לבד לא מספיק. שנה של פילאטיס מכשירים עם כתפיים מוגבהות או גב עגול לא בונה אותך — היא שוברת אותך.</p>
-      <p class="punch">המדריכה שלנו רואה כל אחת. מתקנת בזמן אמת.</p>
-      <p>יודעת שיש לך כאב בברך ושאת חזרת מניתוח. זה לא שירות מיוחד — זה מינימום.</p>
-      <a href="#contact" class="btn-a" style="margin-top:12px" data-track="trial-cta">אימון היכרות ב-50 ₪</a>
-    </div>
-    <img src="images/shoot2025/pilates-alt.jpg" width="1280" height="1920" alt="תרגיל גמישות ויציבה על מכשיר רפורמר — פילאטיס מכשירים בסטודיו סטפס נתניה" loading="lazy">
-  </div>
-</section>
-
-<div class="sec-divider"><span></span></div>
-
-<!-- תוצאות -->
-<section class="sec">
-  <div class="two-col flip">
-    <img src="images/shoot2025/gallery-e.jpg" width="1280" height="1920" alt="מתאמנת מחייכת אחרי שיעור פילאטיס מכשירים בסטודיו סטפס נתניה" loading="lazy">
-    <div class="two-col-text">
-      <div class="sec-tag">התוצאות</div>
-      <h2>מה משתנה בגוף אחרי כמה שבועות?</h2>
-      <p>המתאמנות שלנו מדברות על שלושה דברים שמגיעים ראשונים: <strong>הגב מפסיק לכאוב. היציבה משתנה. והגוף מרגיש יותר שלה.</strong></p>
-      <p>ובהמשך מגיע השאר — חיטוב, חיזוק, גמישות שהיא לא ידעה שיכולה להגיע אליה. אבל זה לא הסיבה שהן חוזרות.</p>
-      <p>הן חוזרות כי לראשונה הן לא מרגישות כאב בשגרה. כי הגוף שלהן עובד כמו שצריך.</p>
-      <p>פילאטיס מכשירים לא מבטיח לך גוף חדש. הוא מחזיר לך את הגוף שיש לך — אבל בגרסה הרבה יותר טובה שלו.</p>
-    </div>
-  </div>
-</section>
-
-<div class="sec-divider"><span></span></div>
-
-<!-- SCHEDULE -->
-<section class="sched-sec" id="sched">
-  <div class="sec-h">
-    <div class="sec-tag">מערכת שיעורים</div>
-    <h2 class="sec-title">השיעורים של היום</h2>
-    <p class="sec-sub">מתעדכנת אוטומטית — שיעורי פילאטיס מסומנים בטורקיז</p>
-  </div>
-  <div class="sched">
-    <div class="sched-top">
-      <h3>📅 מערכת שעות</h3>
-      <div class="dtabs">
-        <button class="dt active">א׳</button>
-        <button class="dt">ב׳</button>
-        <button class="dt">ג׳</button>
-        <button class="dt">ד׳</button>
-        <button class="dt">ה׳</button>
-        <button class="dt">ו׳</button>
+  <section class="conversion-sec alt" aria-labelledby="first-title">
+    <div class="conversion-wrap">
+      <div class="conversion-head center">
+        <div class="eyebrow">האימון הראשון שלך</div>
+        <h2 id="first-title">עוד לא עשית פילאטיס? הנה בדיוק מה קורה באימון הראשון.</h2>
+      </div>
+      <div class="steps-grid">
+        <article class="first-step"><div class="num">1</div><h3>בוחרת שיעור</h3><p>נכנסת למערכת ARBOX ובוחרת שעה שנוחה לך.</p></article>
+        <article class="first-step"><div class="num">2</div><h3>מספרת למדריכה</h3><p>לפני שמתחילים, מספרת על הרקע שלך, המטרות וכל מגבלה שחשוב להכיר.</p></article>
+        <article class="first-step"><div class="num">3</div><h3>מתחילה בקצב שלך</h3><p>המדריכה מסבירה את המכשיר, מתאימה את הקפיצים ומלווה אותך לאורך השיעור.</p></article>
+      </div>
+      <div class="section-cta">
+        <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-event="benefits_intro_click">קובעת אימון היכרות ב-50 ₪</a>
       </div>
     </div>
-    <div class="slist">
-      <div class="sfn" id="sched-loading">⏳ טוען מערכת שעות...</div>
-    </div>
-    <div class="sfn">⚡ מערכת שעות חיה — מתעדכנת אוטומטית מ-Arbox</div>
-  </div>
-  <div style="text-align:center;margin-top:28px">
-    <a href="#contact" class="btn-a">💬 קבעי אימון פילאטיס היכרות</a>
-  </div>
-</section>
+  </section>
 
-<!-- TESTIMONIALS -->
-<section class="test-sec" id="reviews">
-  <div class="test-bg"></div>
-  <div class="test-ov"></div>
-  <div class="test-content">
+  <section class="conversion-sec" id="gallery" aria-labelledby="gallery-title">
+    <div class="conversion-wrap">
+      <div class="conversion-head">
+        <div class="eyebrow">ככה זה נראה באמת</div>
+        <h2 id="gallery-title">זה לא צילום קטלוג. ככה באמת נראה שיעור אצלנו.</h2>
+      </div>
+      <div class="real-gallery">
+        <figure class="real-shot"><img src="images/shoot2025/hero-main.jpg" width="1920" height="1280" alt="חלל הפילאטיס המלא עם 11 מיטות רפורמר" loading="lazy"><figcaption class="shot-label">החלל המלא · 11 מיטות</figcaption></figure>
+        <figure class="real-shot"><img src="images/shoot2025/room-pilates-poster.webp" width="720" height="1280" alt="מדריכה וקבוצת מתאמנות בשיעור פילאטיס מכשירים" loading="lazy"><figcaption class="shot-label">שיעור קבוצתי עם מדריכה</figcaption></figure>
+        <figure class="real-shot"><img src="images/shoot2025/gallery-f.jpg" width="1280" height="1920" alt="התאמת קפיצים על מיטת רפורמר בסטודיו STEPS" loading="lazy"><figcaption class="shot-label">התאמת הקפיצים למתאמנת</figcaption></figure>
+        <figure class="real-shot"><img src="images/shoot2025/pilates-main.jpg" width="1280" height="1920" alt="מתאמנת מבצעת תרגיל על מיטת רפורמר ב-STEPS" loading="lazy"><figcaption class="shot-label">רגע אמיתי מהאימון</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="conversion-sec alt" aria-labelledby="results-title">
+    <div class="conversion-wrap">
+      <div class="conversion-head center">
+        <div class="eyebrow">מתקדמות בעקביות</div>
+        <h2 id="results-title">מה יכול להשתנות כשמתאמנים בעקביות?</h2>
+      </div>
+      <div class="results-grid">
+        <article class="result-card"><b>חיזוק שרירי הליבה והגוף</b><p>עבודה מדורגת מול התנגדות הקפיצים ובשליטה בתנועה.</p></article>
+        <article class="result-card"><b>שיפור השליטה והיציבה</b><p>לומדות לזהות, לדייק ולארגן טוב יותר את התנועה.</p></article>
+        <article class="result-card"><b>גמישות וטווחי תנועה</b><p>מתקדמים בהדרגה ובהתאם לרמה וליכולת האישית.</p></article>
+        <article class="result-card"><b>יותר ביטחון בתנועה</b><p>היכרות טובה יותר עם הגוף באימון וביום-יום.</p></article>
+      </div>
+      <p class="results-note">הקצב והתוצאות משתנים בין מתאמנת למתאמנת ותלויים בהתמדה, ברקע ובמצב הבריאותי.</p>
+    </div>
+  </section>
+
+  <section class="sched-sec" id="sched" aria-labelledby="schedule-title">
     <div class="sec-h">
-      <div class="sec-tag" style="color:var(--accent)">מה אומרות עלינו</div>
-      <h2 class="sec-title">הן באו בשביל האימון.<br>הן נשארו בשביל המשפחה.</h2>
+      <div class="sec-tag">מערכת פילאטיס חיה</div>
+      <h2 class="sec-title" id="schedule-title">מתי נוח לך להגיע?</h2>
+      <p class="sec-sub">בחרי יום, מצאי שיעור שמתאים לך והמשיכי להרשמה ב-ARBOX.</p>
     </div>
-    <div class="tg">
-      <div class="tc"><div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div><p class="tc-txt">אתם הלב שלי. אין סטודיו כזה בעולם ויצא לי לנסות המון. היחס האישי באימונים, האכפתיות, הדחיפה להתקדם ולהשתפר כל הזמן, אתם יחידים ומיוחדים באמת. כלכך שמחה להיות חלק מהמשפחה ❤️</p><div class="tc-auth"><div class="tc-av">ט</div><div><div class="tc-name">טלי</div><div class="tc-info">חברה ותיקה</div></div></div></div>
-      <div class="tc"><div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div><p class="tc-txt">מילה טובה על מעיין לזר — איזה שיעור מהמם של אירובי וכוח. הפעלנו את כל השרירים ואנרגיה מקסימה שלה! לאורך כל השיעור עברה אחד אחד, דייקה את התנועה. פשוט מעולה.</p><div class="tc-auth"><div class="tc-av">מ</div><div><div class="tc-name">מיטל</div><div class="tc-info">מתאמנת MOVE</div></div></div></div>
-      <div class="tc"><div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div><p class="tc-txt">אני מאוד נהנית באימונים, כל המדריכות מצוינות, כל אחת עם הסגנון שלה. לאחרונה כולן התחילו לגוון יותר בשיעורים וזה מבורך מאוד מבחינתי!</p><div class="tc-auth"><div class="tc-av">נ</div><div><div class="tc-name">נועה</div><div class="tc-info">חברה בסטודיו</div></div></div></div>
-      <div class="tc"><div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div><p class="tc-txt">אחלה סטודיו, מאוד מרוצה מכל המאמנים! גם של הכוח וגם בפילאטיס 🌻</p><div class="tc-auth"><div class="tc-av">ע</div><div><div class="tc-name">עדן</div><div class="tc-info">GYM + פילאטיס</div></div></div></div>
-      <div class="tc"><div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div><p class="tc-txt">אני איתכם כבר המון שנים, מאוד מרוצה! ירדן אלופה, מקצועית, נותנת יחס אישי ושומרת על רמה סופר גבוהה. ותמיד יש אצלה אווירה מאוד כיפית ומדברנת.</p><div class="tc-auth"><div class="tc-av">נ</div><div><div class="tc-name">נופר</div><div class="tc-info">מתאמנת GYM</div></div></div></div>
-      <div class="tc"><div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div><p class="tc-txt">הכל מושלם, אין על האימונים שלכם! מושלם כמו תמיד, הכי כיף בעולם 😍</p><div class="tc-auth"><div class="tc-av">ק</div><div><div class="tc-name">קמיל</div><div class="tc-info">מתאמנת קבועה</div></div></div></div>
+    <div class="sched">
+      <div class="sched-top">
+        <h3>שיעורי פילאטיס מכשירים</h3>
+        <div class="dtabs" aria-label="בחירת יום">
+          <button class="dt active" type="button">א׳</button><button class="dt" type="button">ב׳</button><button class="dt" type="button">ג׳</button><button class="dt" type="button">ד׳</button><button class="dt" type="button">ה׳</button><button class="dt" type="button">ו׳</button>
+        </div>
+      </div>
+      <div class="slist" aria-live="polite">
+        <div class="schedule-skeleton"></div><div class="schedule-skeleton"></div><div class="schedule-skeleton"></div>
+      </div>
+      <div class="schedule-actions"><button class="schedule-more" id="scheduleMore" type="button" hidden>לכל מערכת השעות</button></div>
+      <div class="sfn">מערכת שעות חיה · מתעדכנת אוטומטית מ-ARBOX</div>
     </div>
-  </div>
-</section>
+    <div class="section-cta">
+      <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-event="schedule_intro_click">קובעת אימון היכרות ב-50 ₪</a>
+      <p class="cta-note">ההרשמה והתשלום מתבצעים במערכת ARBOX</p>
+    </div>
+  </section>
 
-<!-- FAQ -->
-<section class="sec sec-alt">
-  <div class="sec-h">
-    <div class="sec-tag">FAQ</div>
-    <h2 class="sec-title">שאלות שאנחנו שומעות הרבה</h2>
-  </div>
-  <div class="faq-list">
-    <div class="faq-item">
-      <div class="faq-q">מה זה בכלל רפורמר פילאטיס?</div>
-      <div class="faq-a">מיטה עם קפיצים. נשמע פשוט — זה לא. הקפיצים יוצרים התנגדות משתנה שמכריחה את כל שרירי הגוף לעבוד בצורה נכונה ומדויקת. התוצאה: חיזוק עמוק, שיפור יציבה וגמישות שמגיעה בהדרגה ונשארת.</div>
+  <section class="conversion-sec alt" id="reviews" aria-labelledby="reviews-title">
+    <div class="conversion-wrap">
+      <div class="conversion-head center">
+        <div class="eyebrow">מה מתאמנות מספרות</div>
+        <h2 id="reviews-title">אחרי שהן עולות על הרפורמר</h2>
+      </div>
+      <article class="pilates-review">
+        <div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div>
+        <p class="tc-txt">אחלה סטודיו, מאוד מרוצה מכל המאמנים! גם של הכוח וגם בפילאטיס 🌻</p>
+        <div class="tc-auth"><div class="tc-av">ע</div><div><div class="tc-name">עדן</div><div class="tc-info">המלצה מקורית של מתאמנת</div></div></div>
+      </article>
+      <div class="section-cta"><a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-event="reviews_intro_click">קובעת אימון היכרות ב-50 ₪</a></div>
     </div>
-    <div class="faq-item">
-      <div class="faq-q">כמה מיטות רפורמר יש בסטודיו?</div>
-      <div class="faq-a">11 מיטות רפורמר בחלל ייעודי שנבנה רק לפילאטיס מכשירים. לא פינה בתוך חדר כושר — חלל שלם עם כל הציוד והמרחב.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">מתאים למתחילות לגמרי?</div>
-      <div class="faq-a">כן. הרפורמר מתאים לכל הרמות. המדריכה מתאימה את עצימות הקפיצים ואת התרגילים בדיוק לך. רוב הנשים שמגיעות אלינו <a href="pilates-beginners.html" style="color:var(--accent);text-decoration:underline">מעולם לא עשו פילאטיס</a> — וזה בדיוק מתי הוא הכי אפקטיבי.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">כמה פעמים בשבוע?</div>
-      <div class="faq-a">שתיים בשבוע זה המינימום לראות שינוי. שלוש — זה כבר סיפור אחר. אפשר לשלב עם GYM או <a href="barre.html" style="color:var(--accent);text-decoration:underline">שיעורי בר</a> שגם הם אצלנו, אותו מקום, אותו צוות.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">מה ההבדל בין פילאטיס מכשירים לפילאטיס מזרן?</div>
-      <div class="faq-a">על מזרן הגוף עובד לבד. על הרפורמר יש קפיצים שגם עוזרים וגם מקשים — תלוי בתרגיל ובמטרה. זה מאפשר עבודה מדויקת יותר, מגוון גדול יותר ותוצאות שמרגישים מהר יותר.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">האם הסטודיו לנשים בלבד?</div>
-      <div class="faq-a">כן. STEPS הוא סטודיו לנשים בלבד — חלל, אווירה וצוות שמותאמים בדיוק לזה. בלי עיניים, בלי לחץ, רק את והאימון.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">מתאמנת בהריון או אחרי לידה?</div>
-      <div class="faq-a"><a href="pilates-postpartum.html" style="color:var(--accent);text-decoration:underline">הרפורמר מתאים מאוד לתקופות האלה</a> — אפשר להתאים את העצימות לכל שלב, לחזק את רצפת האגן והליבה ולהקל על העומס בגב. חשוב לעדכן את המדריכה מראש ולהביא אישור של רופא/ת הנשים שלך.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">יש לי כאב גב או חזרתי מפציעה — מתאים לי?</div>
-      <div class="faq-a">בדיוק בשביל זה הרפורמר עובד כל כך טוב. הקפיצים מאפשרים עבודה מבוקרת בטווחים קטנים, בלי עומס מיותר על המפרקים. ספרי למדריכה על כל מגבלה לפני השיעור והיא תתאים לך את התרגילים.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">תוך כמה זמן רואים תוצאות?</div>
-      <div class="faq-a">פעמיים בשבוע זה הקצב שעושה את ההבדל. את מרגישה שינוי בגוף תוך כמה שבועות, ורואה אותו תוך חודש-חודשיים. ככל שמגיעות בקביעות — מהר יותר.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">מה כדאי ללבוש לשיעור הראשון?</div>
-      <div class="faq-a">בגדי אימון נוחים וצמודים (טייץ וגופייה) שמאפשרים תנועה חופשית, וגרבי החלקה (grip socks) לאחיזה טובה ובטוחה על המכשיר. כדאי גם בקבוק מים.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">איפה הסטודיו ואיך מגיעים?</div>
-      <div class="faq-a">אמנון ותמר 6, בקניון פולג בנתניה — עם חניה נוחה בקניון. קרובות לרמת פולג וכל אזור פולג בנתניה.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">יש לכן פילאטיס מכשירים ברמת פולג?</div>
-      <div class="faq-a">הסטודיו נמצא בקניון פולג בנתניה — כמה דקות נסיעה מרמת פולג וכל האזור הצפוני של העיר. חניה חינם בקניון, וקל להגיע מכל הרחובות הסמוכים.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">כמה עולה פילאטיס מכשירים בסטודיו?</div>
-      <div class="faq-a">יש <a href="pilates-price.html" style="color:var(--accent);text-decoration:underline">3 מסלולים לפי כמות כניסות בחודש</a>. עם גישה לפילאטיס מכשירים: 5 כניסות ב-320 ₪, 9 כניסות ב-475 ₪, 13 כניסות ב-530 ₪. כל המחירים כוללים מע״מ. בלי התחייבות, וביטול בהודעה של 30 יום מראש.</div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- BOOKING / CTA -->
-<section class="book-sec" id="contact">
-  <h2>קבעי אימון היכרות</h2>
-  <p class="sub">בחרי שיעור פילאטיס, הירשמי ושלמי — הכל כאן. בלי טלפונים, בלי המתנה.</p>
-  <!-- דסקטופ: iframe -->
-  <div class="arbox-desktop book-frame">
-    <div style="text-align:center;padding:8px 0 4px"><a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener" data-track="trial-cta arbox-open" class="btn-a">להרשמה ותשלום אונליין <span aria-hidden="true">←</span></a><p class="cta-note">נפתח במערכת ההרשמה של Arbox · או <a href="https://wa.me/972527927575" target="_blank" rel="noopener" data-track="whatsapp-click" style="color:var(--yellow);text-decoration:underline">קבעי בוואטסאפ</a></p></div>
-  </div>
-  <!-- מובייל: כפתור ישיר -->
-  <div class="arbox-mobile">
-    <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&lang=he&location=18259&referrer=PLUGIN&filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" data-track="arbox-open" target="_blank" rel="noopener" class="btn-a">📅 לקביעת שיעור פילאטיס ניסיון</a>
-    <p class="cta-note">נפתח בטאב חדש — הרשמה מלאה ב-Arbox</p>
-  </div>
-  <p class="cta-note">💬 שאלות? <a href="https://wa.me/972527927575" style="color:var(--accent);text-decoration:underline" target="_blank" rel="noopener">דברי איתנו בוואטסאפ</a></p>
-  <p class="legal-note">מדיניות ביטולים: ביטול עד 24 שעות לפני האימון — ניתן לקבוע מועד חלופי. ביטול פחות מ-24 שעות מראש — אין זיכוי. <a href="privacy.html#cancel" style="color:var(--accent);text-decoration:underline">המדיניות המלאה</a></p>
-</section>
+  <section class="conversion-sec" aria-labelledby="plans-title">
+    <div class="conversion-wrap">
+      <div class="conversion-head center"><div class="eyebrow">אחרי אימון ההיכרות</div><h2 id="plans-title">אהבת את האימון? מכאן בוחרים את הקצב שמתאים לך.</h2></div>
+      <div class="plans-grid">
+        <article class="plan-card"><b>5 כניסות בחודש</b><strong>320 ₪</strong></article>
+        <article class="plan-card"><b>9 כניסות בחודש</b><strong>475 ₪</strong></article>
+        <article class="plan-card"><b>13 כניסות בחודש</b><strong>530 ₪</strong></article>
+      </div>
+      <p class="plans-note">המחירים כוללים מע״מ. תנאי הביטול והמסלולים המלאים מוצגים בהתאם למדיניות הקיימת של הסטודיו.</p>
+      <div class="section-cta"><a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-event="benefits_intro_click">קובעת אימון היכרות ב-50 ₪</a></div>
+    </div>
+  </section>
 
-<!-- GALLERY -->
-<section class="gal" id="gallery">
-  <div class="sec-h">
-    <div class="sec-tag">הצצה פנימה</div>
-    <h2 class="sec-title">ככה זה נראה אצלנו</h2>
-  </div>
-  <div class="gg" style="grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,170px)">
-    <div class="gi" style="grid-column:span 2;grid-row:span 2">
-      <img src="images/shoot2025/pilates-main.jpg" width="1280" height="1920" alt="פילאטיס מכשירים נתניה — 11 מיטות רפורמר בסטודיו סטפס" loading="lazy">
-      <div class="gi-ov"><span class="gi-l">חלל הרפורמר — 11 מיטות</span></div>
+  <section class="conversion-sec alt" aria-labelledby="faq-title">
+    <div class="conversion-wrap">
+      <div class="conversion-head"><div class="eyebrow">שאלות לפני שמגיעות</div><h2 id="faq-title">כל מה שצריך לדעת לפני האימון הראשון</h2></div>
+      <div class="faq-list">
+        <details><summary>מתאים למי שמעולם לא עשתה פילאטיס?</summary><p>כן. מתחילות בהסבר על המכשיר ובתרגילים שמתאימים לרמה שלך. המדריכה מתאימה את הקפיצים ומלווה אותך לאורך השיעור.</p></details>
+        <details><summary>כמה מתאמנות יש בשיעור?</summary><p>בחלל יש 11 מיטות רפורמר, ולכן מספר המתאמנות בשיעור מוגבל למספר המיטות.</p></details>
+        <details><summary>מה צריך להביא?</summary><p>בגדי אימון נוחים, גרבי אחיזה ובקבוק מים. אם יש מגבלה או הנחיה רפואית, חשוב להביא גם את ההנחיות שקיבלת.</p></details>
+        <details><summary>יש חניה?</summary><p>הסטודיו נמצא בקניון פולג, אמנון ותמר 6 בנתניה, עם חניה נוחה בקניון.</p></details>
+        <details><summary>מה קורה אם יש לי כאב או מגבלה?</summary><p>במקרים רבים ניתן לבצע התאמות, אבל חשוב לעדכן את הצוות מראש. במצב רפואי, לאחר פציעה או ניתוח, יש להגיע עם אישור והנחיות של הגורם המטפל כאשר נדרש.</p></details>
+        <details><summary>אפשר להתאמן בהריון או אחרי לידה?</summary><p>ניתן לבצע אימונים מותאמים בהתאם לשלב ההריון או החזרה לאחר לידה. יש לעדכן את הצוות מראש ולהביא אישור רפואי בהתאם להנחיות שקיבלת.</p></details>
+        <details><summary>כמה עולה אימון ההיכרות?</summary><p>אימון ההיכרות עולה 50 ₪. בוחרים שיעור ומשלמים דרך מערכת ARBOX.</p></details>
+        <details><summary>איך נרשמים?</summary><p>לוחצים על הכפתור הצהוב, בוחרים שיעור במערכת ARBOX ומשלימים שם את ההרשמה והתשלום.</p></details>
+      </div>
     </div>
-    <div class="gi">
-      <img src="images/shoot2025/pilates-alt.jpg" width="1280" height="1920" alt="גמישות ויציבה — פילאטיס מכשירים סטפס נתניה" loading="lazy">
-      <div class="gi-ov"><span class="gi-l">גמישות ויציבה</span></div>
+  </section>
+
+  <section class="final-cta" id="contact" aria-labelledby="final-title">
+    <div class="eyebrow">האימון הראשון שלך מתחיל כאן</div>
+    <h2 id="final-title">לא צריך להגיע מוכנה לפילאטיס. בשביל זה מגיעים לאימון הראשון.</h2>
+    <p>בחרי שיעור, הירשמי דרך ARBOX והגיעי להכיר את הרפורמר, המדריכה והסטודיו.</p>
+    <div class="hero-btns">
+      <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-event="final_intro_click">קובעת אימון היכרות ב-50 ₪</a>
+      <a href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%9C%D7%A4%D7%A0%D7%99%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%94%D7%94%D7%99%D7%9B%D7%A8%D7%95%D7%AA" class="btn-b btn-wa js-whatsapp" target="_blank" rel="noopener">יש לי שאלה לפני האימון</a>
     </div>
-    <div class="gi">
-      <img src="images/shoot2025/gallery-f.jpg" width="1280" height="1920" alt="מדריכה מכוונת קפיצי רפורמר — פילאטיס מכשירים סטפס פולג" loading="lazy">
-      <div class="gi-ov"><span class="gi-l">שליטה בגוף</span></div>
-    </div>
-  </div>
-</section>
+    <p class="final-info">60 דקות · 11 מיטות רפורמר · קניון פולג, נתניה</p>
+    <p class="legal-note">מדיניות ביטולים: ביטול עד 24 שעות לפני האימון — ניתן לקבוע מועד חלופי. ביטול פחות מ-24 שעות מראש — אין זיכוי. <a href="privacy.html#cancel">המדיניות המלאה</a></p>
+  </section>
+</main>
+
+<div class="mobile-intro" id="mobileIntro" aria-label="קביעת אימון היכרות">
+  <span>אימון היכרות · 50 ₪</span>
+  <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="js-arbox" data-event="sticky_intro_click">בוחרת שיעור</a>
+</div>
 
 <!-- FOOTER -->
 <footer class="foot" role="contentinfo">
@@ -849,11 +943,12 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
 <script>
 // Schedule — Dynamic from Arbox
 (function(){
+  var cache={},showAll=false,currentItems=[];
   function renderUnavailable(){
     var sl=document.querySelector('.slist');
     while(sl.firstChild)sl.removeChild(sl.firstChild);
     var fn=mkEl('div','sfn');
-    fn.innerHTML='מערכת השעות נטענת. לקביעת שיעור — <a href="https://wa.me/972527927575" target="_blank" rel="noopener" style="color:var(--yellow);text-decoration:underline;font-weight:600">דברי איתנו בוואטסאפ</a>';
+    fn.innerHTML='לא הצלחנו לטעון כרגע את מערכת השעות. <a href="https://wa.me/972527927575" class="js-whatsapp" target="_blank" rel="noopener" style="color:var(--yellow);text-decoration:underline;font-weight:700">כתבי לנו בוואטסאפ</a>';
     sl.appendChild(fn);
   }
   function getName(s){return s.session_name||s.name||'';}
@@ -861,32 +956,41 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
     nm=nm.toLowerCase();
     return nm.includes('pilates')||nm.includes('פילאטיס')||nm.includes('רפורמר')||nm.includes('פ. מכשירים');
   }
-  function isGym(nm){nm=nm.toLowerCase();return nm.includes('gym')||nm.includes('כוח')||nm.includes('bootcamp')||nm.includes('endurance');}
-  function isMove(nm){nm=nm.toLowerCase();return nm.includes('bar')||nm.includes('בר')||nm.includes('yoga')||nm.includes('יוגה')||nm.includes('flex')||nm.includes('גמישות')||nm.includes('hiit')||nm.includes('kick');}
   function mkEl(tag,cls){var el=document.createElement(tag);if(cls)el.className=cls;return el;}
+  function getArboxUrl(){var a=document.querySelector('.js-arbox');return a?a.href:'#contact';}
+  function renderSkeleton(){
+    var sl=document.querySelector('.slist');while(sl.firstChild)sl.removeChild(sl.firstChild);
+    for(var i=0;i<3;i++)sl.appendChild(mkEl('div','schedule-skeleton'));
+  }
   function renderItems(items){
+    currentItems=items||[];
     var sl=document.querySelector('.slist');
     while(sl.firstChild)sl.removeChild(sl.firstChild);
-    if(!items||!items.length){var fn=mkEl('div','sfn');fn.textContent='אין שיעורי פילאטיס ביום זה';sl.appendChild(fn);return;}
-    items.forEach(function(s){
+    var more=document.getElementById('scheduleMore');
+    if(!currentItems.length){
+      var fn=mkEl('div','sfn');
+      fn.innerHTML='אין שיעורי פילאטיס ביום הזה. נסי לבחור יום נוסף או <a href="https://wa.me/972527927575" class="js-whatsapp" target="_blank" rel="noopener" style="color:var(--yellow);text-decoration:underline;font-weight:700">כתבי לנו בוואטסאפ</a>.';
+      sl.appendChild(fn);more.hidden=true;return;
+    }
+    var visible=showAll?currentItems:currentItems.slice(0,3);
+    visible.forEach(function(s){
       var nm=getName(s);
       var si=mkEl('div','si');
-      if(isPilates(nm))si.style.borderRight='3px solid #FFD400';
+      si.style.borderRight='3px solid #FFD400';
       var tm=mkEl('div','s-time');tm.textContent=(s.start_time||'').slice(0,5);
       var cls=mkEl('div','s-cls');
       var sn=mkEl('div','s-n');sn.textContent=nm;
       var coachName=s.coach||(s.staff_member&&s.staff_member.name)||'';
       var st=mkEl('div','s-t');st.textContent=coachName?'מאמנת: '+coachName:'';
       cls.appendChild(sn);cls.appendChild(st);
-      var bdg=mkEl('span','s-bdg');
-      if(isPilates(nm)){bdg.className='s-bdg bp';bdg.textContent='PILATES';}
-      else if(isGym(nm)){bdg.className='s-bdg bg';bdg.textContent='GYM';}
-      else if(isMove(nm)){bdg.className='s-bdg bm';bdg.textContent='MOVE';}
-      si.appendChild(tm);si.appendChild(cls);if(bdg.textContent)si.appendChild(bdg);
+      var cta=mkEl('a','schedule-row-cta js-arbox');cta.href=getArboxUrl();cta.textContent='קובעת אימון היכרות ב-50 ₪';cta.setAttribute('data-event','schedule_intro_click');
+      if(!matchMedia('(max-width:760px)').matches){cta.target='_blank';cta.rel='noopener';}
+      si.appendChild(tm);si.appendChild(cls);si.appendChild(cta);
       sl.appendChild(si);
     });
+    more.hidden=currentItems.length<=3;
+    more.textContent=showAll?'הצג רק 3 שיעורים':'לכל מערכת השעות';
   }
-  var cache={};
   function getWeekDates(){
     var today=new Date(),day=today.getDay(),sun=new Date(today);
     sun.setDate(today.getDate()-day);
@@ -896,10 +1000,9 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
   var todayIdx=Math.min(new Date().getDay(),5);
   function loadDay(idx){
     var date=weekDates[idx];if(!date)return;
+    showAll=false;
     if(cache[date]){renderItems(cache[date]);return;}
-    var sl=document.querySelector('.slist');
-    while(sl.firstChild)sl.removeChild(sl.firstChild);
-    var fn=mkEl('div','sfn');fn.textContent='⏳ טוען מערכת שעות...';sl.appendChild(fn);
+    renderSkeleton();
     fetch('/api/schedule?date='+date)
       .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
       .then(function(data){
@@ -911,8 +1014,13 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
   }
   var tabs=document.querySelectorAll('.dt');
   tabs.forEach(function(t,i){
-    t.addEventListener('click',function(){tabs.forEach(function(d){d.classList.remove('active');});this.classList.add('active');loadDay(i);});
+    t.addEventListener('click',function(){
+      tabs.forEach(function(d){d.classList.remove('active');});this.classList.add('active');
+      if(window.stepsTrack)window.stepsTrack('schedule_day_click',{day:this.textContent.trim()});
+      loadDay(i);
+    });
   });
+  document.getElementById('scheduleMore').addEventListener('click',function(){showAll=!showAll;renderItems(currentItems);});
   tabs.forEach(function(d){d.classList.remove('active');});
   if(tabs[todayIdx])tabs[todayIdx].classList.add('active');else tabs[0].classList.add('active');
   loadDay(todayIdx);
@@ -965,26 +1073,72 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
   </div>
 </div>
 <script>
-// Conversion tracking
+// Conversion tracking, UTM handoff and mobile CTA behavior
 (function(){
-  function trackEvent(name, params){
+  function hasConsent(){try{return localStorage.getItem('steps-consent')==='granted'}catch(e){return false}}
+  function trackEvent(name,params){
+    if(!hasConsent())return;
     params=params||{};
     params.page_location=location.href;
     if(typeof gtag==='function')gtag('event',name,params);
     if(typeof fbq==='function'){
-      if(name==='arbox_open')fbq('track','Lead',params);
+      if(name==='begin_checkout')fbq('track','Lead',params);
       else fbq('trackCustom',name,params);
     }
   }
-  document.querySelectorAll('[data-track]').forEach(function(el){
-    el.addEventListener('click',function(){
-      var t=el.getAttribute('data-track')||'';
-      if(t.indexOf('trial-cta')>-1)trackEvent('cta_trial_click',{cta_text:(el.textContent||'').trim()});
-      if(t.indexOf('whatsapp-click')>-1)trackEvent('whatsapp_click',{link_url:el.href||''});
-      if(t.indexOf('arbox-open')>-1)trackEvent('arbox_open',{link_url:el.href||''});
-      if(t.indexOf('schedule-view')>-1)trackEvent('schedule_view',{});
+  window.stepsTrack=trackEvent;
+
+  var source=new URLSearchParams(location.search),utm=[];
+  source.forEach(function(value,key){if(key.toLowerCase().indexOf('utm_')===0)utm.push([key,value])});
+  function decorateArboxLinks(){
+    document.querySelectorAll('a.js-arbox').forEach(function(link){
+      try{var url=new URL(link.href);utm.forEach(function(pair){url.searchParams.set(pair[0],pair[1])});link.href=url.toString()}catch(e){}
+      if(matchMedia('(max-width:760px)').matches)link.removeAttribute('target');
+      else{link.target='_blank';link.rel='noopener'}
     });
+  }
+  decorateArboxLinks();
+  addEventListener('resize',decorateArboxLinks,{passive:true});
+
+  document.addEventListener('click',function(e){
+    var arbox=e.target.closest&&e.target.closest('a.js-arbox');
+    if(arbox){
+      var eventName=arbox.getAttribute('data-event');
+      if(eventName)trackEvent(eventName,{cta_text:(arbox.textContent||'').trim(),link_url:arbox.href});
+      trackEvent('begin_checkout',{currency:'ILS',value:50,item_name:'אימון היכרות פילאטיס',link_url:arbox.href});
+    }
+    var wa=e.target.closest&&e.target.closest('a[href*="wa.me"]');
+    if(wa)trackEvent('whatsapp_click',{link_url:wa.href});
   });
+
+  document.querySelectorAll('.faq-list details').forEach(function(item){
+    item.addEventListener('toggle',function(){if(item.open)trackEvent('faq_open',{question:(item.querySelector('summary').textContent||'').trim()})});
+  });
+
+  var sent50=false,sent90=false;
+  addEventListener('scroll',function(){
+    var max=document.documentElement.scrollHeight-innerHeight;if(max<=0)return;
+    var depth=scrollY/max;
+    if(!sent50&&depth>=.5){sent50=true;trackEvent('scroll_50')}
+    if(!sent90&&depth>=.9){sent90=true;trackEvent('scroll_90')}
+  },{passive:true});
+
+  var sticky=document.getElementById('mobileIntro'),hero=document.getElementById('hero'),contact=document.getElementById('contact');
+  var pastHero=false,contactVisible=false;
+  function updateSticky(){
+    if(!sticky)return;
+    var cookie=document.getElementById('cookie-banner');
+    var cookieVisible=cookie&&getComputedStyle(cookie).display!=='none';
+    var visible=matchMedia('(max-width:760px)').matches&&pastHero&&!contactVisible&&!cookieVisible;
+    sticky.classList.toggle('is-visible',visible);document.body.classList.toggle('sticky-visible',visible);
+  }
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(entries){pastHero=!entries[0].isIntersecting;updateSticky()},{threshold:.05}).observe(hero);
+    new IntersectionObserver(function(entries){contactVisible=entries[0].isIntersecting;updateSticky()},{threshold:.08}).observe(contact);
+  }
+  addEventListener('scroll',updateSticky,{passive:true});
+  addEventListener('resize',updateSticky,{passive:true});
+  document.querySelectorAll('#cookie-banner button').forEach(function(btn){btn.addEventListener('click',function(){setTimeout(updateSticky,0)})});
 })();
 </script>
 <script>
@@ -1004,7 +1158,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
   document.documentElement.className+=' js';
   addEventListener('DOMContentLoaded',function(){
     if(!('IntersectionObserver' in window))return;
-    var els=document.querySelectorAll('.sec-h,.sec-content,.stats,.usp-card,.two-col>*,.tc,.faq-item,.gi,.sched,.book-frame,.trial-wrap,.arbox-mobile');
+    var els=document.querySelectorAll('.conversion-head,.benefit-card,.benefit-media,.first-step,.real-shot,.result-card,.sched,.pilates-review,.plan-card,.faq-list details');
     var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -8% 0px'});
     Array.prototype.forEach.call(els,function(e){
       if(e.getBoundingClientRect().top<innerHeight*.92)return;
