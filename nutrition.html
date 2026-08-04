@@ -378,7 +378,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .or-shot{margin:0}
 .or-shot img{width:100%;border-radius:var(--r-lg);border:1px solid var(--line-card);box-shadow:0 20px 50px rgba(0,0,0,.45)}
 .or-shot figcaption{margin-top:12px;font-size:13.5px;line-height:1.65;color:var(--t60)}
-.or-benes{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.2vw,28px);max-width:1180px;margin:clamp(26px,3vw,38px) auto 0}
+.or-benes{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(16px,2.2vw,28px);max-width:860px;margin:clamp(26px,3vw,38px) auto 0}
 .or-story{margin:clamp(22px,2.6vw,30px) auto 0;max-width:70ch;text-align:center;font-size:15px;line-height:1.7;color:var(--t60)}
 @media(max-width:820px){
   .or-row{grid-template-columns:1fr}
@@ -483,12 +483,6 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   .phase::before{content:"";position:absolute;top:30px;inset-inline-start:-22px;width:9px;height:9px;border-radius:50%;background:var(--yellow)}
 }
 
-/* צמתים לאורך הדרך — "מה ראינו → אילו אפשרויות → מה נכון לך עכשיו" */
-.junc{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,26px);max-width:1180px;margin:clamp(26px,3.2vw,40px) auto 0}
-.junc>div{border-top:1px solid var(--line-card);padding-top:15px}
-.junc b{display:block;font-family:var(--body);font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--yellow);margin-bottom:7px}
-.junc p{font-size:14.5px;line-height:1.65;color:var(--t60)}
-@media(max-width:800px){.junc{grid-template-columns:1fr;gap:16px}}
 .phase-note{max-width:66ch;margin:clamp(24px,2.8vw,34px) auto 0;text-align:center;font-size:14.5px;line-height:1.7;color:var(--t60)}
 
 /* ארבע הפגישות עם אור — מועד + מה מבוצע בכל אחת (אור, 04/08) */
@@ -503,15 +497,14 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 }
 .meet b{display:block;font-family:var(--body);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--yellow);margin-bottom:7px}
 .meet p{font-size:14.5px;line-height:1.65;color:var(--t75)}
-.meet-m{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;line-height:1.6;color:var(--t60)}
+.meets-m{max-width:66ch;margin:clamp(16px,2vw,22px) auto 0;text-align:center;font-size:14px;line-height:1.65;color:var(--t60)}
 @media(max-width:1000px){.meets{grid-template-columns:1fr 1fr}}
 @media(max-width:420px){.meets{grid-template-columns:1fr}}
 
 /* ═══ אותו מסלול, מיקוד אחר לפי המטרה ═════════════════════════ */
 .goals{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.6vw,20px);max-width:1100px;margin:0 auto}
 .goal{border:1px solid var(--line-card);border-radius:var(--r-lg);overflow:hidden;background:var(--fill)}
-.goal img{width:100%;aspect-ratio:16/10;object-fit:cover}
-.goal-body{padding:18px 20px 22px}
+.goal-body{padding:20px 22px 24px}
 .goal h3{font-size:clamp(17px,1.6vw,20px);line-height:1.2;margin-bottom:9px;color:var(--bone)}
 .goal p{font-size:14.5px;line-height:1.65;color:var(--t75)}
 @media(max-width:800px){.goals{grid-template-columns:1fr}}
@@ -570,23 +563,11 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   .swipe{display:block;margin:-2px auto 14px;text-align:center;font-size:13.5px;letter-spacing:.04em;color:var(--t60)}
 }
 
-/* ═══ רצועת שלוש תמונות (אוכל · מדידות) ═══════════════════════ */
-.strip{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.6vw,20px);max-width:860px;margin:0 auto}
-.strip>figure{margin:0}
-.strip img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-lg);border:1px solid var(--line-card)}
-.strip figcaption{margin-top:13px;text-align:center;font-size:14.5px;line-height:1.55;color:var(--t60)}
-.strip figcaption b{display:block;color:var(--bone);font-weight:700;font-size:15.5px;margin-bottom:3px}
 .demo-note{max-width:66ch;margin:clamp(22px,2.6vw,32px) auto 0;text-align:center;font-size:13px;line-height:1.7;color:var(--t45)}
 
 /* ═══ הוכחה והתקדמות ══════════════════════════════════════════ */
-.proof3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.6vw,20px);max-width:1100px;margin:0 auto}
-.proof3 figure{margin:0;border:1px solid var(--line-card);border-radius:var(--r-lg);overflow:hidden;background:var(--fill)}
-/* שלוש התמונות הן מאותה סדרת-צילום — קרופ ממורכז לכולן */
-.proof3 img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center}
-.proof3 figcaption{padding:18px 20px 22px}
-.proof3 figcaption b{display:block;font-family:var(--display);font-weight:900;font-size:19px;letter-spacing:-.02em;color:var(--bone);margin-bottom:7px}
-.proof3 figcaption span{font-size:14.5px;line-height:1.65;color:var(--t75)}
-
+/* .strip ו-.proof3 (רצועות תמונות האוכל והמדידה) נמחקו 04/08 יחד
+   עם ה-HTML שלהן — ראה ההערות במקטעים עצמם. */
 .result{
   max-width:860px;margin:clamp(28px,3.4vw,44px) auto 0;
   display:grid;grid-template-columns:.42fr .58fr;gap:clamp(20px,2.6vw,34px);align-items:center;
@@ -770,53 +751,16 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 #acc-modal .modal-x{position:absolute;top:12px;inset-inline-end:12px;width:40px;height:40px;background:none;border:0;color:var(--bone);font-size:24px;line-height:1;cursor:pointer;border-radius:8px;display:flex;align-items:center;justify-content:center}
 #acc-modal .modal-x:hover{background:var(--fill-2)}
 
-/* ═══════════════════════════════════════════════════════════════
-   ◆ נייד
-   רצועות של שלוש תמונות לגובה, כשהן נערמות אחת מתחת לשנייה, מוסיפות
-   כאן כאלף פיקסלים של גלילה — ורוב הנשים לא מגיעות למחיר. לכן בנייד
-   כל רצועה הופכת לגלילה אופקית עם scroll-snap (CSS נייטיב, בלי JS):
-   התוכן נשאר שלם, הגובה נחתך. הכרטיס ברוחב 74vw כדי שהבא אחריו
-   יציץ — זה מה שמסמן שאפשר להחליק.
-   ═══════════════════════════════════════════════════════════════ */
+/* ◆ נייד — הרצועות האופקיות (.strip/.proof3) שישבו כאן נמחקו יחד
+   עם התמונות שהן החזיקו (04/08). הקרוסלה של מסכי התוכנית שורדת
+   בכלל-שלה למעלה. */
 @media(max-width:760px){
-  .strip,.proof3{
-    display:flex;flex-wrap:nowrap;align-items:flex-start;
-    gap:12px;max-width:none;
-    /* overflow-y חייב להיאמר במפורש: כשמגדירים רק overflow-x, המפרט
-       הופך את הציר השני ל-auto — והקרוסלה נגררה גם למעלה ולמטה.
-       touch-action מחזיר את הגרירה האנכית לגלילת העמוד. */
-    overflow-x:auto;overflow-y:hidden;
-    touch-action:pan-x pan-y;
-    overscroll-behavior-x:contain;
-    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
-    /* יוצא אל שולי המסך, כך שהכרטיס הראשון מיושר לגוף הטקסט */
-    margin-inline:calc(var(--gutter) * -1);
-    padding:4px var(--gutter) 20px;
-    scroll-padding-inline:var(--gutter);
-    scrollbar-width:none;
-  }
-  .strip::-webkit-scrollbar,.proof3::-webkit-scrollbar{display:none}
-  .proof3>figure{flex:0 0 74vw;max-width:300px;scroll-snap-align:center}
-  .proof3 img{aspect-ratio:4/5}
-  /* תמונות האוכל הן המחשה, לא הוכחה — רצועה קטנה מספיקה להן */
-  .strip>figure{flex:0 0 62vw;max-width:240px;scroll-snap-align:center}
-  .strip img{aspect-ratio:4/3}
-  .swipe{display:block;margin:-2px auto 12px;text-align:center;font-size:13.5px;letter-spacing:.04em;color:var(--t60)}
-  .sec-light .swipe{color:rgba(11,11,11,.62)}
   .result .phone-frame{max-width:170px}
   .or-benes{gap:14px}
 }
 
-/* ═══ פס התוצאות שמתחת להירו ═══════════════════════════════════ */
-.rstrip{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.6vw,20px);max-width:900px;margin:0 auto}
-.rcard{
-  border:1px solid rgba(255,212,0,.28);border-radius:var(--r-lg);
-  background:var(--yellow-tint);padding:clamp(18px,2.2vw,26px) 16px;text-align:center;
-}
-.rcard b{display:block;font-family:var(--display);font-weight:900;font-size:clamp(28px,3.4vw,40px);line-height:1;letter-spacing:-.04em;color:var(--yellow)}
-.rcard span{display:block;margin-top:9px;font-size:14.5px;line-height:1.45;color:var(--t75)}
-.rnote{max-width:60ch;margin:clamp(18px,2.2vw,26px) auto 0;text-align:center;font-size:13px;line-height:1.7;color:var(--t45)}
-@media(max-width:560px){.rstrip{grid-template-columns:1fr;gap:10px}.rcard{display:flex;align-items:baseline;justify-content:center;gap:12px;padding:14px 16px}.rcard b{font-size:26px}.rcard span{margin-top:0}}
+/* פס התוצאות שהיה כאן (.rstrip/.rcard/.rnote) נמחק 04/08 — אוחד
+   לתוך מקטע ההוכחות. */
 
 /* ═══ צילום שיחה בתוך מסגרת ═══════════════════════════════════ */
 .shot-phone{
@@ -982,20 +926,9 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   </ul>
 </div>
 
-<!-- ═══ תוצאות אמיתיות — פס קצר מיד אחרי ההירו ═══
-     שלושה נתונים מתוך הליווי בפועל. אין כאן ציטוטים ואין הבטחה —
-     המספרים הם מה שנמדד, וההסתייגות צמודה אליהם. -->
-<section class="sec sec-alt" id="results">
-  <div class="sec-h">
-    <div class="sec-tag">תוצאות אמיתיות מתוך הליווי</div>
-  </div>
-  <div class="rstrip">
-    <div class="rcard"><b>2.5 ק״ג</b><span>מיכל — ב־14 ימי ליווי</span></div>
-    <div class="rcard"><b>2.2 ק״ג</b><span>נועה — מתחילת הליווי</span></div>
-    <div class="rcard"><b>1.7 ק״ג</b><span>דנה — מתחילת הליווי</span></div>
-  </div>
-  <p class="rnote">הנתונים אמיתיים ומתועדים במערכת. השמות שונו לשמירה על פרטיות המתאמנות. בירידה במשקל עובדים בקצב בריא ומציאותי — התוצאה משתנה בין מתאמנת למתאמנת ותלויה בנקודת הפתיחה, בהתמדה ובמצב הבריאותי.</p>
-</section>
+<!-- פס התוצאות שהיה כאן אוחד לתוך #proof (04/08). שלושת המספרים
+     סופרו שלוש פעמים לאורך הדף — פס, כרטיס, ו"תוצאות נוספות" —
+     ועלו ~3,000px גלילה בנייד על מסר אחד. -->
 
 <!-- ═══ הזדהות — למה עוד תפריט לא מספיק ═══ -->
 <section class="sec sec-light" id="need">
@@ -1010,8 +943,9 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <div class="card"><h3>בא לי משהו מתוק</h3><p>לא מתחילים רשימת איסורים. מתאימים כמות, מעדכנים וממשיכים.</p></div>
     <div class="card"><h3>המשקל שוב קפץ</h3><p>מסתכלים על המגמה ועל ההיקפים — לא נותנים לבוקר אחד למחוק שבוע שלם.</p></div>
   </div>
+  <!-- כפתור הגלילה ל-#bina ירד 04/08 — הוא לא CTA אמיתי, והמקטע
+       שאליו הוא הוביל מגיע ממילא מיד אחריו. -->
   <p class="punch-line">במקום לנחש, לוותר או לחכות ליום ראשון — את שולחת הודעה וממשיכה.</p>
-  <div class="sec-cta"><a class="btn-b" href="#bina">ככה בינה עוזרת לי ביום־יום</a></div>
 </section>
 
 <!-- ═══ בינה ביום-יום ═══
@@ -1029,11 +963,12 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <div class="two-col-text">
       <div class="benes">
         <div class="bene"><h3>עונה ומחליפה</h3><p>מוצר, מנה, מתכון או ארוחה — בינה מחשבת את הכמות ומעדכנת את התוכנית.</p></div>
-        <div class="bene"><h3>זוכרת ועוקבת</h3><p>שקילות בימי שני וחמישי, מים, חלבון, צעדים והתקדמות לאורך זמן.</p></div>
+        <!-- 6 כרטיסים ירדו ל-4 (04/08): "זוכרת ועוקבת" ו"זוכרת וסוגרת
+             מעגלים" היו אותו הבטחה, וכך גם "מסכמת ומתריעה" מול
+             "יודעת איפה את במסלול". -->
+        <div class="bene"><h3>זוכרת וסוגרת מעגלים</h3><p>שקילות, מים, חלבון וצעדים לאורך זמן — ואם לפני כמה שבועות החלטתן לעבוד על משהו, בינה חוזרת לזה ובודקת מה קרה.</p></div>
         <div class="bene"><h3>מחוברת לאימונים</h3><p>דרך ARBOX היא רואה את האימונים שביצעת ומתאימה את ההכוונה לעומס בפועל.</p></div>
-        <div class="bene"><h3>מסכמת ומתריעה</h3><p>סיכום שבועי שמראה איפה את עומדת ומה המיקוד הבא, וכשמשהו נתקע — אור רואה.</p></div>
-        <div class="bene"><h3>יודעת איפה את במסלול</h3><p>בינה יודעת באיזה שבוע את מתוך 13, באיזה שלב את נמצאת, מה כבר ניסיתן יחד ומה נשאר לעשות — כדי שהליווי יתקדם איתך ולא יתחיל מחדש בכל שיחה.</p></div>
-        <div class="bene"><h3>זוכרת וסוגרת מעגלים</h3><p>אם לפני כמה שבועות החלטתן לעבוד על צעדים, חלבון או אימונים, בינה חוזרת לזה, בודקת מה קרה ועוזרת לבחור את הצעד הבא.</p></div>
+        <div class="bene"><h3>יודעת איפה את במסלול</h3><p>באיזה שבוע את מתוך 13, באיזה שלב, ומה כבר ניסיתן יחד — כך שהליווי מתקדם איתך ולא מתחיל מחדש בכל שיחה. בסוף כל שבוע: סיכום שמראה איפה את עומדת ומה המיקוד הבא.</p></div>
       </div>
       <p class="punch-side">בינה נכנסת בדיוק ברגעים שבהם בדרך כלל הכי קשה להישאר במסלול.</p>
       <p class="bina-human">בינה היא מערכת AI ייעודית שאור פיתח עבור STEPS. היא מלווה ומכוונת, ובכל רגע אפשר לכתוב <strong>"לדבר עם אור"</strong> ולהעביר את השיחה אליו.</p>
@@ -1101,7 +1036,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </figure>
   </div>
   <div class="or-benes">
-    <div class="bene"><h3>מתחילים ביחד</h3><p>בפגישה הראשונה אור עובר איתך על שאלון הבריאות, ההרגלים, שגרת היום, המטרה והמדידות.</p></div>
+    <!-- "מתחילים ביחד" ירד 04/08 — פגישה 1 מפורטת במקטע הפגישות -->
     <div class="bene"><h3>עוקבים מאחורי הקלעים</h3><p>הדשבורד מרכז את השקילות והמגמה של כל מתאמנת, כך שאפשר לזהות תקיעות לפני שהן הופכות לוויתור.</p></div>
     <div class="bene"><h3>בן אדם כשצריך</h3><p>בכל רגע אפשר לכתוב לבינה "לדבר עם אור" ואור נכנס לשיחה.</p></div>
   </div>
@@ -1156,74 +1091,60 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </div>
   </div>
 
-  <div class="junc">
-    <div>
-      <b>סוף חודש ראשון</b>
-      <p>מסכמות את שלב הבסיס ובוחרות מה חשוב לדייק בחודש הבא.</p>
-    </div>
-    <div>
-      <b>אמצע הדרך</b>
-      <p>מסתכלות על הדרך שכבר נעשתה ומחליטות מה ייתן את ההשפעה הגדולה ביותר בהמשך.</p>
-    </div>
-    <div>
-      <b>השבועיים האחרונים</b>
-      <p>מסכמות הישגים, נכנסות לישורת ומחליטות אם מסיימים או ממשיכים יחד.</p>
-    </div>
-  </div>
-
   <p class="phase-note">המיקוד משתנה לפי המטרה שלך: ירידה במשקל, חיטוב ושינוי היקפים, או אכילה נכונה והרגלים.</p>
 
+  <!-- מקטע הצמתים שהיה כאן נמחק 04/08: הוא היה מילה-במילה הפגישות
+       שמתחתיו ("מסכמות את שלב הבסיס ובוחרות מה לדייק" = פגישה 2).
+       הפגישות הן הצמתים — אין סיבה לספר את זה פעמיים.
+       גם שורת "מדידה מלאה" ירדה מארבעה כרטיסים לשורה משותפת אחת. -->
   <div class="meets-h">
     <h3>ארבע הפגישות עם אור</h3>
-    <p>פגישות פנים אל פנים בסטודיו, פרושׂות לאורך המסלול — כל אחת בנקודה שבה ממילא מסכמים ומחליטים.</p>
+    <p>פגישות פנים אל פנים בסטודיו — כל אחת בנקודה שבה ממילא מסכמים ומחליטים מה הלאה.</p>
   </div>
   <div class="meets">
     <div class="meet">
       <div class="meet-n">1</div>
       <b>לפני תחילת המסלול</b>
-      <p>שאלון בריאות והרגלים, שגרת היום, המטרה והמסלול שמתאים לך.</p>
-      <p class="meet-m">מדידה מלאה: משקל, היקפים והרכב גוף — נקודת הפתיחה.</p>
+      <p>שאלון בריאות והרגלים, שגרת היום, המטרה והמסלול שמתאים לך. זו נקודת הפתיחה שהכול נמדד מולה.</p>
     </div>
     <div class="meet">
       <div class="meet-n">2</div>
       <b>סוף שבוע 4</b>
       <p>מסכמים את שלב הבסיס ובוחרים מה חשוב לדייק בחודש הבא.</p>
-      <p class="meet-m">מדידה מלאה: משקל, היקפים והרכב גוף.</p>
     </div>
     <div class="meet">
       <div class="meet-n">3</div>
       <b>סוף שבוע 8</b>
       <p>מסתכלים על הדרך שכבר נעשתה ומחליטים מה ייתן את ההשפעה הגדולה ביותר בהמשך.</p>
-      <p class="meet-m">מדידה מלאה: משקל, היקפים והרכב גוף.</p>
     </div>
     <div class="meet">
       <div class="meet-n">4</div>
       <b>שבוע 13 · פגישת סיום</b>
       <p>מסכמים את ההישגים מול נקודת הפתיחה ומחליטים יחד איך ממשיכים מכאן.</p>
-      <p class="meet-m">מדידה מלאה: משקל, היקפים והרכב גוף.</p>
     </div>
   </div>
+  <p class="meets-m">בכל אחת מארבע הפגישות מבוצעת מדידה מלאה — משקל, היקפים והרכב גוף.</p>
 
   <div class="sec-h" style="margin-top:clamp(44px,5.4vw,72px)">
     <h2 class="sec-title" style="font-size:clamp(26px,3.2vw,40px)">אותו מסלול. מיקוד אחר לפי המטרה שלך.</h2>
   </div>
+  <!-- שלוש תמונות הכרטיסים ירדו 04/08: הן היו האיור היחיד בדף שלא
+       הוסיף מידע (הטקסט אומר הכול), והן ישבו במקטע הכי שמן בנייד.
+       הקבצים נשארו ב-images/nutrition/ אם נרצה אותן בחזרה. -->
   <div class="goals">
     <div class="goal">
-      <img src="images/nutrition/goal-weight.webp" width="900" height="900" alt="קערת יוגורט עם פירות יער וזרעים לצד סרט מדידה" loading="lazy">
       <div class="goal-body">
         <h3>ירידה במשקל</h3>
         <p>המעקב מתמקד במגמת המשקל, בהיקפים, באימונים ובהתנהלות שמאפשרת ירידה בקצב בריא.</p>
       </div>
     </div>
     <div class="goal">
-      <img src="images/nutrition/goal-toning.webp" width="900" height="900" alt="צלחת עם חזה עוף בגריל, קינואה וירקות ירוקים, לצד משקולת" loading="lazy">
       <div class="goal-body">
         <h3>חיטוב ושינוי היקפים</h3>
         <p>המעקב מתמקד בהיקפים, בחלבון, באימוני כוח ובהרכב הגוף — בלי להבטיח שהמשקל חייב לרדת.</p>
       </div>
     </div>
     <div class="goal">
-      <img src="images/nutrition/goal-habits.webp" width="900" height="900" alt="שלוש מנות מוכנות מראש בקופסאות, בשורה מסודרת" loading="lazy">
       <div class="goal-body">
         <h3>אכילה נכונה והרגלים</h3>
         <p>המעקב מתמקד בארוחות מסודרות, עקביות, תחושת שליטה ובהפיכת ההרגלים לעצמאיים יותר.</p>
@@ -1283,22 +1204,10 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </div>
   </div>
 
-  <p class="swipe" style="margin-top:26px">← החליקי לצדדים</p>
-  <div class="strip" style="margin-top:clamp(30px,3.6vw,48px)">
-    <figure>
-      <img src="images/nutrition/food-breakfast.jpg" width="800" height="1000" alt="ארוחת בוקר — חביתה, לחם מלא, אבוקדו, לאבנה וירקות טריים" loading="lazy">
-      <figcaption><b>בוקר שאפשר באמת להכין</b></figcaption>
-    </figure>
-    <figure>
-      <img src="images/nutrition/food-main.jpg" width="800" height="1000" alt="ארוחה עיקרית — חזה עוף בגריל, אורז, ירקות צלויים, חומוס וסלט ישראלי" loading="lazy">
-      <figcaption><b>ארוחה מלאה ומשביעה</b></figcaption>
-    </figure>
-    <figure>
-      <img src="images/nutrition/food-snack.jpg" width="800" height="1000" alt="נשנוש — יוגורט יווני עם פירות יער ושקדים, לצד ריבועי שוקולד מריר ותמר" loading="lazy">
-      <figcaption><b>מקום גם למשהו מתוק</b></figcaption>
-    </figure>
-  </div>
-  <p class="demo-note">תמונות האוכל להמחשה. צילומי המסך אמיתיים, מהטלפון של מתאמנת בתוכנית ובפרסום ברשותה — פרטי הזיהוי שלה מטושטשים.</p>
+  <!-- רצועת שלוש תמונות האוכל ירדה 04/08: מרגע שהצילום הקולינרי
+       הפך לרקע של כל הדף, שלוש תמונות אוכל נוספות כאן לא הוסיפו
+       מידע — רק גלילה. -->
+  <p class="demo-note">צילומי המסך אמיתיים, מהטלפון של מתאמנת בתוכנית ובפרסום ברשותה — פרטי הזיהוי שלה מטושטשים.</p>
 </section>
 
 <!-- ═══ הוכחה והתקדמות ═══ -->
@@ -1309,21 +1218,9 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <p class="sec-sub">לאורך המסלול מסתכלים על מגמת המשקל, היקפים, אימונים, חלבון, פעילות יומיומית, רעב ושובע, שינה, סטרס וההתנהלות בפועל. לא נשענים על תחושה של יום אחד.</p>
     <p class="sec-sub" style="margin-top:10px;font-size:14.5px">אלה התחומים שבינה ואור מסתכלים עליהם לפי הנתונים הקיימים והשיחה איתך — לא כל תחום נמדד אוטומטית בכל שבוע.</p>
   </div>
-  <p class="swipe">← החליקי לצדדים</p>
-  <div class="proof3">
-    <figure>
-      <img src="images/nutrition/measure-scale.jpg" width="800" height="1000" alt="שקילה על משקל דיגיטלי" loading="lazy">
-      <figcaption><b>מגמת משקל</b><span>שקילות בימי שני וחמישי וקו מגמה שמראה את הכיוון, לא רק את המספר של הבוקר.</span></figcaption>
-    </figure>
-    <figure>
-      <img src="images/nutrition/measure-tape.jpg" width="800" height="1000" alt="מדידת היקף מותן בסרט מדידה" loading="lazy">
-      <figcaption><b>היקפים</b><span>מותן, ישבן וירך נמדדים באותן נקודות כדי לראות שינוי שהמשקל לא תמיד מספר.</span></figcaption>
-    </figure>
-    <figure>
-      <img src="images/nutrition/measure-caliper.jpg" width="800" height="1000" alt="בדיקת הרכב גוף — אחוזי שומן ואחוזי שריר" loading="lazy">
-      <figcaption><b>הרכב גוף</b><span>אחוזי שומן ואחוזי שריר נבדקים בפגישות כדי להבין מה באמת השתנה.</span></figcaption>
-    </figure>
-  </div>
+  <!-- שלוש תמונות המדידה (משקל/סרט/קליפר) הוסרו 04/08: הן הראו
+       "איך מודדים", לא "זה עובד" — והמדידות עצמן כבר מפורטות
+       בכרטיס המחיר ובמקטע הפגישות. -->
 
   <!-- ◆ כרטיס ההוכחה הראשי. שני חומרים אמיתיים זה לצד זה:
        כרטיס ההתקדמות מהמערכת, ועדכון בינה לאור באותו יום.
@@ -1353,7 +1250,9 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       <figcaption><b>דנה</b><span>ירידה של 1.7 ק״ג</span></figcaption>
     </figure>
   </div>
-  <p class="demo-note">השמות שונו לשמירה על פרטיות המתאמנות; הנתונים אמיתיים. התוצאות אישיות ומשתנות בין מתאמנת למתאמנת. הליווי לא נשאר ברמת "נדבר בהמשך" — יש מעקב, גרף, תוצאה ומגמה.</p>
+  <!-- ההסתייגות של פס-התוצאות שאוחד לכאן נבלעה לתוך השורה הזאת,
+       כולל מסגור-הקצב הזהיר — הוא דרישה ולא קישוט. -->
+  <p class="demo-note">השמות שונו לשמירה על פרטיות המתאמנות; הנתונים אמיתיים ומתועדים במערכת. בירידה במשקל עובדים בקצב בריא ומציאותי — התוצאה משתנה בין מתאמנת למתאמנת ותלויה בנקודת הפתיחה, בהתמדה ובמצב הבריאותי.</p>
 
   <!-- TODO: אם יגיעו ציטוטי-המלצה אמיתיים באישור מפורש — מקומם כאן,
        עד שלושה. בלי אישור לא מוסיפים, ולא ממציאים. -->
@@ -1442,22 +1341,15 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   <div class="sec-h">
     <h2 class="sec-title">לפני שאת מצטרפת, הנה מה שבדרך כלל שואלים</h2>
   </div>
+  <!-- 13 שאלות ירדו ל-8 (04/08). מה שנמחק כאן נענה במלואו בגוף הדף
+       ולא נעלם: מהלך שלושת החודשים (#program) · מועדי הפגישות
+       ותוכנן (מקטע הפגישות) · הסיכום השבועי (כרטיס "יודעת איפה את
+       במסלול") · מה קורה אם מסיימים (קופסת הסיום). מה שנשאר הוא
+       ההתנגדויות שאין להן תשובה בגוף הדף. -->
   <div class="faq-list">
-    <details class="faq-item">
-      <summary class="faq-q">מה קורה בתוך שלושת החודשים?</summary>
-      <p class="faq-a">המסלול נמשך 13 שבועות ומתקדם בשלושה שלבים: בניית בסיס, דיוק הקצב וישורת. בינה יודעת באיזה שבוע את נמצאת ומתאימה את המיקוד לפי ההתקדמות והמטרה שלך.</p>
-    </details>
     <details class="faq-item">
       <summary class="faq-q">האם התפריט משתנה בכל חודש?</summary>
       <p class="faq-a">לא בהכרח. בכל 28 יום מסכמים את ההתקדמות ובודקים אם נדרשות התאמות. שינוי נעשה לפי הצורך, לא רק מפני שעבר חודש.</p>
-    </details>
-    <details class="faq-item">
-      <summary class="faq-q">מתי הפגישות עם אור, ומה עושים בהן?</summary>
-      <p class="faq-a">ארבע פגישות בסטודיו לאורך המסלול: לפני תחילת המסלול, בסוף שבוע 4, בסוף שבוע 8 ובשבוע 13 כפגישת סיום. בכל פגישה מבוצעת מדידה מלאה — משקל, היקפים והרכב גוף — כך שבסיום יש ארבע נקודות השוואה אמיתיות מול נקודת הפתיחה.</p>
-    </details>
-    <details class="faq-item">
-      <summary class="faq-q">מה כולל הסיכום השבועי?</summary>
-      <p class="faq-a">הסיכום מתבסס על הנתונים שנאספו בפועל, כגון שקילות, מגמה ואימונים, ומסתיים במיקוד ברור לשבוע הבא.</p>
     </details>
     <details class="faq-item">
       <summary class="faq-q">בינה היא בן אדם?</summary>
@@ -1472,10 +1364,6 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       <p class="faq-a">לא. השיחות מתנהלות בוואטסאפ והתוכנית האישית נפתחת בדפדפן בטלפון.</p>
     </details>
     <details class="faq-item">
-      <summary class="faq-q">מה קורה כשאני אוכלת במסעדה או רוצה להחליף מנה?</summary>
-      <p class="faq-a">שולחים לבינה הודעה. היא עוזרת להתאים בחירה או כמות למה שכבר אכלת ולתוכנית האישית שלך.</p>
-    </details>
-    <details class="faq-item">
       <summary class="faq-q">אפשר להתאים את התוכנית לצמחונות, ללא גלוטן או ללא לקטוז?</summary>
       <p class="faq-a">כן. ההעדפות וההגבלות נאספות בתחילת הדרך וניתן לעדכן אותן גם בהמשך.</p>
     </details>
@@ -1485,11 +1373,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </details>
     <details class="faq-item">
       <summary class="faq-q">מה קורה אחרי 13 השבועות?</summary>
-      <p class="faq-a">אין חיוב אוטומטי. אפשר לסיים, או לבחור להמשיך עם בינה ב־99 ₪ בחודש. ההמשך נפתח מול אור דרך ARBOX.</p>
-    </details>
-    <details class="faq-item">
-      <summary class="faq-q">אם אני מסיימת, התפריט נעלם?</summary>
-      <p class="faq-a">לא. דף התפריט נשאר זמין, אך הליווי והמעקב הפעיל של בינה מסתיימים.</p>
+      <p class="faq-a">אין חיוב אוטומטי. אפשר לסיים — ודף התפריט נשאר זמין עבורך — או לבחור להמשיך עם בינה ב־99 ₪ בחודש. ההמשך נפתח מול אור דרך ARBOX.</p>
     </details>
     <details class="faq-item">
       <summary class="faq-q">מה מדיניות הביטולים?</summary>
@@ -1775,7 +1659,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
   document.documentElement.className+=' js';
   addEventListener('DOMContentLoaded',function(){
     if(!('IntersectionObserver' in window))return;
-    var els=document.querySelectorAll('.sec-h,.cards4>*,.steps4>*,.benes>*,.strip figure,.proof3 figure,.result,.price-card,.car,.or-shot,.hero-stats,.faq-item');
+    var els=document.querySelectorAll('.sec-h,.cards4>*,.steps4>*,.benes>*,.phase,.meet,.goal,.result,.price-card,.car,.or-shot,.hero-stats,.faq-item');
     var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -8% 0px'});
     Array.prototype.forEach.call(els,function(e){
       if(e.getBoundingClientRect().top<innerHeight*.92)return;
