@@ -185,8 +185,8 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   /* בפריים צר וגבוה האליפסה מכסה כמעט הכל — מחליפים לסקרים אנכי
      שמשאיר את הירקות גלויים בראש הפריים ובתחתיתו */
   .bg-hero::after{background:linear-gradient(180deg,
-    rgba(11,11,11,.5) 0%,rgba(11,11,11,.82) 16%,rgba(11,11,11,.93) 38%,
-    rgba(11,11,11,.93) 72%,rgba(11,11,11,.8) 90%,rgba(11,11,11,.62) 100%)}
+    rgba(11,11,11,.3) 0%,rgba(11,11,11,.68) 16%,rgba(11,11,11,.88) 38%,
+    rgba(11,11,11,.88) 72%,rgba(11,11,11,.68) 90%,rgba(11,11,11,.42) 100%)}
 }
 .hero-grid{display:grid;grid-template-columns:1.04fr .96fr;gap:clamp(30px,4.4vw,64px);align-items:center;max-width:var(--max);margin:0 auto}
 .hero-tag{
@@ -214,9 +214,10 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   margin-top:clamp(26px,3vw,38px);animation:fadeIn 1s .6s both;
 }
 /* חצי-שקוף כדי שהאוכל שברקע ההירו ימשיך מאחורי שורת הנתונים במקום
-   להיחתך בארבע קופסאות שחורות. ‎.82‎ הוא הרף שבו תווית ה-‎--t60‎
-   עדיין עוברת 4.5:1 מעל הקטעים המוארים של הצילום. */
-.hs{background:rgba(11,11,11,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:clamp(14px,1.8vw,20px) 10px;text-align:center}
+   להיחתך בארבע קופסאות שחורות. הערך נקבע במדידה (ראה ההערה על
+   הסקרים למעלה) ולא בעין — התווית כאן היא ‎--t60‎, הטקסט העמום
+   ביותר שיושב מעל צילום בדף. */
+.hs{background:rgba(11,11,11,.68);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:clamp(14px,1.8vw,20px) 10px;text-align:center}
 .hs b{display:block;font-family:var(--display);font-weight:900;font-size:clamp(22px,2.5vw,30px);line-height:1.1;letter-spacing:-.03em;color:var(--yellow)}
 .hs span{display:block;margin-top:5px;font-size:13px;line-height:1.35;color:var(--t60)}
 
@@ -429,32 +430,32 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 /* הירו: האוכל ממסגר את הפריים, המרכז נשאר כהה מתחת לטקסט */
 .bg-hero{background-image:url("images/nutrition/hero-bg.webp")}
 .bg-hero::after{background:
-  radial-gradient(ellipse 76% 66% at 50% 48%,rgba(11,11,11,.95) 0%,rgba(11,11,11,.9) 42%,rgba(11,11,11,.66) 72%,rgba(11,11,11,.5) 100%),
-  linear-gradient(180deg,rgba(11,11,11,.55) 0%,rgba(11,11,11,0) 22%,rgba(11,11,11,0) 78%,rgba(11,11,11,.5) 100%)}
+  radial-gradient(ellipse 72% 62% at 50% 48%,rgba(11,11,11,.93) 0%,rgba(11,11,11,.84) 42%,rgba(11,11,11,.48) 72%,rgba(11,11,11,.26) 100%),
+  linear-gradient(180deg,rgba(11,11,11,.42) 0%,rgba(11,11,11,0) 24%,rgba(11,11,11,0) 78%,rgba(11,11,11,.38) 100%)}
 /* שלושת השלבים: טקסט על כל הרוחב ⇒ סקרים אחיד וכבד */
 .bg-phase{background-image:url("images/nutrition/phase-bg.webp");background-position:center top;background-size:100% auto}
-.bg-phase::after{background:linear-gradient(180deg,rgba(11,11,11,.7) 0%,rgba(11,11,11,.86) 26%,rgba(11,11,11,.96) 48%,rgba(11,11,11,1) 64%)}
+.bg-phase::after{background:linear-gradient(180deg,rgba(11,11,11,.48) 0%,rgba(11,11,11,.72) 26%,rgba(11,11,11,.92) 50%,rgba(11,11,11,1) 70%)}
 /* השאלות: הרצף השחור הארוך ביותר בדף. אותו צילום של השלבים חוזר
    כאן כפס עליון בלבד ונסגר לשחור מלא לפני הרשימה — שובר את הבלוק
    בלי לשים מרקם מתחת ל-13 שורות טקסט, ובלי בייט אחד נוסף לרשת. */
 .bg-faq{background-image:url("images/nutrition/phase-bg.webp");background-position:center top;background-size:100% auto}
-.bg-faq::after{background:linear-gradient(180deg,rgba(11,11,11,.68) 0%,rgba(11,11,11,.86) 26%,rgba(11,11,11,1) 52%)}
+.bg-faq::after{background:linear-gradient(180deg,rgba(11,11,11,.46) 0%,rgba(11,11,11,.72) 28%,rgba(11,11,11,1) 58%)}
 /* הליווי היומי: האוכל רץ לאורך השוליים התחתונים ⇒ סקרים כבד למעלה
    (שם כל הטקסט) ומשתחרר למטה */
 .bg-bina{background-image:url("images/nutrition/bina-bg.webp");background-position:center bottom}
-.bg-bina::after{background:linear-gradient(180deg,rgba(11,11,11,.95) 0%,rgba(11,11,11,.93) 45%,rgba(11,11,11,.86) 76%,rgba(11,11,11,.72) 100%)}
+.bg-bina::after{background:linear-gradient(180deg,rgba(11,11,11,.92) 0%,rgba(11,11,11,.88) 45%,rgba(11,11,11,.72) 76%,rgba(11,11,11,.48) 100%)}
 /* המחיר: כרטיס אטום במרכז ⇒ מרכז כהה, והפינה שבה יושב האוכל נושמת */
 .bg-price{background-image:url("images/nutrition/price-bg.webp")}
-.bg-price::after{background:radial-gradient(ellipse 74% 68% at 50% 54%,rgba(11,11,11,.95) 0%,rgba(11,11,11,.88) 48%,rgba(11,11,11,.6) 78%,rgba(11,11,11,.46) 100%)}
+.bg-price::after{background:radial-gradient(ellipse 70% 64% at 50% 54%,rgba(11,11,11,.93) 0%,rgba(11,11,11,.84) 48%,rgba(11,11,11,.44) 78%,rgba(11,11,11,.24) 100%)}
 /* הסגירה: קערות האוכל בשליש התחתון ⇒ סקרים כבד למעלה, מתבהר למטה */
 .bg-cta{background-image:url("images/nutrition/cta-bg.webp");background-position:center bottom}
-.bg-cta::after{background:linear-gradient(180deg,rgba(11,11,11,.96) 0%,rgba(11,11,11,.92) 40%,rgba(11,11,11,.84) 72%,rgba(11,11,11,.78) 100%)}
+.bg-cta::after{background:linear-gradient(180deg,rgba(11,11,11,.93) 0%,rgba(11,11,11,.86) 40%,rgba(11,11,11,.7) 72%,rgba(11,11,11,.6) 100%)}
 /* שורות המשנה בסגירה יושבות מעל הקערות המוארות — הטקסט העמום
    של המערכת (‎--t60‎) נופל שם מתחת ל-4.5:1, ולכן מתחזק כאן בלבד */
 .book-sec.bgsec .cta-note,.book-sec.bgsec .legal-note{color:rgba(244,242,237,.82)}
 /* אותה סיבה במקטע הליווי: ‎.chat-note‎ נמדד 4.11:1 מעל האוכל
    שבתחתית הצילום — מתחת לרף. הטקסט העמום ביותר בדף מתחזק שם */
-#bina.bgsec .chat-note,#bina.bgsec .demo-note{color:rgba(244,242,237,.72)}
+#bina.bgsec .chat-note,#bina.bgsec .demo-note{color:rgba(244,242,237,.88)}
 
 .phases{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,24px);max-width:1180px;margin:0 auto;position:relative}
 .phase{
