@@ -192,6 +192,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   animation:slideUp .8s .3s both;
 }
 .hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;animation:slideUp .8s .5s both}
+.hero-assurance{margin-top:14px;font-size:13px;line-height:1.5;color:var(--t75);animation:slideUp .8s .62s both}
 
 /* אנימציית האותיות בכותרת (barre) */
 .hero h1 .char{display:inline-block;opacity:0;animation:charIn .45s cubic-bezier(.215,.61,.355,1) forwards;animation-delay:var(--d)}
@@ -245,13 +246,22 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);align-items:center;max-width:1100px;margin:0 auto}
 .two-col.flip{direction:ltr}
 .two-col.flip>*{direction:rtl}
-.two-col img{width:100%;height:clamp(280px,34vw,420px);object-fit:cover;border-radius:var(--r-lg);border:1px solid var(--line-card)}
+.two-col img,.two-col video{width:100%;height:clamp(280px,34vw,420px);object-fit:cover;border-radius:var(--r-lg);border:1px solid var(--line-card);background:#000}
 .two-col-text .sec-tag{margin-bottom:10px}
 .two-col-text h2{font-size:clamp(28px,3.4vw,42px);line-height:1.05;margin-bottom:20px;color:var(--bone)}
 .two-col-text p{font-size:clamp(15.5px,1.25vw,17px);line-height:1.75;color:var(--t75);margin-bottom:14px}
 .two-col-text p.punch{font-family:var(--display);font-weight:900;letter-spacing:-.03em;font-size:clamp(20px,2.2vw,28px);line-height:1.15;color:var(--yellow);margin-bottom:12px}
 .two-col-text strong{color:var(--bone);font-weight:700}
 @media(max-width:768px){.two-col{grid-template-columns:1fr}.two-col.flip{direction:rtl}}
+
+/* ═══ האימון הראשון ══════════════════════════════════════════ */
+.first-steps{display:grid;gap:10px;margin:22px 0 24px}
+.first-step{display:grid;grid-template-columns:42px 1fr;gap:12px;align-items:start;padding:15px 16px;border:1px solid var(--line-card);border-radius:12px;background:var(--fill)}
+.first-step__n{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--yellow);color:var(--ink);font-family:var(--display);font-weight:900;font-size:14px}
+.first-step b{display:block;font-size:16px;line-height:1.25;color:var(--bone)}
+.first-step span{display:block;margin-top:4px;font-size:14px;line-height:1.5;color:var(--t60)}
+.first-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.first-actions .question-link{font-size:14px;font-weight:700;color:var(--yellow);text-decoration:underline;text-underline-offset:4px}
 
 /* ═══ כרטיסי יתרון ════════════════════════════════════════════ */
 .usp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.5vw,20px);max-width:960px;margin:0 auto}
@@ -295,6 +305,8 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .bg,.bm{background:var(--fill-2);color:var(--t75)}
 .sfn{text-align:center;padding:16px;font-size:13px;line-height:1.5;color:var(--t45);border-top:1px solid var(--line)}
 .sfn a{color:var(--yellow)}
+.schedule-row-cta{min-height:40px;padding:0 16px;font-size:13px;white-space:nowrap}
+@media(max-width:600px){.si{flex-wrap:wrap}.schedule-row-cta{width:100%;margin-top:4px}}
 
 /* ═══ המלצות ══════════════════════════════════════════════════ */
 .test-sec{position:relative;padding:var(--pad-y) var(--gutter);overflow:hidden;background:var(--ink)}
@@ -490,12 +502,12 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   "mainEntity": [
     {"@type": "Question","name": "מה יש בחדר הכושר של סטפס?","acceptedAnswer": {"@type": "Answer","text": "משקולות חופשיות, מכשירים ומרחב אימון מלא — עם שיעורי GYM, BOOTCAMP, ENDURANCE ו-GYM & RUN לאורך השבוע. חלל שנבנה לאימוני כוח, לא פינה בתוך אולם גדול."}},
     {"@type": "Question","name": "זה באמת חדר כושר רק לנשים?","acceptedAnswer": {"@type": "Answer","text": "כן. STEPS הוא סטודיו לנשים בלבד — חלל, אווירה וצוות שמותאמים בדיוק לזה. בלי עיניים, בלי תחרות עם מי שכבר חזק ממך."}},
-    {"@type": "Question","name": "אני לא מתאמנת בכלל, אפשר להתחיל אצלכם?","acceptedAnswer": {"@type": "Answer","text": "בהחלט. המדריכות מתאימות משקל ועצימות לרמה שלך ומתקנות טכניקה בזמן אמת. רוב הנשים שמתחילות אצלנו מעולם לא הרימו משקולת."}},
+    {"@type": "Question","name": "אני לא מתאמנת בכלל, אפשר להתחיל אצלכם?","acceptedAnswer": {"@type": "Answer","text": "בהחלט. אפשר להתחיל גם בלי ניסיון קודם. המדריכות מתאימות משקל ועצימות לרמה שלך ומתקנות טכניקה בזמן אמת."}},
     {"@type": "Question","name": "כמה בנות יש בקבוצה?","acceptedAnswer": {"@type": "Answer","text": "קבוצות קטנות, לא אולם המוני עם עשרות אנשים על אותו משקל. המדריכה עוברת בין כולן ומתקנת אישית."}},
     {"@type": "Question","name": "מה כולל המנוי לחדר הכושר?","acceptedAnswer": {"@type": "Answer","text": "יש 3 מסלולים לפי כמות כניסות בחודש: 5 כניסות ב-230 ₪, 9 כניסות ב-400 ₪, 13 כניסות ב-460 ₪ — כניסה חופשית ל-GYM ול-MOVE. מי שרוצה גם פילאטיס מכשירים משדרגת למסלול המשולב ב-320/475/530 ₪. כל המחירים כוללים מע״מ. בלי התחייבות, וביטול בהודעה של 30 יום מראש."}},
     {"@type": "Question","name": "יש לכן גם שיעורי בר ופילאטיס מכשירים?","acceptedAnswer": {"@type": "Answer","text": "כן. אותו סטודיו, אותו צוות — GYM לכוח, MOVE לשיעורי בר וגמישות, ורפורמר פילאטיס עם 11 מיטות בחלל ייעודי. הכל תחת קורת גג אחת בקניון פולג."}},
     {"@type": "Question","name": "איפה הסטודיו ואיך מגיעים?","acceptedAnswer": {"@type": "Answer","text": "אמנון ותמר 6, בקניון פולג בנתניה — עם חניה חינם בקניון. קרוב לרמת פולג וכל האזור הצפוני של העיר."}},
-    {"@type": "Question","name": "תוך כמה זמן רואים תוצאות מאימוני כוח?","acceptedAnswer": {"@type": "Answer","text": "תלוי בך, אבל מתאמנות שמגיעות בקביעות פעמיים-שלוש בשבוע מתחילות להרגיש שינוי — כוח, יציבה, אנרגיה — תוך כמה שבועות."}}
+    {"@type": "Question","name": "תוך כמה זמן רואים תוצאות מאימוני כוח?","acceptedAnswer": {"@type": "Answer","text": "אין זמן אחיד שמתאים לכולן. ההתקדמות תלויה בעקביות, בנקודת ההתחלה ובשגרה האישית. באימון הראשון מתאימים לך רמה שממנה אפשר להתקדם בהדרגה."}}
   ]
 }
 </script>
@@ -520,7 +532,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <li><a href="https://stepsnetanya.co.il/#spaces">החללים</a></li>
     <li><a href="#sched">מערכת שעות</a></li>
     <li><a href="#reviews">המלצות</a></li>
-    <li><a href="#contact" class="n-cta">קבעי אימון</a></li>
+    <li><a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="n-cta js-arbox" target="_blank" rel="noopener" data-track="trial-cta arbox-open">אימון היכרות · 50 ₪</a></li>
   </ul>
   <button class="mob" id="mobBtn" aria-label="פתיחת תפריט" aria-expanded="false">☰</button>
 </nav>
@@ -536,9 +548,10 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       <h1>חדר כושר לנשים<em>בנתניה</em></h1>
       <p class="hero-sub">משקולות, מכשירים ומדריכות שמתאמנות איתך. לא לבד באולם המוני.</p>
       <div class="hero-btns">
-        <a href="#contact" class="btn-a" data-track="trial-cta">אימון היכרות ב-50 ₪</a>
+        <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-track="trial-cta arbox-open">קובעת אימון היכרות ב-50 ₪</a>
         <a href="#sched" class="btn-b">לצפייה במערכת שעות</a>
       </div>
+      <p class="hero-assurance">60 דקות · התאמה לרמה שלך · קניון פולג, נתניה</p>
     </div>
   </div>
 </section>
@@ -565,8 +578,33 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 
 <div class="sec-divider"><span></span></div>
 
+<!-- האימון הראשון -->
+<section class="sec sec-alt" id="first-workout">
+  <div class="two-col">
+    <div class="two-col-text">
+      <div class="sec-tag">האימון הראשון</div>
+      <h2>לא צריך לדעת מאיפה להתחיל.</h2>
+      <p>האימון הראשון נועד להכיר את החלל, את המאמנת ואת הקצב שמתאים לך. לא מתחילים עם המשקל של מישהי אחרת.</p>
+      <div class="first-steps">
+        <div class="first-step"><span class="first-step__n">1</span><div><b>בוחרת שיעור</b><span>נרשמת דרך ARBOX לשעה שנוחה לך.</span></div></div>
+        <div class="first-step"><span class="first-step__n">2</span><div><b>מגיעה 10 דקות קודם</b><span>עושות היכרות קצרה ומדברות על ניסיון, מטרות ומגבלות.</span></div></div>
+        <div class="first-step"><span class="first-step__n">3</span><div><b>מתאמנת עם התאמה אישית</b><span>המאמנת בוחרת את המשקל, מסבירה ומתקנת לאורך האימון.</span></div></div>
+      </div>
+      <div class="first-actions">
+        <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-track="trial-cta arbox-open">קובעת אימון היכרות ב-50 ₪</a>
+        <a class="question-link" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%9C%D7%A4%D7%A0%D7%99%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%94%D7%9B%D7%95%D7%97" target="_blank" rel="noopener" data-track="whatsapp-click">יש לי שאלה לפני האימון</a>
+      </div>
+    </div>
+    <video autoplay muted loop playsinline preload="metadata" poster="images/shoot2025/gym-real-1-poster.jpg" aria-label="אימון כוח אמיתי בחלל GYM של STEPS">
+      <source src="images/shoot2025/gym-real-1.mp4" type="video/mp4">
+    </video>
+  </div>
+</section>
+
+<div class="sec-divider"><span></span></div>
+
 <!-- המדריכות -->
-<section class="sec sec-alt">
+<section class="sec">
   <div class="two-col">
     <div class="two-col-text">
       <div class="sec-tag">הצוות</div>
@@ -574,7 +612,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       <p>כל מדריכה בחדר הכושר מוסמכת, מתמחה ומתעדכנת. לא סתם תואר על הקיר — ידע אמיתי שמגיע לכל אימון.</p>
       <p class="punch">הן לא עומדות בצד. הן שם, עם ידיים, עם זיעה, עם אנרגיה — בשבילך.</p>
       <p>קבוצות קטנות שבהן כל תנועה נבדקת וכל תיקון ניתן בזמן אמת. את לא נופלת בין הכיסאות, ואת לא נעלמת מול משקל שכבד עלייך.</p>
-      <a href="#contact" class="btn-a" style="margin-top:12px" data-track="trial-cta">אימון היכרות ב-50 ₪</a>
+      <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" style="margin-top:12px" target="_blank" rel="noopener" data-track="trial-cta arbox-open">קובעת אימון היכרות ב-50 ₪</a>
     </div>
     <img src="images/shoot2025/gym-alt.jpg" width="1280" height="1920" alt="קבוצת נשים מתאמנות עם משקולות בחדר כושר סטפס נתניה" loading="lazy">
   </div>
@@ -622,7 +660,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <div class="sfn">⚡ מערכת שעות חיה — מתעדכנת אוטומטית מ-Arbox</div>
   </div>
   <div style="text-align:center;margin-top:28px">
-    <a href="#contact" class="btn-a">💬 קבעי אימון היכרות</a>
+    <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-track="trial-cta arbox-open">קובעת אימון היכרות ב-50 ₪</a>
   </div>
 </section>
 
@@ -634,11 +672,8 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   </div>
   <div class="tg">
     <div class="tc"><div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div><p class="tc-txt">אתם הלב שלי. אין סטודיו כזה בעולם ויצא לי לנסות המון. היחס האישי באימונים, האכפתיות, הדחיפה להתקדם ולהשתפר כל הזמן, אתם יחידים ומיוחדים באמת. כלכך שמחה להיות חלק מהמשפחה ❤️</p><div class="tc-auth"><div class="tc-av">ט</div><div><div class="tc-name">טלי</div><div class="tc-info">חברה ותיקה</div></div></div></div>
-    <div class="tc"><div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div><p class="tc-txt">מילה טובה על מעיין לזר — איזה שיעור מהמם של אירובי וכוח. הפעלנו את כל השרירים ואנרגיה מקסימה שלה! לאורך כל השיעור עברה אחד אחד, דייקה את התנועה. פשוט מעולה.</p><div class="tc-auth"><div class="tc-av">מ</div><div><div class="tc-name">מיטל</div><div class="tc-info">מתאמנת MOVE</div></div></div></div>
-    <div class="tc"><div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div><p class="tc-txt">אני מאוד נהנית באימונים, כל המדריכות מצוינות, כל אחת עם הסגנון שלה. לאחרונה כולן התחילו לגוון יותר בשיעורים וזה מבורך מאוד מבחינתי!</p><div class="tc-auth"><div class="tc-av">נ</div><div><div class="tc-name">נועה</div><div class="tc-info">חברה בסטודיו</div></div></div></div>
     <div class="tc"><div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div><p class="tc-txt">אחלה סטודיו, מאוד מרוצה מכל המאמנים! גם של הכוח וגם בפילאטיס 🌻</p><div class="tc-auth"><div class="tc-av">ע</div><div><div class="tc-name">עדן</div><div class="tc-info">GYM + פילאטיס</div></div></div></div>
     <div class="tc"><div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div><p class="tc-txt">אני איתכם כבר המון שנים, מאוד מרוצה! ירדן אלופה, מקצועית, נותנת יחס אישי ושומרת על רמה סופר גבוהה. ותמיד יש אצלה אווירה מאוד כיפית ומדברנת.</p><div class="tc-auth"><div class="tc-av">נ</div><div><div class="tc-name">נופר</div><div class="tc-info">מתאמנת GYM</div></div></div></div>
-    <div class="tc"><div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div><p class="tc-txt">הכל מושלם, אין על האימונים שלכם! מושלם כמו תמיד, הכי כיף בעולם 😍</p><div class="tc-auth"><div class="tc-av">ק</div><div><div class="tc-name">קמיל</div><div class="tc-info">מתאמנת קבועה</div></div></div></div>
   </div>
 </section>
 
@@ -659,7 +694,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </div>
     <div class="faq-item">
       <div class="faq-q">אני לא מתאמנת בכלל, אפשר להתחיל אצלכם?</div>
-      <div class="faq-a">בהחלט. המדריכות מתאימות משקל ועצימות לרמה שלך ומתקנות טכניקה בזמן אמת. רוב הנשים שמתחילות אצלנו מעולם לא הרימו משקולת.</div>
+      <div class="faq-a">בהחלט. אפשר להתחיל גם בלי ניסיון קודם. המדריכות מתאימות משקל ועצימות לרמה שלך ומתקנות טכניקה בזמן אמת.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">כמה בנות יש בקבוצה?</div>
@@ -679,23 +714,23 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </div>
     <div class="faq-item">
       <div class="faq-q">תוך כמה זמן רואים תוצאות מאימוני כוח?</div>
-      <div class="faq-a">תלוי בך, אבל מתאמנות שמגיעות בקביעות פעמיים-שלוש בשבוע מתחילות להרגיש שינוי — כוח, יציבה, אנרגיה — תוך כמה שבועות.</div>
+      <div class="faq-a">אין זמן אחיד שמתאים לכולן. ההתקדמות תלויה בעקביות, בנקודת ההתחלה ובשגרה האישית. באימון הראשון מתאימים לך רמה שממנה אפשר להתקדם בהדרגה.</div>
     </div>
   </div>
 </section>
 
 <!-- BOOKING / CTA -->
 <section class="book-sec" id="contact">
-  <h2>קבעי אימון היכרות</h2>
-  <p class="sub">בחרי שיעור, הירשמי ושלמי — הכל כאן. בלי טלפונים, בלי המתנה.</p>
+  <h2>מוכנה לנסות אימון כוח?</h2>
+  <p class="sub">בחרי שיעור, הירשמי ושלמי 50 ₪ דרך ARBOX.</p>
   <!-- דסקטופ: iframe -->
   <div class="arbox-desktop book-frame">
-    <div style="text-align:center;padding:8px 0 4px"><a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener" data-track="trial-cta arbox-open" class="btn-a">להרשמה ותשלום אונליין <span aria-hidden="true">←</span></a><p class="cta-note">נפתח במערכת ההרשמה של Arbox · או <a href="https://wa.me/972527927575" target="_blank" rel="noopener" data-track="whatsapp-click" style="color:var(--yellow);text-decoration:underline">קבעי בוואטסאפ</a></p></div>
+    <div style="text-align:center;padding:8px 0 4px"><a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener" data-track="trial-cta arbox-open" class="btn-a js-arbox">קובעת אימון היכרות ב-50 ₪ <span aria-hidden="true">←</span></a><p class="cta-note">הרשמה ותשלום במערכת ARBOX · או <a href="https://wa.me/972527927575" target="_blank" rel="noopener" data-track="whatsapp-click" style="color:var(--yellow);text-decoration:underline">יש לי שאלה לפני האימון</a></p></div>
   </div>
   <!-- מובייל: כפתור ישיר -->
   <div class="arbox-mobile">
-    <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&lang=he&location=18259&referrer=PLUGIN&filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" data-track="arbox-open" target="_blank" rel="noopener" class="btn-a">📅 לקביעת אימון היכרות</a>
-    <p class="cta-note">נפתח בטאב חדש — הרשמה מלאה ב-Arbox</p>
+    <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&lang=he&location=18259&referrer=PLUGIN&filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" data-track="trial-cta arbox-open" target="_blank" rel="noopener" class="btn-a js-arbox">קובעת אימון היכרות ב-50 ₪</a>
+    <p class="cta-note">הרשמה ותשלום במערכת ARBOX</p>
   </div>
   <p class="cta-note">💬 שאלות? <a href="https://wa.me/972527927575?text=היי%20אני%20מעוניינת%20בחדר%20כושר%20לנשים%20ב-STEPS" style="color:var(--accent);text-decoration:underline" target="_blank" rel="noopener" data-track="whatsapp-click">דברי איתנו בוואטסאפ</a></p>
   <p class="legal-note">מדיניות ביטולים: ביטול עד 24 שעות לפני האימון — ניתן לקבוע מועד חלופי. ביטול פחות מ-24 שעות מראש — אין זיכוי. <a href="privacy.html#cancel" style="color:var(--accent);text-decoration:underline">המדיניות המלאה</a></p>
@@ -797,6 +832,21 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 <a href="https://wa.me/972527927575?text=היי%20אני%20מעוניינת%20בחדר%20כושר%20לנשים%20ב-STEPS%20💛" class="waf" target="_blank" rel="noopener" aria-label="שלחי הודעה בוואטסאפ" data-track="whatsapp-click">💬</a>
 
 <script>
+var ARBOX_URL='https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&lang=he&location=18259&referrer=PLUGIN&filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D';
+
+// Preserve campaign attribution and keep mobile registration in the same tab.
+(function(){
+  var campaign=new URLSearchParams(location.search),mobile=matchMedia('(max-width:768px)');
+  function decorate(a){
+    if(!a||!a.href||a.href.indexOf('.arboxapp.com')===-1)return;
+    try{var u=new URL(a.href);campaign.forEach(function(v,k){if(k.indexOf('utm_')===0)u.searchParams.set(k,v)});a.href=u.toString();}catch(e){}
+    if(mobile.matches)a.removeAttribute('target');else{a.target='_blank';a.rel='noopener';}
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('a[href*=".arboxapp.com"]'),decorate);
+  new MutationObserver(function(changes){changes.forEach(function(change){Array.prototype.forEach.call(change.addedNodes,function(node){if(node.nodeType!==1)return;if(node.matches&&node.matches('a[href*=".arboxapp.com"]'))decorate(node);if(node.querySelectorAll)Array.prototype.forEach.call(node.querySelectorAll('a[href*=".arboxapp.com"]'),decorate);});});}).observe(document.body,{childList:true,subtree:true});
+  document.addEventListener('click',function(e){decorate(e.target.closest('a'));},true);
+})();
+
 // Navbar scroll
 window.addEventListener('scroll',function(){document.getElementById('nav').classList.toggle('solid',scrollY>80)});
 
@@ -837,7 +887,8 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
       var coachName=s.coach||(s.staff_member&&s.staff_member.name)||'';
       var st=mkEl('div','s-t');st.textContent=coachName?'מאמנת: '+coachName:'';
       cls.appendChild(sn);cls.appendChild(st);
-      si.appendChild(tm);si.appendChild(cls);
+      var cta=mkEl('a','btn-a schedule-row-cta js-arbox');cta.href=s.registration_link||ARBOX_URL;cta.textContent='נרשמת';cta.setAttribute('data-track','trial-cta arbox-open');
+      si.appendChild(tm);si.appendChild(cls);si.appendChild(cta);
       sl.appendChild(si);
     });
   }
@@ -932,14 +983,13 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
       else fbq('trackCustom',name,params);
     }
   }
-  document.querySelectorAll('[data-track]').forEach(function(el){
-    el.addEventListener('click',function(){
-      var t=el.getAttribute('data-track')||'';
-      if(t.indexOf('trial-cta')>-1)trackEvent('cta_trial_click',{cta_text:(el.textContent||'').trim()});
-      if(t.indexOf('whatsapp-click')>-1)trackEvent('whatsapp_click',{link_url:el.href||''});
-      if(t.indexOf('arbox-open')>-1)trackEvent('arbox_open',{link_url:el.href||''});
-      if(t.indexOf('schedule-view')>-1)trackEvent('schedule_view',{});
-    });
+  document.addEventListener('click',function(e){
+    var el=e.target.closest('[data-track]');if(!el)return;
+    var t=el.getAttribute('data-track')||'';
+    if(t.indexOf('trial-cta')>-1)trackEvent('cta_trial_click',{cta_text:(el.textContent||'').trim()});
+    if(t.indexOf('whatsapp-click')>-1)trackEvent('whatsapp_click',{link_url:el.href||''});
+    if(t.indexOf('arbox-open')>-1)trackEvent('arbox_open',{link_url:el.href||''});
+    if(t.indexOf('schedule-view')>-1)trackEvent('schedule_view',{});
   });
 })();
 </script>
