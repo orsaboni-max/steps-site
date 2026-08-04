@@ -1310,6 +1310,15 @@ var $=function(s,r){return (r||document).querySelector(s)};
     if(mobile.matches)a.removeAttribute('target');else{a.target='_blank';a.rel='noopener'}
   }
   [].forEach.call(document.querySelectorAll('a[href*=".arboxapp.com"]'),decorate);
+  new MutationObserver(function(changes){
+    changes.forEach(function(change){
+      [].forEach.call(change.addedNodes,function(node){
+        if(node.nodeType!==1)return;
+        if(node.matches&&node.matches('a[href*=".arboxapp.com"]'))decorate(node);
+        if(node.querySelectorAll)[].forEach.call(node.querySelectorAll('a[href*=".arboxapp.com"]'),decorate);
+      });
+    });
+  }).observe(document.body,{childList:true,subtree:true});
   document.addEventListener('click',function(e){decorate(e.target.closest('a'))},true);
 })();
 
