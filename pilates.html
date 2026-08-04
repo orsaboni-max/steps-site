@@ -857,14 +857,17 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
     sl.appendChild(fn);
   }
   function getName(s){return s.session_name||s.name||'';}
-  function isPilates(nm){nm=nm.toLowerCase();return nm.includes('pilates')||nm.includes('פילאטיס')||nm.includes('רפורמר');}
+  function isPilates(nm){
+    nm=nm.toLowerCase();
+    return nm.includes('pilates')||nm.includes('פילאטיס')||nm.includes('רפורמר')||nm.includes('פ. מכשירים');
+  }
   function isGym(nm){nm=nm.toLowerCase();return nm.includes('gym')||nm.includes('כוח')||nm.includes('bootcamp')||nm.includes('endurance');}
   function isMove(nm){nm=nm.toLowerCase();return nm.includes('bar')||nm.includes('בר')||nm.includes('yoga')||nm.includes('יוגה')||nm.includes('flex')||nm.includes('גמישות')||nm.includes('hiit')||nm.includes('kick');}
   function mkEl(tag,cls){var el=document.createElement(tag);if(cls)el.className=cls;return el;}
   function renderItems(items){
     var sl=document.querySelector('.slist');
     while(sl.firstChild)sl.removeChild(sl.firstChild);
-    if(!items||!items.length){var fn=mkEl('div','sfn');fn.textContent='אין שיעורים ביום זה';sl.appendChild(fn);return;}
+    if(!items||!items.length){var fn=mkEl('div','sfn');fn.textContent='אין שיעורי פילאטיס ביום זה';sl.appendChild(fn);return;}
     items.forEach(function(s){
       var nm=getName(s);
       var si=mkEl('div','si');
@@ -899,7 +902,11 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
     var fn=mkEl('div','sfn');fn.textContent='⏳ טוען מערכת שעות...';sl.appendChild(fn);
     fetch('/api/schedule?date='+date)
       .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
-      .then(function(data){if(Array.isArray(data)&&data.length){cache[date]=data;renderItems(data);}else{renderItems([]);}})
+      .then(function(data){
+        var pilatesItems=Array.isArray(data)?data.filter(function(s){return isPilates(getName(s));}):[];
+        cache[date]=pilatesItems;
+        renderItems(pilatesItems);
+      })
       .catch(function(){renderUnavailable();});
   }
   var tabs=document.querySelectorAll('.dt');
