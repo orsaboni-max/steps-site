@@ -24,6 +24,10 @@
 <link rel="apple-touch-icon" href="favicon.png">
 <!-- הגופן מתארח אצלנו. דרך Google Fonts כתובת ה-IP של הגולשת נשלחה לגוגל
      עוד לפני שנשאלה על עוגיות, וגיליון החוץ גם חסם את הציור הראשון. -->
+<!-- רקע ההירו הוא background-image, כלומר הדפדפן מגלה אותו רק אחרי
+     פענוח ה-CSS. הדף צריך להיקרא כ"תזונה" בשנייה הראשונה, אז הוא
+     נטען במקביל לגופנים ולא אחריהם. -->
+<link rel="preload" href="images/nutrition/hero-bg.webp" as="image" type="image/webp" fetchpriority="high">
 <link rel="preload" href="fonts/heebo-hebrew.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/assistant-hebrew.woff2" as="font" type="font/woff2" crossorigin>
 <style>
@@ -174,6 +178,16 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 /* הריפוד העליון והכותרת מכוילים כך שהכפתור הראשי ושורת המחיר
    נכנסים למסך הראשון גם על לפטופ נמוך (‎~700px גובה חלון). */
 .hero{background:var(--ink);padding:clamp(96px,9vw,124px) var(--gutter) clamp(36px,4.4vw,64px);overflow-x:clip}
+/* בנייד ההירו גבוה וצר — קרופ מהמרכז חותך את מסגרת האוכל, אז
+   מושכים את הצילום כלפי מעלה כדי שהירקות יישארו בפריים הראשון */
+@media(max-width:900px){
+  .bg-hero{background-position:center 30%}
+  /* בפריים צר וגבוה האליפסה מכסה כמעט הכל — מחליפים לסקרים אנכי
+     שמשאיר את הירקות גלויים בראש הפריים ובתחתיתו */
+  .bg-hero::after{background:linear-gradient(180deg,
+    rgba(11,11,11,.5) 0%,rgba(11,11,11,.82) 16%,rgba(11,11,11,.93) 38%,
+    rgba(11,11,11,.93) 72%,rgba(11,11,11,.8) 90%,rgba(11,11,11,.62) 100%)}
+}
 .hero-grid{display:grid;grid-template-columns:1.04fr .96fr;gap:clamp(30px,4.4vw,64px);align-items:center;max-width:var(--max);margin:0 auto}
 .hero-tag{
   display:inline-flex;align-items:center;gap:12px;margin-bottom:clamp(14px,1.6vw,20px);
@@ -199,7 +213,10 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   border:1px solid var(--line-card);border-radius:var(--r-md);overflow:hidden;
   margin-top:clamp(26px,3vw,38px);animation:fadeIn 1s .6s both;
 }
-.hs{background:var(--ink);padding:clamp(14px,1.8vw,20px) 10px;text-align:center}
+/* חצי-שקוף כדי שהאוכל שברקע ההירו ימשיך מאחורי שורת הנתונים במקום
+   להיחתך בארבע קופסאות שחורות. ‎.82‎ הוא הרף שבו תווית ה-‎--t60‎
+   עדיין עוברת 4.5:1 מעל הקטעים המוארים של הצילום. */
+.hs{background:rgba(11,11,11,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:clamp(14px,1.8vw,20px) 10px;text-align:center}
 .hs b{display:block;font-family:var(--display);font-weight:900;font-size:clamp(22px,2.5vw,30px);line-height:1.1;letter-spacing:-.03em;color:var(--yellow)}
 .hs span{display:block;margin-top:5px;font-size:13px;line-height:1.35;color:var(--t60)}
 
@@ -395,13 +412,49 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
    תוצאה. במחשב שלושה כרטיסים מחוברים בקו, בנייד ציר אנכי קצר.
    תמונת הרקע כהה מלכתחילה, ומעליה שכבת שחור — כדי שהטקסט יישאר
    קריא גם כשהתמונה לא נטענת. */
-.prog{position:relative;overflow:hidden}
-.prog-bg{
-  position:absolute;inset:0;z-index:0;
-  background:#0B0B0B url("images/nutrition/phase-bg.webp") center/cover no-repeat;
+/* ── שכבת-רקע צילומית משותפת ──────────────────────────────────
+   הדף מוכר תזונה, אז האוכל צריך להיות ברקע ולא רק בתוך מסגרות.
+   כל מקטע כזה מקבל `.bgsec` + `<div class="bg-img bg-*">`: התמונה
+   יושבת מתחת, ומעליה סקרים (שכבת שחור מדורגת) שמכוון לפי המקום
+   שבו יושב הטקסט. הסקרים הוא מה ששומר על ניגודיות — לא במקרה,
+   ולכן לא לרכך אותו בלי למדוד מחדש. */
+.bgsec{position:relative;overflow:hidden;isolation:isolate}
+.bgsec>*{position:relative;z-index:1}
+.bg-img{
+  position:absolute;inset:0;z-index:0;background-color:var(--ink);
+  background-position:center;background-size:cover;background-repeat:no-repeat;
 }
-.prog-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,11,.84) 0%,rgba(11,11,11,.93) 55%,rgba(11,11,11,.97) 100%)}
-.prog>*{position:relative;z-index:1}
+.bg-img::after{content:"";position:absolute;inset:0}
+
+/* הירו: האוכל ממסגר את הפריים, המרכז נשאר כהה מתחת לטקסט */
+.bg-hero{background-image:url("images/nutrition/hero-bg.webp")}
+.bg-hero::after{background:
+  radial-gradient(ellipse 76% 66% at 50% 48%,rgba(11,11,11,.95) 0%,rgba(11,11,11,.9) 42%,rgba(11,11,11,.66) 72%,rgba(11,11,11,.5) 100%),
+  linear-gradient(180deg,rgba(11,11,11,.55) 0%,rgba(11,11,11,0) 22%,rgba(11,11,11,0) 78%,rgba(11,11,11,.5) 100%)}
+/* שלושת השלבים: טקסט על כל הרוחב ⇒ סקרים אחיד וכבד */
+.bg-phase{background-image:url("images/nutrition/phase-bg.webp");background-position:center top;background-size:100% auto}
+.bg-phase::after{background:linear-gradient(180deg,rgba(11,11,11,.7) 0%,rgba(11,11,11,.86) 26%,rgba(11,11,11,.96) 48%,rgba(11,11,11,1) 64%)}
+/* השאלות: הרצף השחור הארוך ביותר בדף. אותו צילום של השלבים חוזר
+   כאן כפס עליון בלבד ונסגר לשחור מלא לפני הרשימה — שובר את הבלוק
+   בלי לשים מרקם מתחת ל-13 שורות טקסט, ובלי בייט אחד נוסף לרשת. */
+.bg-faq{background-image:url("images/nutrition/phase-bg.webp");background-position:center top;background-size:100% auto}
+.bg-faq::after{background:linear-gradient(180deg,rgba(11,11,11,.68) 0%,rgba(11,11,11,.86) 26%,rgba(11,11,11,1) 52%)}
+/* הליווי היומי: האוכל רץ לאורך השוליים התחתונים ⇒ סקרים כבד למעלה
+   (שם כל הטקסט) ומשתחרר למטה */
+.bg-bina{background-image:url("images/nutrition/bina-bg.webp");background-position:center bottom}
+.bg-bina::after{background:linear-gradient(180deg,rgba(11,11,11,.95) 0%,rgba(11,11,11,.93) 45%,rgba(11,11,11,.86) 76%,rgba(11,11,11,.72) 100%)}
+/* המחיר: כרטיס אטום במרכז ⇒ מרכז כהה, והפינה שבה יושב האוכל נושמת */
+.bg-price{background-image:url("images/nutrition/price-bg.webp")}
+.bg-price::after{background:radial-gradient(ellipse 74% 68% at 50% 54%,rgba(11,11,11,.95) 0%,rgba(11,11,11,.88) 48%,rgba(11,11,11,.6) 78%,rgba(11,11,11,.46) 100%)}
+/* הסגירה: קערות האוכל בשליש התחתון ⇒ סקרים כבד למעלה, מתבהר למטה */
+.bg-cta{background-image:url("images/nutrition/cta-bg.webp");background-position:center bottom}
+.bg-cta::after{background:linear-gradient(180deg,rgba(11,11,11,.96) 0%,rgba(11,11,11,.92) 40%,rgba(11,11,11,.84) 72%,rgba(11,11,11,.78) 100%)}
+/* שורות המשנה בסגירה יושבות מעל הקערות המוארות — הטקסט העמום
+   של המערכת (‎--t60‎) נופל שם מתחת ל-4.5:1, ולכן מתחזק כאן בלבד */
+.book-sec.bgsec .cta-note,.book-sec.bgsec .legal-note{color:rgba(244,242,237,.82)}
+/* אותה סיבה במקטע הליווי: ‎.chat-note‎ נמדד 4.11:1 מעל האוכל
+   שבתחתית הצילום — מתחת לרף. הטקסט העמום ביותר בדף מתחזק שם */
+#bina.bgsec .chat-note,#bina.bgsec .demo-note{color:rgba(244,242,237,.72)}
 
 .phases{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,24px);max-width:1180px;margin:0 auto;position:relative}
 .phase{
@@ -877,7 +930,8 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 <main id="main" tabindex="-1" style="outline:none">
 
 <!-- ═══ HERO ═══ -->
-<section class="hero">
+<section class="hero bgsec">
+  <div class="bg-img bg-hero" aria-hidden="true"></div>
   <div class="hero-grid">
     <div>
       <div class="hero-tag">למתאמנות STEPS בלבד · מחזור קטן של עד 10</div>
@@ -962,7 +1016,8 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 <!-- ═══ בינה ביום-יום ═══
      ארבע שיחות אמיתיות מתוך הליווי, כצילומי-מסך. שמות המתאמנות
      מטושטשים בצילומים; ברירת-המחדל היא שיחת השווארמה. -->
-<section class="sec" id="bina">
+<section class="sec bgsec" id="bina">
+  <div class="bg-img bg-bina" aria-hidden="true"></div>
   <div class="sec-h">
     <div class="sec-tag">הליווי היומי שלך</div>
     <h2 class="sec-title">כך בינה עוזרת ביום־יום</h2>
@@ -1074,8 +1129,8 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
      קו זמן, לא ספירה לאחור: אין טיימר ואין הבטחה שבתאריך מסוים
      תושג תוצאה. השלבים משנים את המיקוד ואת המסגור — לא בהכרח את
      התפריט עצמו. -->
-<section class="sec prog" id="program">
-  <div class="prog-bg" aria-hidden="true"></div>
+<section class="sec bgsec" id="program">
+  <div class="bg-img bg-phase" aria-hidden="true"></div>
   <div class="sec-h">
     <div class="sec-tag">התוכנית שמתקדמת איתך</div>
     <h2 class="sec-title">לא עוד שלושה חודשים של אותו תפריט.</h2>
@@ -1312,7 +1367,8 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 </section>
 
 <!-- ═══ המחיר ═══ -->
-<section class="sec sec-alt" id="price">
+<section class="sec sec-alt bgsec" id="price">
+  <div class="bg-img bg-price" aria-hidden="true"></div>
   <div class="sec-h">
     <div class="sec-tag">המחזור הקרוב</div>
     <h2 class="sec-title">13 שבועות שבהם את לא נשארת לבד מול האוכל.</h2>
@@ -1380,7 +1436,8 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 </section>
 
 <!-- ═══ שאלות נפוצות ═══ -->
-<section class="sec" id="faq">
+<section class="sec bgsec" id="faq">
+  <div class="bg-img bg-faq" aria-hidden="true"></div>
   <div class="sec-h">
     <h2 class="sec-title">לפני שאת מצטרפת, הנה מה שבדרך כלל שואלים</h2>
   </div>
@@ -1441,7 +1498,8 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 </section>
 
 <!-- ═══ CTA סופי ═══ -->
-<section class="book-sec" id="final">
+<section class="book-sec bgsec" id="final">
+  <div class="bg-img bg-cta" aria-hidden="true"></div>
   <h2>13 שבועות. שלושה שלבים. תוכנית אחת שמתקדמת איתך.</h2>
   <p class="sub">תפריט אישי, ליווי יומיומי של בינה, סיכומים שבועיים, בדיקות חודשיות ופיקוח של אור — כדי שלא תישארי לבד ברגעים שבהם בדרך כלל הכי קל לוותר.</p>
   <div class="cta-row">
