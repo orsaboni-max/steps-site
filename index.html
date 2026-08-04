@@ -311,8 +311,6 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .stats__l{margin-top:7px;font-size:clamp(11.5px,.95vw,13px);line-height:1.3;color:var(--t60)}
 @media(max-width:760px){
   .hero{min-height:82svh}
-  .hero__media{background:url("images/shoot2025/hero-cine-sharp-poster.jpg") center/cover no-repeat}
-  .hero__media video{display:none}
   .hero__cta{display:none}
   .stats__i--drop{display:none}
 }
@@ -1284,9 +1282,7 @@ var $=function(s,r){return (r||document).querySelector(s)};
 /* ── וידאו: טוענים ומנגנים רק מה שעל המסך ── */
 (function(){
   var small=matchMedia('(max-width:760px)');   // במובייל מגישים קובץ קל יותר                 // בצמצום תנועה נשארת התמונה הסטטית
-  var vids=[].slice.call(document.querySelectorAll('video[data-src]')).filter(function(v){
-    return !(small.matches&&v.id==='heroVid');
-  });
+  var vids=[].slice.call(document.querySelectorAll('video[data-src]'));
   if(!vids.length||reduce)return;
   var live=[];
   function play(v){var p=v.play();if(p&&p['catch'])p['catch'](function(){})}
