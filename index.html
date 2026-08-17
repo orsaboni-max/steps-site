@@ -1579,6 +1579,30 @@ var $=function(s,r){return (r||document).querySelector(s)};
   else setTimeout(countWeek,1400);
 })();
 
+/* ── מאיפה היא הגיעה: נתפס בכניסה, נשמר, ונוסע עם הליד ──
+   נמדד 17/08/26: Arbox שומר "אתר" ותו לא, ולכן אי-אפשר היה לדעת איזו מודעה
+   הביאה ליד — כל ₪ שנשלח מהמודעות לאתר היה עיוור. הפרמטרים חיים רק ב-URL
+   של הנחיתה, והיא ממלאת את הטופס מאוחר יותר (לפעמים בביקור אחר), אז הם
+   נשמרים. הראשון מנצח: המודעה שגילתה אותנו, לא הביקור החוזר שסגר. */
+var STEPS_REFERRAL = (function(){
+  var KEY='steps_ref', MAX_AGE=90*24*60*60*1000,
+      FIELDS=['fbclid','gclid','utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+  function read(){try{var r=JSON.parse(localStorage.getItem(KEY)||'null');
+    return (r&&r.t&&Date.now()-r.t<MAX_AGE)?r:null}catch(e){return null}}
+  try{
+    var q=new URLSearchParams(location.search), fresh={}, any=false;
+    FIELDS.forEach(function(f){var v=q.get(f);if(v){fresh[f]=String(v).slice(0,200);any=true}});
+    /* רק ביקור שנושא תיוג כותב, ורק אם אין ייחוס קודם בתוקף.
+       בלי התנאי הזה כל רענון רגיל היה מוחק את הייחוס המקורי. */
+    if(any&&!read()){
+      fresh.t=Date.now(); fresh.landing=location.pathname.slice(0,120);
+      try{fresh.ref=document.referrer.slice(0,200)}catch(e){}
+      localStorage.setItem(KEY,JSON.stringify(fresh));
+    }
+  }catch(e){/* גלישה פרטית / localStorage חסום — הליד עדיין נשלח, בלי ייחוס */}
+  return read()||{};
+})();
+
 /* ── טופס לידים → מוקם כרטיס ב-Arbox דרך /api/lead ── */
 (function(){
   var form=$('#leadForm'), name=$('#leadName'), phone=$('#leadPhone'), hp=$('#leadHp'), msg=$('#leadErr');
@@ -1593,7 +1617,7 @@ var $=function(s,r){return (r||document).querySelector(s)};
     if(!IL.test(v)){say('נא להזין מספר נייד ישראלי תקין, למשל 0521234567.');phone.focus();return}
     msg.hidden=true; btn.disabled=true; btn.textContent='שולחת׳';
     fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({name:n,phone:v,website:hp.value})})
+      body:JSON.stringify({name:n,phone:v,website:hp.value,ref:STEPS_REFERRAL})})
       .then(function(r){return r.ok?r.json():Promise.reject(r.status)})
       .then(function(){
         form.style.display='none';

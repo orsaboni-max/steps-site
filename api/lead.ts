@@ -12,6 +12,33 @@ const LOCATION_POLEG = 18259;
 const SOURCE_WEBSITE = 19357; // "Website" — פעיל אצל סניף פולג
 const IL_MOBILE = /^0(5[0-9])\d{7}$/;
 
+/* מאיפה היא הגיעה. נמדד 17/08/26: Arbox שומר "אתר" בלבד, ולכן אף אחד לא
+   ידע איזו מודעה הביאה ליד — תנועה מהמודעות לאתר הייתה כסף עיוור.
+   Arbox v3 לא נותן שדה חופשי משלנו על הליד, אז זה נוסע בתוך `comment`:
+   המזכירה רואה משפט קריא, ו-steps-brain יכול לפרסר את אותה שורה.
+   ponytail: comment ולא שדה מותאם. אם/כשיהיה custom field — לעבור אליו. */
+const REF_FIELDS = [
+  "fbclid", "gclid", "utm_source", "utm_medium",
+  "utm_campaign", "utm_content", "utm_term", "landing", "ref",
+] as const;
+const REF_MAX = 300;
+
+/** משפט ייחוס בטוח מקלט של הדפדפן — נתון של המשתמש, לא סומכים עליו. */
+export function referralNote(raw: unknown): string {
+  if (!raw || typeof raw !== "object") return "";
+  const src = raw as Record<string, unknown>;
+  const parts: string[] = [];
+  for (const key of REF_FIELDS) {
+    const value = src[key];
+    if (typeof value !== "string") continue;
+    // שורות חדשות ותווי בקרה היו שוברים את השורה שאותה אנחנו מפרסרים בחזרה
+    const clean = Array.from(value).filter((ch) => { const c = ch.charCodeAt(0); return c > 31 && c !== 127; }).join("").trim().slice(0, 120);
+    if (clean) parts.push(`${key}=${clean}`);
+  }
+  if (!parts.length) return "";
+  return ` | מקור-הגעה: ${parts.join("; ")}`.slice(0, REF_MAX);
+}
+
 /* חלון קצב פשוט. בלעדיו סקריפט אחד יכול לפתוח אלפי כרטיסי-ליד מזויפים
    ב-Arbox האמיתי — המזכירות מתקשרות לאוויר, ודוחות ה-₪/ליד נהרסים.
    ponytail: מפה בזיכרון = פר-מופע של הפונקציה, ומתאפס בקירור. עוצר הצפה
@@ -79,7 +106,8 @@ export default async function handler(req: any, res: any) {
         location_id: LOCATION_POLEG,
         source_id: SOURCE_WEBSITE,
         gender: "female",
-        comment: "הושאר בטופס באתר — ביקשה לקבל את מערכת השעות",
+        comment:
+          "הושאר בטופס באתר — ביקשה לקבל את מערכת השעות" + referralNote(body.ref),
       }),
     });
 
