@@ -81,7 +81,8 @@
       {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "אימוני כוח"}},
       {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "פילאטיס מכשירים"}},
       {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "יוגה"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "בר"}}
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "אימוני בר (Barre)"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "קבוצות כושר לילדים ונוער (Kids & Teens)"}}
     ]
   }
 }
@@ -93,6 +94,8 @@
   "mainEntity": [
     {"@type":"Question","name":"כמה עולה המנוי?","acceptedAnswer":{"@type":"Answer","text":"אימון היכרות עולה 50 ₪. אחר כך בוחרים מסלול לפי מספר הכניסות בחודש: 230, 400 או 460 ₪. מסלול שכולל גם פילאטיס מכשירים: 320, 475 או 530 ₪. הכל ללא התחייבות."}},
     {"@type":"Question","name":"מה ההבדל בין שלושת החללים?","acceptedAnswer":{"@type":"Answer","text":"GYM הוא חלל הכוח — משקולות, מכשירים ו-BOOTCAMP. MOVE הוא חלל השיעורים הקבוצתיים — בר, יוגה, גמישות ו-SCULPT. REFORMER הוא חלל הפילאטיס עם מיטות רפורמר בקבוצה קטנה."}},
+    {"@type":"Question","name":"מה זה אימון בר (Barre) ולמי הוא מתאים?","acceptedAnswer":{"@type":"Answer","text":"אימון בר (Barre) משלב תנועות מעולם הבלט הקלאסי, עקרונות פילאטיס ואימוני חיטוב ממוקדים לשרירי הליבה, הישבן והרגליים. השיעור מתאים לכל אישה בכל רמת כושר."}},
+    {"@type":"Question","name":"האם יש בסטפס קבוצות כושר לילדים ונוער?","acceptedAnswer":{"@type":"Answer","text":"כן! בסטודיו מתקיימות קבוצות כושר חווייתיות לילדים ונוער (KIDS & TEENS) בקבוצות קטנות, בדגש על שיפור יציבה, חיזוק חגורת הכתפיים, קואורדינציה וביטחון עצמי בליווי מאמנים מוסמכים."}},
     {"@type":"Question","name":"אני צריכה ניסיון קודם?","acceptedAnswer":{"@type":"Answer","text":"בכלל לא, גם אם מעולם לא נכנסת לסטודיו כושר. אימון ההיכרות נועד בדיוק לזה — להכיר את המקום, לדבר עם המאמנת ולהחליט אחר כך."}},
     {"@type":"Question","name":"יש חנייה?","acceptedAnswer":{"@type":"Answer","text":"כן. הסטודיו נמצא בקניון פולג בנתניה, עם חנייה חינמית עילית ותת-קרקעית."}},
     {"@type":"Question","name":"איך מבטלים שיעור?","acceptedAnswer":{"@type":"Answer","text":"בוואטסאפ או דרך Arbox. ביטול עד 24 שעות לפני האימון — קובעים מועד חלופי. פחות מזה, או אי-הגעה, אין זיכוי."}},
@@ -337,7 +340,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .chooser{padding-top:clamp(42px,5.8vw,78px);padding-bottom:clamp(42px,6vw,82px);background:var(--ink-2);border-bottom:1px solid var(--line)}
 .chooser__head{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,40ch);gap:clamp(20px,5vw,72px);align-items:end;margin-bottom:clamp(24px,3.5vw,42px)}
 .chooser__head .lede{max-width:40ch}
-.chooser__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.chooser__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
 .path-card{position:relative;display:flex;min-height:230px;flex-direction:column;padding:clamp(22px,2.3vw,32px);border:1px solid var(--line-card);border-radius:var(--r-lg);background:linear-gradient(155deg,rgba(244,242,237,.07),rgba(244,242,237,.02));overflow:hidden;transition:transform .22s var(--ease),border-color .22s var(--ease),background .22s var(--ease)}
 .path-card::after{content:"←";position:absolute;inset-inline-end:24px;bottom:22px;font-size:24px;color:var(--yellow);transition:transform .22s var(--ease)}
 .path-card:hover,.path-card:focus-visible{transform:translateY(-4px);border-color:rgba(255,212,0,.55);background:linear-gradient(155deg,rgba(255,212,0,.10),rgba(244,242,237,.03))}
@@ -835,18 +838,23 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         <h3>אני רוצה להתחזק</h3>
         <p>אימוני כוח, מכשירים ו-BOOTCAMP עם התאמה לרמה שלך.</p>
       </a>
-      <a class="path-card rv" href="#room-move" data-track="path-choice" data-path="move">
-        <span class="path-card__n">02 · MOVE</span>
-        <h3>אני אוהבת שיעור קבוצתי</h3>
-        <p>בר, יוגה, גמישות, פילאטיס מזרן ו-SCULPT.</p>
+      <a class="path-card rv" href="barre.html" data-track="path-choice" data-path="move">
+        <span class="path-card__n">02 · MOVE &amp; BARRE</span>
+        <h3>אני רוצה בר ושיעורי סטודיו</h3>
+        <p>אימוני בר (Barre), יוגה, גמישות, פילאטיס מזרן ו-SCULPT.</p>
       </a>
       <a class="path-card rv" href="pilates.html" data-track="path-choice" data-path="pilates">
         <span class="path-card__n">03 · REFORMER</span>
         <h3>אני רוצה פילאטיס מכשירים</h3>
         <p>עד 11 מיטות, קבוצה קטנה ומדריכה שרואה אותך.</p>
       </a>
+      <a class="path-card rv" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%20%D7%90%D7%95%D7%A8%2C%20%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%A0%D7%99%D7%A1%D7%99%D7%95%D7%9F%20%D7%9C%D7%A7%D7%91%D7%95%D7%A6%D7%95%D7%AA%20%D7%94%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%95%D7%94%D7%A0%D7%95%D7%A2%D7%A8%20%D7%91-STEPS" target="_blank" rel="noopener" data-track="path-choice whatsapp-click" data-path="kids">
+        <span class="path-card__n">04 · KIDS &amp; TEENS</span>
+        <h3>חוגי כושר לילדים ונוער</h3>
+        <p>קבוצות קטנות, שיפור יציבה, חגורת כתפיים וביטחון עצמי.</p>
+      </a>
       <a class="path-card rv" href="nutrition.html" data-track="path-choice" data-path="nutrition">
-        <span class="path-card__n">04 · תזונה</span>
+        <span class="path-card__n">05 · תזונה</span>
         <h3>אני רוצה סדר באוכל</h3>
         <p>ליווי תזונה אישי שמתחבר למטרות ולאימונים שלך.</p>
       </a>
@@ -1066,6 +1074,8 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <div class="faq">
       <details class="sv"><summary>כמה עולה המנוי?</summary><p>אימון היכרות 50 ₪. אחר כך בוחרים מסלול לפי מספר הכניסות בחודש: 230, 400 או 460 ₪. רוצה גם רפורמר? 320, 475 או 530 ₪. כל המחירים כוללים מע״מ, והכל בלי התחייבות. <a href="pilates-price.html" style="color:var(--yellow)">כל הפירוט על המחירים כאן</a>.</p></details>
       <details class="sv"><summary>מה ההבדל בין שלושת החללים?</summary><p><bdi>GYM</bdi> זה הכוח — משקולות, מכשירים, <bdi>BOOTCAMP</bdi>. <bdi>MOVE</bdi> זה השיעורים הקבוצתיים — בר, יוגה, גמישות, <bdi>SCULPT</bdi>. <bdi>REFORMER</bdi> זה מיטות רפורמר בקבוצה קטנה, עד 11 מתאמנות.</p></details>
+      <details class="sv"><summary>מה זה אימון בר (Barre) ולמי הוא מתאים?</summary><p>אימון בר (<bdi>Barre</bdi>) משלב תנועות מעולם הבלט הקלאסי, עקרונות פילאטיס ואימוני חיטוב ממוקדים לשרירי הליבה, הישבן והרגליים. השיעור מיועד לחיטוב, יציבה והארכת השריר ומתאים לכל אישה בכל רמת כושר. <a href="barre.html" style="color:var(--yellow)">לכל המידע על אימון בר בסטפס ←</a></p></details>
+      <details class="sv"><summary>האם יש בסטפס קבוצות כושר לילדים ונוער?</summary><p>כן! אנו מקיימים קבוצות כושר חווייתיות לילדים ונוער (<bdi>KIDS &amp; TEENS</bdi>) בקבוצות קטנות, בדגש על שיפור יציבה, חיזוק חגורת הכתפיים (קריטי לישיבה מול מסכים), קואורדינציה וביטחון עצמי בליווי מאמנים מוסמכים. <a href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%20%D7%90%D7%95%D7%A8%2C%20%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%A0%D7%99%D7%A1%D7%99%D7%95%D7%9F%20%D7%9C%D7%A7%D7%91%D7%95%D7%A6%D7%95%D7%AA%20%D7%94%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%95%D7%94%D7%A0%D7%95%D7%A2%D7%A8%20%D7%91-STEPS" target="_blank" rel="noopener" style="color:var(--yellow)">לתיאום שיעור ניסיון לילדים בוואטסאפ ←</a></p></details>
       <details class="sv"><summary>אני צריכה ניסיון קודם?</summary><p>בכלל לא. גם אם מעולם לא נכנסת לסטודיו כושר. אימון ההיכרות בדיוק בשביל זה — להכיר את המקום, לדבר עם המאמנת, ולהחליט אחר כך. אם את מתלבטת על רפורמר, כתבנו <a href="pilates-beginners.html" style="color:var(--yellow)">מה קורה בשיעור הראשון</a>.</p></details>
       <details class="sv"><summary>יש חנייה?</summary><p>כן. אנחנו בקניון פולג, עם חנייה חינמית ונוחה ישירות בקניון. קל להגיע, קל לחנות.</p></details>
       <details id="faq-cancel" class="sv"><summary>איך מבטלים שיעור?</summary><p>בוואטסאפ או דרך Arbox. ביטול עד 24 שעות לפני — קובעים מועד חלופי. פחות מזה, או אי-הגעה, אין זיכוי.</p></details>
