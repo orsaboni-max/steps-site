@@ -12,13 +12,13 @@
 <meta property="og:description" content="אימוני כוח לילדים ונוער, פילאטיס מכשירים לנערות ואימוני בר לנערות בסטודיו STEPS בקניון פולג, נתניה. כל סוגי האימון, הימים והשעות ותיאום שיעור היכרות.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://stepsnetanya.co.il/kids.html">
-<meta property="og:image" content="https://stepsnetanya.co.il/images/gallery-2.jpg">
+<meta property="og:image" content="https://stepsnetanya.co.il/images/kids-hero.jpg">
 <meta property="og:locale" content="he_IL">
 <meta property="og:site_name" content="STEPS Fitness Center">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="חוגי כושר לילדים ונוער בנתניה | סטודיו סטפס פולג">
 <meta name="twitter:description" content="אימוני כוח לילדים ונוער, פילאטיס מכשירים לנערות ואימוני בר לנערות בסטודיו STEPS בקניון פולג, נתניה. כל סוגי האימון, הימים והשעות ותיאום שיעור היכרות.">
-<meta name="twitter:image" content="https://stepsnetanya.co.il/images/gallery-2.jpg">
+<meta name="twitter:image" content="https://stepsnetanya.co.il/images/kids-hero.jpg">
 <meta name="theme-color" content="#0B0B0B">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
@@ -191,15 +191,41 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 }
 .card h3{font-size:clamp(22px,2vw,28px);margin-bottom:12px;color:var(--yellow)}
 .card p{font-size:16px;line-height:1.65;color:var(--t75)}
-.program-card{min-width:0}
-.program-card h3{line-height:1.2}
-.program-card .program-tag{margin-bottom:14px;color:var(--t75);font-size:13px;font-weight:700;letter-spacing:.08em}
-.program-card .program-copy{margin-bottom:20px}
-.program-times{list-style:none;margin-top:auto;border-top:1px solid var(--line)}
+.space-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:28px}
+.space-links a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-height:66px;padding:12px 22px;border:1px solid var(--line-strong);border-radius:var(--r-md);text-decoration:none;color:var(--bone)}
+.space-links a:hover{border-color:var(--yellow);background:var(--yellow-tint)}
+.space-links bdi{font:800 16px var(--display);letter-spacing:.04em;color:var(--yellow)}
+.space-links span{font-size:15px;line-height:1.3}
+.youth-rooms{display:grid;gap:clamp(60px,8vw,112px);max-width:1240px;margin:0 auto;padding-top:clamp(12px,3vw,40px)}
+.youth-room{display:grid;grid-template-areas:"head" "media" "body";gap:22px;min-width:0}
+.youth-room+.youth-room{padding-top:clamp(44px,6vw,80px);border-top:1px solid var(--line)}
+.youth-room__head{grid-area:head;text-align:center}
+.youth-room__head h3{font-size:clamp(46px,6.5vw,80px);line-height:1;letter-spacing:-.035em}
+.youth-room__head h3 bdi{display:block;color:var(--yellow)}
+.youth-room__head h3 span{display:block;font-size:clamp(24px,2.8vw,34px);line-height:1.2;letter-spacing:-.025em;margin-top:14px}
+.youth-room__media{grid-area:media;min-width:0;width:100%;max-width:620px;justify-self:center;align-self:center}
+.youth-room__media img{width:100%;height:auto;border:1px solid var(--line-card);border-radius:var(--r-lg)}
+.youth-room__media figcaption{margin-top:10px;color:var(--t60);font-size:13px;line-height:1.5;text-align:center}
+.youth-room__body{grid-area:body;width:100%;max-width:540px;justify-self:center;min-width:0}
+.youth-room__body .program-copy{font-size:clamp(17px,1.5vw,20px);line-height:1.7;color:var(--t85);margin-bottom:24px}
+.program-times{list-style:none;border-top:1px solid var(--line)}
 .program-times li{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid var(--line);font-weight:600}
 .program-times time{font-family:var(--display);font-weight:700}
-.program-card .program-note{margin-top:16px}
-.program-card .program-cta{margin-top:22px;min-height:52px;padding:14px 18px;font-size:16px;line-height:1.35;text-align:center}
+.program-note{margin-top:20px;font-size:17px;line-height:1.7;color:var(--t75)}
+.program-cta{margin-top:24px;min-height:52px;padding:14px 24px;font-size:17px;line-height:1.35;text-align:center}
+@media(min-width:1000px){
+  .youth-room{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);grid-template-areas:"media head" "media body";column-gap:clamp(40px,5vw,80px);row-gap:22px;align-content:center}
+  .youth-room:nth-child(even){grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);grid-template-areas:"head media" "body media"}
+  .youth-room__head{text-align:right;align-self:end}
+  .youth-room__body{align-self:start;justify-self:start}
+}
+@media(max-width:480px){
+  .space-links{gap:8px}
+  .space-links a{flex:1 1 0;padding:12px 7px}
+  .space-links bdi{font-size:13px}
+  .space-links span{font-size:13px}
+  .program-cta{width:100%}
+}
 .faq-list{margin:14px 0 0;padding-inline-start:22px;color:var(--t75);font-size:16px;line-height:1.7}
 .faq-list li+li{margin-top:8px}
 @media(max-width:900px){.grid-3{grid-template-columns:1fr}}
@@ -287,18 +313,29 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   </div>
 </section>
 
-<!-- ═══ הפעילויות ומערכת השעות ═══ -->
+<!-- ═══ שלושת החללים לילדים ולנערות ═══ -->
 <section class="sec" id="programs" aria-labelledby="programs-title">
   <div class="sec-h">
-    <p class="sec-tag">הפעילויות ומערכת השעות</p>
-    <h2 class="sec-title" id="programs-title">שלוש דרכים לזוז ולהתחזק</h2>
-    <p class="sec-sub">לכל פעילות קבוצה ומועדים משלה. בוחרים סוג אימון ומתאמים שיעור היכרות עם הצוות.</p>
+    <p class="sec-tag">GYM · REFORMER · MOVE</p>
+    <h2 class="sec-title" id="programs-title">שלושה חללים.<br>לילדים ולנערות.</h2>
+    <p class="sec-sub">כוח, פילאטיס מכשירים ובר — לכל פעילות החלל שלה, הקבוצה שלה והמועדים שלה.</p>
+    <nav class="space-links" aria-label="בחירת פעילות לילדים ולנערות">
+      <a href="#youth-strength"><bdi>GYM</bdi><span>כוח לילדים ולנוער</span></a>
+      <a href="#teen-pilates"><bdi>REFORMER</bdi><span>פילאטיס לנערות</span></a>
+      <a href="#teen-barre"><bdi>MOVE</bdi><span>בר לנערות</span></a>
+    </nav>
   </div>
-  <div class="grid-3">
-    <article class="card program-card" id="youth-strength" aria-labelledby="strength-title">
-      <p class="program-tag"><bdi>01 · STRENGTH</bdi></p>
-      <h3 id="strength-title">אימוני כוח לילדים ולנוער</h3>
-      <p class="program-copy">אימוני כוח עם הדרכה על ביצוע התרגילים והתאמת העומס לרמה האישית. לומדים את התנועות ומתקדמים בהדרגה.</p>
+  <div class="youth-rooms">
+    <article class="youth-room" id="youth-strength" aria-labelledby="strength-title">
+      <header class="youth-room__head">
+        <h3 id="strength-title"><bdi>GYM</bdi><span>אימוני כוח לילדים ולנוער</span></h3>
+      </header>
+      <figure class="youth-room__media">
+        <img src="images/kids-posture.jpg" width="1376" height="768" alt="המחשת אימון כוח לילדים ולנוער עם רצועות התנגדות ומדריכה" loading="lazy" decoding="async">
+        <figcaption>תמונת המחשה שנוצרה ב־AI</figcaption>
+      </figure>
+      <div class="youth-room__body">
+        <p class="program-copy">אימוני כוח עם הדרכה על ביצוע התרגילים והתאמת העומס לרמה האישית. לומדים את התנועות ומתקדמים בהדרגה.</p>
       <ul class="program-times" aria-label="מועדי אימוני הכוח לילדים ולנוער">
         <li><span>ימי ראשון</span><time datetime="17:00"><bdi>17:00</bdi></time></li>
         <li><span>ימי שלישי</span><time datetime="16:30"><bdi>16:30</bdi></time></li>
@@ -306,27 +343,44 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       </ul>
       <p class="program-note">גילאי <bdi>12–15</bdi> · <bdi>50–60</bdi> דקות<br>אימון היכרות בכוח: 50 ₪</p>
       <a class="btn-a program-cta" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%94%D7%99%D7%9B%D7%A8%D7%95%D7%AA%20%D7%91%D7%9B%D7%95%D7%97%20%D7%9C%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%95%D7%9C%D7%A0%D7%95%D7%A2%D7%A8%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="whatsapp-click">לתיאום אימון כוח ←</a>
+      </div>
     </article>
-    <article class="card program-card" id="teen-pilates" aria-labelledby="pilates-title">
-      <p class="program-tag"><bdi>02 · REFORMER</bdi></p>
-      <h3 id="pilates-title">פילאטיס מכשירים לנערות</h3>
-      <p class="program-copy">אימון על מיטות רפורמר בקבוצה לנערות, עם עבודה על תנועה מדויקת ושליטה בגוף ובהדרכת מדריכה לאורך השיעור.</p>
+
+    <article class="youth-room" id="teen-pilates" aria-labelledby="pilates-title">
+      <header class="youth-room__head">
+        <h3 id="pilates-title"><bdi>REFORMER</bdi><span>פילאטיס מכשירים לנערות</span></h3>
+      </header>
+      <figure class="youth-room__media">
+        <img src="images/teen-pilates-illustration.jpg" width="1856" height="2304" alt="המחשת נערות מתאמנות על מיטות רפורמר בהדרכת מדריכה" loading="lazy" decoding="async">
+        <figcaption>תמונת המחשה שנוצרה ב־AI</figcaption>
+      </figure>
+      <div class="youth-room__body">
+        <p class="program-copy">אימון על מיטות רפורמר בקבוצה לנערות, עם עבודה על תנועה מדויקת ושליטה בגוף ובהדרכת מדריכה לאורך השיעור.</p>
       <ul class="program-times" aria-label="מועדי פילאטיס מכשירים לנערות">
         <li><span>ימי ראשון</span><time datetime="16:00"><bdi>16:00</bdi></time></li>
         <li><span>ימי רביעי</span><time datetime="17:00"><bdi>17:00</bdi></time></li>
       </ul>
       <p class="program-note">לפרטים על הקבוצה ולתיאום שיעור היכרות, אפשר לפנות לצוות בוואטסאפ.</p>
       <a class="btn-a program-cta" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%A4%D7%99%D7%9C%D7%90%D7%98%D7%99%D7%A1%20%D7%9E%D7%9B%D7%A9%D7%99%D7%A8%D7%99%D7%9D%20%D7%9C%D7%A0%D7%A2%D7%A8%D7%95%D7%AA%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="whatsapp-click">לתיאום פילאטיס לנערות ←</a>
+      </div>
     </article>
-    <article class="card program-card" id="teen-barre" aria-labelledby="barre-title">
-      <p class="program-tag"><bdi>03 · BARRE</bdi></p>
-      <h3 id="barre-title">אימוני בר לנערות</h3>
-      <p class="program-copy">שיעור בר לנערות שמשלב תנועות מעולם הבלט, הפילאטיס ואימוני הכוח. עובדים ליד הבר ועל מזרן, עם הדרכה לאורך השיעור.</p>
+
+    <article class="youth-room" id="teen-barre" aria-labelledby="barre-title">
+      <header class="youth-room__head">
+        <h3 id="barre-title"><bdi>MOVE</bdi><span>אימוני בר לנערות</span></h3>
+      </header>
+      <figure class="youth-room__media">
+        <img src="images/teen-barre-illustration.jpg" width="1254" height="1254" alt="המחשת שיעור פילאטיס בר לנערות בגילאי 12–15 ב-STEPS פולג" loading="lazy" decoding="async">
+        <figcaption>תמונת המחשה שנוצרה ב־AI</figcaption>
+      </figure>
+      <div class="youth-room__body">
+        <p class="program-copy">שיעור בר לנערות שמשלב תנועות מעולם הבלט, הפילאטיס ואימוני הכוח. עובדים ליד הבר ועל מזרן, עם הדרכה לאורך השיעור.</p>
       <ul class="program-times" aria-label="מועדי אימוני בר לנערות">
         <li><span>ימי ראשון</span><time datetime="16:00"><bdi>16:00</bdi></time></li>
       </ul>
       <p class="program-note">לפרטים על הקבוצה ולתיאום שיעור היכרות, אפשר לפנות לצוות בוואטסאפ.</p>
       <a class="btn-a program-cta" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%91%D7%A8%20%D7%9C%D7%A0%D7%A2%D7%A8%D7%95%D7%AA%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="whatsapp-click">לתיאום בר לנערות ←</a>
+      </div>
     </article>
   </div>
 </section>
@@ -353,9 +407,6 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </div>
   </div>
 
-  <div style="max-width:1100px;margin:48px auto 0;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line-card)">
-    <img src="images/kids-posture.jpg" alt="אימוני יציבה וחיזוק חגורת כתפיים לילדים ונוער בסטפס" style="width:100%;height:auto;display:block">
-  </div>
 </section>
 
 <!-- ═══ שאלות נפוצות ═══ -->
@@ -367,7 +418,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   <div class="faq">
     <details open>
       <summary>לאיזה גילאים מתאימות הקבוצות?</summary>
-      <p>אימוני הכוח לילדים ולנוער מיועדים לגילאי <bdi>12–15</bdi>. לפרטים על הגילאים המתאימים לפילאטיס מכשירים ולבר לנערות, פנו לצוות.</p>
+      <p>אימוני הכוח לילדים ולנוער וקבוצת הבר לנערות מיועדים לגילאי <bdi>12–15</bdi>. לפרטים על הגילאים המתאימים לפילאטיס מכשירים לנערות, פנו לצוות.</p>
     </details>
     <details>
       <summary>באילו ימים ושעות מתקיימים האימונים?</summary>
