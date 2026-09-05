@@ -25,3 +25,4 @@ scratch_reviews.txt
 # גרסת תזונה לא שלמה וכלי בדיקה מקומיים
 nutrition-v3.html
 tests/
+api/*.test.mjs
