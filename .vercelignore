@@ -21,3 +21,7 @@ api/ads-performance.ts
 # קבצי טיוטה. שים לב: הכלל *.md למעלה לא תופס .txt, ו-llms.txt כן צריך
 # לעלות — לכן חוסמים כאן בשם ולא בתבנית רחבה.
 scratch_reviews.txt
+
+# גרסת תזונה לא שלמה וכלי בדיקה מקומיים
+nutrition-v3.html
+tests/

@@ -7,6 +7,11 @@
       ],
       "destination": "https://stepsnetanya.co.il/$1",
       "permanent": true
+    },
+    {
+      "source": "/nutrition-v3.html",
+      "destination": "/nutrition.html",
+      "permanent": false
     }
   ],
   "rewrites": [

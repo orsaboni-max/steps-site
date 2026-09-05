@@ -683,7 +683,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   "geo": {"@type": "GeoCoordinates","latitude": 32.2749168,"longitude": 34.8479596},
   "openingHoursSpecification": [
     {"@type": "OpeningHoursSpecification","dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday"],"opens": "07:00","closes": "22:00"},
-    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "07:00", "closes": "14:00"}, {"@type": "OpeningHoursSpecification","dayOfWeek": "Saturday","opens": "18:30","closes": "22:00"}
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "07:30", "closes": "13:00"}
   ],
   "priceRange": "$$",
   "description": "תוכנית התזונה של סטודיו STEPS בנתניה — 3 חודשים, מפגשים אישיים בסטודיו וליווי יומיומי בוואטסאפ, למתאמנות הסטודיו."
@@ -1146,7 +1146,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         <li><a href="https://stepsnetanya.co.il/">דף הבית</a></li>
         <li><a href="https://stepsnetanya.co.il/#spaces">החללים</a></li>
         <li><a href="https://stepsnetanya.co.il/#sched">מערכת שעות</a></li>
-        <li><a href="https://stepsnetanya.co.il/#reviews">המלצות</a></li>
+        <li><a href="https://stepsnetanya.co.il/#team">המלצות</a></li>
         <li><a href="privacy.html">מדיניות פרטיות</a></li>
       </ul>
     </div>
@@ -1164,7 +1164,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       <div class="ft">צרי קשר</div>
       <div class="fc">📍 אמנון ותמר 6, קניון פולג, נתניה</div>
       <div class="fc" dir="ltr">📞 052-792-7575</div>
-      <div class="fc">⏰ א׳-ה׳ 7:00-22:00 · ו׳ 7:00-14:00 · מוצ״ש 18:30-22:00</div>
+      <div class="fc">⏰ א׳-ה׳ 7:00-22:00 · ו׳ 07:30–13:00 · מוצ״ש: שיעור לפי מערכת השעות בלבד, ללא קבלת קהל או מזכירות</div>
       <div class="fc">📸 <a href="https://www.instagram.com/steps_netanya/" target="_blank" rel="noopener">@steps_netanya</a></div>
     </div>
   </div>
@@ -1261,10 +1261,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
     params=params||{};
     params.page_location=location.href;
     if(typeof gtag==='function')gtag('event',name,params);
-    if(typeof fbq==='function'){
-      if(name==='cta_trial_click')fbq('track','Lead',params);
-      else fbq('trackCustom',name,params);
-    }
+    if(typeof fbq==='function')fbq('trackCustom',name,params);
   }
   document.querySelectorAll('[data-track]').forEach(function(el){
     el.addEventListener('click',function(){

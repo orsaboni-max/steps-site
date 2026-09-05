@@ -161,6 +161,9 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   font-size:clamp(16px,1.6vw,21px);font-weight:300;line-height:1.6;color:var(--t85);
   max-width:56ch;margin:0 auto clamp(24px,3vw,36px);
 }
+.hero-details{margin:0 0 24px;color:var(--t85);font-size:17px;line-height:1.8}
+.hero-details strong span{display:inline-block}
+.hero-details strong{color:var(--bone);font-weight:700}
 .hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
 
 .btn-a,.btn-b{
@@ -204,7 +207,22 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .ftr p{font-size:14px;color:var(--t45);margin-top:12px}
 .ftr a{color:var(--t60);text-decoration:none;margin:0 10px}
 .ftr a:hover{color:var(--yellow)}
+.ftr button{display:inline-flex;align-items:center;min-height:44px;margin:0 10px;padding:0;border:0;background:none;color:var(--t75);font:inherit;text-decoration:underline;cursor:pointer}
+
+/* הסכמה לעוגיות */
+#cookie-banner{display:none;position:fixed;inset:auto 0 0;z-index:10000;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;padding:18px var(--gutter);background:var(--ink-2);border-top:1px solid var(--line-strong);box-shadow:0 -8px 32px rgba(0,0,0,.3)}
+#cookie-banner p{flex:1;min-width:min(220px,100%);font-size:14px;line-height:1.5;color:var(--t75)}
+#cookie-banner a{color:var(--yellow);text-decoration:underline}
+.cookie-actions{display:flex;gap:10px;flex-wrap:wrap}
+#cookie-banner button{min-height:44px;padding:0 22px;border:1px solid var(--line-strong);border-radius:var(--r-pill);font:700 14px var(--body);cursor:pointer}
+#ckOk{background:var(--yellow);color:var(--ink)}
+#ckNo{background:var(--fill-2);color:var(--bone)}
 </style>
+
+<!-- Consent Mode v2 — must run before GA4 loads. -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5T22VE9YHT"></script>
+<script>gtag('js',new Date());gtag('config','G-5T22VE9YHT');</script>
 
 <script type="application/ld+json">
 {
@@ -238,9 +256,9 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <li><a href="pilates.html">פילאטיס מכשירים</a></li>
     <li><a href="gym-women.html">חדר כושר לנשים</a></li>
     <li><a href="nutrition.html">תזונה</a></li>
-    <li><a class="n-cta" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%20%D7%90%D7%95%D7%A8%2C%20%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%A0%D7%99%D7%A1%D7%99%D7%95%D7%9F%20%D7%9C%D7%A7%D7%91%D7%95%D7%A6%D7%95%D7%AA%20%D7%94%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%95%D7%94%D7%A0%D7%95%D7%A2%D7%A8%20%D7%91-STEPS" target="_blank" rel="noopener">שיעור ניסיון לילדים</a></li>
+    <li><a class="n-cta" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%20%D7%90%D7%95%D7%A8%2C%20%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%A0%D7%99%D7%A1%D7%99%D7%95%D7%9F%20%D7%9C%D7%A7%D7%91%D7%95%D7%A6%D7%95%D7%AA%20%D7%94%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%95%D7%94%D7%A0%D7%95%D7%A2%D7%A8%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="whatsapp-click">שיעור ניסיון לילדים</a></li>
   </ul>
-  <button class="mob" type="button" aria-label="תפריט" id="mobBtn">☰</button>
+  <button class="mob" type="button" aria-label="פתיחת תפריט" aria-controls="nLinks" aria-expanded="false" id="mobBtn">☰</button>
 </header>
 <div class="mob-overlay" id="mobOverlay"></div>
 
@@ -254,8 +272,10 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <p class="hero-tag">KIDS &amp; TEENS · פולג, נתניה</p>
     <h1>חוגי כושר לילדים ונוער<em>יציבה נכונה וביטחון עצמי</em></h1>
     <p class="hero-sub">אימוני כושר חווייתיים ומעצימים בקבוצות קטנות. אנחנו בונים הרגלי תנועה נכונים, מחזקים את חגורת הכתפיים ומעניקים תחושת מסוגלות אישית בסביבה מקצועית ותומכת.</p>
+    <p class="hero-details"><strong><span>גילאי <bdi>12–15</bdi></span> · <span>שיעור של <bdi>50–60</bdi> דקות</span> · <span>ניסיון ב־50 ₪</span></strong><br>
+      ראשון <bdi>17:00</bdi> · שלישי <bdi>16:30</bdi> · חמישי <bdi>17:00</bdi></p>
     <div class="hero-btns">
-      <a class="btn-a" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%20%D7%90%D7%95%D7%A8%2C%20%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%A0%D7%99%D7%A1%D7%99%D7%95%D7%9F%20%D7%9C%D7%A7%D7%91%D7%95%D7%A6%D7%95%D7%AA%20%D7%94%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%95%D7%94%D7%A0%D7%95%D7%A2%D7%A8%20%D7%91-STEPS" target="_blank" rel="noopener">לתיאום שיעור ניסיון בוואטסאפ ←</a>
+      <a class="btn-a" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%20%D7%90%D7%95%D7%A8%2C%20%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%A0%D7%99%D7%A1%D7%99%D7%95%D7%9F%20%D7%9C%D7%A7%D7%91%D7%95%D7%A6%D7%95%D7%AA%20%D7%94%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%95%D7%94%D7%A0%D7%95%D7%A2%D7%A8%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="whatsapp-click">לתיאום שיעור ניסיון ב־50 ₪ ←</a>
       <a class="btn-b" href="index.html">חזרה לדף הבית</a>
     </div>
   </div>
@@ -297,7 +317,19 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   <div class="faq">
     <details open>
       <summary>לאיזה גילאים מתאימות הקבוצות?</summary>
-      <p>הקבוצות מחולקות לפי שכבות גיל מותאמות (ילדים ונוער), כך שהאימון מתאים ליכולת הפיזית והחברתית של כל קבוצה.</p>
+      <p>הקבוצות מיועדות לגילאי <bdi>12–15</bdi>, עם התאמת עומסים והדרכה לאורך השיעור.</p>
+    </details>
+    <details>
+      <summary>באילו ימים ושעות מתקיימים האימונים?</summary>
+      <p>ראשון ב־<bdi>17:00</bdi>, שלישי ב־<bdi>16:30</bdi> וחמישי ב־<bdi>17:00</bdi>.</p>
+    </details>
+    <details>
+      <summary>כמה זמן נמשך שיעור?</summary>
+      <p>כל שיעור נמשך <bdi>50–60</bdi> דקות.</p>
+    </details>
+    <details>
+      <summary>כמה עולה שיעור ניסיון?</summary>
+      <p>שיעור ניסיון עולה 50 ₪. אפשר לתאם אותו בוואטסאפ דרך הכפתור בעמוד.</p>
     </details>
     <details>
       <summary>האם זה מתאים לילדים שלא עסקו בספורט מעולם?</summary>
@@ -305,7 +337,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </details>
     <details>
       <summary>כמה ילדים יש בכל קבוצה?</summary>
-      <p>אנחנו שומרים על קבוצות קטנות כדי להבטיח שהמאמנים רואים כל ילד/ה, מתקנים תנועה ודואגים לבטיחות מלאה.</p>
+      <p>אנחנו שומרים על קבוצות קטנות כדי שהמאמנים יוכלו לראות כל ילד וילדה, להדריך, לתקן את התנועה ולהתאים את העומס.</p>
     </details>
     <details>
       <summary>איפה מתקיימים האימונים?</summary>
@@ -313,7 +345,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </details>
   </div>
   <div style="text-align:center;margin-top:40px">
-    <a class="btn-a" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%20%D7%90%D7%95%D7%A8%2C%20%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%A0%D7%99%D7%A1%D7%99%D7%9F%20%D7%9C%D7%A7%D7%91%D7%95%D7%A6%D7%95%D7%AA%20%D7%94%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%95%D7%94%D7%A0%D7%95%D7%A2%D7%A8%20%D7%91-STEPS" target="_blank" rel="noopener">לתיאום שיעור ניסיון בוואטסאפ ←</a>
+    <a class="btn-a" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%20%D7%90%D7%95%D7%A8%2C%20%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%A0%D7%99%D7%A1%D7%99%D7%9F%20%D7%9C%D7%A7%D7%91%D7%95%D7%A6%D7%95%D7%AA%20%D7%94%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%95%D7%94%D7%A0%D7%95%D7%A2%D7%A8%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="whatsapp-click">לתיאום שיעור ניסיון ב־50 ₪ ←</a>
   </div>
 </section>
 
@@ -330,9 +362,18 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <a href="nutrition.html">תזונה</a>
     <a href="privacy.html">פרטיות</a>
     <a href="accessibility.html">נגישות</a>
+    <button type="button" id="ckReset">הגדרות עוגיות</button>
   </p>
   <p>© 2026 STEPS Fitness Center. כל הזכויות שמורות.</p>
 </footer>
+
+<div id="cookie-banner" role="region" aria-label="הסכמה לעוגיות">
+  <p>האתר משתמש בעוגיות לצורך אנליטיקה ופרסום. <a href="privacy.html">מדיניות פרטיות</a></p>
+  <div class="cookie-actions">
+    <button type="button" id="ckOk">אישור</button>
+    <button type="button" id="ckNo">דחייה</button>
+  </div>
+</div>
 
 <script>
 var mobBtn=document.getElementById('mobBtn');
@@ -343,9 +384,54 @@ function toggleMenu(){
   nLinks.classList.toggle('open',!isOpen);
   mobOverlay.classList.toggle('open',!isOpen);
   mobBtn.textContent=!isOpen?'✕':'☰';
+  mobBtn.setAttribute('aria-expanded',isOpen?'false':'true');
+  mobBtn.setAttribute('aria-label',isOpen?'פתיחת תפריט':'סגירת תפריט');
 }
 mobBtn.addEventListener('click',toggleMenu);
 mobOverlay.addEventListener('click',toggleMenu);
+nLinks.querySelectorAll('a').forEach(function(a){
+  a.addEventListener('click',function(){if(nLinks.classList.contains('open'))toggleMenu();});
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'&&nLinks.classList.contains('open')){toggleMenu();mobBtn.focus();}
+});
+
+/* הסכמה נשמרת באותו מפתח כמו שאר האתר. Meta נטען רק לאחר אישור. */
+(function(){
+  var banner=document.getElementById('cookie-banner'),trackingReady=false;
+  function initTracking(){
+    if(trackingReady)return;
+    trackingReady=true;
+    gtag('consent','update',{'analytics_storage':'granted','ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted'});
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init','1016773848190436');
+    fbq('track','PageView');
+  }
+  function choose(value){
+    try{localStorage.setItem('steps-consent',value)}catch(e){}
+    banner.style.display='none';
+    if(value==='granted')initTracking();
+  }
+  document.getElementById('ckOk').addEventListener('click',function(){choose('granted');});
+  document.getElementById('ckNo').addEventListener('click',function(){choose('declined');});
+  document.getElementById('ckReset').addEventListener('click',function(){
+    try{localStorage.removeItem('steps-consent')}catch(e){}
+    location.reload();
+  });
+  var consent=null;
+  try{consent=localStorage.getItem('steps-consent')}catch(e){}
+  if(consent==='granted')initTracking();
+  else if(consent!=='declined')banner.style.display='flex';
+
+  /* פתיחת וואטסאפ היא קליק, לא ליד שנשלח. */
+  document.querySelectorAll('[data-track="whatsapp-click"]').forEach(function(a){
+    a.addEventListener('click',function(){
+      var params={page_location:location.href,link_url:a.href};
+      gtag('event','whatsapp_click',params);
+      if(trackingReady&&typeof fbq==='function')fbq('trackCustom','whatsapp_click',params);
+    });
+  });
+})();
 </script>
 </body>
 </html>

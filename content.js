@@ -75,10 +75,7 @@ function trackEvent(name,params){
   params=params||{};
   params.page_location=location.href;
   if(typeof gtag==='function')gtag('event',name,params);
-  if(typeof fbq==='function'){
-    if(name==='arbox_open')fbq('track','Lead',params);
-    else fbq('trackCustom',name,params);
-  }
+  if(typeof fbq==='function')fbq('trackCustom',name,params);
 }
 document.querySelectorAll('[data-track]').forEach(function(el){
   el.addEventListener('click',function(){
