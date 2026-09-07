@@ -15,7 +15,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '🧠 לפני סיום: היה ממצא/החלטה/התקדמות? עדכן את snapshot הזיכרון (memory/project_steps_state_*.md) + STATUS.md. אל תחכה שאור יבקש.'"
+            "timeout": 90,
+            "command": "INPUT=$(cat); case \"$INPUT\" in *'\"stop_hook_active\":true'*) exit 0;; esac; [ -f tests/website.test.mjs ] || exit 0; OUT=$(node --test tests/website.test.mjs api/lead.test.mjs 2>&1) && exit 0; { echo '❌ Stop gate: הבדיקות נכשלו — לתקן לפני סיום (node --test tests/website.test.mjs api/lead.test.mjs):'; printf '%s\\n' \"$OUT\" | grep -E '✖|not ok|^ℹ (pass|fail)|Error' | head -25; } >&2; exit 2"
           }
         ]
       }
