@@ -452,6 +452,31 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .coach b{display:block;font-weight:700;font-size:17px;line-height:1.2}
 .coach span{display:block;margin-top:5px;font-weight:400;font-size:14px;line-height:1.3;color:var(--t60)}
 .hero-assurance a{color:var(--yellow);text-decoration:underline;text-underline-offset:3px}
+
+/* תיבת "התשובה הקצרה", רשימות וטבלת ההשוואה — זהות ל-content.css */
+.answer{max-width:70ch;margin:0 auto 26px;border:1px solid rgba(255,212,0,.4);border-inline-start:4px solid var(--yellow);background:var(--yellow-tint);border-radius:var(--r-md);padding:clamp(22px,2.6vw,32px) clamp(20px,2.4vw,34px)}
+.answer-t{font-family:var(--body);font-weight:800;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);margin-bottom:12px}
+.sec-content .answer p{font-size:clamp(16.5px,1.4vw,19px);line-height:1.65;color:var(--bone);font-weight:400;margin-bottom:0}
+.sec-content .answer p+p{margin-top:12px}
+.answer a{color:var(--yellow);text-decoration:underline;text-underline-offset:3px}
+
+.c-list{padding-inline-start:22px;margin:0 0 20px;display:flex;flex-direction:column;gap:11px}
+.c-list li{font-size:clamp(15.5px,1.25vw,17.5px);line-height:1.7;color:var(--t85)}
+.c-list li::marker{color:var(--yellow)}
+.c-list b{color:var(--bone);font-weight:700}
+.c-list a{color:var(--yellow);text-decoration:underline;text-underline-offset:3px}
+.sec-content p.punch{font-family:var(--display);font-weight:900;letter-spacing:-.03em;font-size:clamp(21px,2.3vw,29px);line-height:1.15;color:var(--yellow)}
+
+.tw{max-width:820px;margin:clamp(26px,3vw,38px) auto 0;overflow-x:auto;border:1px solid var(--line-card);border-radius:var(--r-md);-webkit-overflow-scrolling:touch}
+table.cmp{width:100%;border-collapse:collapse;min-width:620px;font-size:15.5px}
+table.cmp caption{caption-side:top;padding:14px 18px;text-align:start;font-weight:700;font-size:14px;color:var(--t60);border-bottom:1px solid var(--line)}
+table.cmp th,table.cmp td{padding:14px 18px;text-align:start;border-bottom:1px solid var(--line);line-height:1.55;vertical-align:top}
+table.cmp thead th{background:rgba(244,242,237,.06);font-weight:800;font-size:14px;color:var(--bone)}
+table.cmp tbody th{font-weight:700;color:var(--bone);width:22%}
+table.cmp td{color:var(--t85)}
+table.cmp tbody tr:last-child th,table.cmp tbody tr:last-child td{border-bottom:0}
+.tw-note{max-width:820px;margin:12px auto 0;font-size:13.5px;line-height:1.65;color:var(--t60)}
+.tw-note a{color:var(--yellow);text-decoration:underline}
 </style>
 <!-- Consent Mode v2 — must run BEFORE GA4 loads -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
@@ -588,15 +613,31 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       "name": "מה זה אימון בר?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "שיעור של שעה שמשלב תנועות מפילאטיס בלט וכוח. עובדים עם בר על הקיר משקולות קטנות גומיות וכדור. מתאים לכל הרמות"
+        "text": "שיעור קבוצתי של כשעה שמשלב תנועות מהבלט, מהפילאטיס ומאימוני כוח. חלק ליד בר קבוע על הקיר וחלק על המזרן, עם משקולות קטנות, גומיות וכדור. התנועות קטנות וחוזרות על עצמן, ועובדות בעיקר על הרגליים, הישבן והליבה. מתאים לכל הרמות."
       }
     },
     {
       "@type": "Question",
-      "name": "אני מתחילה לגמרי זה בשבילי?",
+      "name": "אני מתחילה לגמרי, זה בשבילי?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "בהחלט. כל שיעור מתאים לכל הרמות והמדריכה נותנת וריאציות ומתקנת אישית"
+        "text": "בהחלט. אין תרגיל בשיעור שדורש רקע בבלט או גמישות. לכל תנועה יש וריאציה קלה יותר, והמדריכה מתאימה אותה לרמה שלך ומתקנת אישית תוך כדי."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "בר זה אימון כוח או אימון גמישות?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "לא בדיוק אחד מהם. בר עובד על סיבולת שריר — הרבה חזרות במשקל קטן — ולכן הוא מחזק את השרירים הקטנים והעמוקים שאימון כוח כבד פחות מגיע אליהם. הגמישות מגיעה בעיקר מהחלק האחרון של השיעור. מי שרוצה להתחזק ולהרים כבד תשלב בר עם אימוני כוח בחדר הכושר."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "מה ההבדל בין בר לפילאטיס מכשירים?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "בר הוא שיעור בעמידה ועל מזרן, עם משקל גוף וציוד קטן, בקבוצה של עד 15. פילאטיס מכשירים נעשה על מיטת רפורמר עם קפיצים ורצועות, מיטה לכל מתאמנת, עד 11 בשיעור. הרבה מהמתאמנות שלנו עושות את שניהם."
       }
     },
     {
@@ -604,15 +645,23 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       "name": "כמה פעמים בשבוע שווה לעשות בר?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "2-3 פעמים בשילוב עם אימוני כוח ופילאטיס מכשירים. את שעות שיעורי הבר אפשר לבדוק בלוח השיעורים המתעדכן באתר."
+        "text": "פעמיים בשבוע זה הקצב שרוב המתאמנות מתייצבות עליו, בשילוב עם אימוני כוח ופילאטיס מכשירים. את שעות שיעורי הבר אפשר לבדוק בלוח השיעורים המתעדכן באתר."
       }
     },
     {
       "@type": "Question",
-      "name": "מה להביא?",
+      "name": "מה ללבוש ומה להביא?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "בגדי אימון נוחים גרביים מגבת ומים"
+        "text": "טייץ או מכנס אימון וגופייה שלא מתהפכת, גרביים עם סוליית סיליקון או יחפה, מגבת קטנה ובקבוק מים. את המשקולות, הגומיות והכדורים לא צריך להביא — הם מחכים בחלל MOVE."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "כמה מתאמנות יש בשיעור?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "עד 15 מתאמנות בשיעור בר, בחלל MOVE הייעודי. זה הגודל שמאפשר למדריכה לראות כל אחת ולתקן בזמן אמת."
       }
     },
     {
@@ -670,18 +719,22 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   </div>
 </section>
 
-<!-- מה זה בכלל אימון בר? -->
+<!-- מה זה אימון בר -->
 <section class="sec" id="content" role="main">
   <div class="sec-h">
     <div class="sec-tag">BARRE</div>
-    <h2 class="sec-title">מה זה בכלל אימון בר?</h2>
+    <h2 class="sec-title">מה זה אימון בר (Barre)?</h2>
   </div>
   <div class="sec-content">
+    <div class="answer">
+      <div class="answer-t">התשובה הקצרה</div>
+      <p>אימון בר (Barre) הוא שיעור קבוצתי של כשעה שמשלב תנועות מעולם הבלט, מהפילאטיס ומאימוני הכוח. חלק מהשיעור נעשה בעמידה ליד בר קבוע על הקיר וחלק על המזרן, עם משקולות קטנות, גומיות התנגדות וכדור. התנועות קטנות, איטיות וחוזרות על עצמן, והן מכוונות לשרירים העמוקים של הרגליים, הישבן והליבה — ולכן השיעור מרגיש קשה גם בלי קפיצות ובלי משקלים כבדים.</p>
+      <p>שיעור בר לא כולל קפיצות, ריצה או נחיתות, ולכן הוא נחשב אימון שקט יחסית למפרקים. אין צורך ברקע בבלט, בגמישות או בכושר קודם. לכל תרגיל יש וריאציה קלה יותר וקשה יותר, והמדריכה מתאימה אותה לרמה שלך תוך כדי השיעור. שיעור טיפוסי נפתח בחימום קצר, ממשיך לעבודה עם משקולות קטנות, עובר לחלק המרכזי ליד הבר עצמו, יורד למזרן לעבודת ליבה ומסתיים במתיחות. בסטודיו סטפס בקניון פולג נתניה שיעורי הבר מתקיימים בחלל MOVE הייעודי, עד 15 מתאמנות בשיעור, ואפשר להתחיל <a href="#trial">באימון היכרות ב-50 ₪</a>.</p>
+    </div>
     <div>
-      <p class="lead">אימון בר (Barre) משלב תנועות מעולם הבלט, הפילאטיס ואימוני הכוח. עובדים ליד בר קבוע על הקיר ועל מזרן, בתנועות קטנות ומדויקות, עם משקולות קטנות, גומיות וכדור.</p>
       <p class="highlight">ככה זה בר</p>
-      <p>בר קבוע על הקיר משקולות קטנות גומיות כדור ותנועות קטנות ומדויקות שנראות קלות אבל שורפות כמו אש. רגליים רועדות ישבן בוער ליבה עובדת נון סטופ</p>
-      <p>לא צריך ניסיון ולא צריך לדעת לרקוד ולא צריך להיות ספורטיבית בכלל. באות בנות שמעולם לא עשו כלום וגם בנות שמתאמנות כוח שנים וכולן יוצאות עם אותו חיוך מטורף</p>
+      <p>תנועות קטנות שנראות קלות אבל שורפות כמו אש. רגליים רועדות, ישבן בוער, ליבה עובדת נון-סטופ. באות אלינו נשים שמעולם לא התאמנו וגם נשים שעושות כוח שנים, וכולן יוצאות עם אותו חיוך.</p>
+      <p>השם מגיע מהבר שנשענים עליו — אותו מוט אופקי שמלווה שיעורי בלט. אצלנו הוא לא נועד לרקוד עליו אלא לתת לך נקודת אחיזה יציבה, כדי שתוכלי לעבוד על רגל אחת, לרדת נמוך ולהחזיק תנוחה בלי לאבד שיווי משקל. זה מה שמאפשר לשרירים הקטנים לעבוד קשה בלי להעמיס על הברכיים ועל הגב.</p>
     </div>
     <img src="images/barre-workout.jpeg" width="1200" height="1800" alt="אימון בר בנתניה — מתאמנות עובדות על הבר בסטודיו סטפס" class="sec-img" loading="lazy">
   </div>
@@ -689,60 +742,175 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 
 <div class="sec-divider"><span></span></div>
 
-<!-- למה דווקא בסטפס? -->
-<section class="sec sec-alt">
-  <div class="sec-h">
-    <div class="sec-tag">STEPS</div>
-    <h2 class="sec-title">למה דווקא בסטפס?</h2>
-  </div>
-  <div class="sec-content">
-    <div>
-      <p class="highlight">כי פה בנינו את זה רציני</p>
-      <p>יש לנו חלל שלם לזה. ייעודי. בר על הקיר ציוד ייעודי מראות הכל. לא פינה בתוך חדר כושר אלא חלל אמיתי שנבנה בשביל זה</p>
-      <p>כל המדריכות שלנו עברו הכשרה דרך הקורס בר שפיתחנו פה בסטודיו בהכשרת וניהול של טלי טרחובסקי. לא הסמכה שקונים באינטרנט תוך יומיים אלא הכשרה רצינית מקצה לקצה</p>
-      <div class="coach" style="margin:22px 0"><img src="images/shoot2025/team-tali.jpg" alt="טלי טרחובסקי, מנהלת חלל MOVE ומדריכת בר ב-STEPS" width="64" height="64" loading="lazy" decoding="async"><div><b>טלי טרחובסקי</b><span>מנהלת חלל MOVE · הכשירה את כל מדריכות הבר בסטודיו</span></div></div>
-      <p>שעות שיעורי הבר מתעדכנות בלוח השיעורים באתר. בכל שיעור עד 15 מתאמנות, כדי שהמדריכה תוכל לראות אותך ולתקן בזמן אמת.</p>
-      <p>ואנחנו לא עושים סגנון אחד. יש פילאטיס-בר יש כוח-בר יש ריקוד-בר. כל שיעור שונה כל שיעור שורף</p>
-    </div>
-    <img src="images/barre-tali.jpeg" width="1200" height="800" alt="טלי טרחובסקי מדריכה אימון בר בסטודיו סטפס נתניה" class="sec-img parallax-img" loading="lazy">
-  </div>
-</section>
-
-<div class="sec-divider"><span></span></div>
-
-<!-- גיוון לא תחליף -->
-<section class="sec">
-  <div class="sec-h">
-    <div class="sec-tag">3 עולמות</div>
-    <h2 class="sec-title">גיוון לא תחליף</h2>
-  </div>
-  <div class="sec-content">
-    <p>בואי נהיה ברורים בר זה לא עדיף על אימון כוח וזה לא תחליף לפילאטיס מכשירים</p>
-    <p class="highlight">בר זה הגיוון המושלם</p>
-    <p>מי שמתאמנת אצלנו עושה כוח ופילאטיס מכשירים ובר הכל באותו מקום עם אותו צוות שמכיר אותה בשם. שלושה עולמות תחת קורת גג אחת.</p>
-    <p>את לא צריכה שלושה מנויים בשלושה מקומות. פה יש הכל</p>
-  </div>
-</section>
-
-<div class="sec-divider"><span></span></div>
-
-<!-- איך נראה שיעור? -->
+<!-- איך נראה שיעור בר -->
 <section class="sec sec-alt">
   <div class="sec-h">
     <div class="sec-tag">שיעור</div>
-    <h2 class="sec-title">איך נראה שיעור?</h2>
+    <h2 class="sec-title">איך נראה שיעור בר, דקה אחרי דקה</h2>
   </div>
   <div class="sec-content">
     <div>
-      <p>מתחילות בחימום קל מכינות את הגוף מתחברות לנשימה</p>
-      <p>ואז מתחיל הטירוף. ניגשות לבר על הקיר ומתחילות לעבוד רגליים ישבן ליבה. תנועות קטנות שנראות פשוט אבל אחרי חצי דקה את מבינה שזה הדבר הכי קשה שעשית השבוע</p>
-      <p>משם עוברות למזרן עם גומיות כדור ומשקולות קטנות. חיטוב חיזוק גמישות</p>
-      <p>מסיימות במתיחות ורגיעה. שעה עפה</p>
-      <p class="lead">והתגובה הכי נפוצה אחרי שיעור ראשון? וואו איזה אימון טירוף</p>
+      <p>השיעור בנוי תמיד באותו סדר, גם כשהתרגילים משתנים. ככה זה נראה מבפנים:</p>
+      <ul class="c-list">
+        <li><b>0–8 דקות · חימום.</b> תנועה קלה על המזרן, חיבור לנשימה, פתיחה של הכתפיים ושל האגן. כאן את גם שומעת מהמדריכה על מה השיעור הולך להתמקד.</li>
+        <li><b>8–20 דקות · פלג גוף עליון.</b> משקולות קטנות בתנועות איטיות לכתפיים, לגב ולזרועות. המשקל קטן — מספר החזרות הוא זה שעושה את העבודה.</li>
+        <li><b>20–40 דקות · ליד הבר.</b> החלק שכולן מדברות עליו. עמידה ליד הבר, עקבים מורמים, ירידות קטנות, החזקות ופולסים לרגליים ולישבן. אחרי חצי דקה של תנועה שנראתה פשוטה את מבינה למה השרירים רועדים.</li>
+        <li><b>40–52 דקות · מזרן וליבה.</b> גומיות, כדור ומשקל גוף. עבודה על הבטן, על שרירי הגב התחתון ועל הישבן, בשכיבה ובעמידת ארבע.</li>
+        <li><b>52–60 דקות · מתיחות.</b> שחרור של מה שעבד, נשימה, וירידה בהדרגה לדופק רגוע.</li>
+      </ul>
+      <p class="lead">התגובה הכי נפוצה אחרי שיעור ראשון: לא האמנתי שתנועה כל כך קטנה תעשה את זה.</p>
+      <p>אנחנו לא עושות סגנון אחד. יש פילאטיס-בר, יש כוח-בר ויש ריקוד-בר — אותו מבנה, דגש אחר. אפשר לראות בלוח השיעורים באתר איזה שיעור מתקיים בכל שעה.</p>
     </div>
     <video class="sec-video" controls playsinline poster="images/barre-tali.jpeg" preload="metadata">
       <source src="images/barre-class.mp4" type="video/mp4">
     </video>
+  </div>
+</section>
+
+<div class="sec-divider"><span></span></div>
+
+<!-- למי מתאים -->
+<section class="sec">
+  <div class="sec-h">
+    <div class="sec-tag">התאמה</div>
+    <h2 class="sec-title">למי אימון בר מתאים (ולמי פחות)</h2>
+  </div>
+  <div class="sec-content">
+    <p class="highlight">מתאים במיוחד למי ש…</p>
+    <ul class="c-list">
+      <li>רוצה להתחיל להתאמן ומרתיעים אותה משקלים כבדים או מכשירים שהיא לא מכירה.</li>
+      <li>יושבת מול מחשב רוב היום ומרגישה את זה בגב התחתון, בירכיים ובכתפיים.</li>
+      <li>כבר עושה אימוני כוח או ריצה ומחפשת אימון שעובד על השרירים הקטנים שנשארים מאחור.</li>
+      <li>אוהבת להתאמן בקבוצה, עם מוזיקה וקצב, ופחות מתחברת לאימון לבד מול מכונה.</li>
+      <li>מחפשת אימון שקט למפרקים: אין קפיצות, אין ריצה ואין נחיתות.</li>
+    </ul>
+    <p class="highlight">כדאי לדבר איתנו קודם אם…</p>
+    <ul class="c-list">
+      <li>יש לך פציעה פעילה, כאב מתמשך או הגבלה שקיבלת מרופאה או מפיזיותרפיסטית — נשמח לשמוע לפני השיעור מה מותר ומה לא, ולהתאים.</li>
+      <li>את בהיריון או אחרי לידה. אפשר להתאים, אבל זה מתחיל בשיחה ובאישור של הגורם המטפל שלך. אם את אחרי לידה, כדאי לקרוא גם את <a href="pilates-postpartum.html">המדריך שלנו לחזרה לאימון אחרי לידה</a>.</li>
+      <li>המטרה שלך היא בעיקר להעלות מסת שריר ולהרים כבד. בר יעשה לך טוב כתוספת, אבל הבסיס לזה הוא <a href="gym-women.html">אימוני כוח בחדר הכושר</a>.</li>
+    </ul>
+    <p>אנחנו לא נותנות ייעוץ רפואי. אם יש משהו שאת לא בטוחה לגביו, הכתובת היא הרופאה שלך — ואנחנו נתאים את האימון למה שהיא אומרת.</p>
+  </div>
+</section>
+
+<div class="sec-divider"><span></span></div>
+
+<!-- השוואה -->
+<section class="sec sec-alt">
+  <div class="sec-h">
+    <div class="sec-tag">3 עולמות</div>
+    <h2 class="sec-title">בר מול פילאטיס מכשירים מול אימון כוח</h2>
+  </div>
+  <div class="sec-content">
+    <p>שלושת האימונים האלה נשמעים דומה למי שלא ניסתה אותם, ובפועל הם עושים דברים שונים לגמרי. ככה זה נראה זה מול זה:</p>
+  </div>
+  <div class="tw">
+    <table class="cmp">
+      <caption>בר · פילאטיס מכשירים · אימון כוח — מה ההבדל</caption>
+      <thead>
+        <tr>
+          <th scope="col">&nbsp;</th>
+          <th scope="col">אימון בר</th>
+          <th scope="col">פילאטיס מכשירים</th>
+          <th scope="col">אימון כוח</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">הציוד</th>
+          <td>בר על הקיר, משקולות קטנות, גומיות, כדור</td>
+          <td>מיטת רפורמר עם קפיצים ורצועות</td>
+          <td>משקולות, מוטות ומכונות</td>
+        </tr>
+        <tr>
+          <th scope="row">איך זה מרגיש</th>
+          <td>תנועות קטנות והרבה חזרות, שריפה מקומית</td>
+          <td>תנועה איטית ומבוקרת נגד התנגדות הקפיצים</td>
+          <td>מעט חזרות במשקל שמאתגר אותך</td>
+        </tr>
+        <tr>
+          <th scope="row">על מה זה עובד</th>
+          <td>סיבולת שריר, ליבה, רגליים וישבן</td>
+          <td>ליבה עמוקה, יציבה ושליטה בתנועה</td>
+          <td>כוח ומסת שריר</td>
+        </tr>
+        <tr>
+          <th scope="row">גודל הקבוצה אצלנו</th>
+          <td>עד 15 מתאמנות</td>
+          <td>עד 11 — מיטה לכל אחת</td>
+          <td>קבוצה קטנה עם מדריכה</td>
+        </tr>
+        <tr>
+          <th scope="row">מתאים במיוחד</th>
+          <td>למי שרוצה אימון קבוצתי בקצב, בלי קפיצות</td>
+          <td>למי שמחפשת יציבה, גב ושליטה</td>
+          <td>למי שרוצה להתחזק ולהרים יותר</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="tw-note">שלושת סוגי האימון נמצאים אצלנו באותו סטודיו בקניון פולג, ואותה כניסה במסלול המשולב פותחת את שלושתם. <a href="pilates-price.html">להשוואת המסלולים והמחירים</a>.</p>
+  <div class="sec-content" style="margin-top:26px">
+    <p class="punch">בר זה לא תחליף — זה הגיוון.</p>
+    <p>מי שמתאמנת אצלנו עושה כוח, פילאטיס מכשירים ובר, הכל באותו מקום ועם אותו צוות שמכיר אותה בשם. את לא צריכה שלושה מנויים בשלושה מקומות.</p>
+  </div>
+</section>
+
+<div class="sec-divider"><span></span></div>
+
+<!-- כמה פעמים בשבוע -->
+<section class="sec">
+  <div class="sec-h">
+    <div class="sec-tag">קצב</div>
+    <h2 class="sec-title">כמה פעמים בשבוע ומה מרגישים אחרי</h2>
+  </div>
+  <div class="sec-content">
+    <p>פעמיים בשבוע זה הקצב שרוב המתאמנות שלנו מתייצבות עליו. פעם בשבוע מספיקה כדי להרגיש את האימון ולשמור על רצף, ושלוש פעמים כבר מורגשות בבירור בסיבולת של הרגליים ובחיזוק הליבה. אם את מגיעה גם לחדר הכושר, אימון בר אחד או שניים בשבוע משתלבים יפה בין אימוני הכוח.</p>
+    <p class="highlight">מה מרגישים אחרי</p>
+    <p>בסוף השיעור הרגליים בדרך כלל רועדות — זה נורמלי, וזה עובר תוך דקות. למחרת ואפילו יומיים אחרי אפשר להרגיש כאב שרירים, בעיקר בישבן, בירך הפנימית ובבטן. אחרי שניים-שלושה שיעורים הגוף מתרגל והכאב מתמתן.</p>
+    <p>מתאמנות מספרות לנו בעיקר על שני דברים אחרי כמה שבועות: הן עומדות זקוף יותר, והמדרגות והתיקים הכבדים נהיים קלים יותר. אנחנו לא מבטיחות מספרים ולא נאמר לך תוך כמה זמן תראי שינוי במראה — זה תלוי בהמון דברים שלא קורים בשיעור עצמו.</p>
+  </div>
+</section>
+
+<div class="sec-divider"><span></span></div>
+
+<!-- מה לובשים -->
+<section class="sec sec-alt">
+  <div class="sec-h">
+    <div class="sec-tag">לפני שמגיעות</div>
+    <h2 class="sec-title">מה לובשים ומה מביאים</h2>
+  </div>
+  <div class="sec-content">
+    <ul class="c-list">
+      <li><b>בגדים.</b> טייץ או מכנס אימון צמוד יחסית וגופייה או חולצה שלא מתהפכת. חלק מהתרגילים נעשים בשכיבה ובעמידת ארבע, וכדאי שהבגד יישאר במקום. המדריכה גם צריכה לראות את קו הברך והירך כדי לתקן.</li>
+      <li><b>גרביים.</b> מתאמנות יחפות או בגרביים עם סוליית סיליקון נגד החלקה. אין צורך בנעליים.</li>
+      <li><b>מים ומגבת קטנה.</b> יש מים בסטודיו, אבל נעים שיהיה בקבוק ליד המזרן.</li>
+      <li><b>הציוד עלינו.</b> משקולות, גומיות, כדורים ומזרנים מחכים בחלל MOVE. לא צריך להביא כלום.</li>
+      <li><b>להגיע 5–10 דקות לפני.</b> מספיק זמן להחליף בגדים, לתפוס מקום ליד הבר, ולהגיד למדריכה אם יש משהו שכדאי שתדע.</li>
+    </ul>
+    <p>החניה בחניון קניון פולג חינם, ואנחנו בקומה 2 — יש מעלית.</p>
+  </div>
+</section>
+
+<div class="sec-divider"><span></span></div>
+
+<!-- בסטפס -->
+<section class="sec">
+  <div class="sec-h">
+    <div class="sec-tag">STEPS</div>
+    <h2 class="sec-title">אימון בר בסטודיו סטפס פולג</h2>
+  </div>
+  <div class="sec-content">
+    <div>
+      <p class="highlight">כי פה בנינו את זה רציני</p>
+      <p>שיעורי הבר מתקיימים בחלל MOVE — חלל ייעודי עם בר על הקיר, ציוד ומראות. לא פינה בתוך חדר כושר אלא חלל אמיתי שנבנה בשביל זה.</p>
+      <p>כל מדריכות הבר שלנו עברו הכשרה בקורס הבר של טלי טרחובסקי, שפותח כאן בסטודיו. לא הסמכה שקונים באינטרנט תוך יומיים אלא הכשרה מקצה לקצה.</p>
+      <div class="coach" style="margin:22px 0"><img src="images/shoot2025/team-tali.jpg" alt="טלי טרחובסקי, מנהלת חלל MOVE ומדריכת בר ב-STEPS" width="64" height="64" loading="lazy" decoding="async"><div><b>טלי טרחובסקי</b><span>מנהלת חלל MOVE · הכשירה את כל מדריכות הבר בסטודיו</span></div></div>
+      <p>שעות שיעורי הבר מתעדכנות בלוח השיעורים באתר. בכל שיעור עד 15 מתאמנות, כדי שהמדריכה תוכל לראות אותך ולתקן בזמן אמת.</p>
+      <p>מגיעות אלינו מפולג, מרמת פולג, מעיר ימים ומדרום נתניה. הכתובת: אמנון ותמר 6, קניון פולג, קומה 2.</p>
+    </div>
+    <img src="images/barre-tali.jpeg" width="1200" height="800" alt="טלי טרחובסקי מדריכה אימון בר בסטודיו סטפס נתניה" class="sec-img parallax-img" loading="lazy">
   </div>
 </section>
 
@@ -781,8 +949,27 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 
 <div class="sec-divider"><span></span></div>
 
+<!-- כמה עולה -->
+<section class="sec">
+  <div class="sec-h">
+    <div class="sec-tag">מחיר</div>
+    <h2 class="sec-title">כמה עולה אימון בר בנתניה</h2>
+  </div>
+  <div class="sec-content">
+    <p>אצלנו אימון בר לא נמכר בנפרד. הוא חלק ממסלול חודשי שפותח גם את חדר הכושר ואת שאר שיעורי הסטודיו, ולכן המחיר נקבע לפי כמות הכניסות בחודש ולא לפי סוג השיעור.</p>
+    <ul class="c-list">
+      <li><b>אימון היכרות — 50 ₪.</b> שיעור בר מלא, חד-פעמי, בלי שיחת מכירה אחריו.</li>
+      <li><b>מסלול GYM ו-MOVE (כולל בר):</b> 230 ₪ ל-5 כניסות בחודש, 400 ₪ ל-9 כניסות, 460 ₪ ל-13 כניסות.</li>
+      <li><b>מסלול משולב עם פילאטיס מכשירים:</b> 320, 475 או 530 ₪ בהתאמה — אותן כניסות, רק שנפתח לך גם חלל הרפורמר.</li>
+    </ul>
+    <p>כל המחירים כוללים מע״מ והם המחיר הסופי לתשלום. אין דמי הרשמה, אין התחייבות, וביטול מנוי נעשה בהודעה של 30 יום מראש. <a href="pilates-price.html">כאן ההשוואה המלאה בין המסלולים</a>, כולל המחיר לאימון בפועל.</p>
+  </div>
+</section>
+
+<div class="sec-divider"><span></span></div>
+
 <!-- קבעי אימון היכרות -->
-<section class="sec" id="trial">
+<section class="sec sec-alt" id="trial">
   <div class="sec-h">
     <div class="sec-tag">TRIAL</div>
     <h2 class="sec-title">קבעי אימון היכרות ב-50 ₪</h2>
@@ -814,19 +1001,31 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   <div class="faq-list">
     <div class="faq-item">
       <div class="faq-q">מה זה אימון בר?</div>
-      <div class="faq-a">שיעור של שעה שמשלב תנועות מפילאטיס בלט וכוח. עובדים עם בר על הקיר משקולות קטנות גומיות וכדור. מתאים לכל הרמות</div>
+      <div class="faq-a">שיעור קבוצתי של כשעה שמשלב תנועות מהבלט, מהפילאטיס ומאימוני כוח. חלק ליד בר קבוע על הקיר וחלק על המזרן, עם משקולות קטנות, גומיות וכדור. התנועות קטנות וחוזרות על עצמן, ועובדות בעיקר על הרגליים, הישבן והליבה. מתאים לכל הרמות.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">אני מתחילה לגמרי זה בשבילי?</div>
-      <div class="faq-a">בהחלט. כל שיעור מתאים לכל הרמות והמדריכה נותנת וריאציות ומתקנת אישית</div>
+      <div class="faq-q">אני מתחילה לגמרי, זה בשבילי?</div>
+      <div class="faq-a">בהחלט. אין תרגיל בשיעור שדורש רקע בבלט או גמישות. לכל תנועה יש וריאציה קלה יותר, והמדריכה מתאימה אותה לרמה שלך ומתקנת אישית תוך כדי.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">בר זה אימון כוח או אימון גמישות?</div>
+      <div class="faq-a">לא בדיוק אחד מהם. בר עובד על סיבולת שריר — הרבה חזרות במשקל קטן — ולכן הוא מחזק את השרירים הקטנים והעמוקים שאימון כוח כבד פחות מגיע אליהם. הגמישות מגיעה בעיקר מהחלק האחרון של השיעור. מי שרוצה להתחזק ולהרים כבד תשלב בר עם <a href="gym-women.html" style="color:var(--yellow);text-decoration:underline">אימוני כוח בחדר הכושר</a>.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">מה ההבדל בין בר לפילאטיס מכשירים?</div>
+      <div class="faq-a">בר הוא שיעור בעמידה ועל מזרן, עם משקל גוף וציוד קטן, בקבוצה של עד 15. <a href="pilates.html" style="color:var(--yellow);text-decoration:underline">פילאטיס מכשירים</a> נעשה על מיטת רפורמר עם קפיצים ורצועות, מיטה לכל מתאמנת, עד 11 בשיעור. הרבה מהמתאמנות שלנו עושות את שניהם.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">כמה פעמים בשבוע שווה לעשות בר?</div>
-      <div class="faq-a">2-3 פעמים בשילוב עם אימוני כוח ופילאטיס מכשירים. את שעות שיעורי הבר אפשר לבדוק בלוח השיעורים המתעדכן באתר.</div>
+      <div class="faq-a">פעמיים בשבוע זה הקצב שרוב המתאמנות מתייצבות עליו, בשילוב עם אימוני כוח ופילאטיס מכשירים. את שעות שיעורי הבר אפשר לבדוק בלוח השיעורים המתעדכן באתר.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">מה להביא?</div>
-      <div class="faq-a">בגדי אימון נוחים גרביים מגבת ומים</div>
+      <div class="faq-q">מה ללבוש ומה להביא?</div>
+      <div class="faq-a">טייץ או מכנס אימון וגופייה שלא מתהפכת, גרביים עם סוליית סיליקון או יחפה, מגבת קטנה ובקבוק מים. את המשקולות, הגומיות והכדורים לא צריך להביא — הם מחכים בחלל MOVE.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">כמה מתאמנות יש בשיעור?</div>
+      <div class="faq-a">עד 15 מתאמנות בשיעור בר, בחלל MOVE הייעודי. זה הגודל שמאפשר למדריכה לראות כל אחת ולתקן בזמן אמת.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">כמה עולה?</div>
