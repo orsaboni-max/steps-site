@@ -340,6 +340,7 @@ table.cmp .num{font-family:var(--display);font-weight:900;font-size:19px;color:v
   transition:filter .18s var(--ease);animation:bounceIn 1s 1.5s both;
 }
 .waf:hover{filter:brightness(.94)}
+.waf svg{width:28px;height:28px}
 @media(max-width:600px){
   #acc-btn{width:44px;height:44px;font-size:20px}
   .waf{width:52px;height:52px;font-size:24px}
