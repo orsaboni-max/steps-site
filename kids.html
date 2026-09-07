@@ -162,8 +162,8 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   max-width:56ch;margin:0 auto clamp(24px,3vw,36px);
 }
 .hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
-.trust-bar{margin-top:18px;font-size:14px;line-height:1.6;color:var(--t75)}
-.trust-bar a{color:var(--yellow);text-decoration:underline}
+.hero-assurance{margin-top:18px;font-size:14px;line-height:1.6;color:var(--t75)}
+.hero-assurance a{color:var(--yellow);text-decoration:underline}
 .hero-ai-credit{position:absolute;z-index:2;bottom:12px;inset-inline-start:12px;font-size:11px;color:var(--t60);background:rgba(0,0,0,.45);padding:4px 10px;border-radius:100px}
 
 .btn-a,.btn-b{
@@ -315,8 +315,8 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         "name": "אימוני כוח לילדים ולנוער",
         "audience": {"@type": "PeopleAudience", "suggestedMinAge": 12, "suggestedMaxAge": 15},
         "hoursAvailable": [
-          {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday","Thursday"], "opens": "17:00", "closes": "17:00"},
-          {"@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "16:30", "closes": "16:30"}
+          {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday","Thursday"], "opens": "17:00", "closes": "18:00"},
+          {"@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "16:30", "closes": "17:30"}
         ],
         "provider": {"@id": "https://stepsnetanya.co.il/#healthclub"}
       },
@@ -331,8 +331,8 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         "name": "פילאטיס מכשירים לנערות",
         "audience": {"@type": "PeopleAudience", "suggestedMinAge": 12, "suggestedMaxAge": 15},
         "hoursAvailable": [
-          {"@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "16:00", "closes": "16:00"},
-          {"@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "17:00", "closes": "17:00"}
+          {"@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "16:00"},
+          {"@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "17:00"}
         ],
         "provider": {"@id": "https://stepsnetanya.co.il/#healthclub"}
       },
@@ -347,7 +347,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         "name": "אימוני בר לנערות",
         "audience": {"@type": "PeopleAudience", "suggestedMinAge": 12, "suggestedMaxAge": 15},
         "hoursAvailable": [
-          {"@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "16:00", "closes": "16:00"}
+          {"@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "16:00"}
         ],
         "provider": {"@id": "https://stepsnetanya.co.il/#healthclub"}
       },
@@ -408,13 +408,13 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   <div class="hero-overlay"></div>
   <div class="hero-inner">
     <p class="hero-tag">KIDS &amp; TEENS · פולג, נתניה</p>
-    <h1>חוגי כושר לילדים ונוער<em>כוח · פילאטיס · בר</em></h1>
+    <h1>חוגי כושר לילדים ונוער <em>כוח · פילאטיס · בר</em></h1>
     <p class="hero-sub">אימוני כוח לילדים ולנוער, פילאטיס מכשירים לנערות ואימוני בר לנערות — שלוש פעילויות לגילאי <bdi>12–15</bdi>, בקבוצות קטנות ועם הדרכה וליווי לאורך האימון. אימון היכרות בכל פעילות ב־50 ₪.</p>
     <div class="hero-btns">
       <a class="btn-a" href="#programs">לפעילויות ולמערכת השעות ←</a>
       <a class="btn-b" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%94%D7%99%D7%9B%D7%A8%D7%95%D7%AA%20%D7%91%D7%A7%D7%91%D7%95%D7%A6%D7%95%D7%AA%20%D7%94%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%95%D7%94%D7%A0%D7%95%D7%A2%D7%A8%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="trial-cta whatsapp-click">לבחירת קבוצה בוואטסאפ</a>
     </div>
-    <p class="trust-bar"><a href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener">4.8 ★ · 31 ביקורות בגוגל</a> · מעל 500 מתאמנות</p>
+    <p class="hero-assurance"><a href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener">4.8 ★ · 31 ביקורות בגוגל</a> · מעל 500 מתאמנות</p>
   </div>
 </section>
 

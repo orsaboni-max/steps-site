@@ -149,14 +149,12 @@ const sitePages = () => [...read('sitemap.xml').matchAll(/<loc>(.*?)<\/loc>/g)].
 
 test('every page shares one HealthClub identity block (@id, address, phone, hours, priceRange) with index.html', (t) => {
   const home = healthClubOf(read('index.html'));
-  if (!home || !home['@id']) {
-    t.skip('index.html has no canonical HealthClub @id yet (pending a separate session) — nothing to compare against');
-    return;
-  }
+  assert.ok(home && home['@id'], 'index.html must carry the canonical HealthClub @id');
   for (const page of sitePages()) {
     if (page === 'index.html') continue;
     const club = healthClubOf(read(page));
-    if (!club || !club['@id']) { t.diagnostic(page + ': no HealthClub @id yet (pending its own session) — skipped'); continue; }
+    if (page === 'accessibility.html' || page === 'privacy.html') continue; // legal pages carry no business schema
+    assert.ok(club && club['@id'], page + ' must carry the HealthClub identity block');
     assert.equal(club['@id'], home['@id'], page + ' @id');
     assert.deepEqual(club.address, home.address, page + ' address');
     assert.equal(club.telephone, home.telephone, page + ' telephone');
@@ -169,10 +167,6 @@ test('barre.html H1 reads as one phrase once its own session lands it', (t) => {
   const source = read('barre.html');
   const h1 = source.match(/<h1[^>]*>([\s\S]*?)<\/h1>/);
   const text = h1[1].replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim();
-  if (text !== 'אימון בר בנתניה') {
-    t.skip('barre.html H1 not yet updated by its own session — currently reads: "' + text + '"');
-    return;
-  }
   assert.equal(text, 'אימון בר בנתניה');
 });
 
