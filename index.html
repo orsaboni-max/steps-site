@@ -343,7 +343,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
    חדשים נכנסים מצד שמאל בכיוון הקריאה העברי, בלי רווח בקצה הימני. */
 @keyframes mq{from{transform:translateX(0)}to{transform:translateX(33.3333%)}}
 .mq__track span{padding:0 clamp(16px,1.8vw,24px);white-space:nowrap}
-.mq:hover .mq__track{animation-play-state:paused}
+@media (hover:hover){.mq:hover .mq__track{animation-play-state:paused}} /* במסך מגע נגיעה נתפסת כ-hover ומקפיאה את הפס */
 @media(max-width:760px){.mq__track{animation-duration:30s}}
 
 /* ═══ בחירת מסלול מהירה ══════════════════════════════════════ */
