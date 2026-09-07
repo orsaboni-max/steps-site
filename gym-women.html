@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>חדר כושר לנשים בנתניה | סטודיו סטפס פולג</title>
-<meta name="description" content="חדר כושר לנשים בנתניה — סטודיו סטפס פולג. אימוני כוח בקבוצות קטנות, מדריכות מוסמכות שמתאמנות בעצמן. אימון היכרות ב-50 ₪.">
+<title>חדר כושר לנשים בנתניה — מחירים ואימוני כוח בקבוצה קטנה | סטודיו סטפס פולג</title>
+<meta name="description" content="חדר כושר לנשים בקניון פולג נתניה: אימוני כוח בקבוצות קטנות עם מדריכות מוסמכות שמתקנות בזמן אמת. 230/400/460 ₪ לחודש לפי כניסות, בלי התחייבות. היכרות 50 ₪.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://stepsnetanya.co.il/gym-women.html" />
 <link rel="alternate" hreflang="he" href="https://stepsnetanya.co.il/gym-women.html" />
@@ -459,6 +459,22 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   .dtabs{justify-content:center}
   .dt{flex:1;min-width:44px;padding:0 8px}
 }
+
+/* כרטיסי מסלול — אותם טוקנים של דף הפילאטיס */
+.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
+.plan-card{padding:26px;border:1px solid var(--line-card);border-radius:var(--r-lg);background:var(--fill);text-align:center}
+.plan-card b{display:block;font-family:var(--display);font-size:28px}
+.plan-card strong{display:block;color:var(--yellow);font-family:var(--display);font-size:38px;margin-top:10px}
+.plan-card span{display:block;margin-top:10px;font-size:14px;line-height:1.4;color:var(--t75)}
+.plans-note{max-width:72ch;margin:16px auto 0;color:var(--t75);font-size:16px;line-height:1.7;text-align:center}
+@media(max-width:768px){.plans-grid{grid-template-columns:1fr}}
+
+/* כרטיס מדריכה — אותו markup של כרטיסי הצוות בדף הבית */
+.coach{display:flex;align-items:center;gap:16px;padding:18px;border:1px solid var(--line);border-radius:var(--r-md)}
+.coach img{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:center 22%;flex:none}
+.coach b{display:block;font-weight:700;font-size:17px;line-height:1.2}
+.coach span{display:block;margin-top:5px;font-weight:400;font-size:14px;line-height:1.3;color:var(--t60)}
+.hero-assurance a{color:var(--yellow);text-decoration:underline;text-underline-offset:3px}
 </style>
 <!-- Consent Mode v2 — must run BEFORE GA4 loads -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
@@ -468,31 +484,121 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "HealthClub",
-  "name": "STEPS Fitness Center",
-  "alternateName": "סטודיו סטפס",
-  "url": "https://stepsnetanya.co.il",
-  "logo": "https://stepsnetanya.co.il/steps-logo-white.png",
-  "image": "https://stepsnetanya.co.il/images/shoot2025/gym-main.jpg",
-  "sameAs": [
-    "https://www.instagram.com/steps_netanya/",
-    "https://www.facebook.com/stepsnetanya/",
-    "https://www.google.com/maps/place/?q=place_id:ChIJX3typn8_HRURJ4xZd-KWQQU"
-  ],
-  "telephone": "+972-52-792-7575",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "אמנון ותמר 6, קניון פולג",
-    "addressLocality": "נתניה",
-    "addressCountry": "IL"
-  },
-  "geo": {"@type": "GeoCoordinates","latitude": 32.2749168,"longitude": 34.8479596},
-  "openingHoursSpecification": [
-    {"@type": "OpeningHoursSpecification","dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday"],"opens": "07:00","closes": "22:00"},
-    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "07:30", "closes": "13:00"}
-  ],
-  "priceRange": "$$",
-  "description": "חדר כושר לנשים בנתניה בסטודיו סטפס פולג. אימוני כוח בקבוצות קטנות, מדריכות מוסמכות שמתאמנות בעצמן."
+  "@graph": [
+    {
+      "@type": "HealthClub",
+      "@id": "https://stepsnetanya.co.il/#healthclub",
+      "name": "STEPS Fitness Center",
+      "alternateName": [
+        "סטודיו סטפס",
+        "סטפס פולג",
+        "סטפס נתניה"
+      ],
+      "url": "https://stepsnetanya.co.il",
+      "logo": "https://stepsnetanya.co.il/steps-logo-white.png",
+      "image": "https://stepsnetanya.co.il/images/shoot2025/gym-main.jpg",
+      "sameAs": [
+        "https://www.instagram.com/steps_netanya/",
+        "https://www.facebook.com/stepsnetanya/",
+        "https://www.google.com/maps/place/?q=place_id:ChIJX3typn8_HRURJ4xZd-KWQQU"
+      ],
+      "telephone": "+972-52-792-7575",
+      "email": "stepsnetanya@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "אמנון ותמר 6, קניון פולג, קומה 2",
+        "addressLocality": "נתניה",
+        "addressCountry": "IL"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 32.2749168,
+        "longitude": 34.8479596
+      },
+      "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJX3typn8_HRURJ4xZd-KWQQU",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday"
+          ],
+          "opens": "07:00",
+          "closes": "22:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Friday",
+          "opens": "07:30",
+          "closes": "13:00"
+        }
+      ],
+      "priceRange": "₪230-₪530",
+      "currenciesAccepted": "ILS",
+      "areaServed": {
+        "@type": "City",
+        "name": "נתניה"
+      },
+      "description": "חדר כושר לנשים בנתניה בסטודיו סטפס פולג. אימוני כוח בקבוצות קטנות, מדריכות מוסמכות שמתאמנות בעצמן."
+    },
+    {
+      "@type": "Service",
+      "@id": "https://stepsnetanya.co.il/gym-women.html#gym",
+      "name": "אימוני כוח לנשים בחדר הכושר",
+      "serviceType": "אימון כוח",
+      "description": "אימוני כוח לנשים בחלל GYM: משקולות חופשיות ומכשירים, בקבוצות קטנות עם מדריכה שמתקנת טכניקה בזמן אמת.",
+      "url": "https://stepsnetanya.co.il/gym-women.html",
+      "provider": {
+        "@id": "https://stepsnetanya.co.il/#healthclub"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "נתניה"
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "אימון היכרות",
+          "price": "50",
+          "priceCurrency": "ILS",
+          "availability": "https://schema.org/InStock"
+        },
+        {
+          "@type": "Offer",
+          "name": "מסלול GYM ו-MOVE — 5 כניסות בחודש",
+          "price": "230",
+          "priceCurrency": "ILS",
+          "availability": "https://schema.org/InStock"
+        },
+        {
+          "@type": "Offer",
+          "name": "מסלול GYM ו-MOVE — 9 כניסות בחודש",
+          "price": "400",
+          "priceCurrency": "ILS",
+          "availability": "https://schema.org/InStock"
+        },
+        {
+          "@type": "Offer",
+          "name": "מסלול GYM ו-MOVE — 13 כניסות בחודש",
+          "price": "460",
+          "priceCurrency": "ILS",
+          "availability": "https://schema.org/InStock"
+        }
+      ]
+    },
+    {
+      "@type": "Person",
+      "name": "אור תורג׳מן",
+      "jobTitle": "מנהל חלל GYM",
+      "image": "https://stepsnetanya.co.il/images/shoot2025/team-or-turgeman.jpg",
+      "worksFor": {
+        "@id": "https://stepsnetanya.co.il/#healthclub"
+      }
+    }
+  ]
 }
 </script>
 <script type="application/ld+json">
@@ -552,6 +658,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         <a href="#sched" class="btn-b">לצפייה במערכת שעות</a>
       </div>
       <p class="hero-assurance">60 דקות · התאמה לרמה שלך · קניון פולג, נתניה</p>
+      <p class="hero-assurance"><a href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener">4.8 ★ · 31 ביקורות בגוגל</a> · מעל 500 מתאמנות</p>
     </div>
   </div>
 </section>
@@ -590,6 +697,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         <div class="first-step"><span class="first-step__n">2</span><div><b>מגיעה 10 דקות קודם</b><span>עושות היכרות קצרה ומדברות על ניסיון, מטרות ומגבלות.</span></div></div>
         <div class="first-step"><span class="first-step__n">3</span><div><b>מתאמנת עם התאמה אישית</b><span>המאמנת בוחרת את המשקל, מסבירה ומתקנת לאורך האימון.</span></div></div>
       </div>
+      <div class="coach" style="margin:22px 0;max-width:420px"><img src="images/shoot2025/team-or-turgeman.jpg" alt="אור תורג׳מן, מנהל חלל GYM ב-STEPS" width="64" height="64" loading="lazy" decoding="async"><div><b>אור תורג׳מן</b><span>מנהל חלל GYM · בונה איתך את המשקל הראשון</span></div></div>
       <div class="first-actions">
         <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-track="trial-cta arbox-open">קובעת אימון היכרות ב-50 ₪</a>
         <a class="question-link" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%9C%D7%A4%D7%A0%D7%99%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%94%D7%9B%D7%95%D7%97%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="whatsapp-click">יש לי שאלה לפני האימון</a>
@@ -629,7 +737,13 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   <div class="sec-content">
     <p>מי שמתאמנת אצלנו לא צריכה שלושה מנויים בשלושה מקומות. GYM לאימוני כוח, MOVE לשיעורי בר וגמישות, ו-<a href="pilates.html" style="color:var(--accent);text-decoration:underline">רפורמר פילאטיס</a> עם 11 מיטות בחלל ייעודי — הכל תחת קורת גג אחת בקניון פולג, עם אותו צוות שמכיר אותך בשם.</p>
     <p class="punch">3 מסלולי מנוי, לפי מה שמתאים לך.</p>
-    <p>יש 3 אפשרויות לפי כמות כניסות בחודש: 5, 9 או 13 כניסות. מסלול GYM+MOVE עולה 230/400/460 ₪, ומסלול משולב עם גישה לפילאטיס מכשירים עולה 320/475/530 ₪. כל המחירים כוללים מע״מ. בלי התחייבות — ביטול בהודעה של 30 יום מראש.</p>
+    <div class="plans-grid">
+      <article class="plan-card"><b>5 כניסות בחודש</b><strong>230 ₪</strong><span>משולב עם רפורמר: 320 ₪</span></article>
+      <article class="plan-card"><b>9 כניסות בחודש</b><strong>400 ₪</strong><span>משולב עם רפורמר: 475 ₪</span></article>
+      <article class="plan-card"><b>13 כניסות בחודש</b><strong>460 ₪</strong><span>משולב עם רפורמר: 530 ₪</span></article>
+    </div>
+    <p class="plans-note">מסלול משולב = כניסה אחת לשלושת החללים, כולל רפורמר. בלי רפורמר (GYM + MOVE): 230 / 400 / 460 ₪.</p>
+    <p class="plans-note">כל המחירים כוללים מע״מ. בלי התחייבות — ביטול בהודעה של 30 יום מראש.</p>
   </div>
 </section>
 
@@ -671,10 +785,11 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <h2 class="sec-title">הן באו בשביל האימון.<br>הן נשארו בשביל המשפחה.</h2>
   </div>
   <div class="tg">
-    <div class="tc"><div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div><p class="tc-txt">אתם הלב שלי. אין סטודיו כזה בעולם ויצא לי לנסות המון. היחס האישי באימונים, האכפתיות, הדחיפה להתקדם ולהשתפר כל הזמן, אתם יחידים ומיוחדים באמת. כלכך שמחה להיות חלק מהמשפחה ❤️</p><div class="tc-auth"><div class="tc-av">ט</div><div><div class="tc-name">טלי</div><div class="tc-info">חברה ותיקה</div></div></div></div>
-    <div class="tc"><div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div><p class="tc-txt">אחלה סטודיו, מאוד מרוצה מכל המאמנים! גם של הכוח וגם בפילאטיס 🌻</p><div class="tc-auth"><div class="tc-av">ע</div><div><div class="tc-name">עדן</div><div class="tc-info">GYM + פילאטיס</div></div></div></div>
-    <div class="tc"><div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div><p class="tc-txt">אני איתכם כבר המון שנים, מאוד מרוצה! ירדן אלופה, מקצועית, נותנת יחס אישי ושומרת על רמה סופר גבוהה. ותמיד יש אצלה אווירה מאוד כיפית ומדברנת.</p><div class="tc-auth"><div class="tc-av">נ</div><div><div class="tc-name">נופר</div><div class="tc-info">מתאמנת GYM</div></div></div></div>
+    <div class="tc"><p class="tc-txt">סטודיו מקסים ואישי, כל המורות מקצועיות ואדיבות ❤</p><div class="tc-auth"><div class="tc-av">מ</div><div><div class="tc-name">מיטל עמר</div><div class="tc-info">ביקורת בגוגל</div></div></div></div>
+    <div class="tc"><p class="tc-txt">מקום מדהים שמביא לתוצאות במהירות ולאורך זמן.<br>צוות מקצועי, אדיב ומתחשב!<br>הסטודיו מאד נקי, מסודר ומאורגן.<br>ממליץ בחום :)</p><div class="tc-auth"><div class="tc-av">P</div><div><div class="tc-name">Philip Shinder</div><div class="tc-info">ביקורת בגוגל</div></div></div></div>
+    <div class="tc"><p class="tc-txt">מקצועיים, סבלניים ומגוון חוגים</p><div class="tc-auth"><div class="tc-av">M</div><div><div class="tc-name">Maya Berenshtein</div><div class="tc-info">ביקורת בגוגל</div></div></div></div>
   </div>
+  <p class="cta-note" style="text-align:center"><a href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener" style="color:var(--yellow);text-decoration:underline">4.8 ★ · 31 ביקורות בגוגל</a></p>
 </section>
 
 <!-- FAQ -->
