@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>פילאטיס מכשירים נתניה | סטודיו סטפס פולג</title>
-<meta name="description" content="פילאטיס מכשירים לנשים בקניון פולג, נתניה. 11 מיטות רפורמר, אימון היכרות ב-50 ₪ ומסלולים משולבים מ-320 ₪ לחודש. מחירים, מערכת שעות ומידע למתחילות.">
+<title>פילאטיס מכשירים בנתניה — 11 מיטות רפורמר, קבוצה קטנה | סטודיו סטפס פולג</title>
+<meta name="description" content="פילאטיס מכשירים בנתניה בסטודיו סטפס, קניון פולג: 11 מיטות רפורמר בחלל ייעודי, עד 11 מתאמנות בשיעור, מדריכה שמתקנת בזמן אמת. אימון היכרות 50 ₪, מסלול משולב מ-320 ₪ לחודש.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://stepsnetanya.co.il/pilates.html" />
 <link rel="alternate" hreflang="he" href="https://stepsnetanya.co.il/pilates.html" />
@@ -576,6 +576,16 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   .mobile-intro span{font-size:12px}
   .mobile-intro a{padding-inline:12px;font-size:12px}
 }
+
+.pilates-review + .pilates-review{margin-top:16px}
+.plan-card span{display:block;margin-top:10px;font-size:14px;line-height:1.4;color:var(--t75)}
+
+/* כרטיס מדריכה — אותו markup של כרטיסי הצוות בדף הבית */
+.coach{display:flex;align-items:center;gap:16px;padding:18px;border:1px solid var(--line);border-radius:var(--r-md)}
+.coach img{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:center 22%;flex:none}
+.coach b{display:block;font-weight:700;font-size:17px;line-height:1.2}
+.coach span{display:block;margin-top:5px;font-weight:400;font-size:14px;line-height:1.3;color:var(--t60)}
+.hero-assurance a{color:var(--yellow);text-decoration:underline;text-underline-offset:3px}
 </style>
 <!-- Consent Mode v2 — must run BEFORE GA4 loads -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
@@ -585,31 +595,121 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "HealthClub",
-  "name": "STEPS Fitness Center",
-  "alternateName": "סטודיו סטפס",
-  "url": "https://stepsnetanya.co.il",
-  "logo": "https://stepsnetanya.co.il/steps-logo-white.png",
-  "image": "https://stepsnetanya.co.il/images/shoot2025/pilates-main.jpg",
-  "sameAs": [
-    "https://www.instagram.com/steps_netanya/",
-    "https://www.facebook.com/stepsnetanya/",
-    "https://www.google.com/maps/place/?q=place_id:ChIJX3typn8_HRURJ4xZd-KWQQU"
-  ],
-  "telephone": "+972-52-792-7575",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "אמנון ותמר 6, קניון פולג",
-    "addressLocality": "נתניה",
-    "addressCountry": "IL"
-  },
-  "geo": {"@type": "GeoCoordinates","latitude": 32.2749168,"longitude": 34.8479596},
-  "openingHoursSpecification": [
-    {"@type": "OpeningHoursSpecification","dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday"],"opens": "07:00","closes": "22:00"},
-    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "07:30", "closes": "13:00"}
-  ],
-  "priceRange": "$$",
-  "description": "פילאטיס מכשירים נתניה בסטודיו סטפס פולג — קרוב לרמת פולג ולכל אזור נתניה. 11 מיטות רפורמר בחלל ייעודי, מדריכות מוסמכות."
+  "@graph": [
+    {
+      "@type": "HealthClub",
+      "@id": "https://stepsnetanya.co.il/#healthclub",
+      "name": "STEPS Fitness Center",
+      "alternateName": [
+        "סטודיו סטפס",
+        "סטפס פולג",
+        "סטפס נתניה"
+      ],
+      "url": "https://stepsnetanya.co.il",
+      "logo": "https://stepsnetanya.co.il/steps-logo-white.png",
+      "image": "https://stepsnetanya.co.il/images/shoot2025/pilates-main.jpg",
+      "sameAs": [
+        "https://www.instagram.com/steps_netanya/",
+        "https://www.facebook.com/stepsnetanya/",
+        "https://www.google.com/maps/place/?q=place_id:ChIJX3typn8_HRURJ4xZd-KWQQU"
+      ],
+      "telephone": "+972-52-792-7575",
+      "email": "stepsnetanya@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "אמנון ותמר 6, קניון פולג, קומה 2",
+        "addressLocality": "נתניה",
+        "addressCountry": "IL"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 32.2749168,
+        "longitude": 34.8479596
+      },
+      "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJX3typn8_HRURJ4xZd-KWQQU",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday"
+          ],
+          "opens": "07:00",
+          "closes": "22:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Friday",
+          "opens": "07:30",
+          "closes": "13:00"
+        }
+      ],
+      "priceRange": "₪230-₪530",
+      "currenciesAccepted": "ILS",
+      "areaServed": {
+        "@type": "City",
+        "name": "נתניה"
+      },
+      "description": "פילאטיס מכשירים נתניה בסטודיו סטפס פולג — קרוב לרמת פולג ולכל אזור נתניה. 11 מיטות רפורמר בחלל ייעודי, מדריכות מוסמכות."
+    },
+    {
+      "@type": "Service",
+      "@id": "https://stepsnetanya.co.il/pilates.html#pilates",
+      "name": "פילאטיס מכשירים (רפורמר)",
+      "serviceType": "פילאטיס מכשירים",
+      "description": "שיעורי פילאטיס מכשירים בחלל ייעודי עם 11 מיטות רפורמר, בקבוצה קטנה עם התאמות אישיות לכל רמה.",
+      "url": "https://stepsnetanya.co.il/pilates.html",
+      "provider": {
+        "@id": "https://stepsnetanya.co.il/#healthclub"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "נתניה"
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "אימון היכרות",
+          "price": "50",
+          "priceCurrency": "ILS",
+          "availability": "https://schema.org/InStock"
+        },
+        {
+          "@type": "Offer",
+          "name": "מסלול משולב עם רפורמר — 5 כניסות בחודש",
+          "price": "320",
+          "priceCurrency": "ILS",
+          "availability": "https://schema.org/InStock"
+        },
+        {
+          "@type": "Offer",
+          "name": "מסלול משולב עם רפורמר — 9 כניסות בחודש",
+          "price": "475",
+          "priceCurrency": "ILS",
+          "availability": "https://schema.org/InStock"
+        },
+        {
+          "@type": "Offer",
+          "name": "מסלול משולב עם רפורמר — 13 כניסות בחודש",
+          "price": "530",
+          "priceCurrency": "ILS",
+          "availability": "https://schema.org/InStock"
+        }
+      ]
+    },
+    {
+      "@type": "Person",
+      "name": "אוריה נעמן",
+      "jobTitle": "מדריכת פילאטיס מכשירים",
+      "image": "https://stepsnetanya.co.il/images/shoot2025/team-oria.jpg",
+      "worksFor": {
+        "@id": "https://stepsnetanya.co.il/#healthclub"
+      }
+    }
+  ]
 }
 </script>
 <script type="application/ld+json">
@@ -651,7 +751,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <li><a href="https://stepsnetanya.co.il/#spaces">החללים</a></li>
     <li><a href="#sched">מערכת שעות</a></li>
     <li><a href="#reviews">המלצות</a></li>
-    <li><a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="n-cta js-arbox" target="_blank" rel="noopener" data-event="hero_intro_click">קובעת אימון היכרות ב-50 ₪</a></li>
+    <li><a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="n-cta js-arbox" target="_blank" rel="noopener" data-track="trial-cta arbox-open" data-event="hero_intro_click">קובעת אימון היכרות ב-50 ₪</a></li>
   </ul>
   <button class="mob" id="mobBtn" aria-label="פתיחת תפריט" aria-expanded="false">☰</button>
 </nav>
@@ -670,10 +770,11 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       <h1>פילאטיס מכשירים <em>בקבוצה קטנה</em> — עם מדריכה שבאמת רואה אותך</h1>
       <p class="hero-sub">11 מיטות רפורמר בחלל ייעודי, שיעורים לכל הרמות והתאמות אישיות גם אם מעולם לא עשית פילאטיס.</p>
       <div class="hero-btns">
-        <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-event="hero_intro_click">קובעת אימון היכרות ב-50 ₪</a>
+        <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-track="trial-cta arbox-open" data-event="hero_intro_click">קובעת אימון היכרות ב-50 ₪</a>
         <a href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%9C%D7%A4%D7%A0%D7%99%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%94%D7%94%D7%99%D7%9B%D7%A8%D7%95%D7%AA%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" class="btn-b btn-wa js-whatsapp" target="_blank" rel="noopener">יש לי שאלה לפני האימון</a>
       </div>
       <p class="hero-assurance">בוחרת שיעור ומשלמת דרך ARBOX · 60 דקות · פולג נתניה</p>
+      <p class="hero-assurance"><a href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener">4.8 ★ · 31 ביקורות בגוגל</a> · מעל 500 מתאמנות</p>
     </div>
   </div>
 </section>
@@ -715,7 +816,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         </figure>
       </div>
       <div class="section-cta">
-        <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-event="benefits_intro_click">קובעת אימון היכרות ב-50 ₪</a>
+        <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-track="trial-cta arbox-open" data-event="benefits_intro_click">קובעת אימון היכרות ב-50 ₪</a>
         <p class="cta-note">ההרשמה והתשלום מתבצעים במערכת ARBOX</p>
       </div>
     </div>
@@ -732,8 +833,9 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         <article class="first-step"><div class="num">2</div><h3>מספרת למדריכה</h3><p>לפני שמתחילים, מספרת על הרקע שלך, המטרות וכל מגבלה שחשוב להכיר.</p></article>
         <article class="first-step"><div class="num">3</div><h3>מתחילה בקצב שלך</h3><p>המדריכה מסבירה את המכשיר, מתאימה את הקפיצים ומלווה אותך לאורך השיעור.</p></article>
       </div>
+      <div class="coach" style="max-width:420px;margin:26px auto 0"><img src="images/shoot2025/team-oria.jpg" alt="אוריה נעמן, מדריכת פילאטיס מכשירים ב-STEPS" width="64" height="64" loading="lazy" decoding="async"><div><b>אוריה נעמן</b><span>מדריכת פילאטיס מכשירים · מלווה את השיעור הראשון שלך</span></div></div>
       <div class="section-cta">
-        <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-event="benefits_intro_click">קובעת אימון היכרות ב-50 ₪</a>
+        <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-track="trial-cta arbox-open" data-event="benefits_intro_click">קובעת אימון היכרות ב-50 ₪</a>
       </div>
     </div>
   </section>
@@ -789,7 +891,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       <div class="sfn">מערכת שעות חיה · מתעדכנת אוטומטית מ-ARBOX</div>
     </div>
     <div class="section-cta">
-      <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-event="schedule_intro_click">קובעת אימון היכרות ב-50 ₪</a>
+      <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-track="trial-cta arbox-open" data-event="schedule_intro_click">קובעת אימון היכרות ב-50 ₪</a>
       <p class="cta-note">ההרשמה והתשלום מתבצעים במערכת ARBOX</p>
     </div>
   </section>
@@ -801,11 +903,15 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         <h2 id="reviews-title">אחרי שהן עולות על הרפורמר</h2>
       </div>
       <article class="pilates-review">
-        <div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">★★★★★</div>
-        <p class="tc-txt">אחלה סטודיו, מאוד מרוצה מכל המאמנים! גם של הכוח וגם בפילאטיס 🌻</p>
-        <div class="tc-auth"><div class="tc-av">ע</div><div><div class="tc-name">עדן</div><div class="tc-info">המלצה מקורית של מתאמנת</div></div></div>
+        <p class="tc-txt">יחס אישי, מקצועי וצוות שהוא ממש משפחה<br>המקום היחיד שגרם לי להתמיד ולאהוב את זה!</p>
+        <div class="tc-auth"><div class="tc-av">י</div><div><div class="tc-name">ירין ברנס</div><div class="tc-info">ביקורת בגוגל</div></div></div>
       </article>
-      <div class="section-cta"><a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-event="reviews_intro_click">קובעת אימון היכרות ב-50 ₪</a></div>
+      <article class="pilates-review">
+        <p class="tc-txt">סטודיו מקסים ואישי, כל המורות מקצועיות ואדיבות ❤</p>
+        <div class="tc-auth"><div class="tc-av">מ</div><div><div class="tc-name">מיטל עמר</div><div class="tc-info">ביקורת בגוגל</div></div></div>
+      </article>
+      <p class="plans-note"><a href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener" style="color:var(--yellow);text-decoration:underline">4.8 ★ · 31 ביקורות בגוגל</a></p>
+      <div class="section-cta"><a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-track="trial-cta arbox-open" data-event="reviews_intro_click">קובעת אימון היכרות ב-50 ₪</a></div>
     </div>
   </section>
 
@@ -813,12 +919,13 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <div class="conversion-wrap">
       <div class="conversion-head center"><div class="eyebrow">אחרי אימון ההיכרות</div><h2 id="plans-title">אהבת את האימון? מכאן בוחרים את הקצב שמתאים לך.</h2></div>
       <div class="plans-grid">
-        <article class="plan-card"><b>5 כניסות בחודש</b><strong>320 ₪</strong></article>
-        <article class="plan-card"><b>9 כניסות בחודש</b><strong>475 ₪</strong></article>
-        <article class="plan-card"><b>13 כניסות בחודש</b><strong>530 ₪</strong></article>
+        <article class="plan-card"><b>5 כניסות בחודש</b><strong>320 ₪</strong><span>כולל רפורמר · GYM · MOVE</span></article>
+        <article class="plan-card"><b>9 כניסות בחודש</b><strong>475 ₪</strong><span>כולל רפורמר · GYM · MOVE</span></article>
+        <article class="plan-card"><b>13 כניסות בחודש</b><strong>530 ₪</strong><span>כולל רפורמר · GYM · MOVE</span></article>
       </div>
+      <p class="plans-note">מסלול משולב = כניסה אחת לשלושת החללים, כולל רפורמר. בלי רפורמר (GYM + MOVE): 230 / 400 / 460 ₪.</p>
       <p class="plans-note">המסלולים האלה כוללים בחירת אימונים ברפורמר, ב-GYM וב-MOVE, במסגרת מספר הכניסות החודשי שבחרת. המחירים כוללים מע״מ. המנוי מתחדש מדי חודש, וביטול נעשה בהודעה של 30 יום מראש. <a href="pilates-price.html" style="color:var(--yellow);text-decoration:underline">להשוואת המסלולים והמחיר לאימון</a> · <a href="privacy.html#cancel" style="color:var(--yellow);text-decoration:underline">למדיניות הביטולים</a>.</p>
-      <div class="section-cta"><a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-event="benefits_intro_click">קובעת אימון היכרות ב-50 ₪</a></div>
+      <div class="section-cta"><a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-track="trial-cta arbox-open" data-event="benefits_intro_click">קובעת אימון היכרות ב-50 ₪</a></div>
     </div>
   </section>
 
@@ -844,7 +951,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <h2 id="final-title">לא צריך להגיע מוכנה לפילאטיס. בשביל זה מגיעים לאימון הראשון.</h2>
     <p>בחרי שיעור, הירשמי דרך ARBOX והגיעי להכיר את הרפורמר, המדריכה והסטודיו.</p>
     <div class="hero-btns">
-      <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-event="final_intro_click">קובעת אימון היכרות ב-50 ₪</a>
+      <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-track="trial-cta arbox-open" data-event="final_intro_click">קובעת אימון היכרות ב-50 ₪</a>
       <a href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%9C%D7%A4%D7%A0%D7%99%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%94%D7%94%D7%99%D7%9B%D7%A8%D7%95%D7%AA%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" class="btn-b btn-wa js-whatsapp" target="_blank" rel="noopener">יש לי שאלה לפני האימון</a>
     </div>
     <p class="final-info">60 דקות · 11 מיטות רפורמר · קניון פולג, נתניה</p>
@@ -854,7 +961,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 
 <div class="mobile-intro" id="mobileIntro" aria-label="קביעת אימון היכרות">
   <span>אימון היכרות · 50 ₪</span>
-  <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="js-arbox" data-event="sticky_intro_click">בוחרת שיעור</a>
+  <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="js-arbox" data-track="trial-cta arbox-open" data-event="sticky_intro_click">בוחרת שיעור</a>
 </div>
 
 <!-- FOOTER -->
@@ -986,7 +1093,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
       var coachName=s.coach||(s.staff_member&&s.staff_member.name)||'';
       var st=mkEl('div','s-t');st.textContent=coachName?'מאמנת: '+coachName:'';
       cls.appendChild(sn);cls.appendChild(st);
-      var cta=mkEl('a','schedule-row-cta js-arbox');cta.href=getArboxUrl();cta.textContent='קובעת אימון היכרות ב-50 ₪';cta.setAttribute('data-event','schedule_intro_click');
+      var cta=mkEl('a','schedule-row-cta js-arbox');cta.href=getArboxUrl();cta.textContent='קובעת אימון היכרות ב-50 ₪';cta.setAttribute('data-track','trial-cta arbox-open');cta.setAttribute('data-event','schedule_intro_click');
       if(!matchMedia('(max-width:760px)').matches){cta.target='_blank';cta.rel='noopener';}
       si.appendChild(tm);si.appendChild(cls);si.appendChild(cta);
       sl.appendChild(si);
@@ -1101,6 +1208,12 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
   addEventListener('resize',decorateArboxLinks,{passive:true});
 
   document.addEventListener('click',function(e){
+    var tracked=e.target.closest&&e.target.closest('[data-track]');
+    if(tracked){
+      var kinds=tracked.getAttribute('data-track')||'';
+      if(kinds.indexOf('trial-cta')>-1)trackEvent('cta_trial_click',{cta_text:(tracked.textContent||'').trim()});
+      if(kinds.indexOf('arbox-open')>-1)trackEvent('arbox_open',{link_url:tracked.href||''});
+    }
     var arbox=e.target.closest&&e.target.closest('a.js-arbox');
     if(arbox){
       var eventName=arbox.getAttribute('data-event');
