@@ -139,7 +139,9 @@ function healthClubOf(html) {
   for (const [,attrs,body] of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)) {
     if (!/application\/ld\+json/.test(attrs)) continue;
     const data = JSON.parse(body);
-    if (data['@type'] === 'HealthClub') return data;
+    for (const node of Array.isArray(data['@graph']) ? data['@graph'] : [data]) {
+      if (node['@type'] === 'HealthClub') return node;
+    }
   }
   return null;
 }
