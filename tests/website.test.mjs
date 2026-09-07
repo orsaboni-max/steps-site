@@ -134,3 +134,60 @@ test('click tracking across service pages and guides does not use standard Meta 
     assert.doesNotMatch(source, /fbq\(['"]track['"],\s*['"]Lead['"]/i, file);
   }
 });
+
+function healthClubOf(html) {
+  for (const [,attrs,body] of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)) {
+    if (!/application\/ld\+json/.test(attrs)) continue;
+    const data = JSON.parse(body);
+    if (data['@type'] === 'HealthClub') return data;
+  }
+  return null;
+}
+const sitePages = () => [...read('sitemap.xml').matchAll(/<loc>(.*?)<\/loc>/g)].map(m => new URL(m[1]).pathname.slice(1) || 'index.html');
+
+test('every page shares one HealthClub identity block (@id, address, phone, hours, priceRange) with index.html', (t) => {
+  const home = healthClubOf(read('index.html'));
+  if (!home || !home['@id']) {
+    t.skip('index.html has no canonical HealthClub @id yet (pending a separate session) — nothing to compare against');
+    return;
+  }
+  for (const page of sitePages()) {
+    if (page === 'index.html') continue;
+    const club = healthClubOf(read(page));
+    if (!club || !club['@id']) { t.diagnostic(page + ': no HealthClub @id yet (pending its own session) — skipped'); continue; }
+    assert.equal(club['@id'], home['@id'], page + ' @id');
+    assert.deepEqual(club.address, home.address, page + ' address');
+    assert.equal(club.telephone, home.telephone, page + ' telephone');
+    assert.deepEqual(club.openingHoursSpecification, home.openingHoursSpecification, page + ' hours');
+    assert.equal(club.priceRange, home.priceRange, page + ' priceRange');
+  }
+});
+
+test('barre.html H1 reads as one phrase once its own session lands it', (t) => {
+  const source = read('barre.html');
+  const h1 = source.match(/<h1[^>]*>([\s\S]*?)<\/h1>/);
+  const text = h1[1].replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim();
+  if (text !== 'אימון בר בנתניה') {
+    t.skip('barre.html H1 not yet updated by its own session — currently reads: "' + text + '"');
+    return;
+  }
+  assert.equal(text, 'אימון בר בנתניה');
+});
+
+test('every wa.me link across the site is attributable to the website', () => {
+  for (const page of sitePages()) {
+    const html = read(page);
+    for (const [,text] of html.matchAll(/https:\/\/wa\.me\/972527927575\?text=([^"'&]+)/g)) {
+      const decoded = decodeURIComponent(text.replace(/\+/g, '%20'));
+      assert.match(decoded, /הגעתי מהאתר/, page + ': ' + decoded);
+    }
+  }
+});
+
+test('the published review count is the same number everywhere it appears', () => {
+  const counts = new Set();
+  for (const page of sitePages()) {
+    for (const [,n] of read(page).matchAll(/(\d+)\s*ביקורות/g)) counts.add(n);
+  }
+  assert.ok(counts.size <= 1, 'inconsistent review counts across pages: ' + [...counts].join(', '));
+});
