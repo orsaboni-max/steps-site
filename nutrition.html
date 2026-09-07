@@ -669,14 +669,21 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 {
   "@context": "https://schema.org",
   "@type": "HealthClub",
+  "@id": "https://stepsnetanya.co.il/#healthclub",
   "name": "STEPS Fitness Center",
-  "alternateName": "סטודיו סטפס",
+  "alternateName": ["סטודיו סטפס", "סטפס פולג", "סטפס נתניה"],
   "url": "https://stepsnetanya.co.il",
   "logo": "https://stepsnetanya.co.il/steps-logo-white.png",
+  "sameAs": [
+    "https://www.instagram.com/steps_netanya/",
+    "https://www.facebook.com/stepsnetanya/",
+    "https://www.google.com/maps/place/?q=place_id:ChIJX3typn8_HRURJ4xZd-KWQQU"
+  ],
   "telephone": "+972-52-792-7575",
+  "email": "stepsnetanya@gmail.com",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "אמנון ותמר 6, קניון פולג",
+    "streetAddress": "אמנון ותמר 6, קניון פולג, קומה 2",
     "addressLocality": "נתניה",
     "addressCountry": "IL"
   },
@@ -685,8 +692,19 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     {"@type": "OpeningHoursSpecification","dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday"],"opens": "07:00","closes": "22:00"},
     {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "07:30", "closes": "13:00"}
   ],
-  "priceRange": "$$",
+  "priceRange": "₪230-₪530",
   "description": "תוכנית התזונה של סטודיו STEPS בנתניה — 3 חודשים, מפגשים אישיים בסטודיו וליווי יומיומי בוואטסאפ, למתאמנות הסטודיו."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "ליווי תזונה",
+  "serviceType": "ליווי תזונה אישי",
+  "provider": {"@type": "Person", "name": "אור סבוני", "jobTitle": "בעלים ומאמן"},
+  "areaServed": {"@type": "City", "name": "נתניה"},
+  "offers": {"@type": "Offer", "price": "1500", "priceCurrency": "ILS"}
 }
 </script>
 <script type="application/ld+json">
@@ -700,7 +718,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     {"@type": "Question","name": "צריך להוריד אפליקציה?","acceptedAnswer": {"@type": "Answer","text": "לא. הכול רץ בוואטסאפ שכבר על הטלפון שלך, ודף התפריט האישי נפתח בדפדפן."}},
     {"@type": "Question","name": "אני צמחונית / רגישה לגלוטן או ללקטוז?","acceptedAnswer": {"@type": "Answer","text": "התפריט מסנן ומציע חלופות אוטומטית, ואפשר לעדכן את בינה בכל שלב גם אחרי שהתפריט נבנה."}},
     {"@type": "Question","name": "יקבלו ממני הודעות בשבת?","acceptedAnswer": {"@type": "Answer","text": "לא. בינה לא שולחת הודעות יזומות בשבת ובחג. אם תכתבי לה — היא תענה."}},
-    {"@type": "Question","name": "מה קורה בסוף שלושת החודשים?","acceptedAnswer": {"@type": "Answer","text": "נפגשים, מודדים, ומסכמים. אם בא לך להמשיך עם בינה — זה 99 ₪ לחודש, בבחירה שלך. בלי חיוב אוטומטי ובלי התחייבות."}}
+    {"@type": "Question","name": "מה קורה בסוף שלושת החודשים?","acceptedAnswer": {"@type": "Answer","text": "נפגשים, מודדים, ומסכמים."}}
   ]
 }
 </script>
@@ -738,6 +756,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <div>
       <div class="hero-tag">תוכנית התזונה של STEPS</div>
       <h1>את כבר מתאמנת.<em>עכשיו נשאר רק לסדר את האוכל.</em></h1>
+      <p class="hero-tag">תוכנית תזונה אישית · 3 חודשים · 1,500 ₪ · עם אור סבוני</p>
       <p class="hero-sub">תוכנית תזונה של שלושה חודשים. מתחילים בפגישה אישית אחד על אחד — שאלון רפואי, הרגלי אכילה ושגרת יום. לוקחים נתונים ובונים תוכנית לפי המטרה שלך. וכל הדרך, ליווי 24/7 בוואטסאפ עם בינה.</p>
       <!-- אין כאן כפתור בכוונה. תוכנית של 1,500 ₪ לא נסגרת מכפתור
            בהירו — קודם קוראים את הדף, וההנעה לפעולה יושבת בסוף.
@@ -1043,8 +1062,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </ul>
     <div class="price-after">
       <b>ואחרי שלושת החודשים?</b><br>
-      נפגשים, מודדים ומסכמים. אם בא לך להמשיך עם בינה — 99 ₪ לחודש, בבחירה שלך.
-      בלי חיוב אוטומטי ובלי התחייבות.
+      נפגשים, מודדים ומסכמים.
     </div>
   </div>
   <p class="price-anchor">תכלס, בשביל פרופורציה: פגישה אחת אצל דיאטנית קלינית פרטית עולה 150–420 ₪. זה חשוב, ולפעמים הכרחי. זה לא תחליף לזה — זה מה שקורה בין לבין.</p>
@@ -1119,7 +1137,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </details>
     <details class="faq-item">
       <summary class="faq-q">מה קורה בסוף שלושת החודשים?</summary>
-      <div class="faq-a">נפגשים, מודדים ומסכמים איפה את עומדת. אם בא לך להמשיך עם בינה — זה 99 ₪ לחודש, בבחירה שלך. בלי חיוב אוטומטי ובלי התחייבות.</div>
+      <div class="faq-a">נפגשים, מודדים ומסכמים איפה את עומדת.</div>
     </details>
   </div>
 </section>
@@ -1131,6 +1149,21 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   <a class="btn-a" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%20%D7%90%D7%95%D7%A8%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%A0%D7%AA%20%D7%91%D7%AA%D7%95%D7%9B%D7%A0%D7%99%D7%AA%20%D7%94%D7%AA%D7%96%D7%95%D7%A0%D7%94%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="trial-cta whatsapp-click">💬 בואי נדבר בוואטסאפ</a>
   <p class="cta-note">או בטלפון — <a href="tel:+972527927575" dir="ltr">052-792-7575</a></p>
   <p class="legal-note">בינה מלווה ומכוונת אך אינה מחליפה דיאטנית קלינית או רופא. אור סבוני הוא מאמן כושר, לא דיאטן קליני. לפני התחלת התוכנית תתבקשי לענות על מספר שאלות בריאות קצרות. לפרטים המלאים — <a href="privacy.html#cancel">מדיניות הביטולים ותנאי השירות</a>.</p>
+</section>
+
+<!-- ═══ עוד בסטפס ═══ -->
+<section class="sec sec-alt">
+  <div class="sec-h">
+    <div class="sec-tag">עוד בסטפס</div>
+    <h2 class="sec-title">אולי גם מעניין אותך</h2>
+  </div>
+  <nav aria-label="קישורים נוספים באתר STEPS" style="display:flex;flex-wrap:wrap;gap:14px 28px;justify-content:center;max-width:900px;margin:0 auto">
+    <a href="kids.html" style="color:var(--yellow);font-weight:700">חוגי כושר לילדים ונוער</a>
+    <a href="pilates-price.html" style="color:var(--yellow);font-weight:700">כמה עולה פילאטיס מכשירים</a>
+    <a href="pilates-or-gym.html" style="color:var(--yellow);font-weight:700">פילאטיס או חדר כושר</a>
+    <a href="pilates-postpartum.html" style="color:var(--yellow);font-weight:700">פילאטיס אחרי לידה</a>
+    <a href="pilates-beginners.html" style="color:var(--yellow);font-weight:700">פילאטיס למתחילות</a>
+  </nav>
 </section>
 
 <!-- FOOTER -->

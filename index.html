@@ -47,8 +47,9 @@
 {
   "@context": "https://schema.org",
   "@type": "HealthClub",
+  "@id": "https://stepsnetanya.co.il/#healthclub",
   "name": "STEPS Fitness Center",
-  "alternateName": "סטודיו סטפס",
+  "alternateName": ["סטודיו סטפס", "סטפס פולג", "סטפס נתניה"],
   "url": "https://stepsnetanya.co.il",
   "logo": "https://stepsnetanya.co.il/steps-logo-white.png",
   "image": "https://stepsnetanya.co.il/images/shoot2025/hero-cine-sharp-poster.jpg",
@@ -61,7 +62,7 @@
   "email": "stepsnetanya@gmail.com",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "אמנון ותמר 6, קניון רמת פולג, קומה 2",
+    "streetAddress": "אמנון ותמר 6, קניון פולג, קומה 2",
     "addressLocality": "נתניה",
     "addressCountry": "IL"
   },
@@ -70,18 +71,28 @@
     {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday"], "opens": "07:00", "closes": "22:00"},
     {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "07:30", "closes": "13:00"}
   ],
-  "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.8", "reviewCount": "27"},
-  "priceRange": "₪₪",
+  "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.8", "reviewCount": "31"},
+  "priceRange": "₪230-₪530",
   "description": "סטודיו כושר לנשים בנתניה — אימוני כוח, פילאטיס מכשירים, יוגה ובר. שלושה חללי אימון, קבוצות קטנות, צוות מוסמך.",
+  "founder": [
+    {"@type": "Person", "name": "אור סבוני", "jobTitle": "בעלים ומאמן"},
+    {"@type": "Person", "name": "אור תורג׳מן", "jobTitle": "בעלים ומאמן"}
+  ],
+  "employee": [
+    {"@type": "Person", "name": "אור סבוני", "jobTitle": "בעלים ומאמן", "image": "https://stepsnetanya.co.il/images/shoot2025/team-or-saboni.jpg", "url": "https://stepsnetanya.co.il/#team"},
+    {"@type": "Person", "name": "אור תורג׳מן", "jobTitle": "בעלים ומנהל חלל GYM", "image": "https://stepsnetanya.co.il/images/shoot2025/team-or-turgeman.jpg", "url": "https://stepsnetanya.co.il/#team"},
+    {"@type": "Person", "name": "אוריה נעמן", "jobTitle": "מדריכת פילאטיס מכשירים", "image": "https://stepsnetanya.co.il/images/shoot2025/team-oria.jpg", "url": "https://stepsnetanya.co.il/#team"},
+    {"@type": "Person", "name": "טלי טרחובסקי", "jobTitle": "מנהלת חלל MOVE ומדריכת בר", "image": "https://stepsnetanya.co.il/images/shoot2025/team-tali.jpg", "url": "https://stepsnetanya.co.il/#team"}
+  ],
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
     "name": "שיעורים",
     "itemListElement": [
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "אימוני כוח"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "פילאטיס מכשירים"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "יוגה"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "אימוני בר (Barre)"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "קבוצות כושר לילדים ונוער (Kids & Teens)"}}
+      {"@type": "Offer", "url": "https://stepsnetanya.co.il/gym-women.html", "itemOffered": {"@type": "Service", "name": "אימוני כוח"}},
+      {"@type": "Offer", "url": "https://stepsnetanya.co.il/pilates.html", "itemOffered": {"@type": "Service", "name": "פילאטיס מכשירים"}},
+      {"@type": "Offer", "url": "https://stepsnetanya.co.il/barre.html", "itemOffered": {"@type": "Service", "name": "יוגה"}},
+      {"@type": "Offer", "url": "https://stepsnetanya.co.il/barre.html", "itemOffered": {"@type": "Service", "name": "אימוני בר (Barre)"}},
+      {"@type": "Offer", "url": "https://stepsnetanya.co.il/kids.html", "itemOffered": {"@type": "Service", "name": "קבוצות כושר לילדים ונוער (Kids & Teens)"}}
     ]
   }
 }
@@ -807,9 +818,10 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       <a class="btn btn--y btn--lg" href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener" data-track="trial-cta">קובעת אימון היכרות ב-50 ₪ <span aria-hidden="true">←</span></a>
       <a class="btn btn--ghost btn--lg" href="#choose" data-track="path-choice" data-path="chooser">עזרו לי לבחור מסלול</a>
     </div>
+    <p class="hero__lede" style="margin-top:14px;font-size:clamp(13px,1vw,15px)"><a href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener" style="color:var(--yellow);font-weight:700">4.8 ★ · 31 ביקורות בגוגל</a> · מעל 500 מתאמנות</p>
   </div>
   <div class="stats">
-    <div class="stats__i"><div class="stats__n"><span class="y">4.8</span> ★</div><div class="stats__l">דירוג בגוגל</div></div>
+    <a class="stats__i" href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener"><div class="stats__n"><span class="y">4.8</span> ★</div><div class="stats__l">31 ביקורות בגוגל</div></a>
     <div class="stats__i stats__i--drop"><div class="stats__n">3</div><div class="stats__l">חללים · כוח, MOVE, רפורמר</div></div>
     <div class="stats__i"><div class="stats__n" id="weekly">—</div><div class="stats__l">שיעורים בשבוע</div></div>
     <div class="stats__i"><div class="stats__n">חינם</div><div class="stats__l">חנייה בקניון פולג</div></div>
@@ -1006,23 +1018,22 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   <div class="shell">
     <div class="sec-head sec-head--keep">
       <h2 class="h-lg">הן באו בשביל האימון.<br>הן נשארו בשביל המשפחה.</h2>
-      <div class="rating sv"><b>4.8 ★</b><span>ממוצע ביקורות גוגל</span></div>
+      <a class="rating sv" href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener"><b>4.8 ★</b><span>31 ביקורות בגוגל</span></a>
     </div>
     <div class="grid g-3" style="margin-bottom:clamp(30px,4vw,48px)">
       <blockquote class="card sv">
-        <p class="stars" role="img" aria-label="חמישה כוכבים מתוך חמישה">★★★★★</p>
-        <p class="quote">"אתם הלב שלי. אין סטודיו כזה בעולם ויצא לי לנסות המון. היחס האישי, האכפתיות, הדחיפה להתקדם."</p>
-        <footer class="who">לימור מ.<span>חברה ותיקה</span></footer>
+        <p class="quote">"יחס אישי, מקצועי וצוות שהוא ממש משפחה
+המקום היחיד שגרם לי להתמיד ולאהוב את זה!"</p>
+        <footer class="who">ירין ברנס<span>ביקורת בגוגל</span></footer>
       </blockquote>
       <blockquote class="card sv">
-        <p class="stars" role="img" aria-label="חמישה כוכבים מתוך חמישה">★★★★★</p>
-        <p class="quote">"לאורך כל השיעור עברה אחת אחת, דייקה את התנועה. הפעלנו את כל השרירים ואנרגיה מקסימה."</p>
-        <footer class="who">חני ל.<span>מתאמנת MOVE</span></footer>
+        <p class="quote">"מקצועיים, יחס אישי אמיתי ויותר מהכל צוות אנושי עם אישיות כובשת ואנרגיות טובות."</p>
+        <footer class="who">מור בוסאני<span>ביקורת בגוגל</span></footer>
       </blockquote>
       <blockquote class="card sv">
-        <p class="stars" role="img" aria-label="חמישה כוכבים מתוך חמישה">★★★★★</p>
-        <p class="quote">"אני איתכם כבר המון שנים. ירדן מקצועית, נותנת יחס אישי ושומרת על רמה סופר גבוהה."</p>
-        <footer class="who">נעמה ג.<span>מתאמנת GYM ותיקה</span></footer>
+        <p class="quote">"מקצועיות שיא! יחס חם ואישי לכל המתאמנים!
+נהנת לבוא כל פעם מחדש! התאהבתי באימונים!"</p>
+        <footer class="who">נעם קמחי<span>ביקורת בגוגל</span></footer>
       </blockquote>
     </div>
 
@@ -1113,6 +1124,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </div>
     <!-- חובה: מחיר המוצג לצרכן הוא המחיר הסופי, ויש לציין שהוא כולל מע״מ. -->
     <p class="fine" style="margin-top:20px">כל המחירים כוללים מע״מ · ללא התחייבות · ביטול בהתראה של 30 יום מראש · ליווי תזונה אישי עם אור סבוני בתשלום נפרד</p>
+    <p class="fine" style="margin-top:8px">מסלול משולב = כניסה אחת לשלושת החללים, כולל רפורמר. בלי רפורמר (GYM + MOVE): 230 / 400 / 460 ₪.</p>
   </div>
 </section>
 
@@ -1123,7 +1135,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <div>
       <h2 class="closer__h"><span class="y">50 ₪.</span><br>שעה אחת.<br>בלי התחייבות.</h2>
       <ul>
-        <li>אמנון ותמר 6, קניון רמת פולג, קומה 2, נתניה</li>
+        <li>אמנון ותמר 6, קניון פולג, קומה 2, נתניה</li>
         <li>חנייה חינם בקניון — עילית ותת-קרקעית</li>
         <li>א׳–ה׳ 7:00–22:00 · ו׳ 07:30–13:00 · מוצ״ש: שיעור לפי מערכת השעות בלבד, ללא קבלת קהל או מזכירות</li>
       </ul>
