@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>אימון בר בנתניה | סטודיו סטפס פולג</title>
-<meta name="description" content="אימון בר (Barre) משלב תנועות מבלט, פילאטיס וכוח, ליד בר קבוע ועל מזרן, עם משקולות קטנות וגומיות. STEPS בקניון פולג, נתניה. אימון היכרות ב־50 ₪.">
+<title>אימון בר (Barre): מה זה, למי מתאים וכמה עולה | סטודיו סטפס נתניה</title>
+<meta name="description" content="אימון בר משלב בלט, פילאטיס וכוח: שעה ליד הבר ועל מזרן עם משקולות קטנות וגומיות. מה קורה בשיעור, למי מתאים, וכמה עולה בסטודיו סטפס בקניון פולג נתניה. היכרות 50 ₪.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://stepsnetanya.co.il/barre.html" />
 <link rel="alternate" hreflang="he" href="https://stepsnetanya.co.il/barre.html" />
@@ -193,9 +193,6 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 }
 .hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;animation:slideUp .8s .5s both}
 
-/* אנימציית האותיות בכותרת (barre) */
-.hero h1 .char{display:inline-block;opacity:0;animation:charIn .45s cubic-bezier(.215,.61,.355,1) forwards;animation-delay:var(--d)}
-.hero h1 .char-space{width:.3em}
 
 /* ═══ כפתורים ═════════════════════════════════════════════════ */
 .btn-a,.btn-b{
@@ -428,7 +425,6 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-@keyframes charIn{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}
 @keyframes bounceIn{0%{opacity:0;transform:scale(.3)}50%{transform:scale(1.1)}70%{transform:scale(.95)}100%{opacity:1;transform:scale(1)}}
 .parallax-img{will-change:transform}
 
@@ -447,6 +443,15 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   .dtabs{justify-content:center}
   .dt{flex:1;min-width:44px;padding:0 8px}
 }
+
+.hero-assurance{margin-top:14px;font-size:13px;line-height:1.5;color:var(--t75);animation:slideUp .8s .62s both}
+
+/* כרטיס מדריכה — אותו markup של כרטיסי הצוות בדף הבית */
+.coach{display:flex;align-items:center;gap:16px;padding:18px;border:1px solid var(--line);border-radius:var(--r-md)}
+.coach img{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:center 22%;flex:none}
+.coach b{display:block;font-weight:700;font-size:17px;line-height:1.2}
+.coach span{display:block;margin-top:5px;font-weight:400;font-size:14px;line-height:1.3;color:var(--t60)}
+.hero-assurance a{color:var(--yellow);text-decoration:underline;text-underline-offset:3px}
 </style>
 <!-- Consent Mode v2 — must run BEFORE GA4 loads -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
@@ -456,35 +461,121 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "HealthClub",
-  "name": "STEPS Fitness Center",
-  "alternateName": "סטודיו סטפס",
-  "url": "https://stepsnetanya.co.il",
-  "logo": "https://stepsnetanya.co.il/steps-logo-white.png",
-  "image": "https://stepsnetanya.co.il/images/barre-workout.jpeg",
-  "sameAs": [
-    "https://www.instagram.com/steps_netanya/",
-    "https://www.facebook.com/stepsnetanya/",
-    "https://www.google.com/maps/place/?q=place_id:ChIJX3typn8_HRURJ4xZd-KWQQU"
-  ],
-  "telephone": "+972-52-792-7575",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "אמנון ותמר 6, קניון פולג",
-    "addressLocality": "נתניה",
-    "addressCountry": "IL"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 32.2749168,
-    "longitude": 34.8479596
-  },
-  "openingHoursSpecification": [
-    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday"], "opens": "07:00", "closes": "22:00"},
-    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "07:30", "closes": "13:00"}
-  ],
-  "priceRange": "$$",
-  "description": "אימון בר בנתניה בסטודיו סטפס פולג. חלל ייעודי עם בר על הקיר ומדריכות מוסמכות. השעות מתעדכנות בלוח השיעורים באתר."
+  "@graph": [
+    {
+      "@type": "HealthClub",
+      "@id": "https://stepsnetanya.co.il/#healthclub",
+      "name": "STEPS Fitness Center",
+      "alternateName": [
+        "סטודיו סטפס",
+        "סטפס פולג",
+        "סטפס נתניה"
+      ],
+      "url": "https://stepsnetanya.co.il",
+      "logo": "https://stepsnetanya.co.il/steps-logo-white.png",
+      "image": "https://stepsnetanya.co.il/images/barre-workout.jpeg",
+      "sameAs": [
+        "https://www.instagram.com/steps_netanya/",
+        "https://www.facebook.com/stepsnetanya/",
+        "https://www.google.com/maps/place/?q=place_id:ChIJX3typn8_HRURJ4xZd-KWQQU"
+      ],
+      "telephone": "+972-52-792-7575",
+      "email": "stepsnetanya@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "אמנון ותמר 6, קניון פולג, קומה 2",
+        "addressLocality": "נתניה",
+        "addressCountry": "IL"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 32.2749168,
+        "longitude": 34.8479596
+      },
+      "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJX3typn8_HRURJ4xZd-KWQQU",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday"
+          ],
+          "opens": "07:00",
+          "closes": "22:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Friday",
+          "opens": "07:30",
+          "closes": "13:00"
+        }
+      ],
+      "priceRange": "₪230-₪530",
+      "currenciesAccepted": "ILS",
+      "areaServed": {
+        "@type": "City",
+        "name": "נתניה"
+      },
+      "description": "אימון בר בנתניה בסטודיו סטפס פולג. חלל ייעודי עם בר על הקיר ומדריכות מוסמכות. השעות מתעדכנות בלוח השיעורים באתר."
+    },
+    {
+      "@type": "Service",
+      "@id": "https://stepsnetanya.co.il/barre.html#barre",
+      "name": "אימון בר (Barre)",
+      "serviceType": "אימון בר",
+      "description": "שיעור בר של שעה בחלל MOVE: תנועות מבלט, פילאטיס וכוח ליד הבר ועל המזרן, עד 15 מתאמנות בשיעור.",
+      "url": "https://stepsnetanya.co.il/barre.html",
+      "provider": {
+        "@id": "https://stepsnetanya.co.il/#healthclub"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "נתניה"
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "אימון היכרות בבר",
+          "price": "50",
+          "priceCurrency": "ILS",
+          "availability": "https://schema.org/InStock"
+        },
+        {
+          "@type": "Offer",
+          "name": "מסלול GYM ו-MOVE — 5 כניסות בחודש",
+          "price": "230",
+          "priceCurrency": "ILS",
+          "availability": "https://schema.org/InStock"
+        },
+        {
+          "@type": "Offer",
+          "name": "מסלול GYM ו-MOVE — 9 כניסות בחודש",
+          "price": "400",
+          "priceCurrency": "ILS",
+          "availability": "https://schema.org/InStock"
+        },
+        {
+          "@type": "Offer",
+          "name": "מסלול GYM ו-MOVE — 13 כניסות בחודש",
+          "price": "460",
+          "priceCurrency": "ILS",
+          "availability": "https://schema.org/InStock"
+        }
+      ]
+    },
+    {
+      "@type": "Person",
+      "name": "טלי טרחובסקי",
+      "jobTitle": "מנהלת חלל MOVE ומדריכת בר",
+      "image": "https://stepsnetanya.co.il/images/shoot2025/team-tali.jpg",
+      "worksFor": {
+        "@id": "https://stepsnetanya.co.il/#healthclub"
+      }
+    }
+  ]
 }
 </script>
 <script type="application/ld+json">
@@ -568,11 +659,13 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   <div class="hero-inner">
     <div class="hero-tag">BARRE — סטודיו סטפס פולג</div>
     <div>
-      <h1><span class="char" style="--d:.3s">א</span><span class="char" style="--d:.35s">י</span><span class="char" style="--d:.4s">מ</span><span class="char" style="--d:.45s">ו</span><span class="char" style="--d:.5s">ן</span><span class="char char-space" style="--d:.55s">&nbsp;</span><span class="char" style="--d:.6s">ב</span><span class="char" style="--d:.65s">ר</span><em><span class="char" style="--d:.8s">ב</span><span class="char" style="--d:.85s">נ</span><span class="char" style="--d:.9s">ת</span><span class="char" style="--d:.95s">נ</span><span class="char" style="--d:1s">י</span><span class="char" style="--d:1.05s">ה</span></em></h1>
+      <h1>אימון בר <em>בנתניה</em></h1>
       <p class="hero-sub">השיעור שאת לא מפסיקה לדבר עליו אחרי</p>
       <div class="hero-btns">
-        <a href="#trial" class="btn-a" data-track="trial-cta">אימון היכרות ב-50 ₪</a>
+        <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=SITE&amp;allLocations=false&amp;filters=%7B%22boxCategories%22%3A%5B45670%5D%2C%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a" target="_blank" rel="noopener" data-track="trial-cta arbox-open">אימון היכרות ב-50 ₪</a>
+        <a href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8%20%D7%A9%D7%9C%20STEPS" class="btn-b" target="_blank" rel="noopener" data-track="whatsapp-click">יש לי שאלה לפני</a>
       </div>
+      <p class="hero-assurance"><a href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener">4.8 ★ · 31 ביקורות בגוגל</a> · מעל 500 מתאמנות</p>
     </div>
   </div>
 </section>
@@ -607,6 +700,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       <p class="highlight">כי פה בנינו את זה רציני</p>
       <p>יש לנו חלל שלם לזה. ייעודי. בר על הקיר ציוד ייעודי מראות הכל. לא פינה בתוך חדר כושר אלא חלל אמיתי שנבנה בשביל זה</p>
       <p>כל המדריכות שלנו עברו הכשרה דרך הקורס בר שפיתחנו פה בסטודיו בהכשרת וניהול של טלי טרחובסקי. לא הסמכה שקונים באינטרנט תוך יומיים אלא הכשרה רצינית מקצה לקצה</p>
+      <div class="coach" style="margin:22px 0"><img src="images/shoot2025/team-tali.jpg" alt="טלי טרחובסקי, מנהלת חלל MOVE ומדריכת בר ב-STEPS" width="64" height="64" loading="lazy" decoding="async"><div><b>טלי טרחובסקי</b><span>מנהלת חלל MOVE · הכשירה את כל מדריכות הבר בסטודיו</span></div></div>
       <p>שעות שיעורי הבר מתעדכנות בלוח השיעורים באתר. בכל שיעור עד 15 מתאמנות, כדי שהמדריכה תוכל לראות אותך ולתקן בזמן אמת.</p>
       <p>ואנחנו לא עושים סגנון אחד. יש פילאטיס-בר יש כוח-בר יש ריקוד-בר. כל שיעור שונה כל שיעור שורף</p>
     </div>
@@ -671,6 +765,22 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 
 <div class="sec-divider"><span></span></div>
 
+<!-- ביקורות גוגל -->
+<section class="test-sec" id="reviews">
+  <div class="sec-h">
+    <div class="sec-tag" style="color:var(--accent)">מה אומרות עלינו</div>
+    <h2 class="sec-title">מה כותבות עלינו בגוגל</h2>
+  </div>
+  <div class="tg">
+    <div class="tc"><p class="tc-txt">מקצועיות שיא! יחס חם ואישי לכל המתאמנים!<br>נהנת לבוא כל פעם מחדש! התאהבתי באימונים!</p><div class="tc-auth"><div class="tc-av">נ</div><div><div class="tc-name">נעם קמחי</div><div class="tc-info">ביקורת בגוגל</div></div></div></div>
+    <div class="tc"><p class="tc-txt">אחלה  ויייב מקום שכיף ללכת אליו</p><div class="tc-auth"><div class="tc-av">O</div><div><div class="tc-name">Ofira Ben yosef</div><div class="tc-info">ביקורת בגוגל</div></div></div></div>
+    <div class="tc"><p class="tc-txt">צוות של אלופים ומקצוענים!</p><div class="tc-auth"><div class="tc-av">ע</div><div><div class="tc-name">עינבר חסון</div><div class="tc-info">ביקורת בגוגל</div></div></div></div>
+  </div>
+  <p class="cta-note"><a href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener" style="color:var(--yellow);text-decoration:underline">4.8 ★ · 31 ביקורות בגוגל</a></p>
+</section>
+
+<div class="sec-divider"><span></span></div>
+
 <!-- קבעי אימון היכרות -->
 <section class="sec" id="trial">
   <div class="sec-h">
@@ -687,8 +797,10 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <p class="cta-note">נפתח בטאב חדש — הרשמה מלאה ב-Arbox</p>
   </div>
   <p class="cta-note">💬 שאלות? <a href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8%20%D7%A9%D7%9C%20STEPS" style="color:var(--yellow);text-decoration:underline" target="_blank" rel="noopener" data-track="whatsapp-click">דברי איתנו בוואטסאפ</a></p>
+  <p class="cta-note">אחרי אימון ההיכרות: GYM + MOVE מ-230 ₪ לחודש · משולב עם רפורמר מ-320 ₪ · כולל מע״מ, בלי התחייבות</p>
+  <p class="cta-note">מסלול משולב = כניסה אחת לשלושת החללים, כולל רפורמר. בלי רפורמר (GYM + MOVE): 230 / 400 / 460 ₪.</p>
   <!-- חובה: מחיר המוצג לצרכן הוא המחיר הסופי, ויש לציין שהוא כולל מע״מ. -->
-  <p class="legal-note">המחיר כולל מע״מ. מדיניות ביטולים: ביטול עד 24 שעות לפני האימון — ניתן לקבוע מועד חלופי. ביטול פחות מ-24 שעות מראש או אי-הגעה — אין זיכוי. לביטול: <a href="https://wa.me/972527927575" style="color:var(--yellow);text-decoration:underline" target="_blank" rel="noopener">וואטסאפ</a> · <a href="privacy.html#cancel" style="color:var(--yellow);text-decoration:underline">המדיניות המלאה</a></p>
+  <p class="legal-note">המחיר כולל מע״מ. מדיניות ביטולים: ביטול עד 24 שעות לפני האימון — ניתן לקבוע מועד חלופי. ביטול פחות מ-24 שעות מראש או אי-הגעה — אין זיכוי. לביטול: <a href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%91%D7%98%D7%9C%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" style="color:var(--yellow);text-decoration:underline" target="_blank" rel="noopener">וואטסאפ</a> · <a href="privacy.html#cancel" style="color:var(--yellow);text-decoration:underline">המדיניות המלאה</a></p>
 </section>
 
 <div class="sec-divider"><span></span></div>
@@ -729,7 +841,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 <section class="cta-bottom">
   <h2>בואי לנסות</h2>
   <p>אימון היכרות ב-50 ₪. בואי להרגיש אם בר מתאים לך</p>
-  <a href="#trial" class="btn-a" data-track="trial-cta">אימון היכרות ב-50 ₪</a>
+  <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=SITE&amp;allLocations=false&amp;filters=%7B%22boxCategories%22%3A%5B45670%5D%2C%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a" target="_blank" rel="noopener" data-track="trial-cta arbox-open">אימון היכרות ב-50 ₪</a>
   <p class="cta-note">💬 שאלות? <a href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8%20%D7%A9%D7%9C%20STEPS" style="color:var(--yellow);text-decoration:underline" target="_blank">דברי איתנו בוואטסאפ</a></p>
 </section>
 
