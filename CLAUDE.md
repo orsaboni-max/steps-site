@@ -50,6 +50,7 @@ cd C:\Users\USER\steps-site && npx vercel --yes --prod   # deploy — רק מה�
 - [ ] לא נמחקו מקטעים קיימים · דף חדש נוסף ל-`sitemap.xml` + `llms.txt`
 - [ ] קבצים פנימיים לא עולים (`.vercelignore`): `ads-board.html` `ads.html` `api/ads-performance.ts` `nutrition-v3.html`
 - [ ] אחרי העלאה: אימות חי על הדומיין + שורה חדשה ב-`docs/DEPLOY-LOG.md`
+- [ ] **QA בעיניים, לא רק מספרים (לקח 7/9/26):** לפתוח כל דף ששונה בטאב פעיל וגלוי (390 + 1280) ולראות: אנימציות זזות, וידאו מתנגן, לוח שעות נטען, תפריט נפתח. מדידה בטאב מוסתר מקפיאה אנימציות ומטעה. אור תפס פס רץ "קפוא" שהאוטומציה החמיצה.
 
 ## Design Tokens — כל האתר (רידיזיין 1/8/26)
 מקור: חבילת ההנדאוף `design_handoff_steps_homepage` מ-Claude Design. הצהוב הוא המבטא היחיד — אין סגול/טורקיז.
