@@ -172,6 +172,13 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   transition:color .18s var(--ease);
 }
 .hero-cue:hover{color:var(--bone)}
+
+/* תיבת "בקצרה" — זהה ל-content.css ולשאר דפי השירות */
+.answer{max-width:70ch;margin:clamp(24px,3vw,34px) auto 0;border:1px solid rgba(255,212,0,.4);border-inline-start:4px solid var(--yellow);background:var(--yellow-tint);border-radius:var(--r-md);padding:clamp(22px,2.6vw,32px) clamp(20px,2.4vw,34px)}
+.answer-t{font-family:var(--body);font-weight:800;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);margin-bottom:12px}
+.answer p{font-size:clamp(16px,1.35vw,18px);line-height:1.7;color:var(--bone);font-weight:400}
+.answer p+p{margin-top:12px}
+.answer strong{font-weight:700;color:#fff}
 /* גבולות פיזיים ולא לוגיים: זו צורה מסובבת, לא טקסט. עם
    border-inline-start ה-RTL הופך אותה והחץ מצביע שמאלה במקום למטה. */
 .hero-cue::after{
@@ -791,6 +798,11 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </div>
     <!-- ◆ תמונה 2 — אור -->
     <img class="me-photo" src="images/nutrition/or-hero.jpg" width="1000" height="1250" alt="אור סבוני, בעלים ומאמן בסטודיו STEPS נתניה" loading="lazy">
+  </div>
+  <div class="answer">
+    <div class="answer-t">בקצרה</div>
+    <p>ליווי הרגלי תזונה למתאמנות בנתניה, בסטודיו STEPS בקניון פולג. הוא נועד למי שכבר מתאמנת ורוצה שהאוכל יעבוד יחד עם האימונים, ולא לתוכנית הרזיה מהירה. תוכנית של שלושה חודשים עם אור סבוני, מאמן כושר, הכוללת ארבע פגישות אישיות אחד על אחד בסטודיו ומעקב שוטף בוואטסאפ בעזרת בינה. <strong>1,500 ₪ לתוכנית</strong>, בתשלום נפרד ממנוי האימונים.</p>
+    <p>אור סבוני הוא מאמן כושר ולא דיאטן קליני. הליווי עוסק בהרגלי אכילה ובשגרה סביב האימונים, ואינו מחליף דיאטנית קלינית או רופאה — כל נושא רפואי מופנה הלאה. הפגישות מתקיימות בסטודיו עצמו, כך שהאימונים והתזונה מתנהלים באותו מקום ומול אותם נתונים. הפגישה הראשונה כוללת שאלון בריאות, מיפוי של הרגלי האכילה ושל שגרת היום, ולקיחת נתונים, ומהם נבנית התוכנית. בין הפגישות אפשר לשאול שאלות בוואטסאפ ולקבל מענה שוטף, כדי שהתוכנית תשתנה יחד עם מה שקורה בפועל. אין התחייבות לרכישת תוספי תזונה, ואין תפריט אחיד שכולן מקבלות.</p>
   </div>
   <div class="stats">
     <div class="stat"><div class="stat-n">3</div><div class="stat-l">חודשים של ליווי</div></div>
