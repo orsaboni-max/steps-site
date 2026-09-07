@@ -162,6 +162,9 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   max-width:56ch;margin:0 auto clamp(24px,3vw,36px);
 }
 .hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.trust-bar{margin-top:18px;font-size:14px;line-height:1.6;color:var(--t75)}
+.trust-bar a{color:var(--yellow);text-decoration:underline}
+.hero-ai-credit{position:absolute;z-index:2;bottom:12px;inset-inline-start:12px;font-size:11px;color:var(--t60);background:rgba(0,0,0,.45);padding:4px 10px;border-radius:100px}
 
 .btn-a,.btn-b{
   display:inline-flex;align-items:center;justify-content:center;gap:10px;
@@ -224,7 +227,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   .space-links a{flex:1 1 0;padding:12px 7px}
   .space-links bdi{font-size:13px}
   .space-links span{font-size:13px}
-  .program-cta{width:100%}
+  .program-cta{width:calc(100% - 68px)}
 }
 .faq-list{margin:14px 0 0;padding-inline-start:22px;color:var(--t75);font-size:16px;line-height:1.7}
 .faq-list li+li{margin-top:8px}
@@ -251,6 +254,19 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 #cookie-banner button{min-height:44px;padding:0 22px;border:1px solid var(--line-strong);border-radius:var(--r-pill);font:700 14px var(--body);cursor:pointer}
 #ckOk{background:var(--yellow);color:var(--ink)}
 #ckNo{background:var(--fill-2);color:var(--bone)}
+
+/* צף: וואטסאפ */
+.waf{
+  position:fixed;bottom:22px;inset-inline-end:20px;z-index:150;
+  width:56px;height:56px;border-radius:50%;
+  background:var(--wa);color:var(--wa-ink);font-size:26px;line-height:1;text-decoration:none;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(0,0,0,.45);
+  transition:filter .18s var(--ease);animation:bounceIn 1s 1.5s both;
+}
+.waf:hover{filter:brightness(.94)}
+@media(max-width:600px){.waf{width:52px;height:52px;font-size:24px}}
+@keyframes bounceIn{0%{opacity:0;transform:scale(.3)}50%{transform:scale(1.1)}70%{transform:scale(.95)}100%{opacity:1;transform:scale(1)}}
 </style>
 
 <!-- Consent Mode v2 — must run before GA4 loads. -->
@@ -261,17 +277,100 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SportsActivityLocation",
-  "name": "STEPS Kids & Teens - חוגי כושר לילדים ונוער בנתניה",
-  "description": "שלוש פעילויות לגילאי 12–15 בסטודיו STEPS בקניון פולג, נתניה. אימון היכרות בכל פעילות עולה 50 ₪. אימוני כוח לילדים ולנוער בראשון וחמישי ב-17:00 ובשלישי ב-16:30. פילאטיס מכשירים לנערות בראשון ב-16:00 וברביעי ב-17:00. אימוני בר לנערות בראשון ב-16:00.",
-  "url": "https://stepsnetanya.co.il/kids.html",
+  "@type": "HealthClub",
+  "@id": "https://stepsnetanya.co.il/#healthclub",
+  "name": "STEPS Fitness Center",
+  "alternateName": ["סטודיו סטפס", "סטפס פולג", "סטפס נתניה"],
+  "url": "https://stepsnetanya.co.il",
+  "logo": "https://stepsnetanya.co.il/steps-logo-white.png",
+  "image": "https://stepsnetanya.co.il/images/kids-hero.jpg",
+  "sameAs": [
+    "https://www.instagram.com/steps_netanya/",
+    "https://www.facebook.com/stepsnetanya/",
+    "https://www.google.com/maps/place/?q=place_id:ChIJX3typn8_HRURJ4xZd-KWQQU"
+  ],
   "telephone": "+972-52-792-7575",
+  "email": "stepsnetanya@gmail.com",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "אמנון ותמר 6, קניון פולג, קומה 2",
     "addressLocality": "נתניה",
     "addressCountry": "IL"
-  }
+  },
+  "geo": {"@type": "GeoCoordinates","latitude": 32.2749168,"longitude": 34.8479596},
+  "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJX3typn8_HRURJ4xZd-KWQQU",
+  "openingHoursSpecification": [
+    {"@type": "OpeningHoursSpecification","dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday"],"opens": "07:00","closes": "22:00"},
+    {"@type": "OpeningHoursSpecification","dayOfWeek": "Friday","opens": "07:30","closes": "13:00"}
+  ],
+  "priceRange": "₪230-₪530",
+  "currenciesAccepted": "ILS",
+  "areaServed": {"@type": "City", "name": "נתניה"},
+  "description": "חוגי כושר לילדים ונוער בגילאי 12–15 בסטודיו STEPS בקניון פולג, נתניה: אימוני כוח לילדים ולנוער, פילאטיס מכשירים לנערות ואימוני בר לנערות.",
+  "makesOffer": [
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "אימוני כוח לילדים ולנוער",
+        "audience": {"@type": "PeopleAudience", "suggestedMinAge": 12, "suggestedMaxAge": 15},
+        "hoursAvailable": [
+          {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday","Thursday"], "opens": "17:00", "closes": "17:00"},
+          {"@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "16:30", "closes": "16:30"}
+        ],
+        "provider": {"@id": "https://stepsnetanya.co.il/#healthclub"}
+      },
+      "price": "50",
+      "priceCurrency": "ILS",
+      "name": "אימון היכרות"
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "פילאטיס מכשירים לנערות",
+        "audience": {"@type": "PeopleAudience", "suggestedMinAge": 12, "suggestedMaxAge": 15},
+        "hoursAvailable": [
+          {"@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "16:00", "closes": "16:00"},
+          {"@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "17:00", "closes": "17:00"}
+        ],
+        "provider": {"@id": "https://stepsnetanya.co.il/#healthclub"}
+      },
+      "price": "50",
+      "priceCurrency": "ILS",
+      "name": "אימון היכרות"
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "אימוני בר לנערות",
+        "audience": {"@type": "PeopleAudience", "suggestedMinAge": 12, "suggestedMaxAge": 15},
+        "hoursAvailable": [
+          {"@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "16:00", "closes": "16:00"}
+        ],
+        "provider": {"@id": "https://stepsnetanya.co.il/#healthclub"}
+      },
+      "price": "50",
+      "priceCurrency": "ILS",
+      "name": "אימון היכרות"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"לאיזה גילאים מתאימות הקבוצות?","acceptedAnswer":{"@type":"Answer","text":"כל שלוש הפעילויות — אימוני כוח לילדים ולנוער, פילאטיס מכשירים לנערות ואימוני בר לנערות — מיועדות לגילאי 12–15."}},
+    {"@type":"Question","name":"באילו ימים ושעות מתקיימים האימונים?","acceptedAnswer":{"@type":"Answer","text":"כוח לילדים ולנוער: ראשון וחמישי ב-17:00, שלישי ב-16:30. פילאטיס מכשירים לנערות: ראשון ב-16:00, רביעי ב-17:00. בר לנערות: ראשון ב-16:00."}},
+    {"@type":"Question","name":"כמה זמן נמשך שיעור?","acceptedAnswer":{"@type":"Answer","text":"אימון כוח לילדים ולנוער נמשך 50–60 דקות. את משך שיעורי הפילאטיס והבר לנערות אפשר לברר עם הצוות בזמן התיאום."}},
+    {"@type":"Question","name":"כמה עולה שיעור ניסיון?","acceptedAnswer":{"@type":"Answer","text":"אימון היכרות עולה 50 ₪ בכל אחת משלוש הפעילויות: כוח לילדים ולנוער, פילאטיס מכשירים לנערות ובר לנערות. לתיאום, פנו לצוות דרך הכפתור של הפעילות המתאימה."}},
+    {"@type":"Question","name":"האם זה מתאים לילדים שלא עסקו בספורט מעולם?","acceptedAnswer":{"@type":"Answer","text":"חד משמעית כן. אנחנו שמים דגש על יחס אישי, התאמת עומסים והדרגתיות. המטרה שלנו היא קודם כל לייצר אהבה לתנועה ולספורט."}},
+    {"@type":"Question","name":"כמה ילדים יש בכל קבוצה?","acceptedAnswer":{"@type":"Answer","text":"אנחנו שומרים על קבוצות קטנות כדי שהמאמנים יוכלו לראות כל ילד וילדה, להדריך, לתקן את התנועה ולהתאים את העומס."}},
+    {"@type":"Question","name":"איפה מתקיימים האימונים?","acceptedAnswer":{"@type":"Answer","text":"בסטודיו STEPS, רחוב אמנון ותמר 6, קניון פולג (קומה 2), נתניה. לרשות ההורים חנייה חינם ונוחה בקניון."}}
+  ]
 }
 </script>
 </head>
@@ -300,7 +399,12 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 
 <!-- ═══ HERO ═══ -->
 <section class="hero">
-  <img class="hero-bg-img" src="images/kids-hero.jpg" alt="אימוני כושר וסולמות זריזות לילדים ונוער בסטפס" loading="eager">
+  <picture>
+    <source srcset="images/kids-hero.avif" type="image/avif">
+    <source srcset="images/kids-hero.webp" type="image/webp">
+    <img class="hero-bg-img" src="images/kids-hero.jpg" width="1376" height="768" alt="המחשת אימוני כושר וסולמות זריזות לילדים ונוער בסטפס" loading="eager">
+  </picture>
+  <p class="hero-ai-credit">תמונת המחשה שנוצרה ב־AI</p>
   <div class="hero-overlay"></div>
   <div class="hero-inner">
     <p class="hero-tag">KIDS &amp; TEENS · פולג, נתניה</p>
@@ -308,8 +412,9 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <p class="hero-sub">אימוני כוח לילדים ולנוער, פילאטיס מכשירים לנערות ואימוני בר לנערות — שלוש פעילויות לגילאי <bdi>12–15</bdi>, בקבוצות קטנות ועם הדרכה וליווי לאורך האימון. אימון היכרות בכל פעילות ב־50 ₪.</p>
     <div class="hero-btns">
       <a class="btn-a" href="#programs">לפעילויות ולמערכת השעות ←</a>
-      <a class="btn-b" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%94%D7%99%D7%9B%D7%A8%D7%95%D7%AA%20%D7%91%D7%A7%D7%91%D7%95%D7%A6%D7%95%D7%AA%20%D7%94%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%95%D7%94%D7%A0%D7%95%D7%A2%D7%A8%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="whatsapp-click">לבחירת קבוצה בוואטסאפ</a>
+      <a class="btn-b" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%94%D7%99%D7%9B%D7%A8%D7%95%D7%AA%20%D7%91%D7%A7%D7%91%D7%95%D7%A6%D7%95%D7%AA%20%D7%94%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%95%D7%94%D7%A0%D7%95%D7%A2%D7%A8%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="trial-cta whatsapp-click">לבחירת קבוצה בוואטסאפ</a>
     </div>
+    <p class="trust-bar"><a href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener">4.8 ★ · 31 ביקורות בגוגל</a> · מעל 500 מתאמנות</p>
   </div>
 </section>
 
@@ -331,7 +436,11 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         <h3 id="strength-title"><bdi>GYM</bdi><span>אימוני כוח לילדים ולנוער</span></h3>
       </header>
       <figure class="youth-room__media">
-        <img src="images/kids-posture.jpg" width="1376" height="768" alt="המחשת אימון כוח לילדים ולנוער עם רצועות התנגדות ומדריכה" loading="lazy" decoding="async">
+        <picture>
+          <source srcset="images/kids-posture.avif" type="image/avif">
+          <source srcset="images/kids-posture.webp" type="image/webp">
+          <img src="images/kids-posture.jpg" width="1376" height="768" alt="המחשת אימון כוח לילדים ולנוער עם רצועות התנגדות ומדריכה" loading="lazy" decoding="async">
+        </picture>
         <figcaption>תמונת המחשה שנוצרה ב־AI</figcaption>
       </figure>
       <div class="youth-room__body">
@@ -342,7 +451,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         <li><span>ימי חמישי</span><time datetime="17:00"><bdi>17:00</bdi></time></li>
       </ul>
       <p class="program-note">גילאי <bdi>12–15</bdi> · <bdi>50–60</bdi> דקות<br>אימון היכרות: 50 ₪</p>
-      <a class="btn-a program-cta" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%94%D7%99%D7%9B%D7%A8%D7%95%D7%AA%20%D7%91%D7%9B%D7%95%D7%97%20%D7%9C%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%95%D7%9C%D7%A0%D7%95%D7%A2%D7%A8%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="whatsapp-click">לתיאום אימון כוח ←</a>
+      <a class="btn-a program-cta" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%94%D7%99%D7%9B%D7%A8%D7%95%D7%AA%20%D7%91%D7%9B%D7%95%D7%97%20%D7%9C%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%95%D7%9C%D7%A0%D7%95%D7%A2%D7%A8%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="trial-cta whatsapp-click">לתיאום אימון כוח ←</a>
       </div>
     </article>
 
@@ -361,7 +470,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         <li><span>ימי רביעי</span><time datetime="17:00"><bdi>17:00</bdi></time></li>
       </ul>
       <p class="program-note">גילאי <bdi>12–15</bdi><br>אימון היכרות: 50 ₪</p>
-      <a class="btn-a program-cta" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%A4%D7%99%D7%9C%D7%90%D7%98%D7%99%D7%A1%20%D7%9E%D7%9B%D7%A9%D7%99%D7%A8%D7%99%D7%9D%20%D7%9C%D7%A0%D7%A2%D7%A8%D7%95%D7%AA%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="whatsapp-click">לתיאום פילאטיס לנערות ←</a>
+      <a class="btn-a program-cta" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%A4%D7%99%D7%9C%D7%90%D7%98%D7%99%D7%A1%20%D7%9E%D7%9B%D7%A9%D7%99%D7%A8%D7%99%D7%9D%20%D7%9C%D7%A0%D7%A2%D7%A8%D7%95%D7%AA%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="trial-cta whatsapp-click">לתיאום פילאטיס לנערות ←</a>
       </div>
     </article>
 
@@ -379,7 +488,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         <li><span>ימי ראשון</span><time datetime="16:00"><bdi>16:00</bdi></time></li>
       </ul>
       <p class="program-note">גילאי <bdi>12–15</bdi><br>אימון היכרות: 50 ₪</p>
-      <a class="btn-a program-cta" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%91%D7%A8%20%D7%9C%D7%A0%D7%A2%D7%A8%D7%95%D7%AA%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="whatsapp-click">לתיאום בר לנערות ←</a>
+      <a class="btn-a program-cta" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%91%D7%A8%20%D7%9C%D7%A0%D7%A2%D7%A8%D7%95%D7%AA%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="trial-cta whatsapp-click">לתיאום בר לנערות ←</a>
       </div>
     </article>
   </div>
@@ -394,7 +503,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   </div>
   <div class="grid-3">
     <div class="card">
-      <h3>01 · תיקון יציבה וגב</h3>
+      <h3>01 · עבודה על יציבה וחיזוק</h3>
       <p>עבודה על חגורת הכתפיים ושרירי הגב, עם הדרכה על ביצוע התרגילים והתאמת העומס במהלך השיעור.</p>
     </div>
     <div class="card">
@@ -446,11 +555,11 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </details>
     <details>
       <summary>איפה מתקיימים האימונים?</summary>
-      <p>בסטודיו STEPS, רחוב אמנון ותמר 6, קניון רמת פולג (קומה 2), נתניה. לרשות ההורים חנייה חינם ונוחה בקניון.</p>
+      <p>בסטודיו STEPS, רחוב אמנון ותמר 6, קניון פולג (קומה 2), נתניה. לרשות ההורים חנייה חינם ונוחה בקניון.</p>
     </details>
   </div>
   <div style="text-align:center;margin-top:40px">
-    <a class="btn-a" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%94%D7%99%D7%9B%D7%A8%D7%95%D7%AA%20%D7%91%D7%A7%D7%91%D7%95%D7%A6%D7%95%D7%AA%20%D7%94%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%95%D7%94%D7%A0%D7%95%D7%A2%D7%A8%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="whatsapp-click">לבחירת קבוצה ולתיאום שיעור היכרות ←</a>
+    <a class="btn-a" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%94%D7%99%D7%9B%D7%A8%D7%95%D7%AA%20%D7%91%D7%A7%D7%91%D7%95%D7%A6%D7%95%D7%AA%20%D7%94%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%95%D7%94%D7%A0%D7%95%D7%A2%D7%A8%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="trial-cta whatsapp-click">לבחירת קבוצה ולתיאום שיעור היכרות ←</a>
   </div>
 </section>
 
@@ -458,7 +567,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 
 <footer class="ftr">
   <img src="steps-logo-white.png" alt="STEPS Fitness Center" width="100" height="25" style="margin:0 auto 14px">
-  <p>STEPS Fitness Center · אמנון ותמר 6, קניון רמת פולג, קומה 2, נתניה · 052-792-7575</p>
+  <p>STEPS Fitness Center · אמנון ותמר 6, קניון פולג, קומה 2, נתניה · 052-792-7575</p>
   <p style="margin-top:16px">
     <a href="index.html">דף הבית</a>
     <a href="barre.html">אימון בר</a>
@@ -471,6 +580,10 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   </p>
   <p>© 2026 STEPS Fitness Center. כל הזכויות שמורות.</p>
 </footer>
+
+<a class="waf" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%94%D7%99%D7%9B%D7%A8%D7%95%D7%AA%20%D7%91%D7%A7%D7%91%D7%95%D7%A6%D7%95%D7%AA%20%D7%94%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%95%D7%94%D7%A0%D7%95%D7%A2%D7%A8%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" aria-label="שלחי לנו הודעה בוואטסאפ" data-track="trial-cta whatsapp-click">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.7.44 3.36 1.28 4.82L2.05 22l5.4-1.42a9.9 9.9 0 0 0 4.6 1.17h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.13-2.9-7C17.2 3.03 14.7 2 12.05 2Zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.03.13-2.1-.24-.48-.17-1.1-.35-1.9-.7-3.35-1.45-5.53-4.8-5.7-5.02-.17-.22-1.36-1.8-1.36-3.44 0-1.63.86-2.43 1.16-2.77.3-.33.66-.42.88-.42h.63c.2 0 .47-.04.73.55.27.6.9 2.08.98 2.23.08.16.13.34.02.55-.1.2-.16.33-.32.5-.16.18-.34.4-.48.53-.16.15-.33.32-.14.63.19.32.85 1.4 1.83 2.27 1.26 1.12 2.32 1.47 2.65 1.63.33.16.52.14.71-.08.2-.22.83-.97 1.05-1.3.22-.34.44-.28.74-.17.3.11 1.9.9 2.23 1.06.32.16.54.24.62.38.08.13.08.77-.16 1.45Z"/></svg>
+</a>
 
 <div id="cookie-banner" role="region" aria-label="הסכמה לעוגיות">
   <p>האתר משתמש בעוגיות לצורך אנליטיקה ופרסום. <a href="privacy.html">מדיניות פרטיות</a></p>
@@ -528,13 +641,21 @@ document.addEventListener('keydown',function(e){
   if(consent==='granted')initTracking();
   else if(consent!=='declined')banner.style.display='flex';
 
-  /* פתיחת וואטסאפ היא קליק, לא ליד שנשלח. */
-  document.querySelectorAll('[data-track="whatsapp-click"]').forEach(function(a){
-    a.addEventListener('click',function(){
-      var params={page_location:location.href,link_url:a.href};
+  /* פתיחת וואטסאפ היא קליק, לא ליד שנשלח. אין Arbox בדף הזה — בכוונה. */
+  document.addEventListener('click',function(e){
+    var el=e.target.closest('[data-track]');
+    if(!el)return;
+    var t=el.getAttribute('data-track')||'';
+    var params={page_location:location.href,link_url:el.href||''};
+    if(t.indexOf('trial-cta')>-1){
+      var ctaParams={page_location:location.href,cta_text:(el.textContent||'').trim()};
+      gtag('event','cta_trial_click',ctaParams);
+      if(trackingReady&&typeof fbq==='function')fbq('trackCustom','cta_trial_click',ctaParams);
+    }
+    if(t.indexOf('whatsapp-click')>-1){
       gtag('event','whatsapp_click',params);
       if(trackingReady&&typeof fbq==='function')fbq('trackCustom','whatsapp_click',params);
-    });
+    }
   });
 })();
 </script>
