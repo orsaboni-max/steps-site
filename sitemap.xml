@@ -8,7 +8,7 @@
   </url>
   <url>
     <loc>https://stepsnetanya.co.il/barre.html</loc>
-    <lastmod>2026-09-05</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -57,6 +57,24 @@
   <url>
     <loc>https://stepsnetanya.co.il/pilates-postpartum.html</loc>
     <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://stepsnetanya.co.il/barre-beginners.html</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://stepsnetanya.co.il/barre-or-pilates.html</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://stepsnetanya.co.il/barre-teens.html</loc>
+    <lastmod>2026-09-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
