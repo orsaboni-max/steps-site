@@ -126,6 +126,20 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   transition:filter .18s var(--ease);
 }
 .n-cta:hover{filter:brightness(.94)}
+/* ═══ אייקוני ניווט ופוטר ══════════════════════════════════════
+   אמוג'י נרנדר על ידי מערכת ההפעלה: צורה וצבע שונים באייפון, באנדרואיד
+   ובווינדוס, ולא נשלטים על ידי המותג. ה-SVG יורש currentColor ולכן תמיד
+   בטון של הטקסט שלידו. ההמבורגר מחזיק שני אייקונים והמצב נקבע מ-aria-expanded,
+   כדי שה-JS לא יצטרך לכתוב מחדש את תוכן הכפתור (textContent מחק את ה-SVG). */
+.fc svg{width:16px;height:16px;flex:none;opacity:.9}
+.fsi svg{width:18px;height:18px}
+.cta-note svg{width:16px;height:16px;vertical-align:-.2em}
+#acc-btn svg{width:26px;height:26px}
+#acc-modal h2 svg{width:1em;height:1em;vertical-align:-.12em}
+.mob svg{width:22px;height:22px}
+/* .mob svg גובר על .mob-x לבדו (שתי רמות מול אחת) — לכן ההסתרה מסומנת בשתי רמות גם היא */
+.mob .mob-x,.mob[aria-expanded="true"] .mob-i{display:none}
+.mob[aria-expanded="true"] .mob-x{display:block}
 .mob{display:none;width:44px;height:44px;border:1px solid rgba(244,242,237,.24);border-radius:11px;background:none;color:var(--bone);font-size:20px;line-height:1;cursor:pointer;z-index:1001;align-items:center;justify-content:center}
 
 @media(max-width:960px){
@@ -657,7 +671,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <li><a href="#reviews">המלצות</a></li>
     <li><a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="n-cta js-arbox" target="_blank" rel="noopener" data-track="trial-cta arbox-open">אימון היכרות · 50 ₪</a></li>
   </ul>
-  <button class="mob" id="mobBtn" aria-label="פתיחת תפריט" aria-expanded="false">☰</button>
+  <button class="mob" id="mobBtn" aria-label="פתיחת תפריט" aria-expanded="false"><svg class="mob-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg><svg class="mob-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.4 6.4 17.6 17.6"/><path d="M17.6 6.4 6.4 17.6"/></svg></button>
 </nav>
 <div class="mob-overlay" id="mobOverlay"></div>
 
@@ -882,7 +896,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&lang=he&location=18259&referrer=PLUGIN&filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" data-track="trial-cta arbox-open" target="_blank" rel="noopener" class="btn-a js-arbox">קובעת אימון היכרות ב-50 ₪</a>
     <p class="cta-note">הרשמה ותשלום במערכת ARBOX</p>
   </div>
-  <p class="cta-note">💬 שאלות? <a href="https://wa.me/972527927575?text=היי%20אני%20מעוניינת%20בחדר%20כושר%20לנשים%20ב-STEPS%20(הגעתי%20מהאתר)" style="color:var(--accent);text-decoration:underline" target="_blank" rel="noopener" data-track="whatsapp-click">דברי איתנו בוואטסאפ</a></p>
+  <p class="cta-note"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.7.44 3.36 1.28 4.82L2.05 22l5.4-1.42a9.9 9.9 0 0 0 4.6 1.17h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.13-2.9-7C17.2 3.03 14.7 2 12.05 2Zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.03.13-2.1-.24-.48-.17-1.1-.35-1.9-.7-3.35-1.45-5.53-4.8-5.7-5.02-.17-.22-1.36-1.8-1.36-3.44 0-1.63.86-2.43 1.16-2.77.3-.33.66-.42.88-.42h.63c.2 0 .47-.04.73.55.27.6.9 2.08.98 2.23.08.16.13.34.02.55-.1.2-.16.33-.32.5-.16.18-.34.4-.48.53-.16.15-.33.32-.14.63.19.32.85 1.4 1.83 2.27 1.26 1.12 2.32 1.47 2.65 1.63.33.16.52.14.71-.08.2-.22.83-.97 1.05-1.3.22-.34.44-.28.74-.17.3.11 1.9.9 2.23 1.06.32.16.54.24.62.38.08.13.08.77-.16 1.45Z"/></svg> שאלות? <a href="https://wa.me/972527927575?text=היי%20אני%20מעוניינת%20בחדר%20כושר%20לנשים%20ב-STEPS%20(הגעתי%20מהאתר)" style="color:var(--accent);text-decoration:underline" target="_blank" rel="noopener" data-track="whatsapp-click">דברי איתנו בוואטסאפ</a></p>
   <p class="legal-note">מדיניות ביטולים: ביטול עד 24 שעות לפני האימון — ניתן לקבוע מועד חלופי. ביטול פחות מ-24 שעות מראש — אין זיכוי. <a href="privacy.html#cancel" style="color:var(--accent);text-decoration:underline">המדיניות המלאה</a></p>
 </section>
 
@@ -948,10 +962,10 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </div>
     <div>
       <div class="ft">צרי קשר</div>
-      <div class="fc">📍 אמנון ותמר 6, קניון פולג, נתניה</div>
-      <div class="fc" dir="ltr">📞 052-792-7575</div>
+      <div class="fc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.6s6.2-5.6 6.2-10.2a6.2 6.2 0 1 0-12.4 0c0 4.6 6.2 10.2 6.2 10.2Z"/><circle cx="12" cy="10.2" r="2.4"/></svg> אמנון ותמר 6, קניון פולג, נתניה</div>
+      <div class="fc" dir="ltr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.8h3.2l1.6 4-2 1.2a12.4 12.4 0 0 0 5.6 5.6l1.2-2 4 1.6v3.2a1.6 1.6 0 0 1-1.7 1.6A16.8 16.8 0 0 1 3.4 5.5 1.6 1.6 0 0 1 5 3.8Z"/></svg> 052-792-7575</div>
       <div class="fc">⏰ א׳-ה׳ 7:00-22:00 · ו׳ 07:30–13:00 · מוצ״ש: שיעור לפי מערכת השעות בלבד, ללא קבלת קהל או מזכירות</div>
-      <div class="fc">📸 <a href="https://www.instagram.com/steps_netanya/" target="_blank" rel="noopener">@steps_netanya</a></div>
+      <div class="fc"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg> <a href="https://www.instagram.com/steps_netanya/" target="_blank" rel="noopener">@steps_netanya</a></div>
     </div>
   </div>
   <p class="fnote">פעילות גופנית מומלץ לבצע לאחר התייעצות עם רופא. STEPS אינה אחראית לנזקי בריאות הנובעים משימוש בשירותיה.</p>
@@ -968,15 +982,15 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       <button type="button" id="ckReset">הגדרות עוגיות</button>
     </div>
     <div class="fsoc">
-      <a href="https://www.instagram.com/steps_netanya/" class="fsi" target="_blank" rel="noopener" aria-label="אינסטגרם STEPS">📷</a>
-      <a href="https://www.facebook.com/stepsnetanya/" class="fsi" target="_blank" rel="noopener" aria-label="פייסבוק STEPS">📘</a>
-      <a href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8%20%D7%A9%D7%9C%20STEPS" class="fsi" target="_blank" rel="noopener" aria-label="וואטסאפ STEPS">💬</a>
+      <a href="https://www.instagram.com/steps_netanya/" class="fsi" target="_blank" rel="noopener" aria-label="אינסטגרם STEPS"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg></a>
+      <a href="https://www.facebook.com/stepsnetanya/" class="fsi" target="_blank" rel="noopener" aria-label="פייסבוק STEPS"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 21v-7h2.5l.5-3H14V9.2c0-.9.3-1.6 1.6-1.6H17V4.9C16.6 4.8 15.6 4.7 14.5 4.7c-2.3 0-3.9 1.4-3.9 4v2.3H8v3h2.6v7H14Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg></a>
+      <a href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8%20%D7%A9%D7%9C%20STEPS" class="fsi" target="_blank" rel="noopener" aria-label="וואטסאפ STEPS"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.7.44 3.36 1.28 4.82L2.05 22l5.4-1.42a9.9 9.9 0 0 0 4.6 1.17h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.13-2.9-7C17.2 3.03 14.7 2 12.05 2Zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.03.13-2.1-.24-.48-.17-1.1-.35-1.9-.7-3.35-1.45-5.53-4.8-5.7-5.02-.17-.22-1.36-1.8-1.36-3.44 0-1.63.86-2.43 1.16-2.77.3-.33.66-.42.88-.42h.63c.2 0 .47-.04.73.55.27.6.9 2.08.98 2.23.08.16.13.34.02.55-.1.2-.16.33-.32.5-.16.18-.34.4-.48.53-.16.15-.33.32-.14.63.19.32.85 1.4 1.83 2.27 1.26 1.12 2.32 1.47 2.65 1.63.33.16.52.14.71-.08.2-.22.83-.97 1.05-1.3.22-.34.44-.28.74-.17.3.11 1.9.9 2.23 1.06.32.16.54.24.62.38.08.13.08.77-.16 1.45Z"/></svg></a>
     </div>
   </div>
 </footer>
 
 <!-- ACCESSIBILITY BUTTON -->
-<button id="acc-btn" onclick="document.getElementById('acc-modal').style.display='flex'" aria-label="נגישות" >♿</button>
+<button id="acc-btn" onclick="document.getElementById('acc-modal').style.display='flex'" aria-label="נגישות"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="4.5" r="1.8" fill="currentColor"/><path d="M12 8v5m0 0-3 7m3-7 3 7M7 11h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
 
 <!-- FLOATING WA -->
 <a href="https://wa.me/972527927575?text=היי%20אני%20מעוניינת%20בחדר%20כושר%20לנשים%20ב-STEPS%20💛%20(הגעתי%20מהאתר)" class="waf" target="_blank" rel="noopener" aria-label="שלחי הודעה בוואטסאפ" data-track="whatsapp-click"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.7.44 3.36 1.28 4.82L2.05 22l5.4-1.42a9.9 9.9 0 0 0 4.6 1.17h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.13-2.9-7C17.2 3.03 14.7 2 12.05 2Zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.03.13-2.1-.24-.48-.17-1.1-.35-1.9-.7-3.35-1.45-5.53-4.8-5.7-5.02-.17-.22-1.36-1.8-1.36-3.44 0-1.63.86-2.43 1.16-2.77.3-.33.66-.42.88-.42h.63c.2 0 .47-.04.73.55.27.6.9 2.08.98 2.23.08.16.13.34.02.55-.1.2-.16.33-.32.5-.16.18-.34.4-.48.53-.16.15-.33.32-.14.63.19.32.85 1.4 1.83 2.27 1.26 1.12 2.32 1.47 2.65 1.63.33.16.52.14.71-.08.2-.22.83-.97 1.05-1.3.22-.34.44-.28.74-.17.3.11 1.9.9 2.23 1.06.32.16.54.24.62.38.08.13.08.77-.16 1.45Z"/></svg></a>
@@ -1004,7 +1018,7 @@ window.addEventListener('scroll',function(){document.getElementById('nav').class
 var mobBtn=document.getElementById('mobBtn');
 var nLinks=document.getElementById('navLinks');
 var mobOv=document.getElementById('mobOverlay');
-function toggleMenu(){var o=nLinks.classList.toggle('open');mobOv.classList.toggle('open');mobBtn.textContent=o?'✕':'☰';mobBtn.setAttribute('aria-expanded',o?'true':'false');}
+function toggleMenu(){var o=nLinks.classList.toggle('open');mobOv.classList.toggle('open');mobBtn.setAttribute('aria-expanded',o?'true':'false');}
 mobBtn.addEventListener('click',toggleMenu);
 mobOv.addEventListener('click',toggleMenu);
 document.querySelectorAll('.n-links a').forEach(function(a){a.addEventListener('click',function(){if(nLinks.classList.contains('open'))toggleMenu();});});
@@ -1100,7 +1114,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
 <div id="acc-modal" role="dialog" aria-modal="true" aria-label="הצהרת נגישות" style="display:none">
   <div class="modal-box">
     <button onclick="document.getElementById('acc-modal').style.display='none'" aria-label="סגירה" class="modal-x">&times;</button>
-    <h2>♿ הצהרת נגישות</h2>
+    <h2><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="4.5" r="1.8" fill="currentColor"/><path d="M12 8v5m0 0-3 7m3-7 3 7M7 11h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg> הצהרת נגישות</h2>
     <p>
       סטודיו STEPS שואף לאפשר גלישה נוחה ונגישה לכל המשתמשות. אנו פועלים לשיפור הנגישות באופן מתמיד ושמחים לקבל פניות בנושא.<br><br>
       <strong>פעולות נגישות שבוצעו:</strong><br>

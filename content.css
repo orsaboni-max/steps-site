@@ -89,6 +89,21 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   transition:filter .18s var(--ease);
 }
 .n-cta:hover{filter:brightness(.94)}
+/* ═══ אייקוני ניווט ופוטר ══════════════════════════════════════
+   אמוג'י נרנדר על ידי מערכת ההפעלה: צורה וצבע שונים באייפון, באנדרואיד
+   ובווינדוס, ולא נשלטים על ידי המותג. ה-SVG יורש currentColor ולכן תמיד
+   בטון של הטקסט שלידו. ההמבורגר מחזיק שני אייקונים והמצב נקבע מ-aria-expanded,
+   כדי שה-JS לא יצטרך לכתוב מחדש את תוכן הכפתור (textContent מחק את ה-SVG). */
+.fc svg{width:16px;height:16px;flex:none;opacity:.9}
+.fsi svg{width:18px;height:18px}
+.cta-note svg{width:16px;height:16px;vertical-align:-.2em}
+#acc-btn svg{width:26px;height:26px}
+#acc-modal h2 svg{width:1em;height:1em;vertical-align:-.12em}
+.mob svg{width:22px;height:22px}
+/* .mob svg גובר על .mob-x לבדו (שתי רמות מול אחת) — לכן ההסתרה מסומנת בשתי רמות גם היא */
+.mob .mob-x,.mob[aria-expanded="true"] .mob-i{display:none}
+.mob[aria-expanded="true"] .mob-x{display:block}
+
 .mob{display:none;width:44px;height:44px;border:1px solid rgba(244,242,237,.24);border-radius:11px;background:none;color:var(--bone);font-size:20px;line-height:1;cursor:pointer;z-index:1001;align-items:center;justify-content:center}
 
 @media(max-width:960px){

@@ -14,7 +14,7 @@ var mobBtn=document.getElementById('mobBtn'),
 function toggleMenu(){
   var o=nLinks.classList.toggle('open');
   mobOv.classList.toggle('open');
-  mobBtn.textContent=o?'✕':'☰';
+  
   mobBtn.setAttribute('aria-expanded',o?'true':'false');
 }
 if(mobBtn&&nLinks&&mobOv){

@@ -111,6 +111,20 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   transition:filter .18s var(--ease);
 }
 .n-cta:hover{filter:brightness(.94)}
+/* ═══ אייקוני ניווט ופוטר ══════════════════════════════════════
+   אמוג'י נרנדר על ידי מערכת ההפעלה: צורה וצבע שונים באייפון, באנדרואיד
+   ובווינדוס, ולא נשלטים על ידי המותג. ה-SVG יורש currentColor ולכן תמיד
+   בטון של הטקסט שלידו. ההמבורגר מחזיק שני אייקונים והמצב נקבע מ-aria-expanded,
+   כדי שה-JS לא יצטרך לכתוב מחדש את תוכן הכפתור (textContent מחק את ה-SVG). */
+.fc svg{width:16px;height:16px;flex:none;opacity:.9}
+.fsi svg{width:18px;height:18px}
+.cta-note svg{width:16px;height:16px;vertical-align:-.2em}
+#acc-btn svg{width:26px;height:26px}
+#acc-modal h2 svg{width:1em;height:1em;vertical-align:-.12em}
+.mob svg{width:22px;height:22px}
+/* .mob svg גובר על .mob-x לבדו (שתי רמות מול אחת) — לכן ההסתרה מסומנת בשתי רמות גם היא */
+.mob .mob-x,.mob[aria-expanded="true"] .mob-i{display:none}
+.mob[aria-expanded="true"] .mob-x{display:block}
 .mob{display:none;width:44px;height:44px;border:1px solid rgba(244,242,237,.24);border-radius:11px;background:none;color:var(--bone);font-size:20px;line-height:1;cursor:pointer;z-index:1001;align-items:center;justify-content:center}
 
 @media(max-width:960px){
@@ -406,7 +420,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <li><a href="nutrition.html">תזונה</a></li>
     <li><a class="n-cta" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%94%D7%99%D7%9B%D7%A8%D7%95%D7%AA%20%D7%91%D7%A7%D7%91%D7%95%D7%A6%D7%95%D7%AA%20%D7%94%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%95%D7%94%D7%A0%D7%95%D7%A2%D7%A8%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="whatsapp-click">לפרטים ולתיאום</a></li>
   </ul>
-  <button class="mob" type="button" aria-label="פתיחת תפריט" aria-controls="nLinks" aria-expanded="false" id="mobBtn">☰</button>
+  <button class="mob" type="button" aria-label="פתיחת תפריט" aria-controls="nLinks" aria-expanded="false" id="mobBtn"><svg class="mob-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg><svg class="mob-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.4 6.4 17.6 17.6"/><path d="M17.6 6.4 6.4 17.6"/></svg></button>
 </header>
 <div class="mob-overlay" id="mobOverlay"></div>
 
@@ -621,7 +635,7 @@ function toggleMenu(){
   var isOpen=nLinks.classList.contains('open');
   nLinks.classList.toggle('open',!isOpen);
   mobOverlay.classList.toggle('open',!isOpen);
-  mobBtn.textContent=!isOpen?'✕':'☰';
+  
   mobBtn.setAttribute('aria-expanded',isOpen?'false':'true');
   mobBtn.setAttribute('aria-label',isOpen?'פתיחת תפריט':'סגירת תפריט');
 }
