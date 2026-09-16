@@ -187,3 +187,25 @@ test('the published review count is the same number everywhere it appears', () =
   }
   assert.ok(counts.size <= 1, 'inconsistent review counts across pages: ' + [...counts].join(', '));
 });
+
+// A new guide used to reach Google through two pages only: the cluster it belonged to
+// linked it and nothing else did. One shared list, asserted here, is what keeps that from
+// happening again the next time a cluster ships.
+const footerGuides = html => {
+  const block = html.match(/מדריכים<\/(?:div|p)>([\s\S]*?)<\/(?:ul|nav)>/);
+  return block && [...block[1].matchAll(/href="([^"]+\.html)"/g)].map(m => m[1]);
+};
+
+test('every page that lists guides in its footer lists the same ones, and they all exist', () => {
+  const pages = sitePages();
+  const expected = footerGuides(read('index.html'));
+  assert.ok(expected && expected.length, 'index.html must carry the canonical guide list');
+  for (const guide of expected) {
+    assert.ok(pages.includes(guide), 'footer links ' + guide + ', which is not in sitemap.xml');
+  }
+  for (const page of pages) {
+    const links = footerGuides(read(page));
+    if (!links) continue; // kids.html and the legal pages carry a short footer by design
+    assert.deepEqual(links, expected, page + ' footer guide list has drifted from index.html');
+  }
+});
