@@ -274,9 +274,9 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .sec-content strong{color:var(--bone);font-weight:700}
 
 /* ═══ מספרים ══════════════════════════════════════════════════ */
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line-card);border-radius:var(--r-md);overflow:hidden;max-width:760px;margin:clamp(40px,5vw,64px) auto 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:none;border:0;border-top:1px solid var(--line-card);border-radius:0;max-width:760px;margin:clamp(40px,5vw,64px) auto 0}
 /* המקטע יושב על רקע sec-alt, אז התאים צריכים להיות כהים ממנו ולא בהירים */
-.stat{background:var(--ink);padding:clamp(22px,2.6vw,32px) 20px;text-align:center}
+.stat{background:none;padding:clamp(20px,2.4vw,28px) clamp(14px,2vw,22px);text-align:start;border-bottom:1px solid var(--line-card)}.stat+.stat{border-inline-start:1px solid var(--line-card)}@media(max-width:600px){.stats{grid-template-columns:1fr}.stat+.stat{border-inline-start:0}}
 .stat-n{font-family:var(--display);font-weight:900;font-size:clamp(38px,5vw,58px);line-height:1;letter-spacing:-.04em;color:var(--yellow)}
 .stat-l{margin-top:8px;font-size:14px;line-height:1.4;color:var(--t60)}
 
@@ -519,6 +519,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   background:var(--yellow-tint-2);border:1px solid rgba(255,212,0,.35);
   display:flex;align-items:center;justify-content:center;font-size:30px;
 }
+.half-badge svg{width:34px;height:34px;color:var(--yellow)}
 .half-who{font-family:var(--display);font-weight:900;font-size:clamp(24px,2.6vw,32px);letter-spacing:-.035em;line-height:1.05;color:var(--bone)}
 .half-role{margin-top:5px;font-size:13.5px;letter-spacing:.06em;color:var(--yellow);font-weight:700}
 .half p{font-size:15.5px;line-height:1.75;color:var(--t75);margin-bottom:18px}
@@ -958,7 +959,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   <div class="halves">
     <div class="half">
       <div class="half-head">
-        <div class="half-badge" aria-hidden="true">📋</div>
+        <div class="half-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4.6H7.4c-.8 0-1.4.6-1.4 1.4v13.4c0 .8.6 1.4 1.4 1.4h9.2c.8 0 1.4-.6 1.4-1.4V6c0-.8-.6-1.4-1.4-1.4H15"/><path d="M9 3.2h6v3H9Z"/><path d="M9 11.2h6"/><path d="M9 15.2h4"/></svg></div>
         <div><div class="half-who">התוכנית</div><div class="half-role">ממני, בסטודיו</div></div>
       </div>
       <ul class="tick">
@@ -971,7 +972,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </div>
     <div class="half">
       <div class="half-head">
-        <div class="half-badge" aria-hidden="true">💬</div>
+        <div class="half-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.4 11.6c0 3.8-3.8 6.9-8.4 6.9-1 0-2-.1-2.9-.4l-5.5 2 1.6-4.1a6.5 6.5 0 0 1-1.6-4.4c0-3.8 3.8-6.9 8.4-6.9s8.4 3.1 8.4 6.9Z"/><path d="M8.8 10.4h6.4"/><path d="M8.8 13.4h4"/></svg></div>
         <div><div class="half-who">הליווי</div><div class="half-role">מבינה, כל יום</div></div>
       </div>
       <ul class="tick">
