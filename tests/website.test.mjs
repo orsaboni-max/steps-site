@@ -209,3 +209,24 @@ test('every page that lists guides in its footer lists the same ones, and they a
     assert.deepEqual(links, expected, page + ' footer guide list has drifted from index.html');
   }
 });
+
+// AI crawlers do not run JavaScript. Every schedule on the site is fetched from
+// /api/schedule on the client, so a page that ships an empty container answers
+// "when are the classes?" with nothing at all — which is what pilates.html did
+// until 18/09/26. Fixing only the page that was reported would have left the
+// homepage and the two other schedule pages silently broken, so the guard lives
+// here, on the shared condition, rather than in three separate assertions.
+test('every page with a live schedule also ships one in the raw HTML', () => {
+  for (const page of sitePages()) {
+    const html = read(page);
+    if (!html.includes('/api/schedule')) continue;
+    const visible = html.replace(/<script[\s\S]*?<\/script>/gi, ' ');
+    const times = visible.match(/\b([01]?\d|2[0-3]):[0-5]\d\b/g) || [];
+    // Opening hours alone reach ~10 matches; a real schedule block clears that easily.
+    assert.ok(times.length >= 12,
+      page + ' calls /api/schedule but its server-rendered HTML holds only ' +
+      times.length + ' times — an AI crawler sees an empty schedule');
+    assert.match(visible, /עודכן לאחרונה/,
+      page + ' publishes a schedule with no visible freshness date');
+  }
+});
