@@ -38,6 +38,11 @@
 @font-face{font-family:'Heebo';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/heebo-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 @font-face{font-family:'Assistant';font-style:normal;font-weight:200 800;font-display:swap;src:url(fonts/assistant-hebrew.woff2) format('woff2');unicode-range:U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F}
 @font-face{font-family:'Assistant';font-style:normal;font-weight:200 800;font-display:swap;src:url(fonts/assistant-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+.answer{max-width:70ch;margin:0 auto clamp(30px,4vw,48px);border:1px solid rgba(255,212,0,.4);border-inline-start:4px solid var(--yellow);background:var(--yellow-tint-2);border-radius:var(--r-lg);padding:clamp(22px,2.6vw,32px) clamp(20px,2.4vw,34px)}
+.answer-t{font-family:var(--body);font-weight:800;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);margin-bottom:12px}
+.answer p{font-size:clamp(16.5px,1.4vw,19px);line-height:1.65;color:var(--bone);font-weight:400}
+.answer p+p{margin-top:12px}
+.answer strong{font-weight:700;color:#fff}
 </style>
 <link rel="preload" as="image" href="images/shoot2025/hero-cine-1080-poster.webp" type="image/webp" fetchpriority="high">
 
@@ -891,6 +896,13 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <div class="sec-head sec-head--keep">
       <h2 class="h-lg">שלושה חללים.<br>קורת גג אחת.</h2>
       <span class="eyebrow">01 — 03</span>
+    </div>
+  </div>
+  <div class="shell">
+    <div class="answer">
+      <div class="answer-t">בקצרה</div>
+      <p>סטודיו סטפס הוא סטודיו כושר בקניון פולג בנתניה, אמנון ותמר 6, קומה 2, עם שלושה חללי אימון תחת קורת גג אחת: <bdi>GYM</bdi> לאימוני כוח, <bdi>MOVE</bdi> לשיעורי סטודיו כמו בר, יוגה ופילאטיס מזרן, וחלל רפורמר עם 11 מיטות פילאטיס מכשירים. מתאמנות אצלנו מעל 500 נשים, והדירוג בגוגל הוא 4.9 מתוך 5 מ-34 ביקורות.</p>
+      <p>האימונים מתקיימים בקבוצות קטנות עם מדריכה שמלווה ומתקנת תוך כדי — עד 11 מתאמנות בשיעור רפורמר ועד 15 בשיעור בר. חלק מהשיעורים מוגדרים לנשים בלבד וחלקם מעורבים, לפי מה שכתוב ליד כל שיעור במערכת. יש 109 שיעורים בשבוע מראשון עד שישי, הסטודיו פתוח ראשון עד חמישי <bdi>07:00–22:00</bdi> ושישי <bdi>07:30–13:00</bdi>, והחניה בקניון חינם. <strong>אימון היכרות עולה 50 ₪</strong>, ומסלולים חודשיים מתחילים ב-230 ₪ ל-<bdi>GYM</bdi> ו-<bdi>MOVE</bdi> או ב-320 ₪ למסלול שכולל גם פילאטיס מכשירים, בלי התחייבות.</p>
     </div>
   </div>
   <div class="rooms">
