@@ -221,9 +221,15 @@ test('every page with a live schedule also ships one in the raw HTML', () => {
     const html = read(page);
     if (!html.includes('/api/schedule')) continue;
     const visible = html.replace(/<script[\s\S]*?<\/script>/gi, ' ');
+    // Opening hours (footer, schema, contact block) alone reach ~10 matches, so a
+    // count threshold barely above that would pass on a page carrying no schedule.
+    // Anchor on the schedule itself: it has to name every weekday.
+    for (const day of ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי']) {
+      assert.ok(visible.includes(day),
+        page + ' calls /api/schedule but its server-rendered HTML never names ' + day);
+    }
     const times = visible.match(/\b([01]?\d|2[0-3]):[0-5]\d\b/g) || [];
-    // Opening hours alone reach ~10 matches; a real schedule block clears that easily.
-    assert.ok(times.length >= 12,
+    assert.ok(times.length >= 18,
       page + ' calls /api/schedule but its server-rendered HTML holds only ' +
       times.length + ' times — an AI crawler sees an empty schedule');
     assert.match(visible, /עודכן לאחרונה/,
