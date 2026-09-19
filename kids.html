@@ -347,8 +347,8 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         "name": "אימוני כוח לילדים ולנוער",
         "audience": {"@type": "PeopleAudience", "suggestedMinAge": 12, "suggestedMaxAge": 15},
         "hoursAvailable": [
-          {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday","Thursday"], "opens": "17:00", "closes": "18:00"},
-          {"@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "16:30", "closes": "17:30"}
+          {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday","Thursday"], "opens": "17:00"},
+          {"@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "16:30"}
         ],
         "provider": {"@id": "https://stepsnetanya.co.il/#healthclub"}
       },
@@ -435,7 +435,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   <picture>
     <source srcset="images/kids-hero.avif" type="image/avif">
     <source srcset="images/kids-hero.webp" type="image/webp">
-    <img class="hero-bg-img" src="images/kids-hero.jpg" width="1376" height="768" alt="המחשת אימוני כושר וסולמות זריזות לילדים ונוער בסטפס" loading="eager">
+    <img class="hero-bg-img" src="images/kids-hero.jpg" width="1376" height="768" alt="המחשת אימוני כושר וסולמות זריזות לילדים ונוער בסטפס" fetchpriority="high" loading="eager">
   </picture>
   <p class="hero-ai-credit">תמונת המחשה שנוצרה ב־AI</p>
   <div class="hero-overlay"></div>
