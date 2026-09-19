@@ -236,3 +236,32 @@ test('every page with a live schedule also ships one in the raw HTML', () => {
       page + ' publishes a schedule with no visible freshness date');
   }
 });
+
+// A page that tells the reader one author and tells Google another is worse than
+// naming no author at all. This shipped on 18/09: the visible byline was switched
+// to a person while the Article schema still said Organization, because the
+// replacement matched a JSON.stringify form rather than the raw file text — and
+// nothing caught it until the live page was read back.
+test('the visible byline and the schema author name the same person', () => {
+  for (const page of sitePages()) {
+    const html = read(page);
+    const byline = html.match(/<p class="byline"[^>]*>([\s\S]*?)<\/p>/);
+    if (!byline) continue;
+    const shown = byline[1].replace(/<[^>]+>/g, '');
+    const person = shown.match(/נכתב על ידי ([^·,]+)/);
+    if (!person) continue;                       // a byline that names no author
+    const name = person[1].trim();
+    for (const block of html.matchAll(/<script[^>]*ld\+json[^>]*>([\s\S]*?)<\/script>/gi)) {
+      const parsed = JSON.parse(block[1]);
+      const nodes = parsed['@graph'] || (Array.isArray(parsed) ? parsed : [parsed]);
+      for (const node of nodes) {
+        if (node['@type'] !== 'Article') continue;
+        assert.equal(node.author?.['@type'], 'Person',
+          page + ' shows a named author but its Article schema credits ' +
+          node.author?.['@type']);
+        assert.ok(name.startsWith(node.author.name),
+          page + ' byline says "' + name + '" but schema says "' + node.author.name + '"');
+      }
+    }
+  }
+});
