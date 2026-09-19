@@ -35,7 +35,7 @@ PAGES = [
     # אשכולות הבר וה-GYM — כל דף מקבל צילום משלו, לא של דף האב
     ("barre-beginners", "images/barre-tali.jpeg",             "אימון בר למתחילות",            0.46),
     ("barre-or-pilates","images/shoot2025/pilates-main.jpg",  "בר או פילאטיס מכשירים?",       0.40),
-    ("barre-teens",     "images/shoot2025/move-new-1.jpg",    "אימון בר לנערות 12–15",        0.42),
+    ("barre-teens",     "images/teen-barre-clean-v2.jpg",     "אימון בר לנערות 12–15",        0.46),
     ("gym-beginners",   "images/shoot2025/gallery-a.jpg",     "האימון הראשון בחדר הכושר",     0.40),
     ("gym-or-mixed",    "images/shoot2025/gallery-b.jpg",     "חדר כושר לנשים או מעורב?",     0.42),
     ("gym-menopause",   "images/shoot2025/coaching-1.jpg",    "אימון כוח לנשים בגיל המעבר",   0.35),
@@ -78,6 +78,9 @@ def wrap(draw, text, font, max_w):
     return lines
 
 
+NOTES = {"barre-teens": "תמונת המחשה שנוצרה ב־AI"}
+
+
 def build(slug, src, title, focal_y):
     img = cover(src, focal_y)
     layer, mask = scrim()
@@ -101,6 +104,11 @@ def build(slug, src, title, focal_y):
     # yellow rule above the title (RTL: anchored to the right edge)
     rule_y = baseline - lh * len(lines) - 26
     d.rectangle([W - PAD - 96, rule_y - 7, W - PAD, rule_y], fill=YELLOW)
+
+    note = NOTES.get(slug)
+    if note:
+        nf = ImageFont.truetype(FONT, 20)
+        d.text((PAD, H - PAD + 6), get_display(note), font=nf, fill=(168, 166, 161), anchor="ls")
 
     # logo, top-left — graphic mark, deliberately away from the Hebrew line
     logo = Image.open(LOGO).convert("RGBA")
