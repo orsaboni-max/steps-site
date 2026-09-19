@@ -449,6 +449,42 @@ test('consent is only ever switched on by a stored or fresh approval', () => {
   }
 });
 
+// הבדיקה שלמעלה קוראת HTML בלבד, ולכן היא עיוורת לעשרת דפי האשכולות: הבאנר
+// שלהם מחווט מ-content.js, וב-19/09/26 נמדד חי שלחיצה על "מסכימה" שם הדליקה
+// את GA4 ואת מטא אבל לא את הפיקסל של OpenAI — הוא נשאר false עד הדף הבא.
+// לכן: כל דף שנושא באנר חייב להגיע לפונקציית-הסכמה שמדליקה את שלושתם,
+// בין אם היא בתוכו ובין אם היא בקובץ שהוא טוען.
+test('every page that shows a banner reaches a grant that turns on all three trackers', () => {
+  const shared = read('content.js');
+  const count = (haystack, needle) => haystack.split(needle).length - 1;
+  const grantIn = source => {
+    const fn = source.indexOf('function initTracking(){') + 1 || source.indexOf('function init(){') + 1;
+    return fn ? source.slice(fn - 1, fn + 1200) : '';
+  };
+  // ההדלקה ב-content.js יושבת בתוך פונקציית ההסכמה ולא בשום מקום אחר.
+  assert.equal(count(shared, 'oaiq("consent", true)'), 1, 'content.js turns consent on somewhere unexpected');
+  assert.ok(grantIn(shared).includes('oaiq("consent", true)'), 'content.js grants consent outside its consent function');
+
+  let seen = 0;
+  for (const page of sitePages()) {
+    const html = read(page);
+    if (!html.includes('id="cookie-banner"') && !html.includes("id='cookie-banner'") && !html.includes('id="cookie"')) continue;
+    seen++;
+    const grant = grantIn(html) || (html.includes('src="content.js"') ? grantIn(shared) : '');
+    assert.ok(grant, page + ' shows a banner but never reaches a grant function');
+    for (const tracker of ['oaiq("consent", true)', "gtag('consent','update'", "fbq('init'"]) {
+      assert.ok(grant.includes(tracker), page + ' grants consent without turning on ' + tracker);
+    }
+    // כפתור onclick שמפנה לפונקציה שאינה קיימת נראה תקין לגמרי ואינו עושה דבר.
+    const code = html + (html.includes('src="content.js"') ? shared : '');
+    for (const [, fn] of html.matchAll(/onclick="(\w+)\(\)"/g)) {
+      assert.ok(code.includes('function ' + fn) || code.includes(fn + '=function') || code.includes(fn + ' = function'),
+        page + ' has a button calling ' + fn + '() but nothing defines it');
+    }
+  }
+  assert.ok(seen >= 16, 'expected every landing and guide page to carry a banner, found ' + seen);
+});
+
 // הבדיקות למעלה קוראות טקסט. זו מריצה את קוד ההסכמה של דף הבית באמת, כי הדרך
 // שבה זה נשבר בשקט היא סדר: הסכמה שנדלקת בטעינה למי שדחתה, או שלא נדלקת בלחיצה.
 function consentHarness(stored) {
