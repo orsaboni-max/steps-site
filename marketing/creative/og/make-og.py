@@ -32,6 +32,13 @@ PAGES = [
     ("or-gym",      "images/shoot2025/gym-alt.jpg",    "פילאטיס או חדר כושר?",            0.42),
     ("postpartum",  "images/shoot2025/pilates-alt.jpg","פילאטיס אחרי לידה",               0.40),
     ("beginners",   "images/shoot2025/gallery-f.jpg",  "השיעור הראשון על רפורמר",         0.40),
+    # אשכולות הבר וה-GYM — כל דף מקבל צילום משלו, לא של דף האב
+    ("barre-beginners", "images/barre-tali.jpeg",             "אימון בר למתחילות",            0.46),
+    ("barre-or-pilates","images/shoot2025/pilates-main.jpg",  "בר או פילאטיס מכשירים?",       0.40),
+    ("barre-teens",     "images/shoot2025/move-new-1.jpg",    "אימון בר לנערות 12–15",        0.42),
+    ("gym-beginners",   "images/shoot2025/gallery-a.jpg",     "האימון הראשון בחדר הכושר",     0.40),
+    ("gym-or-mixed",    "images/shoot2025/gallery-b.jpg",     "חדר כושר לנשים או מעורב?",     0.42),
+    ("gym-menopause",   "images/shoot2025/coaching-1.jpg",    "אימון כוח לנשים בגיל המעבר",   0.35),
 ]
 
 
@@ -110,14 +117,24 @@ def build(slug, src, title, focal_y):
 
 
 if __name__ == "__main__":
+    import math
+    import sys
+
     os.makedirs(OUT, exist_ok=True)
-    sheet = Image.new("RGB", (W // 2 * 2, (H // 2) * 5), INK)
-    for i, (slug, src, title, fy) in enumerate(PAGES):
+    # ללא ארגומנטים — בונה הכל. עם שמות דפים — רק אותם, כדי לא לגעת בקבצים שכבר אושרו.
+    wanted = set(sys.argv[1:])
+    pages = [p for p in PAGES if p[0] in wanted] if wanted else PAGES
+    missing = wanted - {p[0] for p in pages}
+    assert not missing, f"unknown slugs: {sorted(missing)}"
+    sheet_name = "contact-sheet.jpg" if not wanted else "contact-sheet-new.jpg"
+
+    sheet = Image.new("RGB", (W, (H // 2) * math.ceil(len(pages) / 2)), INK)
+    for i, (slug, src, title, fy) in enumerate(pages):
         p, size, q = build(slug, src, title, fy)
         assert size <= 150 * 1024, (p, size)
-        print(f"{slug:11s} q{q} {size/1024:6.1f}KB  {src}")
+        print(f"{slug:17s} q{q} {size/1024:6.1f}KB  {src}")
         sheet.paste(Image.open(p).resize((W // 2, H // 2), Image.LANCZOS),
                     ((i % 2) * (W // 2), (i // 2) * (H // 2)))
-    sheet.save(os.path.join(ROOT, "marketing", "creative", "og", "contact-sheet.jpg"),
+    sheet.save(os.path.join(ROOT, "marketing", "creative", "og", sheet_name),
                "JPEG", quality=88, optimize=True)
-    print("sheet -> marketing/creative/og/contact-sheet.jpg")
+    print("sheet -> marketing/creative/og/" + sheet_name)

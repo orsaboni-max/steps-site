@@ -294,3 +294,28 @@ test('sitemap lastmod is never older than the date the page shows the reader', (
       ' — Google is told the page is older than the page says it is');
   }
 });
+
+// The six cluster pages shipped pointing at their parent's share image, so a link
+// to gym-menopause.html looked exactly like a link to gym-women.html in WhatsApp
+// and on Facebook. Each page now carries its own card; the invariant that keeps it
+// that way is uniqueness, not a list of filenames.
+test('every page links a share image that exists, fits the budget, and is its own', () => {
+  const seen = new Map();
+  for (const page of sitePages()) {
+    const html = read(page);
+    const og = html.match(/<meta property="og:image" content="([^"]+)"/);
+    if (!og) continue;                          // legal pages ship no card
+    const twitter = html.match(/<meta name="twitter:image" content="([^"]+)"/);
+    assert.equal(twitter?.[1], og[1], page + ' names a different image to Twitter');
+
+    const file = og[1].replace('https://stepsnetanya.co.il/', '');
+    assert.ok(fs.existsSync(root + file), page + ' points at a missing image: ' + file);
+    const kb = fs.statSync(root + file).size / 1024;
+    assert.ok(kb <= 150, file + ' is ' + kb.toFixed(0) + 'KB, over the 150KB budget');
+
+    assert.ok(!seen.has(file),
+      page + ' shares its share image with ' + seen.get(file) + ' — both links preview the same card');
+    seen.set(file, page);
+  }
+  assert.ok(seen.size >= 16, 'pages lost their share images: ' + seen.size);
+});
