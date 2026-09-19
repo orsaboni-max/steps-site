@@ -453,7 +453,12 @@ table.cmp .num{font-family:var(--display);font-weight:900;font-size:19px;color:v
   transition:background .18s var(--ease),color .18s var(--ease),border-color .18s var(--ease);
 }
 .dpick-tabs label:hover{border-color:rgba(244,242,237,.5);color:var(--bone)}
-.dpick>input:focus-visible~.dpick-tabs{outline:2px solid var(--yellow);outline-offset:-2px;border-radius:var(--r-md)}
+#d1:focus-visible~.dpick-tabs label[for=d1],
+#d2:focus-visible~.dpick-tabs label[for=d2],
+#d3:focus-visible~.dpick-tabs label[for=d3],
+#d4:focus-visible~.dpick-tabs label[for=d4],
+#d5:focus-visible~.dpick-tabs label[for=d5],
+#d6:focus-visible~.dpick-tabs label[for=d6]{outline:2px solid var(--yellow);outline-offset:3px}
 .dpick-p{display:none;padding:clamp(20px,2.6vw,30px) clamp(18px,2.4vw,26px)}
 .dpick-d{font-family:var(--display);font-weight:900;letter-spacing:-.03em;font-size:clamp(20px,2.2vw,26px);line-height:1.1;color:var(--bone)}
 .dpick-h{margin-top:10px;font-family:var(--display);font-weight:900;font-size:clamp(17px,1.8vw,21px);line-height:1.5;color:var(--yellow);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
