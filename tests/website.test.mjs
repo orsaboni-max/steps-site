@@ -361,3 +361,50 @@ test('every FAQPage answer says exactly what the reader sees', () => {
   }
   assert.ok(checked >= 130, 'pages lost their FAQ schema: ' + checked);
 });
+
+// RV2 מדד שכל עשרת המדריכים עונים בפרוזה בלבד: שניים מהם בלי טבלה בכלל, וכולם
+// בלי וידאו ובלי משהו שאפשר ללחוץ עליו. מדריך הוא דף שנכתב כדי לענות על שאלה,
+// וגוגל ומנועי ה-AI מצטטים דף שעונה ביותר מצורה אחת. הקבוצה נגזרת מפירורי הלחם
+// (דף בעומק שלוש = מדריך בתוך אשכול) ולא מרשימת שמות, כדי שהאשכול הבא ייבדק גם הוא.
+const clusterGuides = () => sitePages().filter(page => {
+  const crumbs = read(page).match(/"@type":\s*"BreadcrumbList"[\s\S]*?<\/script>/);
+  return crumbs && [...crumbs[0].matchAll(/"position":\s*(\d+)/g)].length === 3;
+});
+
+test('every cluster guide answers in more than prose — table, video and a day picker', () => {
+  const guides = clusterGuides();
+  assert.ok(guides.length >= 10, 'cluster guides disappeared from the sitemap: ' + guides.length);
+  for (const page of guides) {
+    const html = read(page);
+    assert.ok(/<table class="cmp"/.test(html), page + ' carries no comparison table');
+
+    const sources = [...html.matchAll(/<source src="([^"]+\.mp4)"/g)].map(m => m[1]);
+    assert.ok(sources.length, page + ' carries no video');
+    for (const src of sources) {
+      assert.ok(fs.existsSync(root + src), page + ' points at a missing clip: ' + src);
+    }
+    const posters = [...html.matchAll(/<video[^>]*poster="([^"]+)"/g)].map(m => m[1]);
+    assert.equal(posters.length, sources.length, page + ' has a video without a poster');
+    for (const poster of posters) {
+      assert.ok(fs.existsSync(root + poster), page + ' points at a missing poster: ' + poster);
+    }
+    // preload="none" משאיר את הקובץ על השרת עד שלוחצים; בלי זה כל מדריך נושא מגה-בייטים
+    // שאף אחת לא ביקשה. controls במקום autoplay: לולאה שאי-אפשר לעצור היא כשל נגישות.
+    for (const [tag] of html.matchAll(/<video[^>]*>/g)) {
+      assert.ok(/preload="none"/.test(tag), page + ' ships a video that downloads before a click');
+      assert.ok(/controls/.test(tag) && !/autoplay/.test(tag), page + ' ships a video that cannot be paused');
+    }
+
+    // בוחרת היום עובדת בלי JavaScript: רדיו מסומן ⇒ הפאנל שמתאים לו נראה. אם מספר
+    // התוויות, הרדיו והפאנלים לא זהה — יום אחד לא ייפתח לעולם, וזה לא נראה ב-diff.
+    const radios = [...html.matchAll(/<input type="radio" name="dpick" id="(d\d)"( checked)?>/g)];
+    assert.ok(radios.length >= 4, page + ' carries no day picker');
+    const labels = [...html.matchAll(/<label for="(d\d)">/g)].map(m => m[1]);
+    const panels = (html.match(/<div class="dpick-p">/g) || []).length;
+    assert.deepEqual(labels, radios.map(m => m[1]), page + ' day picker labels do not match its radios');
+    assert.equal(panels, radios.length, page + ' day picker has ' + panels + ' panels for ' + radios.length + ' days');
+    assert.equal(radios.filter(m => m[2]).length, 1, page + ' day picker does not open on exactly one day');
+    // ה-CSS מכיר d1..d6 בלבד; יום שביעי היה נשאר מוסתר לתמיד.
+    assert.ok(radios.length <= 6, page + ' day picker has more days than the stylesheet can show');
+  }
+});

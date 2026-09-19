@@ -424,3 +424,51 @@ table.cmp .num{font-family:var(--display);font-weight:900;font-size:19px;color:v
   .c-hero-inner{padding:96px var(--gutter) 34px}
   table.cmp th,table.cmp td{padding:12px 14px}
 }
+
+/* ═══ וידאו במדריך ════════════════════════════════════════════
+   preload="none" + poster: הקובץ לא יורד עד שלוחצים. controls במקום autoplay —
+   קליפ בן חמש שניות שרץ בלולאה בלי דרך לעצור אותו הוא בעיית נגישות
+   (WCAG 2.2.2), וכאן מדובר בדף מאמר שקוראים בו, לא בהירו.
+   הקליפים מצולמים לאורך (9:16), ולכן גובה מוגבל ולא יחס כפוי. */
+.cvid{max-width:820px;margin:clamp(26px,3vw,38px) auto 0}
+.cvid video{display:block;width:auto;max-width:100%;max-height:min(68svh,560px);margin-inline:auto;border-radius:var(--r-md);border:1px solid var(--line-card);background:#000}
+.cvid figcaption{margin-top:10px;font-size:13.5px;line-height:1.55;color:var(--t60);text-align:center}
+.cvid-pair{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,1.6vw,20px);max-width:1000px}
+.cvid-pair figure{margin:0;max-width:none}
+@media(max-width:700px){.cvid-pair{grid-template-columns:1fr}}
+
+/* ═══ בוחרת יום — מערכת השעות ═════════════════════════════════
+   בלי JavaScript: רדיו מוסתר + `~` לפאנלים. שתי סיבות. האחת, זחלני AI
+   לא מריצים JS — בלוח שנבנה ב-JS הם רואים שלד ריק (נמדד 18/09/26),
+   וכאן כל שש הימים נמצאים ב-HTML הגולמי גם כשהדפדפן מציג אחד. השנייה,
+   קבוצת רדיו היא רכיב נגיש מובנה: חיצי המקלדת עוברים בין הימים לבד. */
+.dpick{position:relative;border:1px solid var(--line-card);border-radius:var(--r-md);background:var(--fill);max-width:820px;margin:clamp(26px,3vw,38px) auto 0;padding:0;min-width:0}
+.dpick>input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.dpick-lg{display:block;width:100%;padding:14px 18px 0;font-weight:800;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow)}
+.dpick-tabs{display:flex;flex-wrap:wrap;gap:8px;padding:12px 18px 16px;border-bottom:1px solid var(--line)}
+.dpick-tabs label{
+  display:inline-flex;align-items:center;min-height:40px;padding:0 16px;cursor:pointer;
+  border:1px solid var(--line-strong);border-radius:var(--r-pill);
+  font-weight:700;font-size:14px;color:var(--t75);
+  transition:background .18s var(--ease),color .18s var(--ease),border-color .18s var(--ease);
+}
+.dpick-tabs label:hover{border-color:rgba(244,242,237,.5);color:var(--bone)}
+.dpick>input:focus-visible~.dpick-tabs{outline:2px solid var(--yellow);outline-offset:-2px;border-radius:var(--r-md)}
+.dpick-p{display:none;padding:clamp(20px,2.6vw,30px) clamp(18px,2.4vw,26px)}
+.dpick-d{font-family:var(--display);font-weight:900;letter-spacing:-.03em;font-size:clamp(20px,2.2vw,26px);line-height:1.1;color:var(--bone)}
+.dpick-h{margin-top:10px;font-family:var(--display);font-weight:900;font-size:clamp(17px,1.8vw,21px);line-height:1.5;color:var(--yellow);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.dpick-c{margin-top:10px;font-size:14.5px;line-height:1.65;color:var(--t75)}
+.dpick-note{padding:0 clamp(18px,2.4vw,26px) clamp(18px,2.2vw,24px);font-size:13.5px;line-height:1.65;color:var(--t60)}
+/* יום 1 עד 6. כל שורה היא "הרדיו הזה מסומן ⇒ הפאנל הזה נראה והתווית הזו צהובה". */
+#d1:checked~.dpick-panels>.dpick-p:nth-of-type(1),
+#d2:checked~.dpick-panels>.dpick-p:nth-of-type(2),
+#d3:checked~.dpick-panels>.dpick-p:nth-of-type(3),
+#d4:checked~.dpick-panels>.dpick-p:nth-of-type(4),
+#d5:checked~.dpick-panels>.dpick-p:nth-of-type(5),
+#d6:checked~.dpick-panels>.dpick-p:nth-of-type(6){display:block}
+#d1:checked~.dpick-tabs label[for=d1],
+#d2:checked~.dpick-tabs label[for=d2],
+#d3:checked~.dpick-tabs label[for=d3],
+#d4:checked~.dpick-tabs label[for=d4],
+#d5:checked~.dpick-tabs label[for=d5],
+#d6:checked~.dpick-tabs label[for=d6]{background:var(--yellow);border-color:var(--yellow);color:var(--ink)}
