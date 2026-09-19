@@ -408,3 +408,20 @@ test('every cluster guide answers in more than prose — table, video and a day 
     assert.ok(radios.length <= 6, page + ' day picker has more days than the stylesheet can show');
   }
 });
+
+// פיקסל OpenAI Ads הותקן ידנית ב-18 דפים — לאתר אין build שמזריק head משותף, ולכן דף
+// שנוסף מחר יישכח, והדבקה כפולה בדף קיים תספור כל ביקור פעמיים. שתי התקלות שקטות:
+// הדף ייראה תקין. לכן הבדיקה נגזרת מהסייטמאפ ולא מרשימת שמות, ומשווה תו-בתו לקוד
+// שהתקבל מ-OpenAI Ads Manager.
+test('the OpenAI pixel ships once per page, unmodified, before any other script', () => {
+  const pixel = `<script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");oaiq("init",{pixelId:"B5T2RjYyoPNLhM1naM9xVT",debug:true});</script>`;
+  const count = (haystack, needle) => haystack.split(needle).length - 1;
+  for (const page of sitePages()) {
+    const html = read(page);
+    assert.equal(count(html, pixel), 1, page + ' does not carry exactly one unmodified OpenAI pixel');
+    // כל אזכור של oaiq חייב לשבת בתוך העותק הזה — אחרת מישהו הדביק גרסה שונה או שנייה.
+    assert.equal(count(html, 'oaiq'), count(pixel, 'oaiq'), page + ' carries an altered or extra copy of the pixel');
+    // ראשון ב-head: סקריפט שרץ לפניו ונופל מונע את טעינת הפיקסל בכלל.
+    assert.equal(html.indexOf('<script'), html.indexOf(pixel), page + ' loads another script before the pixel');
+  }
+});
