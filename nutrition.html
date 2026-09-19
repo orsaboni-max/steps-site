@@ -2,8 +2,9 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<!-- OpenAI Ads Measurement Pixel — קוד בסיס, ראשון ב-head -->
-<script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");oaiq("init",{pixelId:"B5T2RjYyoPNLhM1naM9xVT",debug:true});</script>
+<!-- OpenAI Ads Measurement Pixel — ההסכמה כבויה עד שהמבקרת מאשרת עוגיות. -->
+<script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");oaiq("consent", false);oaiq("init",{pixelId:"B5T2RjYyoPNLhM1naM9xVT",debug:true});</script>
+<script>try{if(localStorage.getItem('steps-consent')==='granted')oaiq("consent", true)}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ליווי תזונה למתאמנות בנתניה — 3 חודשים, 1,500 ₪ | סטודיו סטפס פולג</title>
 <meta name="description" content="תוכנית התזונה של סטודיו STEPS — 3 חודשים, מפגשים אישיים עם אור בסטודיו וליווי יומיומי בוואטסאפ. 1,500 ₪ כולל מע״מ. למתאמנות הסטודיו בלבד, מחזור של 10.">
@@ -1301,6 +1302,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
 // Cookie consent
 (function(){
   function initTracking(){
+    if(typeof oaiq==='function')oaiq("consent", true);
     if(typeof gtag==='function')gtag('consent','update',{'analytics_storage':'granted','ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted'});
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');if(typeof fbq==='function'){fbq('init','1016773848190436');fbq('init','2022461768375971');fbq('track','PageView');}
   }

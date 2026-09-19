@@ -409,19 +409,86 @@ test('every cluster guide answers in more than prose — table, video and a day 
   }
 });
 
-// פיקסל OpenAI Ads הותקן ידנית ב-18 דפים — לאתר אין build שמזריק head משותף, ולכן דף
-// שנוסף מחר יישכח, והדבקה כפולה בדף קיים תספור כל ביקור פעמיים. שתי התקלות שקטות:
-// הדף ייראה תקין. לכן הבדיקה נגזרת מהסייטמאפ ולא מרשימת שמות, ומשווה תו-בתו לקוד
-// שהתקבל מ-OpenAI Ads Manager.
+const pixel = `<script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");oaiq("consent", false);oaiq("init",{pixelId:"B5T2RjYyoPNLhM1naM9xVT",debug:true});</script>`;
+const restore = `<script>try{if(localStorage.getItem('steps-consent')==='granted')oaiq("consent", true)}catch(e){}</script>`;
+// הפיקסל יושב ב-18 דפים בלי build שמזריק head משותף, ולכן דף שנוסף מחר יישכח
+// והדבקה כפולה תספור כל ביקור פעמיים — שתי תקלות שנראות תקין בדפדפן. הרשימה
+// נגזרת מהסייטמאפ, והקוד מושווה תו-בתו למה שהתקבל מ-OpenAI Ads Manager.
 test('the OpenAI pixel ships once per page, unmodified, before any other script', () => {
-  const pixel = `<script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");oaiq("init",{pixelId:"B5T2RjYyoPNLhM1naM9xVT",debug:true});</script>`;
+  assert.ok(pixel.indexOf('oaiq("consent", false)') < pixel.indexOf('oaiq("init"'),
+    'consent must be switched off before init, or the SDK starts out allowed to measure');
   const count = (haystack, needle) => haystack.split(needle).length - 1;
   for (const page of sitePages()) {
     const html = read(page);
     assert.equal(count(html, pixel), 1, page + ' does not carry exactly one unmodified OpenAI pixel');
-    // כל אזכור של oaiq חייב לשבת בתוך העותק הזה — אחרת מישהו הדביק גרסה שונה או שנייה.
-    assert.equal(count(html, 'oaiq'), count(pixel, 'oaiq'), page + ' carries an altered or extra copy of the pixel');
+    assert.equal(count(html, restore), 1, page + ' does not restore a consent given on an earlier visit');
     // ראשון ב-head: סקריפט שרץ לפניו ונופל מונע את טעינת הפיקסל בכלל.
     assert.equal(html.indexOf('<script'), html.indexOf(pixel), page + ' loads another script before the pixel');
+    assert.equal(html.indexOf(restore), html.indexOf(pixel) + pixel.length + 2, page + ' separates the pixel from its consent restore');
   }
+});
+
+// כל oaiq("consent", true) באתר חייב לבוא ממתן-הסכמה — משוחזרת מביקור קודם או
+// מלחיצה עכשיו. שורה שנשתלה במקום אחר תדליק מדידה למי שלא אישרה, ובדפדפן זה
+// נראה בדיוק אותו דבר. שישה דפים נושאים באנר; בשאר ההסכמה יכולה רק להשתחזר.
+test('consent is only ever switched on by a stored or fresh approval', () => {
+  const count = (haystack, needle) => haystack.split(needle).length - 1;
+  const withBanner = ['index.html', 'barre.html', 'pilates.html', 'gym-women.html', 'nutrition.html', 'kids.html'];
+  for (const page of sitePages()) {
+    const html = read(page);
+    const grants = withBanner.includes(page) ? 2 : 1;   // שחזור, ובדפי הבאנר גם הלחיצה
+    assert.equal(count(html, 'oaiq("consent", false)'), 1, page + ' does not switch consent off exactly once');
+    assert.equal(count(html, 'oaiq("consent", true)'), grants, page + ' turns consent on somewhere unexpected');
+    assert.equal(count(html, 'oaiq("init"'), 1, page + ' does not init the pixel exactly once');
+    assert.ok(html.includes('debug:true'), page + ' dropped the debug flag we still need live');
+    if (!withBanner.includes(page)) continue;
+    // בדפי הבאנר ההדלקה חייבת לשבת בתוך הפונקציה שרצה רק כשההסכמה ניתנת.
+    const fn = html.indexOf('function initTracking(){') + 1 || html.indexOf('function init(){') + 1;
+    assert.ok(fn, page + ' has a banner but no grant function');
+    assert.ok(html.slice(fn - 1, fn + 200).includes('oaiq("consent", true)'), page + ' grants consent outside its consent function');
+  }
+});
+
+// הבדיקות למעלה קוראות טקסט. זו מריצה את קוד ההסכמה של דף הבית באמת, כי הדרך
+// שבה זה נשבר בשקט היא סדר: הסכמה שנדלקת בטעינה למי שדחתה, או שלא נדלקת בלחיצה.
+function consentHarness(stored) {
+  const calls = [], store = new Map(stored === null ? [] : [['steps-consent', stored]]);
+  const el = () => ({ dataset: {}, addEventListener(type, fn) { this[type] = fn; } });
+  const nodes = { '#cookie': el(), '#ckOk': el(), '#ckNo': el(), '#ckReset': el() };
+  const context = {
+    $: id => nodes[id],
+    oaiq: (...args) => calls.push(args),
+    document: { body: { classList: { add() {}, remove() {} } },
+      createElement: () => ({}), getElementsByTagName: () => [{ parentNode: { insertBefore() {} } }] },
+    localStorage: { getItem: k => (store.has(k) ? store.get(k) : null), setItem: (k, v) => store.set(k, v), removeItem: k => store.delete(k) },
+    location: { reload() {} }
+  };
+  context.window = context;
+  const start = read('index.html').indexOf('/* ── עוגיות ── */');
+  assert.ok(start > 0, 'index.html no longer carries the cookie block this test drives');
+  vm.runInNewContext(read('index.html').slice(start, read('index.html').indexOf('/* ── מדידת', start)), context);
+  return { calls, nodes, granted: () => calls.filter(c => c[0] === 'consent' && c[1] === true).length };
+}
+
+test('a visitor who has not answered the banner never has consent switched on', () => {
+  const h = consentHarness(null);
+  assert.equal(h.granted(), 0, 'consent was granted before the visitor answered');
+  assert.equal(h.nodes['#cookie'].dataset.open, 'true', 'the banner did not open for a visitor who never answered');
+});
+
+test('a visitor who declined never has consent switched on', () => {
+  assert.equal(consentHarness('declined').granted(), 0, 'a declined visit still granted consent');
+});
+
+test('consent stored on an earlier visit switches the pixel on', () => {
+  assert.equal(consentHarness('granted').granted(), 1, 'a stored approval did not reach the pixel');
+});
+
+test('clicking the banner switches the pixel on, and declining does not', () => {
+  const yes = consentHarness(null);
+  yes.nodes['#ckOk'].click({});
+  assert.equal(yes.granted(), 1, 'clicking accept did not reach the pixel');
+  const no = consentHarness(null);
+  no.nodes['#ckNo'].click({});
+  assert.equal(no.granted(), 0, 'clicking decline reached the pixel anyway');
 });
