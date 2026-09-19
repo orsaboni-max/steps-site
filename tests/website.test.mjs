@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const read = file => fs.readFileSync(root + file, 'utf8');
 const home = read('index.html');
+import { visibleFaq, schemaFaq } from './faq-extract.mjs';
 const flush = () => new Promise(resolve => setImmediate(resolve));
 
 class Target {
@@ -338,4 +339,25 @@ test('no heading glues two words together where it breaks the line', () => {
     }
   }
   assert.ok(checked >= 30, 'headings lost their line breaks: ' + checked);
+});
+
+// Google's FAQPage rules require the answer in the markup to be the same content the
+// reader sees on the page. The two copies drifted apart on 12 pages — in every case the
+// JSON-LD said more than the visible answer, and three answers were never rendered at
+// all. Same failure family as the author/schema mismatch of 2026-09-19: a second copy of
+// the text that nothing compares against.
+test('every FAQPage answer says exactly what the reader sees', () => {
+  let checked = 0;
+  for (const page of sitePages()) {
+    const html = read(page);
+    const schema = schemaFaq(html);
+    if (!schema.length) continue;
+    const visible = new Map(visibleFaq(html).map(p => [p.q, p.a]));
+    for (const { q, a } of schema) {
+      checked++;
+      assert.ok(visible.has(q), page + ' declares a question to Google that is not on the page: ' + q);
+      assert.equal(a, visible.get(q), page + ' — the answer Google is given differs from the visible one, for: ' + q);
+    }
+  }
+  assert.ok(checked >= 130, 'pages lost their FAQ schema: ' + checked);
 });
