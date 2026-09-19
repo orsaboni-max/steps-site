@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <!-- OpenAI Ads Measurement Pixel — ההסכמה כבויה עד שהמבקרת מאשרת עוגיות. -->
-<script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");oaiq("consent", false);oaiq("init",{pixelId:"B5T2RjYyoPNLhM1naM9xVT",debug:true});</script>
-<script>try{if(localStorage.getItem('steps-consent')==='granted')oaiq("consent", true)}catch(e){}</script>
+<script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");oaiq("consent", function(){try{return localStorage.getItem('steps-consent')==='granted'}catch(e){return false}}());oaiq("init",{pixelId:"B5T2RjYyoPNLhM1naM9xVT"});</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="google-site-verification" content="K_7mCc-RsktQCxvSV9-vVXyyE995LaJnbnosy-8ExRg">
 <title>STEPS Fitness Center — סטודיו כושר לנשים בנתניה, פולג</title>
@@ -1735,6 +1734,9 @@ var STEPS_REFERRAL = (function(){
       if(name==='lead_form_submit')fbq('track','Lead',params);
       else fbq('trackCustom',name,params);
     }
+    /* OpenAI Ads מודד את הליד השמור בלבד. "lead_created" ו-"customer_action"
+       הם שמות מהרשימה הסגורה של ה-SDK — שם אחר נזרק בשקט כ-unsupported. */
+    if(typeof oaiq==='function'&&name==='lead_form_submit')oaiq('measure','lead_created',{type:'customer_action'});
   }
   document.addEventListener('click',function(e){
     var el=e.target.closest('[data-track]');

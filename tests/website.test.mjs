@@ -32,6 +32,7 @@ function formHarness(fetchResult) {
   const context = { document, $: id => elements[id.slice(1)], STEPS_REFERRAL: {},
     location: { href: 'https://stepsnetanya.co.il/' },
     gtag: (...args) => events.push(['ga', ...args]), fbq: (...args) => events.push(['meta', ...args]),
+    oaiq: (...args) => events.push(['oai', ...args]),
     CustomEvent: class { constructor(type) { this.type = type; } },
     fetch: (...args) => { requests.push(args); return fetchResult(); }
   };
@@ -49,6 +50,9 @@ function formHarness(fetchResult) {
 }
 const successfulResponse = () => Promise.resolve({ ok: true, json: () => Promise.resolve({ ok: true }) });
 const leads = h => h.events.filter(e => e[0] === 'meta' && e[1] === 'track' && e[2] === 'Lead');
+// ה-SDK של OpenAI מקבל רשימה סגורה של שמות, ולכל שם סוג-נתונים אחד. שם או סוג
+// שאינם ברשימה נזרקים בשקט (unsupported_event_name) — הדף נראה תקין והמדידה ריקה.
+const conversions = h => h.events.filter(e => e[0] === 'oai' && e[1] === 'measure');
 
 test('invalid fields never request CRM or emit successful lead events', async () => {
   const h = formHarness(successfulResponse);
@@ -64,6 +68,7 @@ test('navigation clicks remain interest events, not saved leads', () => {
   }) } });
   assert.ok(h.events.some(e => e[2] === 'cta_trial_click'));
   assert.equal(leads(h).length, 0);
+  assert.equal(conversions(h).length, 0, 'a navigation click was measured as an OpenAI conversion');
   assert.equal(h.requests.length, 0);
 });
 
@@ -76,10 +81,15 @@ test('a saved lead emits exactly once, after server success, with no name or pho
   await flush();
   assert.equal(leads(h).length, 1);
   assert.equal(h.events.filter(e => e[0] === 'ga' && e[2] === 'lead_form_submit').length, 1);
+  // הערכים נוצרים בתוך vm ולכן נבדקים כ-JSON ולא בהשוואת-פרוטוטיפ.
+  assert.equal(JSON.stringify(conversions(h)),
+    JSON.stringify([['oai', 'measure', 'lead_created', { type: 'customer_action' }]]),
+    'the saved lead did not reach OpenAI Ads exactly once under a documented event name');
   assert.equal(h.elements.leadForm.style.display, 'none');
   assert.doesNotMatch(JSON.stringify(h.events), /בודקת|0521234567/);
   h.submit(); h.document.dispatchEvent({ type: 'steps:lead-saved' });
   assert.equal(h.requests.length, 1); assert.equal(leads(h).length, 1);
+  assert.equal(conversions(h).length, 1, 'a second submit counted the same lead twice in OpenAI Ads');
 });
 
 for (const [name, response] of [
@@ -88,13 +98,15 @@ for (const [name, response] of [
   ['unexpected success body', () => Promise.resolve({ ok: true, json: () => Promise.resolve({}) })]
 ]) test(name + ' keeps the form retryable without a lead event', async () => {
   const h = formHarness(response); h.submit(); await flush();
-  assert.equal(leads(h).length, 0); assert.equal(h.button.disabled, false);
+  assert.equal(leads(h).length, 0); assert.equal(conversions(h).length, 0);
+  assert.equal(h.button.disabled, false);
   assert.match(h.elements.leadErr.textContent, /נסי שוב/);
 });
 
 test('the honeypot response is not counted as a customer lead', async () => {
   const h = formHarness(successfulResponse); h.elements.leadHp.value = 'bot';
   h.submit(); await flush(); assert.equal(leads(h).length, 0);
+  assert.equal(conversions(h).length, 0, 'a bot submission was measured as an OpenAI conversion');
 });
 
 test('children and teens are selectable separately, including teen reformer sessions', () => {
@@ -409,38 +421,50 @@ test('every cluster guide answers in more than prose — table, video and a day 
   }
 });
 
-const pixel = `<script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");oaiq("consent", false);oaiq("init",{pixelId:"B5T2RjYyoPNLhM1naM9xVT",debug:true});</script>`;
-const restore = `<script>try{if(localStorage.getItem('steps-consent')==='granted')oaiq("consent", true)}catch(e){}</script>`;
+const pixel = `<script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");oaiq("consent", function(){try{return localStorage.getItem('steps-consent')==='granted'}catch(e){return false}}());oaiq("init",{pixelId:"B5T2RjYyoPNLhM1naM9xVT"});</script>`;
 // הפיקסל יושב ב-18 דפים בלי build שמזריק head משותף, ולכן דף שנוסף מחר יישכח
 // והדבקה כפולה תספור כל ביקור פעמיים — שתי תקלות שנראות תקין בדפדפן. הרשימה
-// נגזרת מהסייטמאפ, והקוד מושווה תו-בתו למה שהתקבל מ-OpenAI Ads Manager.
+// נגזרת מהסייטמאפ, והקוד מושווה תו-בתו לשורה האחת שכל דף אמור לשאת.
 test('the OpenAI pixel ships once per page, unmodified, before any other script', () => {
-  assert.ok(pixel.indexOf('oaiq("consent", false)') < pixel.indexOf('oaiq("init"'),
-    'consent must be switched off before init, or the SDK starts out allowed to measure');
+  assert.ok(pixel.indexOf('oaiq("consent"') < pixel.indexOf('oaiq("init"'),
+    'consent must be decided before init, or the SDK starts out allowed to measure');
   const count = (haystack, needle) => haystack.split(needle).length - 1;
   for (const page of sitePages()) {
     const html = read(page);
     assert.equal(count(html, pixel), 1, page + ' does not carry exactly one unmodified OpenAI pixel');
-    assert.equal(count(html, restore), 1, page + ' does not restore a consent given on an earlier visit');
     // ראשון ב-head: סקריפט שרץ לפניו ונופל מונע את טעינת הפיקסל בכלל.
     assert.equal(html.indexOf('<script'), html.indexOf(pixel), page + ' loads another script before the pixel');
-    assert.equal(html.indexOf(restore), html.indexOf(pixel) + pixel.length + 2, page + ' separates the pixel from its consent restore');
   }
 });
 
-// כל oaiq("consent", true) באתר חייב לבוא ממתן-הסכמה — משוחזרת מביקור קודם או
-// מלחיצה עכשיו. שורה שנשתלה במקום אחר תדליק מדידה למי שלא אישרה, ובדפדפן זה
-// נראה בדיוק אותו דבר. שישה דפים נושאים באנר; בשאר ההסכמה יכולה רק להשתחזר.
+// ‏19/09/26, נמדד מקוד ה-SDK: oaiq("consent", false) קורא ל-se() שמוחק את עוגיית
+// __oppref — מזהה ההקלקה שכל הייחוס תלוי בו. כשהשורה הזו רצה בכל טעינת דף, מי
+// שנחתה ממודעה ואישרה איבדה את המזהה ברגע שעברה לדף הבא, ואירוע ההמרה בדף הבית
+// יצא בלי ממה לייחס אותו. לכן ההסכמה בראש הדף נקבעת מהבחירה השמורה, ולא כבויה
+// תמיד ומודלקת אחר כך. שורה שתחזיר "false" קבוע תיראה תקינה לגמרי בדפדפן.
+test('the head decides consent from the stored choice instead of clearing it on every load', () => {
+  for (const page of sitePages()) {
+    const html = read(page);
+    assert.ok(!/oaiq\("consent", false\)/.test(html),
+      page + ' switches consent off on load, which deletes the __oppref click id');
+    assert.ok(html.includes(`oaiq("consent", function(){try{return localStorage.getItem('steps-consent')==='granted'}catch(e){return false}}())`),
+      page + ' does not seed consent from the stored choice');
+  }
+});
+
+// כל הדלקת הסכמה באתר חייבת לבוא ממתן-הסכמה — משוחזרת מביקור קודם או מלחיצה
+// עכשיו. שורה שנשתלה במקום אחר תדליק מדידה למי שלא אישרה, ובדפדפן זה נראה
+// בדיוק אותו דבר. שישה דפים נושאים באנר; בשאר ההסכמה יכולה רק להשתחזר.
 test('consent is only ever switched on by a stored or fresh approval', () => {
   const count = (haystack, needle) => haystack.split(needle).length - 1;
   const withBanner = ['index.html', 'barre.html', 'pilates.html', 'gym-women.html', 'nutrition.html', 'kids.html'];
   for (const page of sitePages()) {
     const html = read(page);
-    const grants = withBanner.includes(page) ? 2 : 1;   // שחזור, ובדפי הבאנר גם הלחיצה
-    assert.equal(count(html, 'oaiq("consent", false)'), 1, page + ' does not switch consent off exactly once');
+    const grants = withBanner.includes(page) ? 1 : 0;   // רק הלחיצה; השחזור עובר דרך הפונקציה שבראש
     assert.equal(count(html, 'oaiq("consent", true)'), grants, page + ' turns consent on somewhere unexpected');
     assert.equal(count(html, 'oaiq("init"'), 1, page + ' does not init the pixel exactly once');
-    assert.ok(html.includes('debug:true'), page + ' dropped the debug flag we still need live');
+    // debug מדפיס לקונסולה של כל מבקרת. הוסר 19/09/26 אחרי האימות החי.
+    assert.ok(!html.includes('debug:'), page + ' still ships the pixel debug flag');
     if (!withBanner.includes(page)) continue;
     // בדפי הבאנר ההדלקה חייבת לשבת בתוך הפונקציה שרצה רק כשההסכמה ניתנת.
     const fn = html.indexOf('function initTracking(){') + 1 || html.indexOf('function init(){') + 1;
