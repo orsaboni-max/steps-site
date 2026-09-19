@@ -319,3 +319,23 @@ test('every page links a share image that exists, fits the budget, and is its ow
   }
   assert.ok(seen.size >= 16, 'pages lost their share images: ' + seen.size);
 });
+
+// Headings use <br> to control where the line wraps. A browser renders that as a
+// break, but a parser that reads the text without rendering it concatenates the
+// two sides: "איך נראה שיעור בר<br>מהרגע שנכנסת" came out as "שיעור ברמהרגע".
+// AI crawlers do not render, so the heading they read was a non-word. A single
+// space before the <br> costs nothing on screen and keeps the text readable.
+test('no heading glues two words together where it breaks the line', () => {
+  let checked = 0;
+  for (const page of sitePages()) {
+    const html = read(page);
+    for (const [, , inner] of html.matchAll(/<(h[1-3])\b[^>]*>([\s\S]*?)<\/\1>/g).map(m => [m[0], m[1], m[2]])) {
+      if (!/<br\s*\/?>/i.test(inner)) continue;
+      checked++;
+      assert.ok(!/\S<br\s*\/?>/i.test(inner),
+        page + ' has a heading with no space before its line break, so text extraction reads it as one word: ' +
+        inner.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim());
+    }
+  }
+  assert.ok(checked >= 30, 'headings lost their line breaks: ' + checked);
+});
