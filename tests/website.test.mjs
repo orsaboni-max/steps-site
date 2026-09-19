@@ -265,3 +265,32 @@ test('the visible byline and the schema author name the same person', () => {
     }
   }
 });
+
+// lastmod is how Google decides when a page is worth re-crawling. On 19/09 every
+// one of the 18 entries was stale — some by a month — while the pages themselves
+// displayed a much newer "עודכן" date, so the work shipped that week had no signal
+// telling Google to come back for it. The invariant is coherence: the sitemap may
+// not claim a page is older than the page claims about itself.
+const hebrewDate = html => {
+  const iso = html.match(/<time datetime="(\d{4}-\d{2}-\d{2})"/);
+  if (iso) return iso[1];
+  const dmy = html.match(/עודכן[^<]*?(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  if (!dmy) return null;
+  const [, d, m, y] = dmy;
+  return `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
+};
+
+test('sitemap lastmod is never older than the date the page shows the reader', () => {
+  const xml = read('sitemap.xml');
+  const entries = [...xml.matchAll(
+    /<loc>https:\/\/stepsnetanya\.co\.il\/([^<]*)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g)];
+  assert.ok(entries.length >= 16, 'sitemap lost entries: ' + entries.length);
+  for (const [, path, lastmod] of entries) {
+    const file = path === '' ? 'index.html' : path;
+    const shown = hebrewDate(read(file));
+    if (!shown) continue;                       // page displays no date of its own
+    assert.ok(lastmod >= shown,
+      file + ' shows "' + shown + '" but sitemap lastmod says ' + lastmod +
+      ' — Google is told the page is older than the page says it is');
+  }
+});
