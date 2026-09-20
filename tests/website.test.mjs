@@ -163,6 +163,8 @@ const sitePages = () => [...read('sitemap.xml').matchAll(/<loc>(.*?)<\/loc>/g)].
 test('every page shares one HealthClub identity block (@id, address, phone, hours, priceRange) with index.html', (t) => {
   const home = healthClubOf(read('index.html'));
   assert.ok(home && home['@id'], 'index.html must carry the canonical HealthClub @id');
+  assert.match(home.address.postalCode ?? '', /^\d{7}$/, 'the canonical address must carry a seven-digit postal code');
+  assert.ok(home.address.addressRegion, 'the canonical address must name its region');
   for (const page of sitePages()) {
     if (page === 'index.html') continue;
     const club = healthClubOf(read(page));
@@ -174,6 +176,16 @@ test('every page shares one HealthClub identity block (@id, address, phone, hour
     assert.deepEqual(club.openingHoursSpecification, home.openingHoursSpecification, page + ' hours');
     assert.equal(club.priceRange, home.priceRange, page + ' priceRange');
   }
+});
+
+test('the footer directions link names the same Google place the schema claims', () => {
+  const source = read('index.html');
+  const claimed = source.match(/place_id:([A-Za-z0-9_-]+)/);
+  assert.ok(claimed, 'index.html must claim a verified Google place in sameAs');
+  const link = source.match(/href="(https:\/\/www\.google\.com\/maps\/search\/[^"]+)"/);
+  assert.ok(link, 'the footer must offer directions through a maps search link');
+  assert.ok(link[1].includes('query_place_id=' + claimed[1]),
+    'the directions link must point at the same place the schema verifies, not a text search');
 });
 
 test('barre.html H1 reads as one phrase once its own session lands it', (t) => {
