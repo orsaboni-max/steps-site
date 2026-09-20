@@ -293,6 +293,31 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .waf:hover{filter:brightness(.94)}
 @media(max-width:600px){.waf{width:52px;height:52px;font-size:24px}}
 @keyframes bounceIn{0%{opacity:0;transform:scale(.3)}50%{transform:scale(1.1)}70%{transform:scale(.95)}100%{opacity:1;transform:scale(1)}}
+.tw{max-width:820px;margin:clamp(26px,3vw,38px) auto 0;overflow-x:auto;border:1px solid var(--line-card);border-radius:var(--r-md);-webkit-overflow-scrolling:touch}
+.tw-note{max-width:820px;margin:12px auto 0;font-size:13.5px;line-height:1.65;color:var(--t60)}
+table.cmp{width:100%;border-collapse:collapse;min-width:520px;font-size:15.5px}
+table.cmp caption{caption-side:top;padding:14px 18px;text-align:start;font-weight:700;font-size:14px;color:var(--t60);border-bottom:1px solid var(--line)}
+table.cmp th,table.cmp td{padding:14px 18px;text-align:start;border-bottom:1px solid var(--line);line-height:1.55;vertical-align:top}
+table.cmp thead th{background:rgba(244,242,237,.06);font-weight:800;font-size:14px;color:var(--bone);white-space:nowrap}
+table.cmp tbody th{font-weight:700;color:var(--bone);width:28%}
+table.cmp td{color:var(--t85)}
+table.cmp tbody tr:last-child th,table.cmp tbody tr:last-child td{border-bottom:0}
+table.cmp .y{color:var(--yellow);font-weight:700}
+.dpick{position:relative;border:1px solid var(--line-card);border-radius:var(--r-md);background:var(--fill);max-width:820px;margin:clamp(26px,3vw,38px) auto 0;padding:0;min-width:0}
+.dpick>input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.dpick-lg{display:block;width:100%;padding:14px 18px 0;font-weight:800;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow)}
+.dpick-tabs{display:flex;flex-wrap:wrap;gap:8px;padding:12px 18px 16px;border-bottom:1px solid var(--line)}
+.dpick-tabs label{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;cursor:pointer;border:1px solid var(--line-strong);border-radius:var(--r-pill);font-weight:700;font-size:14px;color:var(--t75);transition:background .18s var(--ease),color .18s var(--ease),border-color .18s var(--ease)}
+.dpick-tabs label:hover{border-color:rgba(244,242,237,.5);color:var(--bone)}
+.dpick-p{display:none;padding:clamp(20px,2.6vw,30px) clamp(18px,2.4vw,26px)}
+.dpick-d{font-family:var(--display);font-weight:900;letter-spacing:-.03em;font-size:clamp(20px,2.2vw,26px);line-height:1.1;color:var(--bone)}
+.dpick-h{margin-top:10px;font-family:var(--display);font-weight:900;font-size:clamp(17px,1.8vw,21px);line-height:1.5;color:var(--yellow);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.dpick-c{margin-top:10px;font-size:14.5px;line-height:1.65;color:var(--t75)}
+.dpick-note{padding:0 clamp(18px,2.4vw,26px) clamp(18px,2.2vw,24px);font-size:13.5px;line-height:1.65;color:var(--t60)}
+#d1:focus-visible~.dpick-tabs label[for=d1],#d2:focus-visible~.dpick-tabs label[for=d2],#d3:focus-visible~.dpick-tabs label[for=d3],#d4:focus-visible~.dpick-tabs label[for=d4]{outline:2px solid var(--yellow);outline-offset:3px}
+#d1:checked~.dpick-panels>.dpick-p:nth-of-type(1),#d2:checked~.dpick-panels>.dpick-p:nth-of-type(2),#d3:checked~.dpick-panels>.dpick-p:nth-of-type(3),#d4:checked~.dpick-panels>.dpick-p:nth-of-type(4){display:block}
+#d1:checked~.dpick-tabs label[for=d1],#d2:checked~.dpick-tabs label[for=d2],#d3:checked~.dpick-tabs label[for=d3],#d4:checked~.dpick-tabs label[for=d4]{background:var(--yellow);border-color:var(--yellow);color:var(--ink)}
+@media(max-width:768px){table.cmp th,table.cmp td{padding:12px 14px}}
 </style>
 
 <!-- Consent Mode v2 — must run before GA4 loads. -->
@@ -394,11 +419,11 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "dateModified": "2026-09-18",
+  "dateModified": "2026-09-20",
   "mainEntity": [
     {"@type":"Question","name":"לאיזה גילאים מתאימות הקבוצות?","acceptedAnswer":{"@type":"Answer","text":"כל שלוש הפעילויות — אימוני כוח לילדים ולנוער, פילאטיס מכשירים לנערות ואימוני בר לנערות — מיועדות לגילאי 12–15."}},
     {"@type":"Question","name":"באילו ימים ושעות מתקיימים האימונים?","acceptedAnswer":{"@type":"Answer","text":"כוח לילדים ולנוער: ראשון וחמישי ב־17:00, שלישי ב־16:30. פילאטיס מכשירים לנערות: ראשון ב־16:00, רביעי ב־17:00. בר לנערות: ראשון ב־16:00."}},
-    {"@type":"Question","name":"כמה זמן נמשך שיעור?","acceptedAnswer":{"@type":"Answer","text":"אימון כוח לילדים ולנוער נמשך 50–60 דקות. את משך שיעורי הפילאטיס והבר לנערות אפשר לברר עם הצוות בזמן התיאום."}},
+    {"@type":"Question","name":"כמה זמן נמשך שיעור?","acceptedAnswer":{"@type":"Answer","text":"אימון כוח לילדים ולנוער נמשך 50–60 דקות. שיעורי פילאטיס מכשירים לנערות ובר לנערות נמשכים כ-55 דקות."}},
     {"@type":"Question","name":"כמה עולה שיעור ניסיון?","acceptedAnswer":{"@type":"Answer","text":"אימון היכרות עולה 50 ₪ בכל אחת משלוש הפעילויות: כוח לילדים ולנוער, פילאטיס מכשירים לנערות ובר לנערות. לתיאום, פנו לצוות דרך הכפתור של הפעילות המתאימה."}},
     {"@type":"Question","name":"האם זה מתאים לילדים שלא עסקו בספורט מעולם?","acceptedAnswer":{"@type":"Answer","text":"חד משמעית כן! אנחנו שמים דגש על יחס אישי, התאמת עומסים והדרגתיות. המטרה שלנו היא קודם כל לייצר אהבה לתנועה ולספורט."}},
     {"@type":"Question","name":"כמה ילדים יש בכל קבוצה?","acceptedAnswer":{"@type":"Answer","text":"אנחנו שומרים על קבוצות קטנות כדי שהמאמנים יוכלו לראות כל ילד וילדה, להדריך, לתקן את התנועה ולהתאים את העומס."}},
@@ -443,7 +468,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <p class="hero-tag">KIDS &amp; TEENS · פולג, נתניה</p>
     <h1>חוגי כושר לילדים ונוער <em>כוח · פילאטיס · בר</em></h1>
     <p class="hero-sub">אימוני כוח לילדים ולנוער, פילאטיס מכשירים לנערות ואימוני בר לנערות — שלוש פעילויות לגילאי <bdi>12–15</bdi>, בקבוצות קטנות ועם הדרכה וליווי לאורך האימון. אימון היכרות בכל פעילות ב־50 ₪.</p>
-    <p class="byline">נכתב על ידי אור סבוני, בעלים ומאמן כושר · עודכן 18/9/2026</p>
+    <p class="byline">נכתב על ידי אור סבוני, בעלים ומאמן כושר · עודכן 20/9/2026</p>
     <div class="hero-btns">
       <a class="btn-a" href="#programs">לפעילויות ולמערכת השעות ←</a>
       <a class="btn-b" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%94%D7%99%D7%9B%D7%A8%D7%95%D7%AA%20%D7%91%D7%A7%D7%91%D7%95%D7%A6%D7%95%D7%AA%20%D7%94%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%95%D7%94%D7%A0%D7%95%D7%A2%D7%A8%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="trial-cta whatsapp-click">לבחירת קבוצה בוואטסאפ</a>
@@ -508,7 +533,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         <li><span>ימי ראשון</span><time datetime="16:00"><bdi>16:00</bdi></time></li>
         <li><span>ימי רביעי</span><time datetime="17:00"><bdi>17:00</bdi></time></li>
       </ul>
-      <p class="program-note">גילאי <bdi>12–15</bdi><br>אימון היכרות: 50 ₪</p>
+      <p class="program-note">גילאי <bdi>12–15</bdi> · כ-<bdi>55</bdi> דקות<br>אימון היכרות: 50 ₪</p>
       <a class="btn-a program-cta" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%A4%D7%99%D7%9C%D7%90%D7%98%D7%99%D7%A1%20%D7%9E%D7%9B%D7%A9%D7%99%D7%A8%D7%99%D7%9D%20%D7%9C%D7%A0%D7%A2%D7%A8%D7%95%D7%AA%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="trial-cta whatsapp-click">לתיאום פילאטיס לנערות ←</a>
       </div>
     </article>
@@ -526,13 +551,106 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       <ul class="program-times" aria-label="מועדי אימוני בר לנערות">
         <li><span>ימי ראשון</span><time datetime="16:00"><bdi>16:00</bdi></time></li>
       </ul>
-      <p class="program-note">גילאי <bdi>12–15</bdi><br>אימון היכרות: 50 ₪</p>
+      <p class="program-note">גילאי <bdi>12–15</bdi> · כ-<bdi>55</bdi> דקות<br>אימון היכרות: 50 ₪</p>
       <a class="btn-a program-cta" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%91%D7%A8%20%D7%9C%D7%A0%D7%A2%D7%A8%D7%95%D7%AA%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="trial-cta whatsapp-click">לתיאום בר לנערות ←</a>
       </div>
     </article>
   </div>
 </section>
 
+<!-- ═══ השוואה בין שלוש הקבוצות ═══ -->
+<section class="sec" aria-labelledby="cmp-title">
+  <div class="sec-h">
+    <div class="sec-tag">השוואה</div>
+    <h2 class="sec-title" id="cmp-title">איזו קבוצה <br>מתאימה לה?</h2>
+  </div>
+
+  <div class="tw">
+    <table class="cmp">
+      <caption>שלוש קבוצות הנוער בסטפס פולג, גילאי <bdi>12–15</bdi> — השוואה</caption>
+      <thead>
+        <tr>
+          <th scope="col">&nbsp;</th>
+          <th scope="col">אימון כוח לילדים ולנוער</th>
+          <th scope="col">פילאטיס מכשירים לנערות</th>
+          <th scope="col">בר לנערות</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">החלל</th>
+          <td>חלל ה-<bdi>GYM</bdi></td>
+          <td>חלל הרפורמר</td>
+          <td>חלל <bdi>MOVE</bdi></td>
+        </tr>
+        <tr>
+          <th scope="row">מתי</th>
+          <td class="y">ראשון וחמישי ב-<bdi>17:00</bdi> · שלישי ב-<bdi>16:30</bdi></td>
+          <td class="y">ראשון ב-<bdi>16:00</bdi> · רביעי ב-<bdi>17:00</bdi></td>
+          <td class="y">ראשון ב-<bdi>16:00</bdi></td>
+        </tr>
+        <tr>
+          <th scope="row">משך השיעור</th>
+          <td><bdi>50–60</bdi> דקות</td>
+          <td>כ-<bdi>55</bdi> דקות</td>
+          <td>כ-<bdi>55</bdi> דקות</td>
+        </tr>
+        <tr>
+          <th scope="row">גילאים</th>
+          <td><bdi>12–15</bdi></td>
+          <td><bdi>12–15</bdi></td>
+          <td><bdi>12–15</bdi></td>
+        </tr>
+        <tr>
+          <th scope="row">על מה עובדים</th>
+          <td>כוח, טכניקת ביצוע והתאמת עומס לרמה האישית</td>
+          <td>תנועה מדויקת ושליטה בגוף על מיטת רפורמר</td>
+          <td>בלט, פילאטיס וכוח — ליד הבר ועל מזרן</td>
+        </tr>
+        <tr>
+          <th scope="row">אימון היכרות</th>
+          <td class="y">50 ₪, כולל מע״מ</td>
+          <td class="y">50 ₪, כולל מע״מ</td>
+          <td class="y">50 ₪, כולל מע״מ</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="tw-note">שלוש הפעילויות נפרדות זו מזו — אפשר להירשם לאחת מהן בלבד. מחירי מנויי הנוער אינם מפורסמים כאן: המחירון שבאתר הוא למנויי הסטודיו למבוגרות, ואת מחירי הנוער מבררים מול הצוות בזמן התיאום. ההרשמה נעשית בוואטסאפ, לא דרך ההרשמה העצמית באתר.</p>
+</section>
+
+<div class="sec-divider"><span></span></div>
+
+<!-- ═══ בוחרת יום ═══ -->
+<section class="sec sec-alt" aria-labelledby="days-title">
+  <div class="sec-h">
+    <div class="sec-tag">לוח השבוע</div>
+    <h2 class="sec-title" id="days-title">מה מתקיים <br>בכל יום?</h2>
+  </div>
+
+  <div class="dpick" role="group" aria-labelledby="dpick-lg">
+    <div class="dpick-lg" id="dpick-lg">בחרי יום</div>
+    <input type="radio" name="dpick" id="d1" checked>
+    <input type="radio" name="dpick" id="d2">
+    <input type="radio" name="dpick" id="d3">
+    <input type="radio" name="dpick" id="d4">
+    <div class="dpick-tabs">
+      <label for="d1">ראשון</label>
+      <label for="d2">שלישי</label>
+      <label for="d3">רביעי</label>
+      <label for="d4">חמישי</label>
+    </div>
+    <div class="dpick-panels">
+      <div class="dpick-p"><div class="dpick-d">ראשון</div><div class="dpick-h" dir="ltr">16:00 · 17:00</div><div class="dpick-c">שלוש הקבוצות פעילות: בר לנערות בחלל <bdi>MOVE</bdi> ב-<bdi>16:00</bdi> · פילאטיס מכשירים לנערות בחלל הרפורמר ב-<bdi>16:00</bdi> · אימון כוח לילדים ולנוער בחלל ה-<bdi>GYM</bdi> ב-<bdi>17:00</bdi>. הבר והפילאטיס מתקיימים באותה שעה, כך שצריך לבחור ביניהם.</div></div>
+      <div class="dpick-p"><div class="dpick-d">שלישי</div><div class="dpick-h" dir="ltr">16:30</div><div class="dpick-c">אימון כוח לילדים ולנוער בחלל ה-<bdi>GYM</bdi>, <bdi>50–60</bdi> דקות.</div></div>
+      <div class="dpick-p"><div class="dpick-d">רביעי</div><div class="dpick-h" dir="ltr">17:00</div><div class="dpick-c">פילאטיס מכשירים לנערות בחלל הרפורמר, כ-<bdi>55</bdi> דקות.</div></div>
+      <div class="dpick-p"><div class="dpick-d">חמישי</div><div class="dpick-h" dir="ltr">17:00</div><div class="dpick-c">אימון כוח לילדים ולנוער בחלל ה-<bdi>GYM</bdi>, <bdi>50–60</bdi> דקות.</div></div>
+    </div>
+    <p class="dpick-note">בימי שני ושישי ובשבת אין קבוצות נוער. אימון היכרות בכל אחת מהפעילויות עולה 50 ₪, כולל מע״מ.</p>
+  </div>
+</section>
+
+<div class="sec-divider"><span></span></div>
 <!-- ═══ למה זה חשוב ═══ -->
 <section class="sec sec-alt">
   <div class="sec-h">
@@ -578,7 +696,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </details>
     <details>
       <summary>כמה זמן נמשך שיעור?</summary>
-      <p>אימון כוח לילדים ולנוער נמשך <bdi>50–60</bdi> דקות. את משך שיעורי הפילאטיס והבר לנערות אפשר לברר עם הצוות בזמן התיאום.</p>
+      <p>אימון כוח לילדים ולנוער נמשך <bdi>50–60</bdi> דקות. שיעורי פילאטיס מכשירים לנערות ובר לנערות נמשכים כ-<bdi>55</bdi> דקות.</p>
     </details>
     <details>
       <summary>כמה עולה שיעור ניסיון?</summary>
