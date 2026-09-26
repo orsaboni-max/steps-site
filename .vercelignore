@@ -4,6 +4,7 @@ images/*.mov
 images/hero-video-enhanced.mp4
 images/hero-video-web.mp4
 .claude/
+.agents/
 .heygen-setup/
 .netlify/
 netlify/
@@ -26,3 +27,10 @@ scratch_reviews.txt
 nutrition-v3.html
 tests/
 api/*.test.mjs
+
+# חומרי עבודה וטיוטות מקומיות שאינם חלק מהאתר
+branding/
+output/
+metadata.json
+.scratch_path.tmp
+images/nutrition/cards/
