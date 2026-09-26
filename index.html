@@ -1645,24 +1645,7 @@ var $=function(s,r){return (r||document).querySelector(s)};
    הביאה ליד — כל ₪ שנשלח מהמודעות לאתר היה עיוור. הפרמטרים חיים רק ב-URL
    של הנחיתה, והיא ממלאת את הטופס מאוחר יותר (לפעמים בביקור אחר), אז הם
    נשמרים. הראשון מנצח: המודעה שגילתה אותנו, לא הביקור החוזר שסגר. */
-var STEPS_REFERRAL = (function(){
-  var KEY='steps_ref', MAX_AGE=90*24*60*60*1000,
-      FIELDS=['fbclid','gclid','utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
-  function read(){try{var r=JSON.parse(localStorage.getItem(KEY)||'null');
-    return (r&&r.t&&Date.now()-r.t<MAX_AGE)?r:null}catch(e){return null}}
-  try{
-    var q=new URLSearchParams(location.search), fresh={}, any=false;
-    FIELDS.forEach(function(f){var v=q.get(f);if(v){fresh[f]=String(v).slice(0,200);any=true}});
-    /* רק ביקור שנושא תיוג כותב, ורק אם אין ייחוס קודם בתוקף.
-       בלי התנאי הזה כל רענון רגיל היה מוחק את הייחוס המקורי. */
-    if(any&&!read()){
-      fresh.t=Date.now(); fresh.landing=location.pathname.slice(0,120);
-      try{fresh.ref=document.referrer.slice(0,200)}catch(e){}
-      localStorage.setItem(KEY,JSON.stringify(fresh));
-    }
-  }catch(e){/* גלישה פרטית / localStorage חסום — הליד עדיין נשלח, בלי ייחוס */}
-  return read()||{};
-})();
+var STEPS_REFERRAL = window.STEPS_REFERRAL || {};
 
 /* ── טופס לידים → מוקם כרטיס ב-Arbox דרך /api/lead ── */
 (function(){

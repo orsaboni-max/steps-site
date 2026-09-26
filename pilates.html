@@ -1288,7 +1288,6 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
     if(arbox){
       var eventName=arbox.getAttribute('data-event');
       if(eventName)trackEvent(eventName,{cta_text:(arbox.textContent||'').trim(),link_url:arbox.href});
-      trackEvent('begin_checkout',{currency:'ILS',value:50,item_name:'אימון היכרות פילאטיס',link_url:arbox.href});
     }
     var wa=e.target.closest&&e.target.closest('a[href*="wa.me"]');
     if(wa)trackEvent('whatsapp_click',{link_url:wa.href});
