@@ -437,15 +437,18 @@ const pixel = `<script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.
 // הפיקסל יושב ב-18 דפים בלי build שמזריק head משותף, ולכן דף שנוסף מחר יישכח
 // והדבקה כפולה תספור כל ביקור פעמיים — שתי תקלות שנראות תקין בדפדפן. הרשימה
 // נגזרת מהסייטמאפ, והקוד מושווה תו-בתו לשורה האחת שכל דף אמור לשאת.
-test('the OpenAI pixel ships once per page, unmodified, before any other script', () => {
+test('the OpenAI pixel ships once per page, unmodified, after the environment guard', () => {
   assert.ok(pixel.indexOf('oaiq("consent"') < pixel.indexOf('oaiq("init"'),
     'consent must be decided before init, or the SDK starts out allowed to measure');
   const count = (haystack, needle) => haystack.split(needle).length - 1;
   for (const page of sitePages()) {
     const html = read(page);
     assert.equal(count(html, pixel), 1, page + ' does not carry exactly one unmodified OpenAI pixel');
-    // ראשון ב-head: סקריפט שרץ לפניו ונופל מונע את טעינת הפיקסל בכלל.
-    assert.equal(html.indexOf('<script'), html.indexOf(pixel), page + ' loads another script before the pixel');
+    // Environment guard must run first so previews cannot initialize pixels.
+    const guard = html.match(/<script src="tracking\.js"(?: data-ga)?><\/script>/)?.[0];
+    assert.ok(guard, page + ' lacks the measurement environment guard');
+    assert.equal(html.indexOf('<script'), html.indexOf(guard), page + ' runs a script before the environment guard');
+    assert.ok(html.indexOf(guard) < html.indexOf(pixel), page + ' initializes the pixel before the guard');
   }
 });
 
