@@ -1065,6 +1065,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
   }
   function isGym(name){var n=(name||'').toLowerCase();if(/\b(?:kids?|teens?)\b|ילדים|ילדות|נוער|נערות|נערים/.test(n))return false;return n.indexOf('gym')!==-1||n.indexOf('כוח')!==-1||n.indexOf('bootcamp')!==-1||n.indexOf('endurance')!==-1;}
   function mkEl(tag,cls){var el=document.createElement(tag);if(cls)el.className=cls;return el;}
+  function getArboxUrl(s){var url=new URL(ARBOX_URL);if(s&&/^\d+$/.test(String(s.schedule_id)))url.pathname='/group/'+s.schedule_id;return url.href;}
   function renderItems(items){
     var sl=document.getElementById('gym-slist');
     while(sl.firstChild)sl.removeChild(sl.firstChild);
@@ -1077,7 +1078,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
       var coachName=s.coach||(s.staff_member&&s.staff_member.name)||'';
       var st=mkEl('div','s-t');st.textContent=coachName?'מאמנת: '+coachName:'';
       cls.appendChild(sn);cls.appendChild(st);
-      var cta=mkEl('a','btn-a schedule-row-cta js-arbox');cta.href=s.registration_link||ARBOX_URL;cta.textContent='נרשמת';cta.setAttribute('data-track','trial-cta arbox-open');
+      var cta=mkEl('a','btn-a schedule-row-cta js-arbox');cta.href=getArboxUrl(s);cta.textContent='נרשמת';cta.setAttribute('data-track','trial-cta arbox-open');
       si.appendChild(tm);si.appendChild(cls);si.appendChild(cta);
       sl.appendChild(si);
     });
