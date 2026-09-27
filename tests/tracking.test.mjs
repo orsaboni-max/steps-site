@@ -114,3 +114,17 @@ test('all published measured pages apply the environment guard before pixel load
     assert.doesNotMatch(html, /googletagmanager\.com\/gtag\/js|function gtag\(/, page);
   }
 });
+
+test('every self-booking link on the site carries the site-only Arbox marker', () => {
+  // The WhatsApp bot sends referrer=SITE links too, so SITE cannot tell the two channels apart.
+  // PLUGIN is used only here, and Arbox records it on the booking (platform=plugin).
+  const pages = fs.readdirSync(new URL('../', import.meta.url)).filter(f => f.endsWith('.html'));
+  let links = 0;
+  for (const page of pages) {
+    for (const [href] of read(page).matchAll(/https:\/\/[^"'\s]*arboxapp\.com\/[^"'\s]*/g)) {
+      links++;
+      assert.match(href, /referrer=PLUGIN/, `${page}: ${href.slice(0, 120)}`);
+    }
+  }
+  assert.ok(links > 30);
+});
