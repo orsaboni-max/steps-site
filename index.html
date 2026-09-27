@@ -506,7 +506,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .chip[aria-pressed="true"]{border-color:var(--yellow);background:rgba(255,212,0,.14);color:var(--yellow);font-weight:800}
 .day{flex:0 0 auto;min-width:58px;padding:6px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;line-height:1}
 .day__l{font-weight:700;font-size:13.5px}
-.day__d{font-size:11px;opacity:.6;font-variant-numeric:tabular-nums}
+.day__d{font-size:11px;opacity:1;font-variant-numeric:tabular-nums}
 .day[aria-pressed="true"] .day__d{opacity:.75}
 .day[aria-pressed="true"]{background:var(--yellow);border-color:var(--yellow);color:var(--ink);font-weight:800}
 
@@ -1493,14 +1493,19 @@ var $=function(s,r){return (r||document).querySelector(s)};
 
   /* שבעה ימים קדימה מהיום, לא "השבוע של הלוח". בשבת השבוע
      הקלנדרי כבר נגמר, והלוח הציג שיעורים שכבר עברו — אי-אפשר היה לקבוע כלום. */
+  function getIsraelNow(){
+    var values={};new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Jerusalem',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).forEach(function(p){values[p.type]=p.value});
+    return {date:values.year+'-'+values.month+'-'+values.day,time:values.hour+':'+values.minute};
+  }
+  function getArboxUrl(s){var url=new URL(ARBOX);if(s&&/^\d+$/.test(String(s.schedule_id)))url.pathname='/group/'+s.schedule_id;return url.href;}
   function nextDays(n){
-    var t=new Date(),out=[];
+    var t=new Date(getIsraelNow().date+'T12:00:00Z'),out=[];
     for(var i=0;i<n;i++){
-      var d=new Date(t); d.setDate(t.getDate()+i);
+      var d=new Date(t); d.setUTCDate(t.getUTCDate()+i);
       out.push({
-        iso:d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'),
-        label:i===0?'היום':(i===1?'מחר':DAY_LETTER[d.getDay()]+'׳'),
-        sub:d.getDate()+'.'+(d.getMonth()+1)
+        iso:d.toISOString().split('T')[0],
+        label:i===0?'היום':(i===1?'מחר':DAY_LETTER[d.getUTCDay()]+'׳'),
+        sub:d.getUTCDate()+'.'+(d.getUTCMonth()+1)
       });
     }
     return out;
@@ -1522,6 +1527,8 @@ var $=function(s,r){return (r||document).querySelector(s)};
     });
     chipsEl.appendChild(b);
   });
+  function renderDays(){
+  clear(daysEl);
   days.forEach(function(d,i){
     var b=el('button','day');
     b.appendChild(el('span','day__l',d.label));
@@ -1534,6 +1541,8 @@ var $=function(s,r){return (r||document).querySelector(s)};
     });
     daysEl.appendChild(b);
   });
+  }
+  renderDays();
   moreBtn.addEventListener('click',function(){
     board.dataset.expanded='true';moreBtn.style.display='none';
   });
@@ -1547,7 +1556,7 @@ var $=function(s,r){return (r||document).querySelector(s)};
     /* בטאב "היום" מסתירים שיעורים שכבר התחילו — כפתור "קבעי"
        על שיעור שרץ הוא אותה הבטחה שבורה, רק בקטן. */
     if(state.day===0){
-      var now=new Date(), hhmm=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+      var hhmm=getIsraelNow().time;
       list=list.filter(function(s){return (s.start_time||'').slice(0,5) > hhmm});
     }
     var lim=narrow.matches?4:8;
@@ -1575,7 +1584,7 @@ var $=function(s,r){return (r||document).querySelector(s)};
       row.appendChild(c);
 
       var a=el('a','btn btn--y','קבעי');
-      a.href=s.registration_link||ARBOX;a.target='_blank';a.rel='noopener';
+      a.href=getArboxUrl(s);a.target='_blank';a.rel='noopener';
       a.setAttribute('data-track','trial-cta arbox-open');
       row.appendChild(a);
 
@@ -1591,11 +1600,13 @@ var $=function(s,r){return (r||document).querySelector(s)};
       .then(function(d){if(!Array.isArray(d))throw new Error('bad payload');cache[date]=d;return d});
   }
 
+  var requestId=0;
   function load(i){
-    var date=dates[i];
+    var date=dates[i],thisRequest=++requestId;
     if(cache[date]){render();return}
     note(el('div','board__empty','טוענים את מערכת השעות…'));
-    fetchDay(date).then(render)['catch'](function(){
+    fetchDay(date).then(function(){if(thisRequest===requestId)render()})['catch'](function(){
+      if(thisRequest!==requestId)return;
       var e=el('div','board__empty');
       e.appendChild(document.createTextNode('לא הצלחנו לטעון את מערכת השעות כרגע. '));
       var a=el('a',null,'קבלי אותה בוואטסאפ');
@@ -1606,6 +1617,17 @@ var $=function(s,r){return (r||document).querySelector(s)};
     });
   }
   load(state.day);
+  var lastClock='';
+  function refreshSchedule(){
+    var now=getIsraelNow(),clock=now.date+':'+now.time;
+    if(clock===lastClock)return;lastClock=clock;
+    if(days[0].iso!==now.date){
+      var selectedDate=dates[state.day];days=nextDays(14);dates=days.map(function(d){return d.iso});
+      state.day=Math.max(0,dates.indexOf(selectedDate));board.dataset.expanded='false';renderDays();load(state.day);countWeek();
+    }else render();
+  }
+  setInterval(refreshSchedule,1000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)refreshSchedule()});
   // מעבר בין רוחבים משנה את כמות השורות הגלויה — מרנדרים מחדש כדי שלא ייתקע
   if(narrow.addEventListener)narrow.addEventListener('change',render);
 
@@ -1615,7 +1637,8 @@ var $=function(s,r){return (r||document).querySelector(s)};
     var week=dates.slice(0,7);   // "בשבוע" = שבעה ימים קדימה
     Promise.all(week.map(function(d){return fetchDay(d)['catch'](function(){return null})}))
       .then(function(all){
-        var box=$('#weekly');
+        if(week[0]!==dates[0])return;
+        var box=$('#weekly');if(!box)return;
         // רק אם כל ששת הימים חזרו. אם יום אחד נפל, הסכום היה נמוך מהאמת —
         // ומספר שגוי על הדף גרוע יותר מלא להציג מספר בכלל.
         var complete=all.every(function(d){return Array.isArray(d)});
