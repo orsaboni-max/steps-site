@@ -55,24 +55,62 @@ test('pilates schedule rows open the selected class and preserve trial attributi
   }
 });
 
-function futureScheduleHarness(instant) {
-  const html = read('pilates.html');
+function futureScheduleHarness(instant, file = 'pilates.html') {
+  const html = read(file);
   let clock = Date.parse(instant);
   class ClockDate extends Date {
     constructor(...args) { super(...(args.length ? args : [clock])); }
   }
   const requests = [], rendered = [], errors = [], dateLabel = {}, more = {};
+  const list = { appendChild() {}, removeChild() {} };
   const context = { Date: ClockDate, Intl, cache: {}, selectedIdx: 0, selectedDate: '', requestId: 0, showAll: false,
-    document: { getElementById: id => id === 'scheduleDate' ? dateLabel : more },
+    document: { getElementById: id => /scheduleDate$/.test(id) ? dateLabel : /slist$/.test(id) ? list : more },
+    mkEl() { return {}; },
     renderSkeleton() {}, renderUnavailable() { errors.push(true); },
     renderItems(items, message) { rendered.push({ ids: Array.from(items, s => s.schedule_id), message }); },
     getName: s => s.session_name, isPilates: name => name === 'פילאטיס מכשירים',
+    isGym: name => name === 'GYM', isBarre: name => name === 'Barre',
     fetch(url) { return new Promise((resolve, reject) => requests.push({ url, resolve, reject })); }
   };
   vm.createContext(context);
   vm.runInContext(html.slice(html.indexOf('  function getWeekDates()'), html.indexOf('  var tabs=document.querySelectorAll', html.indexOf('  function getWeekDates()'))), context);
   vm.runInContext(html.slice(html.indexOf('  function refreshSelectedDay()'), html.indexOf('  setInterval(refreshSelectedDay')), context);
   return { context, requests, rendered, errors, dateLabel, setClock(value) { clock = Date.parse(value); } };
+}
+
+for (const [file, name] of [['gym-women.html', 'GYM'], ['barre.html', 'Barre']]) {
+  test(`${name} rolls weekdays forward and removes expired cached classes using Israel time`, () => {
+    const h = futureScheduleHarness('2026-09-27T16:30:00Z', file), c = h.context;
+    c.cache['2026-09-27'] = [{ schedule_id: 1, start_time: '19:30' }, { schedule_id: 2, start_time: '20:00' }];
+    c.loadDay(0);
+    assert.deepEqual(h.rendered.at(-1).ids, [2]);
+    assert.match(h.dateLabel.textContent, /27\.9/);
+    h.setClock('2026-09-27T17:00:00Z'); c.refreshSelectedDay();
+    assert.deepEqual(h.rendered.at(-1).ids, []);
+    assert.match(h.rendered.at(-1).message, /אין עוד שיעורי/);
+    h.setClock('2026-09-27T21:01:00Z'); c.refreshSelectedDay();
+    assert.equal(c.selectedDate, '2026-10-04');
+    assert.equal(h.requests.at(-1).url, '/api/schedule?date=2026-10-04');
+    h.setClock('2026-10-25T01:30:00Z');
+    assert.equal(c.getIsraelNow().minute, 210);
+    h.setClock('2026-09-26T09:00:00Z');
+    assert.equal(c.getWeekDates()[0], '2026-09-27');
+  });
+  test(`${name} ignores late results and distinguishes an API failure from an empty day`, async () => {
+    const h = futureScheduleHarness('2026-09-27T16:30:00Z', file), c = h.context;
+    c.loadDay(0); c.loadDay(1);
+    h.requests[1].resolve({ ok: true, json: async () => [{ schedule_id: 2, session_name: name, start_time: '08:15' }] });
+    await flush();
+    assert.deepEqual(h.rendered.at(-1).ids, [2]);
+    h.requests[0].reject(new Error('stale failure')); await flush();
+    assert.equal(h.errors.length, 0);
+    c.loadDay(2); c.loadDay(1);
+    h.requests[2].resolve({ ok: true, json: async () => [{ schedule_id: 3, session_name: name, start_time: '09:15' }] });
+    await flush();
+    assert.deepEqual(h.rendered.at(-1).ids, [2]);
+    c.loadDay(3); h.requests.at(-1).reject(new Error('current failure')); await flush();
+    assert.equal(h.errors.length, 1);
+  });
 }
 
 test('Pilates dates use Israel time across midnight, Saturday and daylight saving changes', () => {

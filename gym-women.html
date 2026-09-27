@@ -830,6 +830,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         <button class="dt">ו׳</button>
       </div>
     </div>
+    <p class="sfn" id="gym-scheduleDate" aria-live="polite"></p>
     <div class="slist" id="gym-slist">
       <div class="sfn" style="border-top:0;border-bottom:1px solid rgba(244,242,237,.09)">מערכת השעות הקבועה של אימוני הכוח בחלל ה-<bdi>GYM</bdi> בסטודיו סטפס, קניון פולג נתניה — 38 שיעורים בשבוע, בימים ראשון עד שישי, כל שיעור 60 דקות. בשבת אין שיעורי כוח. הרשימה כוללת את כל פורמטי הכוח בחלל: <bdi>GYM</bdi>, <bdi>GYM &amp; RUN</bdi>, <bdi>BootCamp</bdi> ו-<bdi>Endurance</bdi>, בשיעורים לנשים בלבד ובשיעורים מעורבים. השעות המדויקות, שם הפורמט והמאמנת של כל שיעור נטענים חי ממערכת <bdi>ARBOX</bdi>.</div>
       <div class="si"><div class="s-cls"><div class="s-n">ראשון · 6 שיעורי כוח</div><div class="s-t" dir="ltr">07:30 · 08:30 · 09:30 · 18:00 · 19:00 · 20:00</div></div></div>
@@ -1066,10 +1067,10 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
   function isGym(name){var n=(name||'').toLowerCase();if(/\b(?:kids?|teens?)\b|ילדים|ילדות|נוער|נערות|נערים/.test(n))return false;return n.indexOf('gym')!==-1||n.indexOf('כוח')!==-1||n.indexOf('bootcamp')!==-1||n.indexOf('endurance')!==-1;}
   function mkEl(tag,cls){var el=document.createElement(tag);if(cls)el.className=cls;return el;}
   function getArboxUrl(s){var url=new URL(ARBOX_URL);if(s&&/^\d+$/.test(String(s.schedule_id)))url.pathname='/group/'+s.schedule_id;return url.href;}
-  function renderItems(items){
+  function renderItems(items,emptyMessage){
     var sl=document.getElementById('gym-slist');
     while(sl.firstChild)sl.removeChild(sl.firstChild);
-    if(!items||!items.length){var fn=mkEl('div','sfn');fn.textContent='אין שיעורי GYM ביום זה';sl.appendChild(fn);return;}
+    if(!items||!items.length){var fn=mkEl('div','sfn');fn.textContent=emptyMessage||'אין שיעורי GYM ביום זה';sl.appendChild(fn);return;}
     items.forEach(function(s){
       var si=mkEl('div','si');
       var tm=mkEl('div','s-time');tm.textContent=(s.start_time||'').slice(0,5);
@@ -1083,37 +1084,73 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
       sl.appendChild(si);
     });
   }
-  var cache={};
+  var cache={},selectedIdx=0,selectedDate="",requestId=0;
   function getWeekDates(){
-    var today=new Date(),day=today.getDay(),sun=new Date(today);
-    sun.setDate(today.getDate()-day);
-    return Array.from({length:6},function(_,i){var d=new Date(sun);d.setDate(sun.getDate()+i);return d.toISOString().split('T')[0];});
+    var now=getIsraelNow();
+    return Array.from({length:6},function(_,i){
+      var d=new Date(now.date+'T12:00:00Z');
+      d.setUTCDate(d.getUTCDate()+(i-now.day+7)%7);
+      return d.toISOString().split('T')[0];
+    });
   }
-  var weekDates=getWeekDates();
-  var todayIdx=Math.min(new Date().getDay(),5);
+  function getIsraelNow(){
+    var parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Jerusalem',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date());
+    var values={};parts.forEach(function(p){values[p.type]=p.value;});
+    var date=values.year+'-'+values.month+'-'+values.day;
+    return {date:date,day:new Date(date+'T12:00:00Z').getUTCDay(),minute:Number(values.hour)*60+Number(values.minute)};
+  }
+  function futureItems(items,date,now){
+    return items.filter(function(s){
+      if(date<now.date)return false;
+      if(date>now.date)return true;
+      var time=/^(\d{2}):(\d{2})/.exec(s.start_time||'');
+      return time&&Number(time[1])*60+Number(time[2])>now.minute;
+    });
+  }
+  var lastRenderedClock='';
+  function showSelectedItems(){
+    var now=getIsraelNow();
+    lastRenderedClock=now.date+':'+now.minute;
+    renderItems(futureItems(cache[selectedDate],selectedDate,now),selectedDate===now.date?'אין עוד שיעורי GYM היום. בחרי יום נוסף.':'');
+  }
+  var todayIdx=getIsraelNow().day;
+  if(todayIdx===6)todayIdx=0;
   function loadDay(idx){
-    var date=weekDates[idx];if(!date)return;
-    if(cache[date]){renderItems(cache[date]);return;}
-    var sl=document.getElementById('gym-slist');
-    while(sl.firstChild)sl.removeChild(sl.firstChild);
-    var fn=mkEl('div','sfn');fn.textContent='⏳ טוען מערכת שעות...';sl.appendChild(fn);
+    var date=getWeekDates()[idx];if(!date)return;
+    selectedIdx=idx;selectedDate=date;
+    var thisRequest=++requestId;
+
+    document.getElementById('gym-scheduleDate').textContent=new Intl.DateTimeFormat('he-IL',{timeZone:'Asia/Jerusalem',weekday:'long',day:'numeric',month:'numeric'}).format(new Date(date+'T12:00:00Z'));
+    if(cache[date]){showSelectedItems();return;}
+
+    var sl=document.getElementById('gym-slist');while(sl.firstChild)sl.removeChild(sl.firstChild);var fn=mkEl('div','sfn');fn.textContent='מערכת השעות נטענת...';sl.appendChild(fn);
     fetch('/api/schedule?date='+date)
       .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
       .then(function(data){
-        var all=Array.isArray(data)?data:[];
-        var gym=all.filter(function(s){return isGym(s.session_name||s.name);});
-        cache[date]=gym;
-        renderItems(gym);
+        var classItems=Array.isArray(data)?data.filter(function(s){return isGym(s.session_name||s.name||"");}):[];
+        cache[date]=classItems;
+        if(thisRequest===requestId)showSelectedItems();
       })
-      .catch(function(){renderUnavailable();});
+      .catch(function(){if(thisRequest===requestId)renderUnavailable();});
   }
   var tabs=document.querySelectorAll('#gym-dtabs .dt');
   tabs.forEach(function(t,i){
-    t.addEventListener('click',function(){tabs.forEach(function(d){d.classList.remove('active');});this.classList.add('active');loadDay(i);});
+    t.addEventListener('click',function(){
+      tabs.forEach(function(d){d.classList.remove('active');});this.classList.add('active');
+
+      loadDay(i);
+    });
   });
   tabs.forEach(function(d){d.classList.remove('active');});
-  if(tabs[todayIdx])tabs[todayIdx].classList.add('active');else if(tabs[0])tabs[0].classList.add('active');
+  if(tabs[todayIdx])tabs[todayIdx].classList.add('active');else tabs[0].classList.add('active');
   loadDay(todayIdx);
+  function refreshSelectedDay(){
+    if(getWeekDates()[selectedIdx]!==selectedDate){loadDay(selectedIdx);return;}
+    var now=getIsraelNow();
+    if(cache[selectedDate]&&lastRenderedClock!==now.date+':'+now.minute)showSelectedItems();
+  }
+  setInterval(refreshSelectedDay,1000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)refreshSelectedDay();});
 })();
 </script>
 

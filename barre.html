@@ -905,6 +905,7 @@ table.cmp tbody tr:last-child th,table.cmp tbody tr:last-child td{border-bottom:
   </div>
   <div class="sched">
     <div class="sched-top"><h3><svg style="width:1em;height:1em;vertical-align:-.13em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6.4h16v14H4Z"/><path d="M4 10.4h16"/><path d="M8.4 3.6v3.6"/><path d="M15.6 3.6v3.6"/></svg> שיעורי בר השבוע</h3><div class="dtabs" id="barre-dtabs"><button class="dt active">א׳</button><button class="dt">ב׳</button><button class="dt">ג׳</button><button class="dt">ד׳</button><button class="dt">ה׳</button><button class="dt">ו׳</button></div></div>
+    <p class="sfn" id="barre-scheduleDate" aria-live="polite"></p>
     <div class="slist" id="barre-slist">
       <div class="sfn" style="border-top:0;border-bottom:1px solid rgba(244,242,237,.09)">מערכת השעות הקבועה של שיעורי הבר בחלל <bdi>MOVE</bdi> בסטודיו סטפס, קניון פולג נתניה — 17 שיעורי בר למבוגרות בשבוע, בימים ראשון עד שישי, כל שיעור שעה. בנוסף מתקיים שיעור בר לנערות בימי ראשון ב-16:00. בשבת אין שיעורי בר קבועים — שיעור מוצ״ש מתפרסם במערכת השעות בלבד. השעות המדויקות והמדריכה של כל שיעור נטענות חי ממערכת <bdi>ARBOX</bdi>.</div>
       <div class="si"><div class="s-cls"><div class="s-n">ראשון · 4 שיעורי בר</div><div class="s-t" dir="ltr">07:15 · 08:15 · 17:00 · 18:00</div></div></div>
@@ -1128,10 +1129,10 @@ document.querySelectorAll('.n-links a').forEach(a=>{a.addEventListener('click',f
   }
   function isBarre(name){var n=(name||'').toLowerCase();return n.indexOf('barre')!==-1||n.indexOf('בר')!==-1;}
   function mkEl(tag,cls){var el=document.createElement(tag);if(cls)el.className=cls;return el;}
-  function renderItems(items){
+  function renderItems(items,emptyMessage){
     var sl=document.getElementById('barre-slist');
     while(sl.firstChild)sl.removeChild(sl.firstChild);
-    if(!items||!items.length){var fn=mkEl('div','sfn');fn.textContent='אין שיעורי בר ביום זה';sl.appendChild(fn);return;}
+    if(!items||!items.length){var fn=mkEl('div','sfn');fn.textContent=emptyMessage||'אין שיעורי בר ביום זה';sl.appendChild(fn);return;}
     items.forEach(function(s){
       var si=mkEl('div','si');
       var tm=mkEl('div','s-time');tm.textContent=(s.start_time||'').slice(0,5);
@@ -1144,37 +1145,73 @@ document.querySelectorAll('.n-links a').forEach(a=>{a.addEventListener('click',f
       sl.appendChild(si);
     });
   }
-  var cache={};
+  var cache={},selectedIdx=0,selectedDate="",requestId=0;
   function getWeekDates(){
-    var today=new Date(),day=today.getDay(),sun=new Date(today);
-    sun.setDate(today.getDate()-day);
-    return Array.from({length:6},function(_,i){var d=new Date(sun);d.setDate(sun.getDate()+i);return d.toISOString().split('T')[0];});
+    var now=getIsraelNow();
+    return Array.from({length:6},function(_,i){
+      var d=new Date(now.date+'T12:00:00Z');
+      d.setUTCDate(d.getUTCDate()+(i-now.day+7)%7);
+      return d.toISOString().split('T')[0];
+    });
   }
-  var weekDates=getWeekDates();
-  var todayIdx=Math.min(new Date().getDay(),5);
+  function getIsraelNow(){
+    var parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Jerusalem',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date());
+    var values={};parts.forEach(function(p){values[p.type]=p.value;});
+    var date=values.year+'-'+values.month+'-'+values.day;
+    return {date:date,day:new Date(date+'T12:00:00Z').getUTCDay(),minute:Number(values.hour)*60+Number(values.minute)};
+  }
+  function futureItems(items,date,now){
+    return items.filter(function(s){
+      if(date<now.date)return false;
+      if(date>now.date)return true;
+      var time=/^(\d{2}):(\d{2})/.exec(s.start_time||'');
+      return time&&Number(time[1])*60+Number(time[2])>now.minute;
+    });
+  }
+  var lastRenderedClock='';
+  function showSelectedItems(){
+    var now=getIsraelNow();
+    lastRenderedClock=now.date+':'+now.minute;
+    renderItems(futureItems(cache[selectedDate],selectedDate,now),selectedDate===now.date?'אין עוד שיעורי בר היום. בחרי יום נוסף.':'');
+  }
+  var todayIdx=getIsraelNow().day;
+  if(todayIdx===6)todayIdx=0;
   function loadDay(idx){
-    var date=weekDates[idx];if(!date)return;
-    if(cache[date]){renderItems(cache[date]);return;}
-    var sl=document.getElementById('barre-slist');
-    while(sl.firstChild)sl.removeChild(sl.firstChild);
-    var fn=mkEl('div','sfn');fn.textContent='⏳ טוען שיעורי בר...';sl.appendChild(fn);
+    var date=getWeekDates()[idx];if(!date)return;
+    selectedIdx=idx;selectedDate=date;
+    var thisRequest=++requestId;
+
+    document.getElementById('barre-scheduleDate').textContent=new Intl.DateTimeFormat('he-IL',{timeZone:'Asia/Jerusalem',weekday:'long',day:'numeric',month:'numeric'}).format(new Date(date+'T12:00:00Z'));
+    if(cache[date]){showSelectedItems();return;}
+
+    var sl=document.getElementById('barre-slist');while(sl.firstChild)sl.removeChild(sl.firstChild);var fn=mkEl('div','sfn');fn.textContent='מערכת השעות נטענת...';sl.appendChild(fn);
     fetch('/api/schedule?date='+date)
       .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
       .then(function(data){
-        var all=Array.isArray(data)?data:[];
-        var barre=all.filter(function(s){return isBarre(s.session_name||s.name);});
-        cache[date]=barre;
-        renderItems(barre);
+        var classItems=Array.isArray(data)?data.filter(function(s){return isBarre(s.session_name||s.name||"");}):[];
+        cache[date]=classItems;
+        if(thisRequest===requestId)showSelectedItems();
       })
-      .catch(function(){renderUnavailable();});
+      .catch(function(){if(thisRequest===requestId)renderUnavailable();});
   }
   var tabs=document.querySelectorAll('#barre-dtabs .dt');
   tabs.forEach(function(t,i){
-    t.addEventListener('click',function(){tabs.forEach(function(d){d.classList.remove('active');});this.classList.add('active');loadDay(i);});
+    t.addEventListener('click',function(){
+      tabs.forEach(function(d){d.classList.remove('active');});this.classList.add('active');
+
+      loadDay(i);
+    });
   });
   tabs.forEach(function(d){d.classList.remove('active');});
-  if(tabs[todayIdx])tabs[todayIdx].classList.add('active');else if(tabs[0])tabs[0].classList.add('active');
+  if(tabs[todayIdx])tabs[todayIdx].classList.add('active');else tabs[0].classList.add('active');
   loadDay(todayIdx);
+  function refreshSelectedDay(){
+    if(getWeekDates()[selectedIdx]!==selectedDate){loadDay(selectedIdx);return;}
+    var now=getIsraelNow();
+    if(cache[selectedDate]&&lastRenderedClock!==now.date+':'+now.minute)showSelectedItems();
+  }
+  setInterval(refreshSelectedDay,1000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)refreshSelectedDay();});
 })();
 </script>
 
