@@ -812,7 +812,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       <h1>פילאטיס מכשירים בנתניה <em>בקבוצה קטנה</em></h1>
       <p class="hero-sub">11 מיטות רפורמר בקניון פולג, עם מדריכה שמלווה ומתקנת לאורך השיעור. מתאים גם אם מעולם לא עשית פילאטיס.</p>
       <div class="hero-btns">
-        <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="btn-a js-arbox" target="_blank" rel="noopener" data-track="trial-cta arbox-open" data-event="hero_intro_click">קובעת אימון היכרות ב-50 ₪</a>
+        <a href="#sched" class="btn-a" data-track="trial-cta schedule-select" data-event="hero_intro_click">בוחרת שיעור פילאטיס · 50 ₪</a>
         <a href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%9C%D7%A4%D7%A0%D7%99%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%94%D7%94%D7%99%D7%9B%D7%A8%D7%95%D7%AA%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" class="btn-b btn-wa js-whatsapp" target="_blank" rel="noopener">יש לי שאלה לפני האימון</a>
       </div>
       <p class="hero-assurance">מעדיפה שנחזור אלייך? <a href="https://stepsnetanya.co.il/#contact" style="color:var(--yellow);font-weight:700;text-decoration:underline;text-underline-offset:3px">השאירי פרטים להתאמת אימון</a>.</p>
@@ -1024,7 +1024,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 
 <div class="mobile-intro" id="mobileIntro" aria-label="קביעת אימון היכרות">
   <span>אימון היכרות · 50 ₪</span>
-  <a href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" class="js-arbox" data-track="trial-cta arbox-open" data-event="sticky_intro_click">בוחרת שיעור</a>
+  <a href="#sched" data-track="trial-cta schedule-select" data-event="sticky_intro_click">בוחרת שיעור פילאטיס · 50 ₪</a>
 </div>
 
 <!-- FOOTER -->
@@ -1284,6 +1284,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
       var kinds=tracked.getAttribute('data-track')||'';
       if(kinds.indexOf('trial-cta')>-1)trackEvent('cta_trial_click',{cta_text:(tracked.textContent||'').trim()});
       if(kinds.indexOf('arbox-open')>-1)trackEvent('arbox_open',{link_url:tracked.href||''});
+      if(kinds.indexOf('schedule-select')>-1)trackEvent('schedule_select_click',{placement:tracked.getAttribute('data-event')||'',cta_text:(tracked.textContent||'').trim()});
     }
     var arbox=e.target.closest&&e.target.closest('a.js-arbox');
     if(arbox){
