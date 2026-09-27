@@ -55,6 +55,76 @@ test('pilates schedule rows open the selected class and preserve trial attributi
   }
 });
 
+function futureScheduleHarness(instant) {
+  const html = read('pilates.html');
+  let clock = Date.parse(instant);
+  class ClockDate extends Date {
+    constructor(...args) { super(...(args.length ? args : [clock])); }
+  }
+  const requests = [], rendered = [], errors = [], dateLabel = {}, more = {};
+  const context = { Date: ClockDate, Intl, cache: {}, selectedIdx: 0, selectedDate: '', requestId: 0, showAll: false,
+    document: { getElementById: id => id === 'scheduleDate' ? dateLabel : more },
+    renderSkeleton() {}, renderUnavailable() { errors.push(true); },
+    renderItems(items, message) { rendered.push({ ids: Array.from(items, s => s.schedule_id), message }); },
+    getName: s => s.session_name, isPilates: name => name === 'פילאטיס מכשירים',
+    fetch(url) { return new Promise((resolve, reject) => requests.push({ url, resolve, reject })); }
+  };
+  vm.createContext(context);
+  vm.runInContext(html.slice(html.indexOf('  function getWeekDates()'), html.indexOf('  var tabs=document.querySelectorAll', html.indexOf('  function getWeekDates()'))), context);
+  vm.runInContext(html.slice(html.indexOf('  function refreshSelectedDay()'), html.indexOf('  setInterval(refreshSelectedDay')), context);
+  return { context, requests, rendered, errors, dateLabel, setClock(value) { clock = Date.parse(value); } };
+}
+
+test('Pilates dates use Israel time across midnight, Saturday and daylight saving changes', () => {
+  for (const [instant, date, day, minute] of [
+    ['2026-09-26T21:15:00Z', '2026-09-27', 0, 15],
+    ['2026-09-26T09:00:00Z', '2026-09-26', 6, 720],
+    ['2026-10-25T01:30:00Z', '2026-10-25', 0, 210],
+    ['2026-03-27T00:30:00Z', '2026-03-27', 5, 210]
+  ]) {
+    const { context: c } = futureScheduleHarness(instant);
+    assert.deepEqual(JSON.parse(JSON.stringify(c.getIsraelNow())), { date, day, minute });
+    const dates = Array.from(c.getWeekDates());
+    dates.forEach((value, index) => {
+      assert.ok(value >= date);
+      assert.equal(new Date(value + 'T12:00:00Z').getUTCDay(), index);
+    });
+    if (day === 6) { assert.equal(c.todayIdx, 0); assert.equal(dates[0], '2026-09-27'); }
+  }
+});
+
+test('Pilates removes classes at their start time and refreshes cached rows and dates', () => {
+  const h = futureScheduleHarness('2026-09-27T16:30:00Z'), c = h.context;
+  const items = [{ schedule_id: 1, start_time: '07:15' }, { schedule_id: 2, start_time: '19:30' }, { schedule_id: 3, start_time: '20:00' }];
+  assert.deepEqual(Array.from(c.futureItems(items, '2026-09-27', c.getIsraelNow()), s => s.schedule_id), [3]);
+  assert.equal(c.futureItems(items, '2026-09-26', c.getIsraelNow()).length, 0);
+  assert.equal(c.futureItems(items, '2026-09-28', c.getIsraelNow()).length, 3);
+  c.cache['2026-09-27'] = items; c.loadDay(0);
+  assert.deepEqual(h.rendered.at(-1).ids, [3]);
+  h.setClock('2026-09-27T17:00:00Z'); c.refreshSelectedDay();
+  assert.deepEqual(h.rendered.at(-1).ids, []);
+  assert.match(h.rendered.at(-1).message, /אין עוד שיעורי פילאטיס היום/);
+  h.setClock('2026-09-27T21:01:00Z'); c.refreshSelectedDay();
+  assert.equal(c.selectedDate, '2026-10-04');
+  assert.equal(h.requests.at(-1).url, '/api/schedule?date=2026-10-04');
+});
+
+test('late Pilates responses and errors cannot overwrite a newly selected day', async () => {
+  const h = futureScheduleHarness('2026-09-27T16:30:00Z'), c = h.context;
+  c.loadDay(0); c.loadDay(1);
+  h.requests[1].resolve({ ok: true, json: async () => [{ schedule_id: 2, session_name: 'פילאטיס מכשירים', start_time: '08:15' }] });
+  await flush();
+  assert.deepEqual(h.rendered.at(-1).ids, [2]);
+  h.requests[0].reject(new Error('old request failed')); await flush();
+  assert.equal(h.errors.length, 0);
+  c.loadDay(2); c.loadDay(1);
+  h.requests[2].resolve({ ok: true, json: async () => [{ schedule_id: 3, session_name: 'פילאטיס מכשירים', start_time: '09:15' }] });
+  await flush();
+  assert.deepEqual(h.rendered.at(-1).ids, [2]);
+  c.loadDay(3); h.requests.at(-1).reject(new Error('current request failed')); await flush();
+  assert.equal(h.errors.length, 1, 'a current API failure must remain distinct from an empty day');
+});
+
 class Target {
   constructor() { this.listeners = new Map(); this.style = {}; this.value = ''; this.disabled = false; this.classList = { toggle() {} }; }
   addEventListener(type, fn, options) {

@@ -940,6 +940,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
           <button class="dt active" type="button">א׳</button><button class="dt" type="button">ב׳</button><button class="dt" type="button">ג׳</button><button class="dt" type="button">ד׳</button><button class="dt" type="button">ה׳</button><button class="dt" type="button">ו׳</button>
         </div>
       </div>
+      <p class="sfn" id="scheduleDate" aria-live="polite"></p>
       <div class="slist" aria-live="polite">
         <div class="sfn" style="border-top:0;border-bottom:1px solid rgba(244,242,237,.09)">מערכת השעות הקבועה של חלל הרפורמר בסטודיו סטפס, קניון פולג נתניה — 38 שיעורי פילאטיס מכשירים בשבוע, על 11 מיטות רפורמר. שיעור ה-18:00 בימי שני, שלישי וחמישי הוא פילאטיס מתקדמים. בשבת אין שיעורי רפורמר. השעות המדויקות לכל יום נטענות חי ממערכת ARBOX.</div>
         <div class="si"><div class="s-cls"><div class="s-n">ראשון · 7 שיעורי פילאטיס מכשירים</div><div class="s-t" dir="ltr">07:15 · 08:15 · 09:15 · 17:00 · 18:00 · 19:00 · 20:00</div></div></div>
@@ -1122,13 +1123,14 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
 <script>
 // Schedule — Dynamic from Arbox
 (function(){
-  var cache={},showAll=false,currentItems=[];
+  var cache={},showAll=false,currentItems=[],selectedIdx=0,selectedDate='',requestId=0;
   function renderUnavailable(){
     var sl=document.querySelector('.slist');
     while(sl.firstChild)sl.removeChild(sl.firstChild);
     var fn=mkEl('div','sfn');
     fn.innerHTML='לא הצלחנו לטעון כרגע את מערכת השעות. <a href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8%20%D7%A9%D7%9C%20STEPS" class="js-whatsapp" target="_blank" rel="noopener" style="color:var(--yellow);text-decoration:underline;font-weight:700">כתבי לנו בוואטסאפ</a>';
     sl.appendChild(fn);
+    document.getElementById('scheduleMore').hidden=true;
   }
   function getName(s){return s.session_name||s.name||'';}
   function isPilates(nm){
@@ -1142,14 +1144,15 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
     var sl=document.querySelector('.slist');while(sl.firstChild)sl.removeChild(sl.firstChild);
     for(var i=0;i<3;i++)sl.appendChild(mkEl('div','schedule-skeleton'));
   }
-  function renderItems(items){
+  function renderItems(items,emptyMessage){
     currentItems=items||[];
     var sl=document.querySelector('.slist');
     while(sl.firstChild)sl.removeChild(sl.firstChild);
     var more=document.getElementById('scheduleMore');
     if(!currentItems.length){
       var fn=mkEl('div','sfn');
-      fn.innerHTML='אין שיעורי פילאטיס ביום הזה. נסי לבחור יום נוסף או <a href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8%20%D7%A9%D7%9C%20STEPS" class="js-whatsapp" target="_blank" rel="noopener" style="color:var(--yellow);text-decoration:underline;font-weight:700">כתבי לנו בוואטסאפ</a>.';
+      if(emptyMessage)fn.textContent=emptyMessage;
+      else fn.innerHTML='אין שיעורי פילאטיס ביום הזה. נסי לבחור יום נוסף או <a href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8%20%D7%A9%D7%9C%20STEPS" class="js-whatsapp" target="_blank" rel="noopener" style="color:var(--yellow);text-decoration:underline;font-weight:700">כתבי לנו בוואטסאפ</a>.';
       sl.appendChild(fn);more.hidden=true;return;
     }
     var visible=showAll?currentItems:currentItems.slice(0,3);
@@ -1172,25 +1175,52 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
     more.textContent=showAll?'הצג רק 3 שיעורים':'לכל מערכת השעות';
   }
   function getWeekDates(){
-    var today=new Date(),day=today.getDay(),sun=new Date(today);
-    sun.setDate(today.getDate()-day);
-    return Array.from({length:6},function(_,i){var d=new Date(sun);d.setDate(sun.getDate()+i);return d.toISOString().split('T')[0];});
+    var now=getIsraelNow();
+    return Array.from({length:6},function(_,i){
+      var d=new Date(now.date+'T12:00:00Z');
+      d.setUTCDate(d.getUTCDate()+(i-now.day+7)%7);
+      return d.toISOString().split('T')[0];
+    });
   }
-  var weekDates=getWeekDates();
-  var todayIdx=Math.min(new Date().getDay(),5);
+  function getIsraelNow(){
+    var parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Jerusalem',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date());
+    var values={};parts.forEach(function(p){values[p.type]=p.value;});
+    var date=values.year+'-'+values.month+'-'+values.day;
+    return {date:date,day:new Date(date+'T12:00:00Z').getUTCDay(),minute:Number(values.hour)*60+Number(values.minute)};
+  }
+  function futureItems(items,date,now){
+    return items.filter(function(s){
+      if(date<now.date)return false;
+      if(date>now.date)return true;
+      var time=/^(\d{2}):(\d{2})/.exec(s.start_time||'');
+      return time&&Number(time[1])*60+Number(time[2])>now.minute;
+    });
+  }
+  var lastRenderedClock='';
+  function showSelectedItems(){
+    var now=getIsraelNow();
+    lastRenderedClock=now.date+':'+now.minute;
+    renderItems(futureItems(cache[selectedDate],selectedDate,now),selectedDate===now.date?'אין עוד שיעורי פילאטיס היום. בחרי יום נוסף.':'');
+  }
+  var todayIdx=getIsraelNow().day;
+  if(todayIdx===6)todayIdx=0;
   function loadDay(idx){
-    var date=weekDates[idx];if(!date)return;
+    var date=getWeekDates()[idx];if(!date)return;
+    selectedIdx=idx;selectedDate=date;
+    var thisRequest=++requestId;
     showAll=false;
-    if(cache[date]){renderItems(cache[date]);return;}
+    document.getElementById('scheduleDate').textContent=new Intl.DateTimeFormat('he-IL',{timeZone:'Asia/Jerusalem',weekday:'long',day:'numeric',month:'numeric'}).format(new Date(date+'T12:00:00Z'));
+    if(cache[date]){showSelectedItems();return;}
+    document.getElementById('scheduleMore').hidden=true;
     renderSkeleton();
     fetch('/api/schedule?date='+date)
       .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
       .then(function(data){
         var pilatesItems=Array.isArray(data)?data.filter(function(s){return isPilates(getName(s));}):[];
         cache[date]=pilatesItems;
-        renderItems(pilatesItems);
+        if(thisRequest===requestId)showSelectedItems();
       })
-      .catch(function(){renderUnavailable();});
+      .catch(function(){if(thisRequest===requestId)renderUnavailable();});
   }
   var tabs=document.querySelectorAll('.dt');
   tabs.forEach(function(t,i){
@@ -1200,10 +1230,17 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
       loadDay(i);
     });
   });
-  document.getElementById('scheduleMore').addEventListener('click',function(){showAll=!showAll;renderItems(currentItems);});
+  document.getElementById('scheduleMore').addEventListener('click',function(){showAll=!showAll;showSelectedItems();});
   tabs.forEach(function(d){d.classList.remove('active');});
   if(tabs[todayIdx])tabs[todayIdx].classList.add('active');else tabs[0].classList.add('active');
   loadDay(todayIdx);
+  function refreshSelectedDay(){
+    if(getWeekDates()[selectedIdx]!==selectedDate){loadDay(selectedIdx);return;}
+    var now=getIsraelNow();
+    if(cache[selectedDate]&&lastRenderedClock!==now.date+':'+now.minute)showSelectedItems();
+  }
+  setInterval(refreshSelectedDay,1000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)refreshSelectedDay();});
 })();
 </script>
 
