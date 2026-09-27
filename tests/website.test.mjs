@@ -9,6 +9,40 @@ const home = read('index.html');
 import { visibleFaq, schemaFaq } from './faq-extract.mjs';
 const flush = () => new Promise(resolve => setImmediate(resolve));
 
+test('pilates schedule rows open the selected class and preserve trial attribution on mobile and desktop', () => {
+  const html = read('pilates.html');
+  const code = html.slice(html.indexOf('  function getName(s)'), html.indexOf('  function getWeekDates()'));
+  const base = 'https://bp4jsudd1589999012.web.arboxapp.com/group?lang=he&location=18259&referrer=PLUGIN&filters=%7B%22trial%22%3A%22trial%22%7D&utm_source=google';
+  const element = () => ({ children: [], style: {}, attrs: {},
+    get firstChild() { return this.children[0]; },
+    appendChild(child) { this.children.push(child); },
+    removeChild(child) { this.children.splice(this.children.indexOf(child), 1); },
+    setAttribute(key, value) { this.attrs[key] = value; }
+  });
+  for (const mobile of [true, false]) {
+    const list = element(), more = element();
+    const context = { URL, showAll: false, currentItems: [],
+      matchMedia: () => ({ matches: mobile }),
+      document: { createElement: element, getElementById: () => more,
+        querySelector: selector => selector === '.slist' ? list : { href: base } }
+    };
+    vm.createContext(context); vm.runInContext(code, context);
+    context.renderItems([
+      { schedule_id: 54133329, session_name: 'פילאטיס מכשירים', start_time: '17:00' },
+      { schedule_id: 54131653, session_name: 'פ. מכשירים - נשים בלבד', start_time: '18:00' },
+      { session_name: 'פילאטיס מכשירים', start_time: '19:00' }
+    ]);
+    const links = list.children.map(row => row.children[2]);
+    assert.deepEqual(links.map(link => new URL(link.href).pathname), ['/group/54133329', '/group/54131653', '/group']);
+    for (const link of links) {
+      const url = new URL(link.href);
+      assert.equal(url.search, new URL(base).search, 'trial and attribution parameters changed');
+      assert.equal(link.attrs['data-event'], 'schedule_intro_click');
+      assert.equal(link.target, mobile ? undefined : '_blank');
+    }
+  }
+});
+
 class Target {
   constructor() { this.listeners = new Map(); this.style = {}; this.value = ''; this.disabled = false; this.classList = { toggle() {} }; }
   addEventListener(type, fn, options) {

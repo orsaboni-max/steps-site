@@ -1136,7 +1136,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
     return nm.includes('pilates')||nm.includes('פילאטיס')||nm.includes('רפורמר')||nm.includes('פ. מכשירים');
   }
   function mkEl(tag,cls){var el=document.createElement(tag);if(cls)el.className=cls;return el;}
-  function getArboxUrl(){var a=document.querySelector('.js-arbox');return a?a.href:'#contact';}
+  function getArboxUrl(s){var a=document.querySelector('.js-arbox');if(!a)return '#contact';var url=new URL(a.href);if(s&&/^\d+$/.test(String(s.schedule_id)))url.pathname='/group/'+s.schedule_id;return url.href;}
   function renderSkeleton(){
     var sl=document.querySelector('.slist');while(sl.firstChild)sl.removeChild(sl.firstChild);
     for(var i=0;i<3;i++)sl.appendChild(mkEl('div','schedule-skeleton'));
@@ -1162,7 +1162,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
       var coachName=s.coach||(s.staff_member&&s.staff_member.name)||'';
       var st=mkEl('div','s-t');st.textContent=coachName?'מאמנת: '+coachName:'';
       cls.appendChild(sn);cls.appendChild(st);
-      var cta=mkEl('a','schedule-row-cta js-arbox');cta.href=getArboxUrl();cta.textContent='קובעת אימון היכרות ב-50 ₪';cta.setAttribute('data-track','trial-cta arbox-open');cta.setAttribute('data-event','schedule_intro_click');
+      var cta=mkEl('a','schedule-row-cta js-arbox');cta.href=getArboxUrl(s);cta.textContent='קובעת אימון היכרות ב-50 ₪';cta.setAttribute('data-track','trial-cta arbox-open');cta.setAttribute('data-event','schedule_intro_click');
       if(!matchMedia('(max-width:760px)').matches){cta.target='_blank';cta.rel='noopener';}
       si.appendChild(tm);si.appendChild(cls);si.appendChild(cta);
       sl.appendChild(si);
