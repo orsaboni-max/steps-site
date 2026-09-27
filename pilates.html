@@ -1133,6 +1133,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
   function getName(s){return s.session_name||s.name||'';}
   function isPilates(nm){
     nm=nm.toLowerCase();
+    if(nm.includes('מזרן')||/\bmat\b/.test(nm))return false;
     return nm.includes('pilates')||nm.includes('פילאטיס')||nm.includes('רפורמר')||nm.includes('פ. מכשירים');
   }
   function mkEl(tag,cls){var el=document.createElement(tag);if(cls)el.className=cls;return el;}

@@ -9,6 +9,18 @@ const home = read('index.html');
 import { visibleFaq, schemaFaq } from './faq-extract.mjs';
 const flush = () => new Promise(resolve => setImmediate(resolve));
 
+test('reformer timetable excludes mat Pilates while keeping reformer classes', () => {
+  const html = read('pilates.html');
+  const context = {};
+  vm.runInNewContext(html.slice(html.indexOf('  function isPilates(nm)'), html.indexOf('  function mkEl(tag,cls)')), context);
+  for (const name of ['פילאטיס מכשירים', 'פ. מכשירים - נשים בלבד', 'פילאטיס מתקדמים', 'רפורמר', 'Reformer Pilates']) {
+    assert.equal(context.isPilates(name), true, name);
+  }
+  for (const name of ['פילאטיס מזרן - נשים', 'Mat Pilates', 'PILATES MAT', 'GYM', 'Barre נשים בלבד']) {
+    assert.equal(context.isPilates(name), false, name);
+  }
+});
+
 test('pilates schedule rows open the selected class and preserve trial attribution on mobile and desktop', () => {
   const html = read('pilates.html');
   const code = html.slice(html.indexOf('  function getName(s)'), html.indexOf('  function getWeekDates()'));
