@@ -311,6 +311,8 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .bg,.bm{background:var(--fill-2);color:var(--t75)}
 .sfn{text-align:center;padding:16px;font-size:13px;line-height:1.5;color:var(--t45);border-top:1px solid var(--line)}
 .sfn a{color:var(--yellow)}
+.schedule-row-cta{min-height:44px;padding:0 16px;font-size:13px;white-space:nowrap}
+@media(max-width:600px){.si{flex-wrap:wrap}.schedule-row-cta{width:100%;margin-top:4px}}
 
 /* ═══ המלצות ══════════════════════════════════════════════════ */
 .test-sec{position:relative;padding:var(--pad-y) var(--gutter);overflow:hidden;background:var(--ink)}
@@ -1067,6 +1069,19 @@ table.cmp tbody tr:last-child th,table.cmp tbody tr:last-child td{border-bottom:
 var hv=document.querySelector('.hero-video');
 if(hv)hv.addEventListener('playing',function(){hv.style.opacity='1';},{once:true});
 
+// Preserve campaign attribution and keep mobile registration in the same tab.
+(function(){
+  var campaign=new URLSearchParams(location.search),mobile=matchMedia('(max-width:768px)');
+  function decorate(a){
+    if(!a||!a.href||a.href.indexOf('.arboxapp.com')===-1)return;
+    try{var u=new URL(a.href);campaign.forEach(function(v,k){if(k.indexOf('utm_')===0)u.searchParams.set(k,v)});a.href=u.toString();}catch(e){}
+    if(mobile.matches)a.removeAttribute('target');else{a.target='_blank';a.rel='noopener';}
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('a[href*=".arboxapp.com"]'),decorate);
+  new MutationObserver(function(changes){changes.forEach(function(change){Array.prototype.forEach.call(change.addedNodes,function(node){if(node.nodeType!==1)return;if(node.matches&&node.matches('a[href*=".arboxapp.com"]'))decorate(node);if(node.querySelectorAll)Array.prototype.forEach.call(node.querySelectorAll('a[href*=".arboxapp.com"]'),decorate);});});}).observe(document.body,{childList:true,subtree:true});
+  document.addEventListener('click',function(e){decorate(e.target.closest('a'));},true);
+})();
+
 // Navbar solid on scroll
 window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('solid',scrollY>80)});
 
@@ -1129,6 +1144,7 @@ document.querySelectorAll('.n-links a').forEach(a=>{a.addEventListener('click',f
   }
   function isBarre(name){var n=(name||'').toLowerCase();return n.indexOf('barre')!==-1||n.indexOf('בר')!==-1;}
   function mkEl(tag,cls){var el=document.createElement(tag);if(cls)el.className=cls;return el;}
+  function getArboxUrl(s){var a=document.querySelector('a[href*=".arboxapp.com"]');var url=new URL(a.href);if(s&&/^\d+$/.test(String(s.schedule_id)))url.pathname='/group/'+s.schedule_id;return url.href;}
   function renderItems(items,emptyMessage){
     var sl=document.getElementById('barre-slist');
     while(sl.firstChild)sl.removeChild(sl.firstChild);
@@ -1141,7 +1157,9 @@ document.querySelectorAll('.n-links a').forEach(a=>{a.addEventListener('click',f
       var coachName=s.coach||(s.staff_member&&s.staff_member.name)||'';
       var st=mkEl('div','s-t');st.textContent=coachName?'מדריכה: '+coachName:'';
       cls.appendChild(sn);cls.appendChild(st);
-      si.appendChild(tm);si.appendChild(cls);
+      var cta=mkEl('a','btn-a schedule-row-cta');cta.href=getArboxUrl(s);cta.textContent='נרשמת';cta.setAttribute('aria-label','הרשמה ל'+sn.textContent+' בשעה '+tm.textContent);cta.setAttribute('data-track','trial-cta arbox-open');
+      if(!matchMedia('(max-width:768px)').matches){cta.target='_blank';cta.rel='noopener';}
+      si.appendChild(tm);si.appendChild(cls);si.appendChild(cta);
       sl.appendChild(si);
     });
   }
@@ -1251,14 +1269,13 @@ document.querySelectorAll('.n-links a').forEach(a=>{a.addEventListener('click',f
     if(typeof gtag==='function')gtag('event',name,params);
     if(typeof fbq==='function')fbq('trackCustom',name,params);
   }
-  document.querySelectorAll('[data-track]').forEach(function(el){
-    el.addEventListener('click',function(){
+  document.addEventListener('click',function(e){
+      var el=e.target.closest('[data-track]');if(!el)return;
       var t=el.getAttribute('data-track')||'';
       if(t.indexOf('trial-cta')>-1)trackEvent('cta_trial_click',{cta_text:(el.textContent||'').trim()});
       if(t.indexOf('whatsapp-click')>-1)trackEvent('whatsapp_click',{link_url:el.href||''});
       if(t.indexOf('arbox-open')>-1)trackEvent('arbox_open',{link_url:el.href||''});
       if(t.indexOf('schedule-view')>-1)trackEvent('schedule_view',{});
-    });
   });
 })();
 </script>
