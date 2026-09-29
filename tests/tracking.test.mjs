@@ -7,13 +7,18 @@ const read = file => fs.readFileSync(new URL('../' + file, import.meta.url), 'ut
 const source = read('tracking.js');
 function harness(url, storage = new Map(), referrer = '') {
   const scripts = [];
+  const listeners = new Map();
   const window = { location: new URL(url), localStorage: {
     getItem: key => storage.get(key) ?? null,
     setItem: (key, value) => storage.set(key, value),
   } };
-  const document = { referrer, currentScript: { hasAttribute: () => true }, createElement: () => ({}), head: { appendChild: s => scripts.push(s) } };
+  const document = { referrer, currentScript: { hasAttribute: () => true }, createElement: () => ({}), head: { appendChild: s => scripts.push(s) },
+    addEventListener: (name, fn) => listeners.set(name, [...(listeners.get(name) || []), fn]) };
   vm.runInNewContext(source, { window, document, URL, URLSearchParams });
-  return { window, scripts };
+  return { window, scripts, clickConsent: (button = '.ck-ok') => {
+    const target = { closest: selector => selector.split(',').includes(button) ? {} : null };
+    for (const fn of listeners.get('click') || []) fn({ target });
+  } };
 }
 
 test('a tagged service arrival survives navigation to the untagged home form', () => {
@@ -75,6 +80,38 @@ test('new external-referrer storage needs consent and expires after seven days',
   storage.set('steps_ref', JSON.stringify(expired));
   const { window } = harness('https://stepsnetanya.co.il/#contact', storage);
   assert.equal(Object.keys(window.STEPS_REFERRAL).length, 0);
+});
+
+test('first-time consent on the landing page captures its search referrer for the later form', () => {
+  const storage = new Map();
+  const landing = harness('https://stepsnetanya.co.il/pilates.html', storage,
+    'https://www.google.com/search?q=private+query');
+  const formReference = landing.window.STEPS_REFERRAL;
+  assert.equal(storage.get('steps_ref'), undefined);
+  storage.set('steps-consent', 'granted');
+  landing.clickConsent();
+  assert.equal(formReference.ref, 'https://www.google.com/');
+  assert.equal(formReference.landing, '/pilates.html');
+  assert.equal(JSON.parse(storage.get('steps_ref')).ref, 'https://www.google.com/');
+  const home = harness('https://stepsnetanya.co.il/#contact', storage,
+    'https://stepsnetanya.co.il/pilates.html');
+  assert.equal(home.window.STEPS_REFERRAL.ref, 'https://www.google.com/');
+});
+
+test('the home consent button updates the already-held form reference, while declining does not', () => {
+  const storage = new Map();
+  const home = harness('https://stepsnetanya.co.il/', storage,
+    'https://chatgpt.com/c/secret-conversation');
+  const formReference = home.window.STEPS_REFERRAL;
+  home.clickConsent('#ckOk');
+  assert.equal(storage.get('steps_ref'), undefined);
+  storage.set('steps-consent', 'declined');
+  home.clickConsent('#ckOk');
+  assert.equal(storage.get('steps_ref'), undefined);
+  storage.set('steps-consent', 'granted');
+  home.clickConsent('#ckOk');
+  assert.equal(formReference.ref, 'https://chatgpt.com/');
+  assert.equal(formReference.landing, '/');
 });
 
 test('untagged or preview visits never create attribution; corrupt or blocked storage is safe', () => {

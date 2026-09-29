@@ -16,14 +16,16 @@
         FIELDS=['fbclid','gclid','utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
     function read(){try{var r=JSON.parse(w.localStorage.getItem(KEY)||'null');
       return (r&&r.t&&Date.now()-r.t<(r.ref_only?REF_AGE:MAX_AGE))?r:null}catch(e){return null}}
+    function sourceHost(){
+      if(!d.referrer)return '';
+      try{var u=new URL(d.referrer),h=u.hostname.toLowerCase();
+        return u.protocol==='https:'&&/(^|\.)(google\.com|google\.co\.il|bing\.com|duckduckgo\.com|yahoo\.com|chatgpt\.com|perplexity\.ai)$|^copilot\.microsoft\.com$/.test(h)?u.origin+'/':'';
+      }catch(e){return ''}
+    }
     try{
       var q=new URLSearchParams(w.location.search),fresh={},any=false,source='',prior=read();
       FIELDS.forEach(function(f){var v=q.get(f);if(v){fresh[f]=String(v).slice(0,200);any=true}});
-      if(!any&&d.referrer&&w.localStorage.getItem('steps-consent')==='granted'){
-        try{var u=new URL(d.referrer),h=u.hostname.toLowerCase();
-          if(u.protocol==='https:'&&/(^|\.)(google\.com|google\.co\.il|bing\.com|duckduckgo\.com|yahoo\.com|chatgpt\.com|perplexity\.ai)$|^copilot\.microsoft\.com$/.test(h))source=u.origin+'/';
-        }catch(e){}
-      }
+      if(!any&&w.localStorage.getItem('steps-consent')==='granted')source=sourceHost();
       if((any&&(!prior||prior.ref_only))||(source&&!prior)){
         fresh.t=Date.now();fresh.landing=w.location.pathname.slice(0,120);
         if(any){try{fresh.ref=d.referrer.slice(0,200)}catch(e){}}
@@ -31,7 +33,21 @@
         w.localStorage.setItem(KEY,JSON.stringify(fresh));
       }
     }catch(e){/* Blocked storage must not prevent using the form. */}
-    return read()||{};
+    var result=read()||{};
+    // On a first visit, the search referrer still belongs to this page when consent is accepted.
+    // Update the same object so the home form's reference sees the source without a reload.
+    if(!read()&&d.referrer&&d.addEventListener)d.addEventListener('click',function(e){
+      if(!e.target||!e.target.closest||!e.target.closest('#ckOk,.ck-ok'))return;
+      try{
+        if(w.localStorage.getItem('steps-consent')!=='granted'||read())return;
+        var source=sourceHost();
+        if(!source)return;
+        var fresh={t:Date.now(),landing:w.location.pathname.slice(0,120),ref:source,ref_only:true};
+        w.localStorage.setItem(KEY,JSON.stringify(fresh));
+        for(var key in fresh)result[key]=fresh[key];
+      }catch(e){/* Consent or attribution storage may be unavailable. */}
+    });
+    return result;
   })();
   w.dataLayer=w.dataLayer||[];
   w.gtag=function(){w.dataLayer.push(arguments)};
