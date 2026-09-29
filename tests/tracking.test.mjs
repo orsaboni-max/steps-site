@@ -12,7 +12,7 @@ function harness(url, storage = new Map(), referrer = '') {
     setItem: (key, value) => storage.set(key, value),
   } };
   const document = { referrer, currentScript: { hasAttribute: () => true }, createElement: () => ({}), head: { appendChild: s => scripts.push(s) } };
-  vm.runInNewContext(source, { window, document, URLSearchParams });
+  vm.runInNewContext(source, { window, document, URL, URLSearchParams });
   return { window, scripts };
 }
 
@@ -40,6 +40,41 @@ test('a later tagged visit keeps the first source until its 90-day expiry', () =
   const { window } = harness('https://stepsnetanya.co.il/barre.html?utm_source=new', storage);
   assert.equal(window.STEPS_REFERRAL.utm_source, 'new');
   assert.equal(window.STEPS_REFERRAL.landing, '/barre.html');
+});
+
+test('consented untagged search arrival keeps only the source host across site navigation', () => {
+  const storage = new Map([['steps-consent', 'granted']]);
+  harness('https://stepsnetanya.co.il/pilates.html', storage, 'https://www.google.com/search?q=private+query');
+  const { window } = harness('https://stepsnetanya.co.il/#contact', storage, 'https://stepsnetanya.co.il/pilates.html');
+  assert.equal(window.STEPS_REFERRAL.ref, 'https://www.google.com/');
+  assert.equal(window.STEPS_REFERRAL.landing, '/pilates.html');
+  assert.equal(window.STEPS_REFERRAL.utm_source, undefined);
+  assert.equal(window.dataLayer[0][2].analytics_storage, 'denied');
+});
+
+test('a tagged campaign replaces referrer-only attribution without losing campaign first touch', () => {
+  const storage = new Map([['steps-consent', 'granted']]);
+  harness('https://stepsnetanya.co.il/pilates.html', storage, 'https://www.google.com/search?q=private');
+  harness('https://stepsnetanya.co.il/barre.html?utm_source=google&utm_medium=cpc&gclid=123', storage);
+  const tagged = storage.get('steps_ref');
+  harness('https://stepsnetanya.co.il/?utm_source=another', storage);
+  assert.equal(storage.get('steps_ref'), tagged);
+  const { window } = harness('https://stepsnetanya.co.il/#contact', storage);
+  assert.equal(window.STEPS_REFERRAL.utm_medium, 'cpc');
+  assert.equal(window.STEPS_REFERRAL.gclid, '123');
+});
+
+test('new external-referrer storage needs consent and expires after seven days', () => {
+  const storage = new Map();
+  harness('https://stepsnetanya.co.il/pilates.html', storage, 'https://www.google.com/search?q=private');
+  assert.equal(storage.size, 0);
+  storage.set('steps-consent', 'granted');
+  harness('https://stepsnetanya.co.il/pilates.html', storage, 'https://www.google.com/search?q=private');
+  const expired = JSON.parse(storage.get('steps_ref'));
+  expired.t = Date.now() - 8 * 24 * 60 * 60 * 1000;
+  storage.set('steps_ref', JSON.stringify(expired));
+  const { window } = harness('https://stepsnetanya.co.il/#contact', storage);
+  assert.equal(Object.keys(window.STEPS_REFERRAL).length, 0);
 });
 
 test('untagged or preview visits never create attribution; corrupt or blocked storage is safe', () => {
