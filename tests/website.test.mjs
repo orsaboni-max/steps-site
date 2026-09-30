@@ -389,17 +389,29 @@ test('every page that lists guides in its footer lists the same ones, and they a
   }
 });
 
-// AI crawlers do not run JavaScript. Every schedule on the site is fetched from
-// /api/schedule on the client, so a page that ships an empty container answers
-// "when are the classes?" with nothing at all — which is what pilates.html did
-// until 18/09/26. Fixing only the page that was reported would have left the
-// homepage and the two other schedule pages silently broken, so the guard lives
-// here, on the shared condition, rather than in three separate assertions.
-test('every page with a live schedule also ships one in the raw HTML', () => {
+// Readers without JavaScript still need a useful path to the schedule. The
+// homepage's manually copied daily counts drifted from Arbox, so it offers
+// contact recovery instead. Service pages retain their existing weekly tables.
+test('schedule pages retain useful raw HTML without a copied homepage timetable', () => {
   for (const page of sitePages()) {
     const html = read(page);
     if (!html.includes('/api/schedule')) continue;
     const visible = html.replace(/<script[\s\S]*?<\/script>/gi, ' ');
+    if (page === 'index.html') {
+      const fallback = visible.split('<div id="rows"')[1]?.split('<button class="board__more"')[0];
+      assert.ok(fallback, 'homepage schedule fallback is missing');
+      assert.match(fallback, /אמנון ותמר 6/);
+      assert.match(fallback, /ARBOX/);
+      assert.doesNotMatch(fallback, /\d+\s+שיעורים|\b\d{1,2}:\d{2}\b|עודכן לאחרונה/,
+        'homepage must not publish manually copied class counts, times or update dates');
+      const recovery = fallback.match(/href="(https:\/\/wa\.me\/[^\"]+)"/);
+      assert.ok(recovery, 'readers without a loaded schedule need a contact link');
+      const url = new URL(recovery[1]);
+      assert.equal(url.pathname, '/972527927575');
+      assert.match(url.searchParams.get('text'), /מערכת השעות/);
+      assert.match(url.searchParams.get('text'), /הגעתי מהאתר/);
+      continue;
+    }
     // Opening hours (footer, schema, contact block) alone reach ~10 matches, so a
     // count threshold barely above that would pass on a page carrying no schedule.
     // Anchor on the schedule itself: it has to name every weekday.
