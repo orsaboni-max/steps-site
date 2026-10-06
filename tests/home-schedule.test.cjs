@@ -31,7 +31,7 @@ test('failure from an abandoned day cannot replace the selected day',async()=>{
   h.pending[0].reject(Error('old request failed'));await flush();assert.match(h.text(),/GYM selected/);
 });
 test('direct class links keep the approved trial parameters; invalid IDs use the general trial page',()=>{
-  const h=harness('2026-09-27T03:00:00Z');for(const id of [123,'456','bad/1',undefined]){const u=new URL(h.qa.getArboxUrl({schedule_id:id}));assert.equal(u.pathname,/^\d+$/.test(String(id))?'/group/'+id:'/group');assert.equal(u.search,new URL(base).search);assert.equal(JSON.parse(u.searchParams.get('filters')).trial,'trial')}
+  const h=harness('2026-09-27T03:00:00Z');for(const id of [123,'456','bad/1',undefined]){const u=new URL(h.qa.getArboxUrl({schedule_id:id}));assert.equal(u.pathname,/^\d+$/.test(String(id))?'/group/trial/'+id:'/group');assert.equal(u.search,new URL(base).search);assert.equal(JSON.parse(u.searchParams.get('filters')).trial,'trial')}
 });
 test('invalid API payload shows a recovery link without a false class',async()=>{
   const h=harness('2026-09-27T03:00:00Z');h.pending[0].resolve({wrong:true});await flush();assert.match(h.text(),/לא הצלחנו/);assert.equal(h.links().length,0);

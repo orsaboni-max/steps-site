@@ -45,7 +45,7 @@ test('pilates schedule rows open the selected class and preserve trial attributi
       { session_name: 'פילאטיס מכשירים', start_time: '19:00' }
     ]);
     const links = list.children.map(row => row.children[2]);
-    assert.deepEqual(links.map(link => new URL(link.href).pathname), ['/group/54133329', '/group/54131653', '/group']);
+    assert.deepEqual(links.map(link => new URL(link.href).pathname), ['/group/trial/54133329', '/group/trial/54131653', '/group']);
     for (const link of links) {
       const url = new URL(link.href);
       assert.equal(url.search, new URL(base).search, 'trial and attribution parameters changed');

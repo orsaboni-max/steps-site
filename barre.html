@@ -654,6 +654,8 @@ table.cmp tbody tr:last-child th,table.cmp tbody tr:last-child td{border-bottom:
   ]
 }
 </script>
+<link rel="stylesheet" href="booking.css">
+<script src="booking.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#content">דלגי לתוכן</a>
@@ -1144,7 +1146,7 @@ document.querySelectorAll('.n-links a').forEach(a=>{a.addEventListener('click',f
   }
   function isBarre(name){var n=(name||'').toLowerCase();return n.indexOf('barre')!==-1||n.indexOf('בר')!==-1;}
   function mkEl(tag,cls){var el=document.createElement(tag);if(cls)el.className=cls;return el;}
-  function getArboxUrl(s){var a=document.querySelector('a[href*=".arboxapp.com"]');var url=new URL(a.href);if(s&&/^\d+$/.test(String(s.schedule_id)))url.pathname='/group/'+s.schedule_id;return url.href;}
+  function getArboxUrl(s){var a=document.querySelector('a[href*=".arboxapp.com"]');var url=new URL(a.href);if(s&&/^\d+$/.test(String(s.schedule_id)))url.pathname='/group/trial/'+s.schedule_id;return url.href;}
   function renderItems(items,emptyMessage){
     var sl=document.getElementById('barre-slist');
     while(sl.firstChild)sl.removeChild(sl.firstChild);

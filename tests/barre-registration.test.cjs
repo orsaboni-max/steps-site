@@ -12,7 +12,7 @@ test('selected Barre IDs preserve trial, category, language and attribution with
     vm.createContext(c);
     vm.runInContext(html.slice(html.indexOf('  function mkEl(tag,cls)'),html.indexOf('  var cache=')),c);
     c.renderItems([{schedule_id:54133329,session_name:'Barre',start_time:'18:00'},{schedule_id:'bad/1',session_name:'Barre',start_time:'19:00'}]);
-    assert.deepEqual(list.children.map(r=>new URL(r.children[2].href).pathname),['/group/54133329','/group']);
+    assert.deepEqual(list.children.map(r=>new URL(r.children[2].href).pathname),['/group/trial/54133329','/group']);
     for(const row of list.children){const a=row.children[2];assert.equal(new URL(a.href).search,new URL(base).search);assert.equal(a.target,mobile?undefined:'_blank');assert.match(a.attrs['aria-label'],/הרשמה לBarre בשעה/)}
     c.renderItems([],'אין עוד שיעורים');assert.equal(list.children.length,1);assert.equal(list.children[0].textContent,'אין עוד שיעורים');
   }

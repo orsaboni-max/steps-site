@@ -771,6 +771,8 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   ]
 }
 </script>
+<link rel="stylesheet" href="booking.css">
+<script src="booking.js" defer></script>
 </head>
 <body>
 
@@ -1139,7 +1141,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
     return nm.includes('pilates')||nm.includes('פילאטיס')||nm.includes('רפורמר')||nm.includes('פ. מכשירים');
   }
   function mkEl(tag,cls){var el=document.createElement(tag);if(cls)el.className=cls;return el;}
-  function getArboxUrl(s){var a=document.querySelector('.js-arbox');if(!a)return '#contact';var url=new URL(a.href);if(s&&/^\d+$/.test(String(s.schedule_id)))url.pathname='/group/'+s.schedule_id;return url.href;}
+  function getArboxUrl(s){var a=document.querySelector('.js-arbox');if(!a)return '#contact';var url=new URL(a.href);if(s&&/^\d+$/.test(String(s.schedule_id)))url.pathname='/group/trial/'+s.schedule_id;return url.href;}
   function renderSkeleton(){
     var sl=document.querySelector('.slist');while(sl.firstChild)sl.removeChild(sl.firstChild);
     for(var i=0;i<3;i++)sl.appendChild(mkEl('div','schedule-skeleton'));

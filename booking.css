@@ -1,0 +1,16 @@
+.booking-choice{box-sizing:border-box;position:fixed;inset:0;margin:auto;background:#101010;color:#F4F2ED;border:1px solid #555;border-radius:20px;padding:36px;width:calc(100% - 32px);max-width:520px;max-height:calc(100dvh - 32px);overflow:auto;font:18px/1.6 'Assistant',sans-serif;text-align:right}
+.booking-choice::backdrop{background:rgba(0,0,0,.78)}
+.booking-choice h2{font:800 30px/1.3 'Heebo',sans-serif;margin:6px 0 12px;color:#F4F2ED}
+.booking-choice p{margin:0 0 20px;color:#F4F2ED}
+.booking-choice .booking-eyebrow{color:#FFD400;font-weight:700;font-size:14px;margin:0;padding-left:30px}
+.booking-close{position:absolute;top:14px;left:14px;min-width:44px;min-height:44px;border:0;border-radius:50%;background:#282828;color:#F4F2ED;font-size:28px;cursor:pointer}
+.booking-option{display:block;color:#F4F2ED;background:#1d1d1d;border:1px solid #777;border-radius:14px;padding:16px;margin:12px 0;text-decoration:none}
+.booking-option strong{display:flex;justify-content:space-between;gap:12px;font-weight:800;font-size:20px}
+.booking-option span{white-space:nowrap}
+.booking-option small{display:block;font-size:15px;line-height:1.6;margin-top:4px}
+.booking-trial{color:#0B0B0B;background:#FFD400;border-color:#FFD400}
+.booking-option:hover{border-color:#FFD400;text-decoration:underline}
+.booking-choice :focus-visible{outline:3px solid #F4F2ED;outline-offset:4px}
+.booking-choice .booking-footnote{font-size:14px;margin:18px 0 0;color:#ccc}
+.booking-schedule-note{font:600 16px/1.7 'Assistant',sans-serif;color:inherit;margin:12px 0 24px;max-width:650px}
+@media(max-width:480px){.booking-choice{padding:28px 20px}.booking-choice h2{font-size:26px}.booking-option strong{font-size:18px}}
