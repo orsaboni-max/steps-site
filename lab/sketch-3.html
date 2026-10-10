@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>סקיצה 3 · פוסטר</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karantina:wght@400;700&family=Assistant:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+/* מושג: פוסטר של קמפיין ספורט. הצהוב של STEPS הופך מנקודת צבע לרקע שלם,
+   הצילומים עוברים לדואוטון שחור-צהוב (מאחד צילומים באיכויות שונות לשפה אחת),
+   והטיפוגרפיה הצרה והענקית היא הגיבורה. רגע אחד מתוזמר: שלוש המילים נוחתות
+   אחת אחרי השנייה, כמו שלוש חזרות. */
+:root{
+  color-scheme:light;
+  --volt:#FFD400;
+  --ink:#000;
+  --paper:#F4F2ED;
+  --soot:#1A1A1A;
+  --poster:'Karantina','Assistant',system-ui,sans-serif;
+  --body:'Assistant',system-ui,sans-serif;
+  --spring:cubic-bezier(.34,1.56,.64,1);
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --gutter:clamp(16px,4vw,56px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--volt);color:var(--ink);font-family:var(--body);font-weight:400;font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.poster{font-family:var(--poster);font-weight:700;line-height:.82;letter-spacing:-.01em}
+
+/* דואוטון: אפור + מכפלה על רקע צהוב = שחור-צהוב, בלי עריכה */
+.duo{filter:grayscale(1) contrast(1.25) brightness(1.06);mix-blend-mode:multiply}
+
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:calc(16px + env(safe-area-inset-top,0px)) var(--gutter) 10px;position:relative;z-index:5}
+.nav img{height:24px;width:auto;filter:invert(1)}
+.nav__links{display:flex;gap:26px;font-weight:800;font-size:15px}
+.nav__links a{border-bottom:2px solid transparent}
+.nav__links a:hover{border-color:var(--ink)}
+.pill{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;border-radius:100px;background:var(--ink);color:var(--volt);font-weight:800;font-size:15px;transition:transform .16s var(--ease-out)}
+.pill:active{transform:scale(.97)}
+@media(max-width:760px){.nav__links{display:none}}
+
+/* ── פתיח ── */
+.hero{position:relative;display:grid;grid-template-columns:1fr minmax(0,.82fr);align-items:end;gap:0;padding:0 var(--gutter);min-height:min(92svh,900px)}
+.hero__words{position:relative;z-index:2;padding-block:clamp(12px,3vw,40px) clamp(24px,3vw,40px)}
+.word{display:flex;align-items:flex-end;gap:clamp(10px,1.4vw,22px);font-size:clamp(116px,20vw,330px)}
+.word span{display:block}
+.word a{flex:none;margin-bottom:.16em;font-family:var(--body);font-size:clamp(12px,1vw,15px);font-weight:800;line-height:1;letter-spacing:.06em;background:var(--ink);color:var(--volt);padding:7px 11px;border-radius:100px;transition:transform .16s var(--ease-out)}
+.word a:hover{transform:translateY(-2px)}
+.word span{animation:rep .62s var(--spring) both;transform-origin:50% 100%}
+.word:nth-child(2) span{animation-delay:.18s}
+.word:nth-child(3) span{animation-delay:.36s}
+@keyframes rep{0%{transform:translateY(55%) scaleY(.55);opacity:0}60%{opacity:1}100%{transform:none;opacity:1}}
+.hero__under{display:grid;gap:18px;max-width:520px;margin-top:clamp(18px,2vw,28px)}
+.hero__under p{font-size:clamp(17px,1.35vw,20px);font-weight:600}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px}
+.big{display:inline-flex;align-items:center;justify-content:center;min-height:60px;padding:0 32px;background:var(--ink);color:var(--volt);font-weight:800;font-size:18px;border-radius:100px;transition:transform .16s var(--ease-out)}
+.big:active{transform:scale(.97)}
+.under{font-weight:800;border-bottom:3px solid var(--ink);padding-bottom:2px}
+.hero__photo{position:relative;align-self:stretch;margin-inline-start:calc(-1 * clamp(40px,8vw,140px))}
+.hero__photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;min-height:0}
+  .hero__photo{order:-1;margin:0 calc(-1 * var(--gutter));height:min(58vh,520px)}
+  .hero__photo::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,var(--volt) 0 9%,rgba(255,212,0,.85) 24%,rgba(255,212,0,0) 50%);bottom:-2px}
+  .hero__words{margin-top:-1.15em;font-size:clamp(116px,20vw,330px)}
+  .word{font-size:clamp(104px,30vw,200px)}
+}
+
+/* פס שיעורים רץ — מהלוח האמיתי */
+.ticker{background:var(--ink);color:var(--volt);overflow:hidden;border-block:3px solid var(--ink)}
+.ticker__track{display:flex;width:max-content;animation:run 38s linear infinite}
+.ticker:hover .ticker__track{animation-play-state:paused}
+.ticker__set{display:flex;align-items:center;gap:32px;padding:14px 16px;white-space:nowrap}
+.ticker__set a{font-family:var(--poster);font-weight:700;font-size:clamp(28px,2.6vw,38px);line-height:1}
+.ticker__set a b{color:var(--paper);font-weight:700;margin-inline-start:10px}
+.ticker__set i{width:10px;height:10px;background:var(--volt);transform:rotate(45deg);flex:none}
+@keyframes run{to{transform:translateX(50%)}}
+
+/* ── שלושה פוסטרים ── */
+.sec{padding:clamp(64px,8vw,120px) var(--gutter)}
+.shell{max-width:1400px;margin-inline:auto}
+.dark{background:var(--ink);color:var(--paper)}
+.sec__title{font-size:clamp(84px,12vw,190px);margin-bottom:clamp(28px,3.5vw,52px)}
+.sec__title em{font-style:normal;color:var(--volt)}
+.posters{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,1.2vw,18px)}
+.card{position:relative;background:var(--volt);color:var(--ink);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;min-height:clamp(560px,52vw,720px);isolation:isolate}
+.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1}
+.card__body{margin-top:auto;padding:clamp(18px,2vw,28px);background:linear-gradient(0deg,var(--volt) 62%,rgba(255,212,0,0))}
+.card h3{font-size:clamp(90px,9vw,150px);margin-bottom:6px}
+.card h3.he{font-size:clamp(84px,8.4vw,140px)}
+.card p{font-weight:600;max-width:30ch}
+.card ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 16px}
+.card li{font-weight:800;font-size:13px;letter-spacing:.04em;border:2px solid var(--ink);padding:5px 10px;border-radius:100px}
+.card a.under{display:inline-block}
+@media(max-width:900px){.posters{grid-template-columns:1fr}.card{min-height:520px}}
+
+/* ── לוח משחקים ── */
+.fixtures{border-top:3px solid var(--ink)}
+.fx{display:grid;grid-template-columns:clamp(110px,13vw,180px) 1fr auto;gap:clamp(12px,2vw,30px);align-items:center;padding:clamp(12px,1.4vw,18px) 0;border-bottom:1px solid rgba(0,0,0,.18)}
+.fx__t{font-family:var(--poster);font-weight:700;font-size:clamp(56px,6vw,92px);line-height:.8;font-variant-numeric:tabular-nums}
+.fx__d{display:block;font-family:var(--body);font-size:14px;font-weight:600;line-height:1.2;margin-top:4px}
+.fx__n{font-weight:800;font-size:clamp(19px,1.6vw,24px);line-height:1.2}
+.fx__c{font-size:15px}
+.fx .pill{min-height:46px}
+@media(max-width:560px){.fx{grid-template-columns:96px 1fr}.fx .pill{grid-column:1/-1}}
+.paper{background:var(--paper)}
+
+/* ── ציטוטים ── */
+.quote{font-size:clamp(56px,7vw,112px);color:var(--volt);max-width:16ch}
+.quote+cite{display:block;margin-top:18px;font-style:normal;color:rgba(244,242,237,.7)}
+.minis{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(18px,3vw,48px);margin-top:clamp(40px,5vw,72px);border-top:1px solid rgba(244,242,237,.2);padding-top:clamp(24px,3vw,40px)}
+.minis blockquote{font-size:clamp(18px,1.5vw,22px);font-weight:600}
+.minis cite{display:block;margin-top:10px;font-style:normal;color:rgba(244,242,237,.6);font-size:15px}
+.stars{display:flex;align-items:baseline;gap:14px;margin-bottom:clamp(20px,2.4vw,36px)}
+.stars b{font-family:var(--poster);font-size:clamp(90px,10vw,160px);line-height:.8;color:var(--paper)}
+.stars a{color:var(--volt);font-weight:800;border-bottom:2px solid var(--volt)}
+@media(max-width:760px){.minis{grid-template-columns:1fr}}
+
+/* ── סגירה ── */
+.final{padding:clamp(64px,9vw,140px) var(--gutter) clamp(48px,6vw,90px)}
+.final h2{font-size:clamp(100px,16vw,260px)}
+.final .row{margin-top:clamp(22px,3vw,40px)}
+.foot{background:var(--ink);color:rgba(244,242,237,.7);font-size:14px;padding:22px var(--gutter) calc(22px + env(safe-area-inset-bottom,0px));display:flex;flex-wrap:wrap;gap:8px 28px;justify-content:space-between}
+.tag{position:fixed;inset-inline-start:14px;top:calc(78px + env(safe-area-inset-top,0px));z-index:50;background:var(--paper);color:var(--ink);font-weight:800;font-size:13px;padding:8px 14px;border-radius:100px;box-shadow:0 6px 24px rgba(0,0,0,.3)}
+
+@media (prefers-reduced-motion:reduce){
+  .word span{animation:none}
+  .ticker__track{animation:none}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a href="#" aria-label="STEPS — לראש הדף"><img src="../steps-logo-white.png" alt="STEPS"></a>
+  <nav class="nav__links" aria-label="ניווט ראשי"><a href="#spaces">החללים</a><a href="#week">השבוע בסטודיו</a><a href="#voices">מה אומרות</a></nav>
+  <a class="pill" data-arbox href="#">אימון היכרות</a>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="h1">
+  <div class="hero__words">
+    <h1 id="h1" class="poster">
+      <span class="word"><span>חזקה.</span><a href="#gym">GYM</a></span>
+      <span class="word"><span>גמישה.</span><a href="#move">MOVE</a></span>
+      <span class="word"><span>מדויקת.</span><a href="#reformer">REFORMER</a></span>
+    </h1>
+    <div class="hero__under">
+      <p>סטודיו כושר לנשים בקניון פולג, נתניה. שלושה חללים, מנוי אחד, ומאמנות שרואות אותך.</p>
+      <div class="row">
+        <a class="big" data-arbox href="#">אימון היכרות ב-50 ₪</a>
+        <a class="under" href="#week">מה יש השבוע</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero__photo" aria-hidden="true">
+    <img class="duo" src="../images/shoot2025/gallery-b.jpg" alt="">
+  </div>
+</section>
+
+<div class="ticker" aria-label="השיעורים הקרובים">
+  <div class="ticker__track" id="ticker"></div>
+</div>
+
+<section class="sec dark" id="spaces" aria-labelledby="spaces-h">
+  <div class="shell">
+    <h2 id="spaces-h" class="poster sec__title">שלושה חללים. <em>מנוי אחד.</em></h2>
+    <div class="posters">
+      <article class="card" id="gym">
+        <img class="duo" src="../images/shoot2025/coaching-1.jpg" alt="מאמנת מלווה מתאמנת בחדר הכוח" loading="lazy">
+        <div class="card__body">
+          <h3 class="poster">GYM</h3>
+          <p>משקולות חופשיות, מכשירים מתקדמים ומאמנות שיודעות בדיוק מה את צריכה.</p>
+          <ul><li>כוח</li><li>BOOTCAMP</li><li>ENDURANCE</li><li>GYM &amp; RUN</li></ul>
+          <a class="under" href="https://stepsnetanya.co.il/gym-women.html">לחדר הכוח</a>
+        </div>
+      </article>
+      <article class="card" id="move">
+        <img class="duo" src="../images/shoot2025/coaching-2.jpg" alt="מאמנת מתקנת תנוחה של מתאמנת עם משקולות" loading="lazy">
+        <div class="card__body">
+          <h3 class="poster">MOVE</h3>
+          <p>השיעורים שגורמים לך לחזור. בר, יוגה, גמישות, פילאטיס מזרן ו-SCULPT.</p>
+          <ul><li>BARRE</li><li>YOGA</li><li>פילאטיס מזרן</li><li>SCULPT</li></ul>
+          <a class="under" href="https://stepsnetanya.co.il/barre.html">לסטודיו MOVE</a>
+        </div>
+      </article>
+      <article class="card" id="reformer">
+        <img class="duo" src="../images/shoot2025/gallery-e.jpg" alt="מתאמנת יושבת על מיטת רפורמר ומחייכת" loading="lazy">
+        <div class="card__body">
+          <h3 class="poster he">רפורמר</h3>
+          <p>פילאטיס מכשירים בקבוצה של עד 11 מתאמנות. מספיק קטנה כדי שיעברו עלייך אחת-אחת.</p>
+          <ul><li>עד 11 מתאמנות</li><li>מתאים לשיקום</li><li>כל הגילאים</li></ul>
+          <a class="under" href="https://stepsnetanya.co.il/pilates.html">לפילאטיס מכשירים</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec paper" id="week" aria-labelledby="week-h">
+  <div class="shell">
+    <h2 id="week-h" class="poster sec__title">השבוע בסטודיו</h2>
+    <div class="fixtures" id="fixtures"></div>
+  </div>
+</section>
+
+<section class="sec dark" id="voices" aria-labelledby="voices-h">
+  <div class="shell">
+    <h2 id="voices-h" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)">ביקורות</h2>
+    <div class="stars"><b>4.9 ★</b><a href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener">34 ביקורות בגוגל</a></div>
+    <blockquote class="poster quote">המקום היחיד שגרם לי להתמיד ולאהוב את זה!</blockquote>
+    <cite>ירין ברנס, ביקורת בגוגל</cite>
+    <div class="minis">
+      <figure><blockquote>מקצועיים, יחס אישי אמיתי ויותר מהכל צוות אנושי עם אישיות כובשת ואנרגיות טובות.</blockquote><cite>מור בוסאני</cite></figure>
+      <figure><blockquote>מקצועיות שיא! יחס חם ואישי לכל המתאמנים! נהנת לבוא כל פעם מחדש!</blockquote><cite>נעם קמחי</cite></figure>
+    </div>
+  </div>
+</section>
+
+<section class="final" aria-labelledby="final-h">
+  <div class="shell">
+    <h2 id="final-h" class="poster">50 ₪.<br>שעה אחת.<br>בלי התחייבות.</h2>
+    <div class="row">
+      <a class="big" data-arbox href="#">קובעת אימון היכרות</a>
+      <a class="under" data-wa href="#">שאלה בוואטסאפ</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot"><span>STEPS · קניון פולג, נתניה · חנייה חינם</span><span>052-792-7575</span><span>עוסק מורשה 558306098</span></footer>
+<a class="tag" href="sketches.html">סקיצה 3 מתוך 3 · חזרה</a>
+
+<script src="lab.js"></script>
+<script>
+(function(){
+  var S=window.STEPS;
+  document.querySelectorAll('[data-arbox]').forEach(function(a){a.href=S.ARBOX;a.target='_blank';a.rel='noopener'});
+  document.querySelectorAll('[data-wa]').forEach(function(a){a.href=S.waLink('היי, אשמח לשמוע על אימון היכרות');a.target='_blank';a.rel='noopener'});
+
+  S.upcoming({n:10}).then(function(list){
+    /* פס רץ: אותה קבוצה פעמיים כדי שהלולאה תהיה רציפה */
+    var track=document.getElementById('ticker');
+    for(var k=0;k<2;k++){
+      var set=document.createElement('div');set.className='ticker__set';
+      if(k)set.setAttribute('aria-hidden','true');
+      list.forEach(function(s){
+        var a=document.createElement('a');a.href=s.url;a.target='_blank';a.rel='noopener';
+        if(k)a.tabIndex=-1;
+        a.textContent=s.time+' '+s.name;
+        var b=document.createElement('b');b.textContent=s.day;a.append(b);
+        var i=document.createElement('i');i.setAttribute('aria-hidden','true');
+        set.append(a,i);
+      });
+      track.append(set);
+    }
+    var fx=document.getElementById('fixtures');
+    list.slice(0,6).forEach(function(s){
+      var r=document.createElement('div');r.className='fx';
+      r.innerHTML='<div class="fx__t"></div><div><div class="fx__n"></div><div class="fx__c"></div></div><a class="pill" target="_blank" rel="noopener">קבעי</a>';
+      var t=r.querySelector('.fx__t');t.textContent=s.time;
+      var d=document.createElement('span');d.className='fx__d';d.textContent=s.day;t.append(d);
+      r.querySelector('.fx__n').textContent=s.name;
+      r.querySelector('.fx__c').textContent=s.coach;
+      r.querySelector('a').href=s.url;
+      fx.append(r);
+    });
+  });
+})();
+</script>
+</body>
+</html>

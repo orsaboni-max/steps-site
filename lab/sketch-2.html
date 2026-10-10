@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>סקיצה 2 · לוח התוצאות</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+/* מושג: לוח תוצאות של חדר כושר. קיר הבטון האפור מהצילומים הוא הרקע, שעון הטיימר
+   עם ספרות הלד הענבריות הוא האובייקט. מקצועיות = דיוק: כל מספר בדף הוא אמיתי ונמדד.
+   רגע אחד מתוזמר: לוח השיעורים נפתח באותיות מתהפכות, כמו לוח המראות. */
+:root{
+  color-scheme:light;
+  --paper:#E7E5DF;
+  --chalk:#F5F4F0;
+  --graphite:#141518;
+  --mute:#5C5E64;
+  --led:#FFC400;
+  --rule:rgba(20,21,24,.16);
+  --he:'Rubik',system-ui,sans-serif;
+  --num:'Barlow Condensed','Rubik',system-ui,sans-serif;
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --gutter:clamp(18px,4vw,56px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--graphite);font-family:var(--he);font-weight:400;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--graphite);outline-offset:3px}
+h1,h2,h3{font-weight:800;letter-spacing:-.025em;line-height:1;text-wrap:balance}
+.num{font-family:var(--num);font-variant-numeric:tabular-nums;letter-spacing:0}
+
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:calc(16px + env(safe-area-inset-top,0px)) var(--gutter) 16px;border-bottom:1px solid var(--rule)}
+.top img{height:22px;width:auto;filter:invert(1)}
+.top nav{display:flex;gap:26px;font-weight:500;font-size:15px;color:var(--mute)}
+.top nav a:hover{color:var(--graphite)}
+.top .cta{background:var(--graphite);color:var(--chalk);font-weight:700;font-size:14px;padding:10px 18px;border-radius:8px}
+@media(max-width:760px){.top nav{display:none}}
+
+.shell{max-width:1360px;margin-inline:auto}
+
+/* ── פתיח: כותרת + שעון מימין, צילום עם סרגל מידה משמאל ── */
+.hero{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(24px,4vw,64px);padding:clamp(28px,4vw,56px) var(--gutter) clamp(40px,5vw,72px);align-items:stretch}
+.hero h1{font-size:clamp(56px,8.6vw,132px);font-weight:900;line-height:.9;margin-bottom:clamp(18px,2vw,28px)}
+.hero h1 small{display:block;font-size:.34em;font-weight:500;color:var(--mute);letter-spacing:-.01em;margin-bottom:.4em}
+.hero__lede{max-width:44ch;color:var(--mute);font-size:clamp(16px,1.3vw,19px);margin-bottom:clamp(22px,2.4vw,34px)}
+
+/* שעון הלד */
+.timer{background:var(--graphite);color:var(--chalk);border-radius:14px;padding:clamp(18px,2vw,26px) clamp(20px,2.4vw,32px);display:grid;gap:14px;max-width:560px;box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 20px 40px -24px rgba(20,21,24,.6)}
+.timer__label{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:rgba(245,244,240,.6)}
+.timer__label i{width:8px;height:8px;border-radius:50%;background:#3BE37A;box-shadow:0 0 10px #3BE37A;display:inline-block;margin-inline-end:8px}
+.timer__digits{font-family:var(--num);font-weight:700;font-size:clamp(64px,8.4vw,112px);line-height:.9;color:var(--led);text-shadow:0 0 18px rgba(255,196,0,.45);direction:ltr;text-align:right;font-variant-numeric:tabular-nums}
+.timer__digits .colon{animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:.25}}
+.timer__class{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;align-items:baseline;border-top:1px solid rgba(245,244,240,.14);padding-top:14px}
+.timer__class b{font-weight:700;font-size:clamp(18px,1.6vw,22px)}
+.timer__class span{color:rgba(245,244,240,.6);font-size:15px}
+.timer__go{display:flex;justify-content:center;align-items:center;min-height:52px;border-radius:9px;background:var(--led);color:var(--graphite);font-weight:800;font-size:17px;transition:transform .16s var(--ease-out),filter .2s}
+.timer__go:hover{filter:brightness(1.05)}
+.timer__go:active{transform:scale(.97)}
+.hero__alt{margin-top:16px;font-size:15px;color:var(--mute)}
+.hero__alt a{color:var(--graphite);font-weight:700;border-bottom:2px solid var(--graphite)}
+
+.shot{position:relative;border-radius:14px;overflow:hidden;min-height:420px}
+.shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+/* סרגל מידה לאורך הצילום — הסימן הוויזואלי של "נמדד" */
+.shot::before{content:"";position:absolute;inset-block:0;inset-inline-start:0;width:30px;z-index:1;background:repeating-linear-gradient(180deg,rgba(245,244,240,.9) 0 1px,transparent 1px 12px),repeating-linear-gradient(180deg,rgba(245,244,240,.9) 0 2px,transparent 2px 60px);background-size:12px 100%,24px 100%;background-repeat:no-repeat;background-position:right top}
+.shot figcaption{position:absolute;inset-inline-end:14px;bottom:14px;z-index:1;background:rgba(20,21,24,.72);color:var(--chalk);font-size:13px;padding:6px 12px;border-radius:6px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.shot{min-height:360px;order:-1}}
+
+/* ── רצועת מספרים: כל מספר אמיתי ── */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-block:1px solid var(--rule);margin-inline:var(--gutter)}
+.stat{padding:clamp(18px,2.4vw,32px) clamp(12px,1.6vw,24px);border-inline-start:1px solid var(--rule)}
+.stat:first-child{border-inline-start:0}
+.stat b{display:block;font-family:var(--num);font-weight:800;font-size:clamp(52px,6vw,92px);line-height:.9;font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:10px;color:var(--mute);font-size:15px;line-height:1.35;max-width:22ch}
+@media(max-width:760px){.stats{grid-template-columns:1fr 1fr}.stat:nth-child(3){border-inline-start:0}.stat:nth-child(n+3){border-top:1px solid var(--rule)}}
+
+.sec{padding:clamp(64px,8vw,120px) var(--gutter)}
+.sec__head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:14px 40px;margin-bottom:clamp(26px,3.4vw,48px)}
+.sec__head h2{font-size:clamp(38px,5vw,74px);font-weight:900}
+.sec__head p{max-width:40ch;color:var(--mute)}
+
+/* ── לוח המראות ── */
+.departures{background:var(--graphite);color:var(--chalk);border-radius:16px;padding:clamp(16px,2.4vw,32px)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.chip{font:inherit;font-weight:700;font-size:14px;color:rgba(245,244,240,.7);background:rgba(245,244,240,.06);border:1px solid rgba(245,244,240,.14);padding:9px 16px;border-radius:8px;cursor:pointer;transition:background .15s,color .15s}
+.chip[aria-pressed="true"]{background:var(--led);color:var(--graphite);border-color:var(--led)}
+.dep-head,.dep{display:grid;grid-template-columns:110px 1.4fr 1fr 110px 92px;gap:12px;align-items:center}
+.dep-head{font-size:13px;color:rgba(245,244,240,.5);padding:0 4px 10px;border-bottom:1px solid rgba(245,244,240,.14)}
+.dep{padding:12px 4px;border-bottom:1px solid rgba(245,244,240,.08)}
+.flap{display:inline-flex;gap:3px;direction:ltr}
+.flap span{display:inline-grid;place-items:center;min-width:.62em;padding:.08em .06em;background:#24262B;border-radius:4px;font-family:var(--num);font-weight:700;font-size:30px;line-height:1.05;color:var(--led);box-shadow:inset 0 -1px 0 rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.05);position:relative}
+.flap span::after{content:"";position:absolute;inset-inline:0;top:50%;height:1px;background:rgba(0,0,0,.55)}
+.flap span.flip{animation:flip .38s var(--ease-out) both}
+@keyframes flip{0%{transform:rotateX(90deg);opacity:.2}100%{transform:rotateX(0);opacity:1}}
+.dep__n{font-weight:700;font-size:17px;line-height:1.25}
+.dep__d{font-size:13px;color:rgba(245,244,240,.55)}
+.dep__c{color:rgba(245,244,240,.7);font-size:15px}
+.dep__r{font-family:var(--num);font-weight:700;font-size:18px;letter-spacing:.04em;color:rgba(245,244,240,.85)}
+.dep a{display:flex;justify-content:center;align-items:center;min-height:42px;border-radius:8px;background:var(--led);color:var(--graphite);font-weight:800;font-size:15px}
+.dep a:active{transform:scale(.97)}
+@media(max-width:760px){
+  .dep-head{display:none}
+  .dep{grid-template-columns:auto 1fr auto;grid-template-areas:"t n a" "t c a";row-gap:2px}
+  .dep .flap{grid-area:t}.dep>div:nth-child(2){grid-area:n}.dep__c{grid-area:c}.dep__r{display:none}.dep a{grid-area:a;padding:0 16px}
+  .flap span{font-size:24px}
+}
+.dep-empty{padding:22px 4px;color:rgba(245,244,240,.65)}
+
+/* ── גיליונות מפרט לחללים ── */
+.specs{display:grid;gap:clamp(14px,1.6vw,22px)}
+.spec{display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:clamp(18px,3vw,48px);background:var(--chalk);border-radius:16px;padding:clamp(14px,1.6vw,20px);align-items:center}
+.spec img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px}
+.spec h3{font-size:clamp(34px,3.6vw,54px);font-weight:900;margin-bottom:6px}
+.spec h3.long{font-size:clamp(28px,2.8vw,42px)}
+.spec p{color:var(--mute);max-width:52ch;margin-bottom:16px}
+.spec dl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--rule)}
+.spec dl div{padding:12px 0 2px;padding-inline-end:12px}
+.spec dt{font-size:13px;color:var(--mute)}
+.spec dd{font-weight:700;font-size:16px;line-height:1.35}
+.spec dd .num{font-size:26px;font-weight:800}
+.spec a{display:inline-block;margin-top:14px;font-weight:700;border-bottom:2px solid var(--graphite)}
+@media(max-width:760px){.spec{grid-template-columns:1fr}.spec dl{grid-template-columns:1fr 1fr}}
+
+/* ── מחירון כטבלה ── */
+.prices{width:100%;border-collapse:collapse;background:var(--chalk);border-radius:16px;overflow:hidden}
+.prices th,.prices td{padding:clamp(14px,1.6vw,20px) clamp(12px,1.8vw,24px);text-align:start;border-bottom:1px solid var(--rule)}
+.prices th{font-size:13px;font-weight:500;color:var(--mute)}
+.prices td{font-size:16px}
+.prices td .num{font-size:clamp(28px,3vw,40px);font-weight:800}
+.prices tr.hot td{background:rgba(255,196,0,.16)}
+.prices .pop{display:inline-block;margin-inline-start:10px;background:var(--graphite);color:var(--chalk);font-size:12px;font-weight:700;padding:3px 9px;border-radius:5px;vertical-align:middle}
+.table-wrap{overflow-x:auto;border-radius:16px}
+.fine{margin-top:14px;font-size:14px;color:var(--mute)}
+
+/* ── ביקורות ── */
+.quotes{display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:clamp(18px,2.6vw,40px);align-items:start}
+.score b{font-family:var(--num);font-weight:800;font-size:clamp(80px,9vw,140px);line-height:.85;display:block}
+.score span{color:var(--mute);font-size:15px}
+.score a{color:var(--graphite);border-bottom:1px solid var(--graphite)}
+.quotes blockquote{font-weight:500;font-size:clamp(17px,1.4vw,20px);line-height:1.45;border-top:3px solid var(--graphite);padding-top:14px}
+.quotes cite{display:block;margin-top:10px;font-style:normal;color:var(--mute);font-size:14px}
+@media(max-width:900px){.quotes{grid-template-columns:1fr}}
+
+/* ── סגירה: שלושה תאי לוח ── */
+.final{background:var(--graphite);color:var(--chalk);border-radius:20px;padding:clamp(28px,4vw,64px);display:grid;gap:clamp(22px,3vw,40px)}
+.final__cells{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(8px,1vw,14px)}
+.cell{background:#202226;border-radius:12px;padding:clamp(14px,2vw,26px)}
+.cell b{display:block;font-family:var(--num);font-weight:700;font-size:clamp(56px,8vw,120px);line-height:.9;color:var(--led);text-shadow:0 0 18px rgba(255,196,0,.35)}
+.cell span{color:rgba(245,244,240,.7);font-size:clamp(14px,1.2vw,17px)}
+.final__row{display:flex;flex-wrap:wrap;gap:12px}
+.final__row a{display:inline-flex;align-items:center;min-height:54px;padding:0 26px;border-radius:9px;font-weight:800}
+.final__row .a1{background:var(--led);color:var(--graphite)}
+.final__row .a2{border:1.5px solid rgba(245,244,240,.3)}
+
+.foot{padding:24px var(--gutter) calc(24px + env(safe-area-inset-bottom,0px));color:var(--mute);font-size:14px;display:flex;flex-wrap:wrap;gap:8px 28px;justify-content:space-between;border-top:1px solid var(--rule)}
+.tag{position:fixed;inset-inline-start:14px;top:calc(78px + env(safe-area-inset-top,0px));z-index:50;background:var(--graphite);color:var(--chalk);font-weight:700;font-size:13px;padding:8px 14px;border-radius:100px;box-shadow:0 6px 24px rgba(0,0,0,.25)}
+
+@media (prefers-reduced-motion:reduce){
+  .timer__digits .colon{animation:none}
+  .flap span.flip{animation:none}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="#" aria-label="STEPS — לראש הדף"><img src="../steps-logo-white.png" alt="STEPS"></a>
+  <nav aria-label="ניווט ראשי"><a href="#board">לוח שיעורים</a><a href="#spaces">החללים</a><a href="#prices">מחירים</a></nav>
+  <a class="cta" data-arbox href="#">אימון היכרות</a>
+</header>
+
+<main>
+<section class="hero shell" aria-labelledby="h1">
+  <div>
+    <h1 id="h1"><small>סטודיו כושר לנשים, קניון פולג</small>הבא בתור:<br>את.</h1>
+    <p class="hero__lede">חדר כוח, סטודיו MOVE ופילאטיס מכשירים. כל שיעור מודרך, עם התאמה לרמה שלך — ואת השיעור הבא כבר אפשר לקבוע.</p>
+    <div class="timer" aria-live="off">
+      <div class="timer__label"><span><i aria-hidden="true"></i>השיעור הבא בסטודיו מתחיל בעוד</span><span class="num">שעות : דקות : שניות</span></div>
+      <div class="timer__digits" id="clock" aria-label="זמן עד השיעור הבא">--<span class="colon">:</span>--<span class="colon">:</span>--</div>
+      <div class="timer__class"><b id="tClass">טוען…</b><span id="tCoach"></span></div>
+      <a class="timer__go" id="tGo" href="#" target="_blank" rel="noopener">קובעת את השיעור הזה · 50 ₪ להיכרות</a>
+    </div>
+    <p class="hero__alt">לא השעה שלך? <a href="#board">כל השיעורים השבוע</a></p>
+  </div>
+  <figure class="shot">
+    <img src="../images/shoot2025/gym-main.jpg" alt="מתאמנות בהרמת מוטות בחדר הכוח של STEPS">
+    <figcaption>חדר הכוח, STEPS פולג</figcaption>
+  </figure>
+</section>
+
+<div class="stats" role="list">
+  <div class="stat" role="listitem"><b class="num" id="week">—</b><span>שיעורים קבוצתיים השבוע</span></div>
+  <div class="stat" role="listitem"><b class="num">11</b><span>מתאמנות לכל היותר בשיעור רפורמר</span></div>
+  <div class="stat" role="listitem"><b class="num">25+</b><span>מאמנות בצוות, לצד מנהלי החללים</span></div>
+  <div class="stat" role="listitem"><b class="num">4.9</b><span>דירוג בגוגל, מתוך 34 ביקורות</span></div>
+</div>
+
+<section class="sec shell" id="board" aria-labelledby="board-h">
+  <div class="sec__head">
+    <h2 id="board-h">לוח השיעורים</h2>
+    <p>ישירות ממערכת ההרשמה. בוחרת חלל, בוחרת שעה, קובעת.</p>
+  </div>
+  <div class="departures">
+    <div class="chips" role="group" aria-label="סינון לפי חלל">
+      <button class="chip" type="button" data-room="" aria-pressed="true">הכול</button>
+      <button class="chip" type="button" data-room="GYM" aria-pressed="false">GYM</button>
+      <button class="chip" type="button" data-room="MOVE" aria-pressed="false">MOVE</button>
+      <button class="chip" type="button" data-room="REF" aria-pressed="false">רפורמר</button>
+    </div>
+    <div class="dep-head" aria-hidden="true"><span>שעה</span><span>שיעור</span><span>מאמנת</span><span>חלל</span><span></span></div>
+    <div id="deps"></div>
+  </div>
+</section>
+
+<section class="sec shell" id="spaces" aria-labelledby="spaces-h" style="padding-top:0">
+  <div class="sec__head">
+    <h2 id="spaces-h">שלושה חללים, במספרים</h2>
+    <p>מה עושים בכל חלל, כמה זמן נמשך שיעור, ולמי זה מתאים.</p>
+  </div>
+  <div class="specs">
+    <article class="spec">
+      <img src="../images/shoot2025/coaching-1.jpg" alt="מאמנת מלווה מתאמנת ליד מתקן הכוח" loading="lazy">
+      <div>
+        <h3>GYM</h3>
+        <p>משקולות חופשיות, מכשירים מתקדמים ומאמנות שיודעות בדיוק מה את צריכה.</p>
+        <dl><div><dt>סוגי שיעורים</dt><dd>כוח · BOOTCAMP · ENDURANCE · GYM &amp; RUN</dd></div><div><dt>משך שיעור</dt><dd><span class="num">60</span> דק׳</dd></div><div><dt>רמה</dt><dd>מותאם אישית</dd></div></dl>
+        <a href="https://stepsnetanya.co.il/gym-women.html">לחדר הכוח</a>
+      </div>
+    </article>
+    <article class="spec">
+      <img src="../images/shoot2025/room-move-poster.jpg" alt="שיעור קבוצתי עם משקולות בסטודיו MOVE" loading="lazy" style="object-position:50% 30%">
+      <div>
+        <h3>MOVE</h3>
+        <p>השיעורים שגורמים לך לחזור. בר, יוגה, גמישות, פילאטיס מזרן ו-SCULPT.</p>
+        <dl><div><dt>סוגי שיעורים</dt><dd>BARRE · YOGA · פילאטיס מזרן · SCULPT</dd></div><div><dt>משך שיעור</dt><dd><span class="num">60</span> דק׳</dd></div><div><dt>רמה</dt><dd>מתאים גם למתחילות</dd></div></dl>
+        <a href="https://stepsnetanya.co.il/barre.html">לסטודיו MOVE</a>
+      </div>
+    </article>
+    <article class="spec">
+      <img src="../images/shoot2025/gallery-f.jpg" alt="מתאמנת מכוונת מיטת רפורמר" loading="lazy">
+      <div>
+        <h3 class="long">REFORMER PILATES</h3>
+        <p>קבוצה קטנה. מספיק קטנה כדי שיעברו עלייך אחת-אחת.</p>
+        <dl><div><dt>גודל קבוצה</dt><dd>עד <span class="num">11</span> מתאמנות</dd></div><div><dt>משך שיעור</dt><dd>כ-<span class="num">55</span> דק׳</dd></div><div><dt>מתאים</dt><dd>לשיקום ולכל הגילאים</dd></div></dl>
+        <a href="https://stepsnetanya.co.il/pilates.html">לפילאטיס מכשירים</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="sec shell" id="prices" aria-labelledby="prices-h" style="padding-top:0">
+  <div class="sec__head">
+    <h2 id="prices-h">מחירון בלי אותיות קטנות</h2>
+    <p>מנוי חודשי לפי מספר כניסות. בלי התחייבות, ביטול בהתראה של 30 יום.</p>
+  </div>
+  <div class="table-wrap">
+  <table class="prices">
+    <thead><tr><th scope="col">כניסות בחודש</th><th scope="col">GYM + MOVE</th><th scope="col">לאימון</th><th scope="col">כולל רפורמר</th></tr></thead>
+    <tbody>
+      <tr><td><span class="num">5</span></td><td><span class="num">230</span> ₪</td><td>46 ₪</td><td><span class="num">320</span> ₪</td></tr>
+      <tr class="hot"><td><span class="num">9</span><span class="pop">הכי פופולרי</span></td><td><span class="num">400</span> ₪</td><td>44 ₪</td><td><span class="num">475</span> ₪</td></tr>
+      <tr><td><span class="num">13</span></td><td><span class="num">460</span> ₪</td><td>35 ₪</td><td><span class="num">530</span> ₪</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="fine">כל המחירים כוללים מע״מ. מסלול משולב = בחירת אימון ברפורמר, ב-GYM או ב-MOVE במסגרת מספר הכניסות החודשי.</p>
+</section>
+
+<section class="sec shell" aria-labelledby="q-h" style="padding-top:0">
+  <h2 id="q-h" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)">ביקורות</h2>
+  <div class="quotes">
+    <div class="score"><b>4.9</b><span>★ <a href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener">34 ביקורות בגוגל</a></span></div>
+    <figure><blockquote>יחס אישי, מקצועי וצוות שהוא ממש משפחה. המקום היחיד שגרם לי להתמיד ולאהוב את זה!</blockquote><cite>ירין ברנס</cite></figure>
+    <figure><blockquote>מקצועיים, יחס אישי אמיתי ויותר מהכל צוות אנושי עם אישיות כובשת ואנרגיות טובות.</blockquote><cite>מור בוסאני</cite></figure>
+    <figure><blockquote>מקצועיות שיא! יחס חם ואישי לכל המתאמנים! נהנת לבוא כל פעם מחדש!</blockquote><cite>נעם קמחי</cite></figure>
+  </div>
+</section>
+
+<section class="sec shell" aria-labelledby="final-h" style="padding-top:0">
+  <div class="final">
+    <h2 id="final-h" style="font-size:clamp(34px,4.4vw,64px);font-weight:900">אימון היכרות</h2>
+    <div class="final__cells">
+      <div class="cell"><b class="num">50</b><span>₪, כולל מע״מ</span></div>
+      <div class="cell"><b class="num">1</b><span>שעה, בחלל שתבחרי</span></div>
+      <div class="cell"><b class="num">0</b><span>התחייבות</span></div>
+    </div>
+    <div class="final__row"><a class="a1" data-arbox href="#">קובעת אימון היכרות</a><a class="a2" data-wa href="#">שאלה בוואטסאפ</a></div>
+  </div>
+</section>
+</main>
+
+<footer class="foot"><span>STEPS · קניון פולג, נתניה · חנייה חינם</span><span>052-792-7575</span><span>עוסק מורשה 558306098</span></footer>
+<a class="tag" href="sketches.html">סקיצה 2 מתוך 3 · חזרה</a>
+
+<script src="lab.js"></script>
+<script>
+(function(){
+  var S=window.STEPS, reduced=S.reduced;
+  document.querySelectorAll('[data-arbox]').forEach(function(a){a.href=S.ARBOX;a.target='_blank';a.rel='noopener'});
+  document.querySelectorAll('[data-wa]').forEach(function(a){a.href=S.waLink('היי, אשמח לשמוע על אימון היכרות');a.target='_blank';a.rel='noopener'});
+  var ROOM={GYM:'GYM',MOVE:'MOVE',REF:'REFORMER',KIDS:'KIDS'};
+
+  /* השעון: ספירה לאחור לשיעור הבא, ביחס לשעון הדמו (באתר החי — השעה האמיתית) */
+  S.upcoming({n:1}).then(function(l){
+    var c=l[0]; if(!c)return;
+    document.getElementById('tClass').textContent=c.day+' '+c.time+' · '+c.name;
+    document.getElementById('tCoach').textContent=c.coach;
+    document.getElementById('tGo').href=c.url;
+    var start=Date.parse(S.NOW.date+'T'+S.NOW.time+':00Z'), target=Date.parse(c.iso+'T'+c.time+':00Z'), t0=Date.now();
+    var el=document.getElementById('clock');
+    function pad(n){return (n<10?'0':'')+n}
+    function tick(){
+      var left=Math.max(0,Math.round((target-start-(Date.now()-t0))/1000));
+      var h=Math.floor(left/3600),m=Math.floor(left%3600/60),s=left%60;
+      el.innerHTML=pad(h)+'<span class="colon">:</span>'+pad(m)+'<span class="colon">:</span>'+pad(s);
+    }
+    tick(); setInterval(tick,1000);
+  });
+  S.weekCount().then(function(n){document.getElementById('week').textContent=n});
+
+  /* לוח המראות: אותיות מתהפכות בכניסה (הרגע המתוזמר של הסקיצה) */
+  var deps=document.getElementById('deps'),chips=document.querySelectorAll('.chip');
+  function flap(text,delay){
+    var w=document.createElement('span');w.className='flap';
+    text.split('').forEach(function(ch,i){
+      var s=document.createElement('span');s.textContent=ch;
+      if(!reduced){s.className='flip';s.style.animationDelay=(delay+i*55)+'ms'}
+      w.append(s);
+    });
+    return w;
+  }
+  function render(room){
+    S.upcoming({room:room||null,n:7}).then(function(list){
+      deps.innerHTML='';
+      if(!list.length){deps.innerHTML='<p class="dep-empty">אין שיעורים קרובים בחלל הזה.</p>';return}
+      list.forEach(function(s,i){
+        var row=document.createElement('div');row.className='dep';
+        row.append(flap(s.time,i*90));
+        var n=document.createElement('div');n.innerHTML='<div class="dep__n"></div><div class="dep__d"></div>';
+        n.firstChild.textContent=s.name;n.lastChild.textContent=s.day;row.append(n);
+        var c=document.createElement('div');c.className='dep__c';c.textContent=s.coach;row.append(c);
+        var r=document.createElement('div');r.className='dep__r';r.textContent=ROOM[s.room]||'';row.append(r);
+        var a=document.createElement('a');a.href=s.url;a.target='_blank';a.rel='noopener';a.textContent='קבעי';row.append(a);
+        deps.append(row);
+      });
+    });
+  }
+  chips.forEach(function(b){b.addEventListener('click',function(){
+    chips.forEach(function(c){c.setAttribute('aria-pressed',String(c===b))});
+    render(b.dataset.room);
+  })});
+  /* מתהפך כשהלוח נכנס למסך, לא בטעינה */
+  var started=false;
+  new IntersectionObserver(function(es){if(es[0].isIntersecting&&!started){started=true;render('')}},{threshold:.25}).observe(document.querySelector('.departures'));
+})();
+</script>
+</body>
+</html>
