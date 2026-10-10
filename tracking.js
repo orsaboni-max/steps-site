@@ -13,7 +13,7 @@
   // Keep tagged campaign attribution; preserve a short-lived source host for untagged search/AI visits.
   w.STEPS_REFERRAL=(function(){
     var KEY='steps_ref',MAX_AGE=90*24*60*60*1000,REF_AGE=7*24*60*60*1000,
-        FIELDS=['fbclid','gclid','utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+        FIELDS=['fbclid','gclid','utm_source','utm_medium','utm_campaign','utm_content','utm_term','ad_id'];
     function read(){try{var r=JSON.parse(w.localStorage.getItem(KEY)||'null');
       return (r&&r.t&&Date.now()-r.t<(r.ref_only?REF_AGE:MAX_AGE))?r:null}catch(e){return null}}
     function sourceHost(){

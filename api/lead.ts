@@ -10,6 +10,9 @@ declare const process: { env: { ARBOX_API_KEY?: string } };
 
 const LOCATION_POLEG = 18259;
 const SOURCE_WEBSITE = 19357; // "Website" — פעיל אצל סניף פולג
+const SOURCE_FACEBOOK_PAID = 19383; // "פייסבוק ממומן"
+const SOURCE_INSTAGRAM_PAID = 126889; // "אינסטגרם ממומן"
+const SOURCE_GOOGLE = 6552; // "google"
 const IL_MOBILE = /^0(5[0-9])\d{7}$/;
 
 /* מאיפה היא הגיעה. נמדד 17/08/26: Arbox שומר "אתר" בלבד, ולכן אף אחד לא
@@ -19,7 +22,7 @@ const IL_MOBILE = /^0(5[0-9])\d{7}$/;
    ponytail: comment ולא שדה מותאם. אם/כשיהיה custom field — לעבור אליו. */
 const REF_FIELDS = [
   "fbclid", "gclid", "utm_source", "utm_medium",
-  "utm_campaign", "utm_content", "utm_term", "landing", "ref",
+  "utm_campaign", "utm_content", "utm_term", "ad_id", "landing", "ref",
 ] as const;
 const REF_MAX = 300;
 
@@ -37,6 +40,37 @@ export function referralNote(raw: unknown): string {
   }
   if (!parts.length) return "";
   return ` | מקור-הגעה: ${parts.join("; ")}`.slice(0, REF_MAX);
+}
+
+function refText(raw: unknown, key: string, limit: number): string {
+  if (!raw || typeof raw !== "object") return "";
+  const v = (raw as Record<string, unknown>)[key];
+  if (typeof v !== "string") return "";
+  // "|" הוא המפריד של הפורמט, ולכן יוצא; רווחים מתכווצים (כמו _attribution_campaign בבוט)
+  return Array.from(v).filter((ch) => { const c = ch.charCodeAt(0); return c > 31 && c !== 127; }).join("")
+    .replace(/\|/g, " ").split(/\s+/).filter(Boolean).join(" ").slice(0, limit);
+}
+
+/** מקור הליד לפי utm_source. לא מנחשים: ערך לא מוכר ⇒ "Website" כמו קודם. */
+export function attributionSource(raw: unknown): number {
+  switch (refText(raw, "utm_source", 40).toLowerCase()) {
+    case "fb": case "facebook": return SOURCE_FACEBOOK_PAID;
+    case "ig": case "instagram": return SOURCE_INSTAGRAM_PAID;
+    case "google": return SOURCE_GOOGLE;
+    default: return SOURCE_WEBSITE;
+  }
+}
+
+/** שדה campaign בארבוקס — אותו פורמט כמו _attribution_campaign ב-steps-brain. */
+export function attributionCampaign(raw: unknown): string {
+  const parts: string[] = [];
+  const campaign = refText(raw, "utm_campaign", 48);
+  const ad = refText(raw, "utm_content", 48);
+  const adId = refText(raw, "ad_id", 30);
+  if (campaign) parts.push(`קמפיין: ${campaign}`);
+  if (ad) parts.push(`מודעה: ${ad}`);
+  else if (adId) parts.push(`מודעה: #${adId}`);
+  return parts.join(" | ").slice(0, 120);
 }
 
 /* חלון קצב פשוט. בלעדיו סקריפט אחד יכול לפתוח אלפי כרטיסי-ליד מזויפים
@@ -91,6 +125,7 @@ export default async function handler(req: any, res: any) {
   const first_name = parts[0];
   const last_name = parts.length > 1 ? parts.slice(1).join(" ") : null;
 
+  const campaign = attributionCampaign(body.ref);
   try {
     const r = await fetch("https://arboxserver.arboxapp.com/api/public/v3/leads", {
       method: "POST",
@@ -104,7 +139,8 @@ export default async function handler(req: any, res: any) {
         last_name,
         phone,
         location_id: LOCATION_POLEG,
-        source_id: SOURCE_WEBSITE,
+        source_id: attributionSource(body.ref),
+        ...(campaign ? { campaign } : {}),
         gender: "female",
         comment:
           "הושאר בטופס באתר — ביקשה לקבל את מערכת השעות" + referralNote(body.ref),

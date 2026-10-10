@@ -41,3 +41,32 @@ test("סוג לא-מחרוזת מדולג בשקט, ולא הופך ל-[object O
   assert.doesNotMatch(note, /object/);
   assert.match(note, /utm_medium=cpc/);
 });
+
+import { attributionSource, attributionCampaign } from "./lead.ts";
+
+test("מקור הליד לפי utm_source — רק ערכים מוכרים, רגיש-לרווח ואותיות", () => {
+  assert.equal(attributionSource({ utm_source: "fb" }), 19383);
+  assert.equal(attributionSource({ utm_source: " Facebook " }), 19383);
+  assert.equal(attributionSource({ utm_source: "IG" }), 126889);
+  assert.equal(attributionSource({ utm_source: "instagram" }), 126889);
+  assert.equal(attributionSource({ utm_source: "google" }), 6552);
+});
+
+test("מקור לא מוכר או חסר נשאר Website — לא מנחשים", () => {
+  for (const r of [undefined, null, {}, { utm_source: "tiktok" }, { utm_source: "" }, { utm_source: { a: 1 } }, "fb"]) {
+    assert.equal(attributionSource(r), 19357);
+  }
+});
+
+test("שדה הקמפיין באותו פורמט כמו הבוט", () => {
+  assert.equal(attributionCampaign({ utm_campaign: "test", utm_content: "test-ad" }), "קמפיין: test | מודעה: test-ad");
+  assert.equal(attributionCampaign({ utm_campaign: "x" }), "קמפיין: x");
+  assert.equal(attributionCampaign({ utm_content: "ad", ad_id: "5" }), "מודעה: ad");
+  assert.equal(attributionCampaign({ ad_id: "123" }), "מודעה: #123");
+  assert.equal(attributionCampaign({}), "");
+});
+
+test("קמפיין: מפריד | יוצא, רווחים מתכווצים, תקרה 120", () => {
+  assert.equal(attributionCampaign({ utm_campaign: "a | b\n  c", utm_content: "d" }), "קמפיין: a b c | מודעה: d");
+  assert.ok(attributionCampaign({ utm_campaign: "x".repeat(500), utm_content: "y".repeat(500) }).length <= 120);
+});
