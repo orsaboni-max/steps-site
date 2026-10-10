@@ -34,3 +34,6 @@ output/
 metadata.json
 .scratch_path.tmp
 images/nutrition/cards/
+
+# דוגמאות עיצוב פנימיות — לא עולות לאוויר
+lab/

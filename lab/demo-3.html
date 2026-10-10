@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0B0B0B">
+<title>דמו 3 — פתיח חי וכפתור חכם</title>
+<meta name="description" content="דוגמה: פתיח עם טיקר שיעורים חי מלוח ארבוקס, ביקורות מתחלפות וכפתור תחתון שמשתנה לפי המקטע.">
+<link rel="preload" as="image" href="../images/shoot2025/hero-cine-1080-poster.webp" fetchpriority="high">
+<link rel="preload" as="font" type="font/woff2" href="../fonts/heebo-hebrew.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../fonts/heebo-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../fonts/assistant-hebrew.woff2" crossorigin>
+<link rel="stylesheet" href="lab.css">
+<style>
+:root{--bar-h:42px}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{padding-bottom:calc(88px + env(safe-area-inset-bottom))}
+[id]{scroll-margin-top:calc(var(--bar-h) + 12px)}
+.lab-bar>span{min-width:0}
+@media (max-width:420px){.lab-bar{font-size:12px;gap:8px}}
+
+/* ============ תנועת כניסה (CSS בלבד — בלי JS, כדי שלא יישאר תוכן מוסתר אם הסקריפט נופל) ============ */
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+@keyframes lineUp{from{transform:translateY(calc(100% + .3em))}}
+.rise{animation:rise 650ms var(--ease-out) var(--d,0ms) backwards}
+
+/* ============ פתיח ============ */
+.hero{position:relative;isolation:isolate;display:flex;flex-direction:column;background:var(--ink);overflow:hidden;
+  min-height:600px;min-height:max(600px,calc(100vh - var(--bar-h)));min-height:max(600px,calc(100svh - var(--bar-h)))}
+.hero__media{position:absolute;inset:0;z-index:-2}
+.hero__media video{width:100%;height:100%;object-fit:cover;object-position:50% 38%}
+.hero__shade{position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(11,11,11,.55) 0,rgba(11,11,11,0) 120px),
+    linear-gradient(0deg,rgba(11,11,11,.97) 0,rgba(11,11,11,.84) 28%,rgba(11,11,11,.46) 58%,rgba(11,11,11,.2) 82%,rgba(11,11,11,.28) 100%)}
+@media (min-width:900px){
+  /* בדסקטופ הטקסט יושב בצד ימין (תחילת השורה בעברית) — מעמיקים את הצד הזה */
+  .hero__shade{background:
+    linear-gradient(180deg,rgba(11,11,11,.5) 0,rgba(11,11,11,0) 120px),
+    linear-gradient(270deg,rgba(11,11,11,.88) 0,rgba(11,11,11,.66) 40%,rgba(11,11,11,.12) 78%),
+    linear-gradient(0deg,rgba(11,11,11,.96) 0,rgba(11,11,11,.66) 30%,rgba(11,11,11,0) 62%)}
+}
+.hero__main{flex:1;display:flex;align-items:flex-end;padding:calc(var(--gutter) + 6px) var(--gutter) clamp(20px,4.4vh,60px)}
+.hero__main>.shell{width:100%}
+.hero__copy{max-width:780px;text-shadow:0 1px 18px rgba(0,0,0,.4)}
+
+.kicker{display:inline-flex;align-items:center;gap:10px;margin-bottom:clamp(12px,1.8vw,22px);font-weight:800;font-size:clamp(12.5px,.95vw,14px);letter-spacing:.02em;color:var(--t85)}
+.kicker i{flex:none;width:8px;height:8px;border-radius:50%;background:var(--yellow)}
+
+.hero h1.h-xl{display:flex;flex-direction:column;margin-bottom:clamp(14px,1.8vw,22px);font-size:clamp(34px,12vw,64px);text-wrap:balance}
+@media (min-width:700px){.hero h1.h-xl{font-size:clamp(64px,7.6vw,106px)}}
+/* מסכת-חשיפה: העטיפה חותכת, הפנים עולה. ה-padding והמרג'ין השלילי מרחיבים את אזור החיתוך כדי שלא ייחתכו אותיות עם רגליים */
+.ln{display:block;overflow:hidden;padding-block:.1em .2em;margin-block:-.1em -.2em}
+.ln__in{display:block;animation:lineUp 800ms var(--ease-out) backwards}
+.ln:nth-child(1) .ln__in{animation-delay:120ms}
+.ln:nth-child(2) .ln__in{animation-delay:210ms}
+
+.hero .lede{max-width:34em;margin-bottom:clamp(16px,2.2vw,26px);font-size:clamp(15.5px,1.35vw,21px)}
+
+/* ----- הטיקר החי ----- */
+.ticker{display:flex;align-items:center;gap:12px;width:fit-content;max-width:100%;min-height:52px;
+  padding-block:6px;padding-inline:16px 6px;margin-bottom:clamp(14px,1.8vw,20px);
+  background:rgba(11,11,11,.55);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border:1px solid var(--line-strong);border-radius:100px;text-shadow:none;
+  opacity:0;visibility:hidden;pointer-events:none;transition:border-color .2s var(--ease),transform .16s var(--ease-out)}
+.ticker.is-ready{opacity:1;visibility:visible;pointer-events:auto;animation:rise 650ms var(--ease-out) var(--d,0ms) backwards}
+.ticker:active{transform:scale(.985)}
+.ticker__dot{position:relative;flex:none;width:9px;height:9px;border-radius:50%;background:var(--wa)}
+.ticker__dot::after{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--wa);animation:ring 2.2s var(--ease-out) infinite}
+@keyframes ring{0%{transform:scale(1);opacity:.6}80%,100%{transform:scale(3.4);opacity:0}}
+.hero.is-off .ticker__dot::after{animation-play-state:paused}
+.ticker__body{display:flex;flex-direction:column;gap:1px;min-width:0;flex:0 1 auto}
+.ticker__lbl{font-size:11.5px;line-height:1.2;font-weight:600;color:var(--t60)}
+.ticker__win{display:grid;grid-template-columns:minmax(0,1fr);height:20px;overflow:hidden}
+.ti{grid-area:1/1;min-width:0;opacity:0;font-weight:800;font-size:14px;line-height:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ti.is-cur{opacity:1;animation:tIn 380ms var(--ease-out) backwards}
+.ti.is-cur.first{animation:none}
+.ti.is-out{animation:tOut 380ms var(--ease-out) both}
+@keyframes tIn{from{opacity:0;transform:translateY(100%)}}
+@keyframes tOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-100%)}}
+.ticker__chip{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 14px;border-radius:100px;background:var(--yellow);color:var(--ink);font-weight:800;font-size:13.5px;line-height:1}
+.ticker__chip svg,.btn svg{flex:none;transition:transform .2s var(--ease-out)}
+.ticker__chip svg{display:none;width:15px;height:15px}
+@media (min-width:480px){.ticker__chip svg{display:block}.ti{font-size:15px}}
+
+/* ----- כפתור אחד + קישור שקט ----- */
+.cta{display:flex;flex-wrap:wrap;align-items:center;gap:4px 22px;text-shadow:none}
+.cta .btn{flex:1 1 100%;box-shadow:0 10px 30px rgba(255,212,0,.2)}
+.quiet{flex:1 1 100%;display:inline-flex;align-items:center;justify-content:center;min-height:44px;font-weight:600;font-size:15px;color:var(--t85);text-decoration:underline;text-decoration-color:var(--line-strong);text-underline-offset:5px;text-decoration-thickness:1px;transition:color .18s var(--ease),text-decoration-color .18s var(--ease)}
+@media (min-width:560px){.cta .btn,.quiet{flex:0 0 auto}}
+@media (hover:hover) and (pointer:fine){
+  .quiet:hover{color:var(--bone);text-decoration-color:var(--yellow)}
+  .btn:hover svg,.ticker:hover .ticker__chip svg{transform:translateX(-3px)}
+  .ticker:hover{border-color:rgba(244,242,237,.45)}
+}
+
+/* ----- רצועת הוכחות ----- */
+.proof{position:relative;border-top:1px solid var(--line);background:rgba(11,11,11,.55);padding-inline:var(--gutter)}
+.proof__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-areas:"a b c" "q q q";max-width:var(--max);margin-inline:auto}
+.stat{display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px;min-width:0;padding:13px 6px 11px}
+.stat+.stat{border-inline-start:1px solid var(--line)}
+.stat--a{grid-area:a}.stat--b{grid-area:b}.stat--c{grid-area:c}
+.stat__v{display:flex;align-items:center;gap:5px;font-family:var(--display);font-weight:900;font-size:clamp(19px,5.6vw,24px);line-height:1;letter-spacing:-.02em}
+.stat__v svg{flex:none;width:.78em;height:.78em;fill:currentColor}
+.stat__l{font-size:12px;line-height:1.25;font-weight:600;color:var(--t75)}
+a.stat{transition:background .18s var(--ease)}
+@media (hover:hover) and (pointer:fine){a.stat:hover{background:var(--fill-2)}}
+.num{display:inline-block;text-align:center;font-variant-numeric:tabular-nums}
+.quotes{grid-area:q;display:grid;grid-template-columns:minmax(0,1fr);border-top:1px solid var(--line);padding:9px 2px 12px}
+.q{grid-area:1/1;display:flex;align-items:baseline;justify-content:center;gap:.5em;min-width:0;opacity:0;transition:opacity 520ms var(--ease);font-size:13px;line-height:1.4}
+.q.is-cur{opacity:1}
+.q__t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--t85)}
+.q__a{flex:none;color:var(--t60);font-weight:600;font-size:12px}
+@media (min-width:900px){
+  .proof__grid{grid-template-columns:auto minmax(0,1fr) auto auto;grid-template-areas:"a q b c";align-items:center}
+  .stat{align-items:flex-start;text-align:start;gap:5px;padding:18px clamp(20px,2.6vw,40px)}
+  .stat:first-child{padding-inline-start:0}
+  .stat__v{font-size:clamp(24px,2.1vw,30px)}
+  .stat__l{font-size:13.5px}
+  .num{text-align:start}
+  .quotes{border-top:0;border-inline-start:1px solid var(--line);align-self:stretch;align-content:center;padding:14px clamp(20px,2.6vw,40px)}
+  .q{display:block;font-size:15.5px;line-height:1.5}
+  .q__t{display:inline;overflow:visible;white-space:normal}
+  .q__a{display:inline;margin-inline-start:.45em;font-size:13px}
+}
+
+/* ============ מקטעי מילוי ============ */
+.tag{display:inline-flex;margin-bottom:20px;padding:4px 11px;border:1px dashed var(--line-strong);border-radius:100px;font-size:12px;line-height:1.5;color:var(--t45)}
+.sec h2{margin-bottom:clamp(22px,3vw,36px);text-wrap:balance}
+
+.pills{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+@media (min-width:480px){.pills{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:760px){.pills{grid-template-columns:repeat(4,minmax(0,1fr));max-width:980px}}
+.pills .btn{justify-content:space-between;min-height:60px;font-size:16px;letter-spacing:.04em}
+.pills .btn svg{width:18px;height:18px}
+@media (hover:hover) and (pointer:fine){.pills .btn:hover{border-color:var(--yellow);color:var(--yellow)}}
+
+.rows{list-style:none;max-width:880px}
+.row{display:grid;grid-template-columns:76px minmax(0,1fr) auto;align-items:center;gap:6px 16px;padding:15px 4px;border-bottom:1px solid var(--line);transition:background .18s var(--ease)}
+.rows li:first-child .row{border-top:1px solid var(--line)}
+.row__when,.row__what{display:flex;flex-direction:column;gap:2px;min-width:0}
+.row__t{font-family:var(--display);font-weight:900;font-size:24px;line-height:1.1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.row__d{font-size:14px;color:var(--t60);line-height:1.3}
+.row__n{font-weight:800;font-size:17px;line-height:1.3}
+.row__c{font-size:14px;color:var(--t60);line-height:1.3}
+.row__go{display:inline-flex;align-items:center;min-height:34px;padding:0 15px;border-radius:100px;background:var(--yellow);color:var(--ink);font-weight:800;font-size:13.5px;line-height:1;transition:transform .16s var(--ease-out)}
+.row:active .row__go{transform:scale(.95)}
+@media (hover:hover) and (pointer:fine){.row:hover{background:var(--fill-2)}}
+.rows__msg{padding:18px 0}
+
+.plans{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;max-width:1080px}
+@media (min-width:820px){.plans{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}}
+.plan{position:relative;display:flex;flex-direction:column;gap:6px;padding:28px 26px;border:1px solid var(--line-card);border-radius:var(--r-lg);background:var(--fill)}
+.plan--hot{border-color:var(--yellow);background:var(--yellow-tint)}
+.plan .badge{align-self:flex-start;margin-bottom:6px}
+.plan__n{font-size:clamp(20px,1.8vw,24px);letter-spacing:-.02em;line-height:1.1}
+.plan__v{font-family:var(--display);font-weight:900;font-size:clamp(46px,5vw,60px);line-height:1.05;letter-spacing:-.03em}
+.plan__v small{font-size:.5em}
+.plan__r{color:var(--t85);font-size:16px}
+.plans+.fine{margin-top:20px}
+
+#where{min-height:min(74svh,640px);display:flex;flex-direction:column;justify-content:center}
+#where h2{max-width:11em}
+.where__btns{display:flex;flex-wrap:wrap;gap:12px}
+.where__btns .btn{flex:1 1 100%}
+@media (min-width:560px){.where__btns .btn{flex:0 0 auto}}
+.where__btns .btn--wa svg{width:22px;height:22px;fill:currentColor}
+
+.foot{padding:26px var(--gutter);border-top:1px solid var(--line)}
+
+/* ============ הבר התחתון החכם ============ */
+.sbar{position:fixed;inset-inline:0;bottom:0;z-index:400;display:flex;justify-content:center;
+  padding:0 12px calc(12px + env(safe-area-inset-bottom));pointer-events:none;
+  transform:translateY(140%);visibility:hidden;
+  transition:transform 260ms var(--ease-out),visibility 0s linear 260ms}
+.sbar.is-on{transform:none;visibility:visible;transition:transform 450ms var(--ease-out),visibility 0s}
+@supports (transition-timing-function:linear(0,1)){.sbar.is-on{transition:transform 450ms var(--spring),visibility 0s}}
+.sbar__pill{pointer-events:auto;display:flex;align-items:center;gap:6px;width:100%;max-width:560px;padding:6px;
+  background:rgba(16,16,16,.82);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border:1px solid var(--line-strong);border-radius:100px;box-shadow:0 12px 34px rgba(0,0,0,.5)}
+.sbar__wa{flex:none;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:var(--wa);color:var(--wa-ink);transition:transform .16s var(--ease-out),filter .18s var(--ease)}
+.sbar__wa svg{width:26px;height:26px;fill:currentColor}
+.sbar__main{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;min-height:48px;padding:0 14px;border-radius:100px;background:var(--yellow);color:var(--ink);font-weight:800;font-size:15px;transition:transform .16s var(--ease-out),filter .18s var(--ease)}
+.sbar__wa:active,.sbar__main:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){.sbar__main:hover,.sbar__wa:hover{filter:brightness(.94)}}
+@media (max-width:380px){.sbar__main{font-size:14px;padding:0 10px}}
+.sbar__lbl{display:grid;grid-template-columns:minmax(0,1fr);width:100%;min-width:0;overflow:hidden}
+.sbar__lbl>span{grid-area:1/1;min-width:0;text-align:center;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sbar__lbl .in{animation:lblIn 220ms var(--ease-out) backwards}
+.sbar__lbl .out{animation:lblOut 160ms var(--ease-out) both}
+@keyframes lblIn{from{opacity:0;transform:translateY(70%)}}
+@keyframes lblOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-70%)}}
+
+/* ============ תנועה מופחתת ============
+   מסכות-חשיפה, כניסות, טבעת הפולס וסריקת הטיקר — כבויים. הווידאו לא מתנגן (פוסטר בלבד).
+   הטיקר והציטוטים עדיין מתחלפים כל 6 שניות, אבל בהחלפה מיידית ללא תנועה (ניתן להשהיה ברחיפה/מיקוד). */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rise,.ln__in,.ticker.is-ready,.ti.is-cur,.ti.is-out,.sbar__lbl .in,.sbar__lbl .out{animation:none}
+  .ti.is-out{opacity:0}
+  .ticker__dot::after{animation:none;opacity:0}
+  .q{transition:none}
+}
+</style>
+</head>
+<body>
+
+<div class="lab-bar"><span><b>דמו 3 מתוך 3</b> · פתיח חי + כפתור חכם</span><a href="index.html">← כל הדוגמאות</a></div>
+
+<main>
+<!-- ================= פתיח ================= -->
+<section class="hero" id="hero" aria-labelledby="h1">
+  <div class="hero__media" aria-hidden="true">
+    <video id="heroVideo" autoplay muted loop playsinline disablepictureinpicture tabindex="-1" poster="../images/shoot2025/hero-cine-1080-poster.webp"></video>
+  </div>
+  <div class="hero__shade" aria-hidden="true"></div>
+
+  <div class="hero__main">
+    <div class="shell">
+      <div class="hero__copy">
+        <p class="kicker rise" style="--d:380ms"><i aria-hidden="true"></i>סטודיו כושר לנשים · פולג, נתניה</p>
+        <h1 class="h-xl" id="h1">
+          <span class="ln"><span class="ln__in">שלושה חללים.</span></span>
+          <span class="ln"><span class="ln__in y">אימון שמתאים לך.</span></span>
+        </h1>
+        <p class="lede rise" style="--d:440ms">אימוני כוח, בר, יוגה ופילאטיס מכשירים בקניון פולג — עם ליווי אישי והתאמה לרמה שלך.</p>
+
+        <a class="ticker" id="ticker" href="#sched" target="_blank" rel="noopener" aria-label="השיעור הבא בסטודיו">
+          <span class="ticker__dot" aria-hidden="true"></span>
+          <span class="ticker__body">
+            <span class="ticker__lbl">השיעור הבא בסטודיו</span>
+            <span class="ticker__win" id="tickerWin" aria-hidden="true"></span>
+          </span>
+          <span class="ticker__chip" aria-hidden="true">קבעי
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+          </span>
+        </a>
+
+        <div class="cta rise" style="--d:560ms">
+          <a class="btn btn--y btn--lg" data-arbox data-track="hero_cta" target="_blank" rel="noopener">קובעת אימון היכרות ב-50 ₪
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+          </a>
+          <a class="quiet" href="#choose" data-track="hero_help">עזרו לי לבחור</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="proof rise" id="proof" style="--d:700ms">
+    <div class="proof__grid">
+      <a class="stat stat--a" href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener" data-track="hero_reviews" aria-label="דירוג 4.9, 34 ביקורות בגוגל">
+        <span class="stat__v y">4.9<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.4l2.9 6.1 6.7.9-4.9 4.6 1.2 6.6L12 17.4l-5.9 3.2 1.2-6.6L2.4 9.4l6.7-.9z"/></svg></span>
+        <span class="stat__l">34 ביקורות בגוגל</span>
+      </a>
+      <div class="stat stat--b" id="statWeek">
+        <span class="stat__v"><span class="num" id="weekNum">0</span></span>
+        <span class="stat__l">שיעורים השבוע</span>
+      </div>
+      <div class="stat stat--c">
+        <span class="stat__v">חינם</span>
+        <span class="stat__l">חנייה בקניון פולג</span>
+      </div>
+      <div class="quotes" id="quotes" role="group" aria-label="ביקורות מגוגל">
+        <figure class="q is-cur"><blockquote class="q__t">"המקום היחיד שגרם לי להתמיד ולאהוב את זה!"</blockquote><figcaption class="q__a">— ירין ברנס</figcaption></figure>
+        <figure class="q"><blockquote class="q__t">"יחס אישי אמיתי ויותר מהכל צוות אנושי עם אישיות כובשת"</blockquote><figcaption class="q__a">— מור בוסאני</figcaption></figure>
+        <figure class="q"><blockquote class="q__t">"מקצועיות שיא! יחס חם ואישי לכל המתאמנים!"</blockquote><figcaption class="q__a">— נעם קמחי</figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= מקטעי מילוי ================= -->
+<section class="sec" id="choose">
+  <div class="shell">
+    <p class="tag">מקטע קיים באתר — מקוצר לדמו</p>
+    <h2 class="h-lg">מאיפה בא לך להתחיל?</h2>
+    <div class="pills">
+      <a class="btn btn--ghost btn--lg" href="../gym-women.html">GYM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></a>
+      <a class="btn btn--ghost btn--lg" href="../barre.html">MOVE &amp; BARRE <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></a>
+      <a class="btn btn--ghost btn--lg" href="../pilates.html">REFORMER <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></a>
+      <a class="btn btn--ghost btn--lg" href="../kids.html">KIDS <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="sched">
+  <div class="shell">
+    <p class="tag">מקטע קיים באתר — מקוצר לדמו</p>
+    <h2 class="h-lg">תבחרי שעה ותגיעי, את השאר תשאירי לנו.</h2>
+    <ul class="rows" id="schedList"></ul>
+  </div>
+</section>
+
+<section class="sec" id="prices">
+  <div class="shell">
+    <p class="tag">מקטע קיים באתר — מקוצר לדמו</p>
+    <h2 class="h-lg">בחרי את המסלול שלך.</h2>
+    <div class="plans">
+      <article class="plan">
+        <h3 class="plan__n">5 כניסות בחודש</h3>
+        <p class="plan__v">230 <small>₪</small></p>
+        <p class="plan__r">עם רפורמר 320 ₪</p>
+      </article>
+      <article class="plan plan--hot">
+        <span class="badge">הכי פופולרי</span>
+        <h3 class="plan__n">9 כניסות בחודש</h3>
+        <p class="plan__v">400 <small>₪</small></p>
+        <p class="plan__r">עם רפורמר 475 ₪</p>
+      </article>
+      <article class="plan">
+        <h3 class="plan__n">13 כניסות בחודש</h3>
+        <p class="plan__v">460 <small>₪</small></p>
+        <p class="plan__r">עם רפורמר 530 ₪</p>
+      </article>
+    </div>
+    <p class="fine">כל המחירים כוללים מע״מ · ללא התחייבות</p>
+  </div>
+</section>
+
+<section class="sec" id="where">
+  <div class="shell">
+    <p class="tag">מקטע קיים באתר — מקוצר לדמו</p>
+    <h2 class="h-lg">50 ₪. שעה אחת. בלי התחייבות.</h2>
+    <div class="where__btns">
+      <a class="btn btn--y btn--lg" data-arbox data-track="where_cta" target="_blank" rel="noopener">קובעת אימון היכרות
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      </a>
+      <a class="btn btn--wa btn--lg" data-wa="היי, אשמח לשמוע על אימון היכרות" data-track="where_wa" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        דברי איתנו בוואטסאפ
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="shell"><p class="fine">בדמו: הטיקר והספירה נלקחים מלוח ארבוקס אמיתי (שבוע 11–16.10). באתר החי — מתעדכן כל 5 דקות.</p></div>
+</footer>
+
+<!-- ================= הבר התחתון החכם ================= -->
+<div class="sbar" id="sbar" role="region" aria-label="פעולה מהירה">
+  <div class="sbar__pill">
+    <a class="sbar__wa" data-wa="היי, אשמח לשמוע על אימון היכרות" data-track="sticky_wa" target="_blank" rel="noopener" aria-label="וואטסאפ">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+    <a class="sbar__main" id="sbMain" target="_blank" rel="noopener"><span class="sbar__lbl" id="sbLbl"><span class="cur">אימון היכרות ב-50 ₪</span></span></a>
+  </div>
+</div>
+
+<script src="lab.js"></script>
+<script>
+(function(){
+'use strict';
+var S=window.STEPS;
+if(!S)return;
+var reduced=!!S.reduced;
+function $(s,r){return (r||document).querySelector(s)}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))}
+function noop(){}
+function el(tag,cls,txt){var n=document.createElement(tag);if(cls)n.className=cls;if(txt!=null)n.textContent=txt;return n}
+
+/* ---------- גובה פס המעבדה → גובה הפתיח (נמדד פעם אחת ובשינוי גודל בלבד, לא בגלילה) ---------- */
+var labBar=$('.lab-bar');
+function measureBar(){document.documentElement.style.setProperty('--bar-h',Math.round(labBar.getBoundingClientRect().height)+'px')}
+measureBar();
+if('ResizeObserver' in window)new ResizeObserver(measureBar).observe(labBar);
+
+/* ---------- קישורים + מעקב ---------- */
+$$('[data-arbox]').forEach(function(a){a.href=S.ARBOX});
+$$('[data-wa]').forEach(function(a){a.href=S.waLink(a.getAttribute('data-wa'))});
+document.addEventListener('click',function(e){
+  var a=e.target.closest&&e.target.closest('[data-track]');
+  if(a)S.track(a.getAttribute('data-track'),{});
+});
+
+/* ---------- סטטוס "חי": הפתיח על המסך + הלשונית גלויה. כל המתחלפים (טיקר, ציטוטים) נעצרים כשלא ---------- */
+var live={hero:true,doc:!document.hidden};
+var rotors=[];
+function isLive(){return live.hero&&live.doc}
+function syncRotors(){rotors.forEach(function(r){r.sync()})}
+function makeRotor(n,ms,show){
+  var i=0,t=0,held=false;
+  var r={
+    sync:function(){clearTimeout(t);t=0;if(n>1&&!held&&isLive())t=setTimeout(step,ms)},
+    hold:function(v){held=!!v;r.sync()}
+  };
+  function step(){i=(i+1)%n;show(i);r.sync()}
+  rotors.push(r);r.sync();
+  return r;
+}
+document.addEventListener('visibilitychange',function(){live.doc=!document.hidden;syncRotors()});
+
+/* ---------- וידאו הפתיח: מקור לפי רוחב המסך; בתנועה מופחתת/חיסכון בנתונים — פוסטר בלבד ---------- */
+var video=$('#heroVideo'),hasVideo=false;
+video.muted=true;
+if(reduced||(navigator.connection&&navigator.connection.saveData)){
+  video.removeAttribute('autoplay');
+}else{
+  var src=document.createElement('source');
+  src.src=innerWidth<700?'../images/shoot2025/hero-cine-1080-mobile.mp4':'../images/shoot2025/hero-cine-1080.mp4';
+  src.type='video/mp4';
+  video.appendChild(src);
+  hasVideo=true;
+  var pp=video.play();if(pp&&pp.catch)pp.catch(noop);
+}
+
+/* ---------- הבר התחתון: מוסתר כשהפתיח גלוי ≥25% או כש-#where גלוי ---------- */
+var hero=$('#hero'),sbar=$('#sbar'),vis={hero25:true,where:false};
+function syncBar(){sbar.classList.toggle('is-on',!vis.hero25&&!vis.where)}
+new IntersectionObserver(function(es){
+  var e=es[es.length-1];
+  live.hero=e.isIntersecting;
+  vis.hero25=e.intersectionRatio>=0.25;
+  hero.classList.toggle('is-off',!e.isIntersecting);
+  if(hasVideo){
+    if(e.isIntersecting){var p=video.play();if(p&&p.catch)p.catch(noop)}
+    else video.pause();
+  }
+  syncBar();syncRotors();
+},{threshold:[0,0.25]}).observe(hero);
+/* שולי התחתית מצטמצמים ב-120px — הבר נעלם ממש לפני שהוא היה מכסה את תוכן #where */
+new IntersectionObserver(function(es){
+  vis.where=es[es.length-1].isIntersecting;
+  syncBar();
+},{rootMargin:'0px 0px -120px 0px'}).observe($('#where'));
+
+/* ---------- כפתור חכם: מצב לפי המקטע שבפס האמצע של המסך ---------- */
+var main=$('#sbMain'),lbl=$('#sbLbl'),lblText=lbl.textContent.trim();
+var state='start',nextClass=null;
+function effState(){return state==='sched'&&nextClass?'sched':state==='prices'?'prices':'start'}
+function stickyFor(){
+  var s=effState();
+  if(s==='sched')return{label:'השיעור הבא: '+nextClass.day+' '+nextClass.time+' · קבעי',href:nextClass.url};
+  if(s==='prices')return{label:'לא בטוחה איזה מסלול? נתאים לך',href:S.waLink('היי, אשמח שתעזרו לי לבחור מסלול')};
+  return{label:'אימון היכרות ב-50 ₪',href:S.ARBOX};
+}
+function setLabel(text){
+  if(text===lblText)return;
+  lblText=text;
+  var old=$('.cur',lbl);
+  $$('.out',lbl).forEach(function(n){n.remove()});
+  var nu=el('span',reduced?'cur':'cur in',text);
+  if(old){
+    if(reduced){old.remove()}
+    else{
+      old.className='out';old.setAttribute('aria-hidden','true');
+      setTimeout(function(){old.remove()},220);
+    }
+  }
+  lbl.appendChild(nu);
+}
+function applySticky(){
+  var s=stickyFor();
+  main.href=s.href;
+  setLabel(s.label);
+}
+applySticky();
+main.addEventListener('click',function(){S.track('sticky_cta',{state:effState()})});
+
+var secs=['hero','choose','sched','prices','where'].map(function(id){return document.getElementById(id)});
+var inBand={};
+var bandIO=new IntersectionObserver(function(es){
+  es.forEach(function(e){inBand[e.target.id]=e.isIntersecting});
+  var id=null;
+  /* הטווח צר (10% מהגובה) — בדרך כלל מקטע אחד; בגבול בין שניים נבחר האחרון בסדר המסמך */
+  secs.forEach(function(s){if(inBand[s.id])id=s.id});
+  if(id){state=(id==='sched'||id==='prices')?id:'start';applySticky()}
+},{rootMargin:'-45% 0px -45% 0px'});
+secs.forEach(function(s){bandIO.observe(s)});
+
+/* ---------- הטיקר החי + לוח השיעורים (קריאה אחת ללוח) ---------- */
+var ticker=$('#ticker'),tWin=$('#tickerWin');
+function classLabel(c){return c.day+' '+c.time+' · '+c.name}
+
+function initTicker(list){
+  if(!list.length){ticker.hidden=true;return}
+  var items=list.map(function(c){var s=el('span','ti',classLabel(c));tWin.appendChild(s);return s});
+  var cur=0;
+  items[0].className='ti is-cur first';
+  function apply(i){
+    ticker.href=list[i].url;
+    ticker.setAttribute('aria-label','השיעור הבא בסטודיו: '+classLabel(list[i])+'. קבעי, נפתח בלשונית חדשה');
+  }
+  apply(0);
+  function show(i){
+    var prev=items[cur],next=items[i];
+    if(reduced){prev.className='ti';next.className='ti is-cur'}
+    else{
+      prev.className='ti is-out';next.className='ti is-cur';
+      setTimeout(function(){if(prev!==items[cur])prev.className='ti'},420);
+    }
+    cur=i;apply(i);
+  }
+  /* מתגלה אחרי כותרת הפתיח (560ms מתחילת הטעינה), בלי קפיצת פריסה — המקום שמור מראש */
+  ticker.style.setProperty('--d',Math.max(0,560-performance.now())+'ms');
+  ticker.classList.add('is-ready');
+
+  var rot=makeRotor(items.length,reduced?6000:3600,show);
+  var hover=false,focus=false;
+  function hold(){rot.hold(hover||focus)}
+  ticker.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse'){hover=true;hold()}});
+  ticker.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse'){hover=false;hold()}});
+  ticker.addEventListener('focusin',function(){focus=ticker.matches(':focus-visible');hold()});
+  ticker.addEventListener('focusout',function(){focus=false;hold()});
+  ticker.addEventListener('click',function(){S.track('ticker_click',{class_name:list[cur].name})});
+}
+
+function renderSched(list){
+  var ul=$('#schedList');
+  ul.textContent='';
+  list.forEach(function(c){
+    var li=el('li');
+    var a=el('a','row');
+    a.href=c.url;a.target='_blank';a.rel='noopener';
+    a.addEventListener('click',function(){S.track('sched_row',{class_name:c.name})});
+    var when=el('span','row__when');
+    when.appendChild(el('b','row__t',c.time));
+    when.appendChild(el('span','row__d',c.day));
+    var what=el('span','row__what');
+    what.appendChild(el('b','row__n',c.name));
+    what.appendChild(el('span','row__c',c.coach));
+    a.appendChild(when);a.appendChild(what);a.appendChild(el('span','row__go','קבעי'));
+    li.appendChild(a);ul.appendChild(li);
+  });
+}
+
+S.upcoming({n:6}).then(function(list){
+  nextClass=list[0]||null;
+  initTicker(list.slice(0,5));
+  renderSched(list);
+  applySticky();
+}).catch(function(){
+  ticker.hidden=true;
+  var li=el('li','rows__msg fine','לוח השעות לא נטען. בדמו הוא נקרא מקובץ מקומי, ולכן צריך לפתוח את העמוד דרך שרת ולא ישירות מהקובץ.');
+  $('#schedList').appendChild(li);
+});
+
+/* ---------- ספירת השיעורים השבוע: רק כשהרצועה נראית, 1.2 שנ' ease-out ---------- */
+var numEl=$('#weekNum'),proof=$('#proof'),weekVal=null,proofSeen=false,counted=false;
+function tryCount(){
+  if(counted||weekVal==null)return;
+  if(reduced){counted=true;numEl.textContent=weekVal;return}
+  if(!proofSeen)return;
+  counted=true;
+  numEl.style.minWidth=String(weekVal).length+'ch';   /* רוחב סופי שמור מראש — הספרות לא מזיזות את הפריסה */
+  setTimeout(function(){
+    var t0=0;
+    function f(t){
+      if(!t0)t0=t;
+      var p=Math.min(1,(t-t0)/1200);
+      numEl.textContent=Math.round(weekVal*(1-Math.pow(1-p,3)));
+      if(p<1)requestAnimationFrame(f);
+    }
+    requestAnimationFrame(f);
+  },Math.max(0,700-performance.now()));
+}
+S.weekCount().then(function(n){weekVal=n;tryCount()}).catch(function(){$('#statWeek').hidden=true});
+new IntersectionObserver(function(es){
+  if(es[es.length-1].isIntersecting){proofSeen=true;tryCount()}
+},{threshold:0.4}).observe(proof);
+
+/* ---------- ציטוטים מתחלפים (הצלבת שקיפות); נעצרים ברחיפה ---------- */
+var qs=$$('.q'),qi=0;
+if(qs.length>1){
+  var qr=makeRotor(qs.length,reduced?6000:5500,function(i){
+    qs[qi].classList.remove('is-cur');qs[i].classList.add('is-cur');qi=i;
+  });
+  var quotes=$('#quotes');
+  quotes.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse')qr.hold(true)});
+  quotes.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse')qr.hold(false)});
+}
+})();
+</script>
+</body>
+</html>

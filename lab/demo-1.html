@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0B0B0B">
+<title>התאמת אימון ב-3 שאלות — דמו 1</title>
+<link rel="stylesheet" href="lab.css">
+<style>
+/* ───────── פריסה ───────── */
+.qz-wrap{display:grid;gap:clamp(28px,4vw,56px);align-items:start}
+.qz-intro{display:grid;gap:18px;justify-items:start}
+.qz-intro .lede{max-width:36ch}
+.qz-col{display:grid;gap:14px;min-width:0;max-width:720px}
+@media (min-width:1180px){
+  .qz-wrap{grid-template-columns:minmax(280px,1fr) minmax(0,720px);gap:clamp(40px,5vw,72px)}
+  .qz-intro{position:sticky;top:96px}
+}
+
+/* ───────── הכרטיס ───────── */
+.qz{--pad:6px;border:1px solid var(--line-card);border-radius:var(--r-lg);padding:clamp(20px,3vw,40px);background:var(--fill);scroll-margin-top:72px;min-width:0}
+
+/* פס התקדמות: שלושה מקטעים, מתמלאים מימין לשמאל (RTL) */
+.qz__bar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.qz__bar i{position:relative;display:block;height:4px;border-radius:4px;background:var(--fill-2);overflow:hidden}
+.qz__bar i::after{content:'';position:absolute;inset:0;background:var(--yellow);transform:scaleX(0);transform-origin:right;transition:transform .32s var(--ease-out)}
+.qz__bar i.on::after{transform:scaleX(1)}
+.qz__row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px}
+.qz__count{font-size:14px;font-weight:700;color:var(--t75);line-height:1.2}
+.qz__back{display:inline-flex;align-items:center;gap:6px;min-height:48px;margin-block:-12px;padding:0 6px;font-size:15px;font-weight:700;color:var(--t75);transition:color .18s var(--ease-out),transform .16s var(--ease-out);-webkit-tap-highlight-color:transparent}
+.qz__back[hidden]{display:inline-flex;visibility:hidden}
+.qz__back:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){.qz__back:hover{color:var(--bone)}}
+
+/* במה: כאן מתחלפים השלבים. הריפוד השלילי משאיר מקום לטבעת-פוקוס כשחותכים בזמן מעבר */
+.qz__stage{position:relative;padding:var(--pad);margin:calc(18px - var(--pad)) calc(var(--pad) * -1) calc(var(--pad) * -1)}
+.qz__stage.is-moving{transition:height .26s var(--ease-out);clip-path:inset(0 -48px);pointer-events:none}
+.qz__step{display:flow-root}
+.qz__step[hidden]{display:none}
+.qz__step.is-leaving{position:absolute;top:var(--pad);inset-inline:var(--pad)}
+.qz__step.is-pre{opacity:0;transform:translateX(var(--from,0px))}
+.qz__step.is-anim{transition:opacity .26s var(--ease-out),transform .26s var(--ease-out)}
+.qz__step.is-leaving.go{opacity:0;transform:translateX(var(--to,0px))}
+.qz__q{margin-bottom:18px;text-wrap:balance}
+.qz__q:focus,.res__name:focus{outline:none}
+
+/* ───────── כפתורי בחירה ───────── */
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:64px;padding:14px 18px;text-align:start;border:1px solid var(--line-card);border-radius:var(--r-md);background:var(--fill);-webkit-tap-highlight-color:transparent;transition:border-color .18s var(--ease-out),background-color .18s var(--ease-out),transform .16s var(--ease-out)}
+.opt__t{display:grid;gap:2px;min-width:0}
+.opt__t b{font-size:clamp(17px,1.5vw,19px);font-weight:800;line-height:1.25;color:var(--bone)}
+.opt__t small{font-size:14px;line-height:1.4;font-weight:400;color:var(--t60)}
+.opt__k{flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line-strong);transition:background-color .18s var(--ease-out),border-color .18s var(--ease-out)}
+.opt__k svg{width:16px;height:16px;fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.opt__k path{stroke-dasharray:22;stroke-dashoffset:22;transition:stroke-dashoffset .18s var(--ease-out) .04s}
+.opt.is-sel{border-color:var(--yellow);background:var(--yellow-tint)}
+.opt.is-sel .opt__k{background:var(--yellow);border-color:var(--yellow)}
+.opt.is-sel .opt__k path{stroke-dashoffset:0}
+.opt:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){
+  .opt:hover{border-color:var(--line-strong);background:var(--fill-2)}
+  .opt.is-sel:hover{border-color:var(--yellow);background:var(--yellow-tint)}
+}
+
+/* קישורי טקסט */
+.lnk{display:inline-flex;align-items:center;gap:8px;min-height:48px;font-size:16px;font-weight:700;color:var(--t75);-webkit-tap-highlight-color:transparent;transition:color .18s var(--ease-out),opacity .16s var(--ease-out)}
+.lnk--y{color:var(--yellow)}
+.lnk:active{opacity:.7}
+.ico{width:1.15em;height:1.15em;flex:none;transition:transform .18s var(--ease-out)}
+@media (hover:hover) and (pointer:fine){
+  .lnk:hover{color:var(--bone)}
+  .lnk--y:hover{color:var(--yellow)}
+  .lnk:hover .ico,.btn:hover .ico{transform:translateX(-3px)}
+}
+.qz__foot{margin-top:6px}
+
+/* ───────── התוצאה ───────── */
+.res{display:grid;gap:clamp(16px,2vw,22px)}
+.res__head{display:grid;gap:8px}
+.res__head .eyebrow{letter-spacing:.04em;font-size:14px}
+.res__name{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-height:.95;font-size:clamp(40px,8vw,72px);text-align:right;text-wrap:balance}
+.res__img{position:relative;aspect-ratio:16/10;border-radius:var(--r-md);overflow:hidden;background:var(--fill-2)}
+.res__img img{width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%)}
+.res__ai{position:absolute;bottom:10px;inset-inline-start:10px;font-size:11px;line-height:1.4;color:var(--t75);background:rgba(0,0,0,.55);padding:4px 10px;border-radius:var(--r-pill)}
+.res__why{display:grid;gap:4px}
+.res__sched{display:grid;gap:10px}
+.res__sub{font-family:var(--display);font-weight:900;font-size:clamp(20px,2vw,24px);letter-spacing:-.02em;line-height:1.15}
+.res__note{margin-top:-2px}
+.rows{list-style:none;display:grid;border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.row__when{display:grid;justify-items:start;min-width:58px;line-height:1.1}
+.row__day{font-size:13px;font-weight:700;color:var(--t60)}
+.row__time{font-family:var(--display);font-weight:900;font-size:clamp(26px,3vw,32px);letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--bone)}
+.row__what{display:grid;gap:2px;min-width:0}
+.row__what b{font-weight:800;font-size:16px;line-height:1.3}
+.row__what span{font-size:14px;line-height:1.4;color:var(--t60)}
+.row .btn{min-height:48px;padding:0 18px;font-size:15px}
+.res__act{display:grid;gap:10px}
+.res__links{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0 20px}
+
+/* חשיפה הדרגתית של התוצאה: כל פריט נכנס בהשהיה משלו (נקבעת ב-JS) */
+.rv{opacity:0;transform:translateY(var(--y,12px));transition:opacity .32s var(--ease-out),transform .32s var(--ease-out)}
+.row.rv{--y:8px}
+.res.is-in .rv{opacity:1;transform:none}
+
+@media (max-width:380px){
+  .opt{padding:12px 14px;gap:10px}
+  .row{gap:10px}
+  .row .btn{padding:0 14px}
+}
+@media (prefers-reduced-motion:reduce){
+  .rv{opacity:1!important;transform:none!important;transition:none!important}
+  .qz__step,.qz__stage{transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="M19 12H5M11 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<div class="lab-bar">
+  <span><b>דמו 1 מתוך 3</b> · התאמת אימון ב-3 שאלות</span>
+  <a href="index.html">← כל הדוגמאות</a>
+</div>
+
+<main>
+<section class="sec">
+  <div class="shell qz-wrap">
+
+    <header class="qz-intro">
+      <span class="badge">לבחור בלי להסתבך</span>
+      <h2 class="h-lg">מאיפה בא לך <br>להתחיל?</h2>
+      <p class="lede">3 שאלות קצרות — ונראה לך את האימון שמתאים לך, ואת השיעורים הקרובים שלו.</p>
+    </header>
+
+    <div class="qz-col">
+      <div class="qz" id="qz">
+
+        <div class="qz__top">
+          <div class="qz__bar" id="bar" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+          <div class="qz__row">
+            <span class="qz__count" id="count">שאלה 1 מתוך 3</span>
+            <button type="button" class="qz__back" id="back" hidden>
+              <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-right"/></svg>חזרה
+            </button>
+          </div>
+        </div>
+
+        <div class="qz__stage" id="stage">
+
+          <!-- שאלה 1 -->
+          <div class="qz__step" id="s1" data-step="1" role="group" aria-labelledby="q1">
+            <h3 class="h-md qz__q" id="q1" tabindex="-1" data-focus>מה הכי חשוב לך עכשיו?</h3>
+            <div class="opts">
+              <button type="button" class="opt" data-v="GYM" aria-pressed="false">
+                <span class="opt__t"><b>להתחזק ולהרגיש חזקה</b><small>אימוני כוח, מכשירים ו-BOOTCAMP</small></span>
+                <span class="opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+              </button>
+              <button type="button" class="opt" data-v="MOVE" aria-pressed="false">
+                <span class="opt__t"><b>לזוז, להתגמש ולחטב</b><small>בר, יוגה, גמישות, פילאטיס מזרן ו-SCULPT</small></span>
+                <span class="opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+              </button>
+              <button type="button" class="opt" data-v="REF" aria-pressed="false">
+                <span class="opt__t"><b>גב, יציבה ותנועה מדויקת</b><small>פילאטיס מכשירים בקבוצה של עד 11</small></span>
+                <span class="opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+              </button>
+              <button type="button" class="opt" data-v="KIDS" aria-pressed="false">
+                <span class="opt__t"><b>חוג לבת או לבן שלי</b><small>קבוצות לגילאי 12–15</small></span>
+                <span class="opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+              </button>
+            </div>
+            <a class="lnk qz__foot" href="../nutrition.html">מחפשת סדר באוכל? ליווי תזונה אישי <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-left"/></svg></a>
+          </div>
+
+          <!-- שאלה 2 -->
+          <div class="qz__step" id="s2" data-step="2" role="group" aria-labelledby="q2" hidden>
+            <h3 class="h-md qz__q" id="q2" tabindex="-1" data-focus>איפה את היום?</h3>
+            <div class="opts">
+              <button type="button" class="opt" data-v="begin" aria-pressed="false">
+                <span class="opt__t"><b>מתחילה מאפס</b></span>
+                <span class="opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+              </button>
+              <button type="button" class="opt" data-v="back" aria-pressed="false">
+                <span class="opt__t"><b>חוזרת אחרי הפסקה</b></span>
+                <span class="opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+              </button>
+              <button type="button" class="opt" data-v="reg" aria-pressed="false">
+                <span class="opt__t"><b>מתאמנת באופן קבוע</b></span>
+                <span class="opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- שאלה 3 -->
+          <div class="qz__step" id="s3" data-step="3" role="group" aria-labelledby="q3" hidden>
+            <h3 class="h-md qz__q" id="q3" tabindex="-1" data-focus>מתי הכי נוח לך?</h3>
+            <div class="opts">
+              <button type="button" class="opt" data-v="morning" aria-pressed="false">
+                <span class="opt__t"><b>בבוקר</b><small>עד 12:00</small></span>
+                <span class="opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+              </button>
+              <button type="button" class="opt" data-v="evening" aria-pressed="false">
+                <span class="opt__t"><b>בערב</b><small>מ-16:00</small></span>
+                <span class="opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+              </button>
+              <button type="button" class="opt" data-v="flex" aria-pressed="false">
+                <span class="opt__t"><b>גמיש לי</b><small>השיעורים הקרובים ביותר, בכל שעה</small></span>
+                <span class="opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- תוצאה: נבנית ב-JS -->
+          <div class="qz__step" id="s4" data-step="4" role="group" aria-label="ההתאמה שלך" hidden></div>
+
+        </div>
+
+        <noscript>
+          <p class="fine" style="margin-top:18px">כדי לקבל התאמה אישית צריך להפעיל JavaScript. בינתיים אפשר לעבור ישר לחלל:</p>
+          <p style="display:grid;gap:0;margin-top:6px">
+            <a class="lnk lnk--y" href="../gym-women.html">GYM</a>
+            <a class="lnk lnk--y" href="../barre.html">MOVE &amp; BARRE</a>
+            <a class="lnk lnk--y" href="../pilates.html">REFORMER PILATES</a>
+            <a class="lnk lnk--y" href="../kids.html">KIDS &amp; TEENS</a>
+          </p>
+        </noscript>
+
+        <p class="vh" id="live" role="status" aria-live="polite"></p>
+      </div>
+
+      <p class="fine">בדמו: לוח שיעורים אמיתי מארבוקס (שבוע 11–16.10). באתר החי — מתעדכן כל 5 דקות.</p>
+    </div>
+
+  </div>
+</section>
+</main>
+
+<script src="lab.js"></script>
+<script>
+(function(){
+'use strict';
+
+var S = window.STEPS || {};
+var track = S.track || function(){};
+var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+function reduced(){ return mq.matches; }
+
+var NS = 'http://www.w3.org/2000/svg';
+var DUR = 260;           // משך מעבר בין שלבים
+var PAD = 12;            // ריפוד הבמה (6px מלמעלה + 6px מלמטה)
+
+var qz = document.getElementById('qz');
+var stage = document.getElementById('stage');
+var live = document.getElementById('live');
+var count = document.getElementById('count');
+var backBtn = document.getElementById('back');
+var segs = Array.prototype.slice.call(document.querySelectorAll('#bar i'));
+var steps = {
+  1: document.getElementById('s1'),
+  2: document.getElementById('s2'),
+  3: document.getElementById('s3'),
+  4: document.getElementById('s4')
+};
+
+/* ───────── התוכן של כל חלל ───────── */
+var SPACES = {
+  GYM: {
+    name: 'GYM',
+    img: '../images/shoot2025/room-gym-poster.webp', pos: '50% 6%',
+    alt: 'מתאמנת מרימה מוט בחדר הכושר של STEPS',
+    why: 'משקולות חופשיות, מכשירים מתקדמים ומאמנות שיודעות בדיוק מה את צריכה.',
+    beg: '../gym-beginners.html', page: '../gym-women.html'
+  },
+  MOVE: {
+    name: 'MOVE & BARRE',
+    img: '../images/shoot2025/room-move-poster.jpg', pos: '50% 24%',
+    alt: 'מתאמנות מרימות משקולות קלות בשיעור בחלל ה-MOVE של STEPS',
+    why: 'בר, יוגה, גמישות, פילאטיס מזרן ו-SCULPT — השיעורים שגורמים לך לחזור.',
+    beg: '../barre-beginners.html', page: '../barre.html'
+  },
+  REF: {
+    name: 'REFORMER PILATES',
+    img: '../images/shoot2025/room-pilates-poster.webp', pos: '50% 72%',
+    alt: 'שיעור פילאטיס מכשירים בחלל הרפורמר של STEPS',
+    why: 'קבוצה קטנה, עד 11 מתאמנות — מספיק קטנה כדי שיעברו עלייך אחת-אחת.',
+    beg: '../pilates-beginners.html', page: '../pilates.html'
+  },
+  KIDS: {
+    name: 'KIDS & TEENS',
+    img: '../images/kids-hero.webp', pos: '50% 50%', ai: true,
+    alt: 'המחשת אימוני כושר וסולמות זריזות לילדים ונוער בסטפס',
+    why: 'שלוש קבוצות לגילאי 12–15: כוח לילדים ולנוער, פילאטיס מכשירים לנערות ובר לנערות.',
+    beg: null, page: '../kids.html'
+  }
+};
+var LEVELS = { begin: 'מתחילה מאפס', back: 'חוזרת אחרי הפסקה', reg: 'מתאמנת באופן קבוע' };
+var PARTS = {
+  morning: { part: 'morning', text: 'בבוקר' },
+  evening: { part: 'evening', text: 'בערב' },
+  flex:    { part: null,      text: 'שעות גמישות' }
+};
+
+/* ───────── מצב ───────── */
+var st = { step: 1, room: null, level: null, part: null };
+var busy = false;
+var advTimer = 0;
+
+/* ───────── עזרים ───────── */
+function el(tag, cls, text){
+  var n = document.createElement(tag);
+  if(cls) n.className = cls;
+  if(text != null) n.textContent = text;
+  return n;
+}
+function icon(id){
+  var s = document.createElementNS(NS, 'svg');
+  s.setAttribute('class', 'ico');
+  s.setAttribute('aria-hidden', 'true');
+  s.setAttribute('focusable', 'false');
+  var u = document.createElementNS(NS, 'use');
+  u.setAttribute('href', '#' + id);
+  s.appendChild(u);
+  return s;
+}
+function race(p, ms){
+  return Promise.race([p, new Promise(function(r){ setTimeout(r, ms); })]);
+}
+var imgCache = {};
+function preload(src){
+  if(!imgCache[src]){
+    imgCache[src] = new Promise(function(res){
+      var im = new Image();
+      im.onload = im.onerror = function(){ res(); };
+      im.src = src;
+    });
+  }
+  return imgCache[src];
+}
+function warm(room){
+  preload(SPACES[room].img);
+  if(S.upcoming){ try { S.upcoming({ room: room, n: 1 }).catch(function(){}); } catch(e){} }
+}
+
+/* ───────── התקדמות / כותרת עליונה ───────── */
+function ui(){
+  var n = st.step;
+  count.textContent = n <= 3 ? 'שאלה ' + n + ' מתוך 3' : 'ההתאמה מוכנה';
+  segs.forEach(function(s, i){ s.classList.toggle('on', n === 4 || i < n); });
+  backBtn.hidden = (n === 1);
+}
+function announce(n){
+  live.textContent = n <= 3 ? 'שאלה ' + n + ' מתוך 3' : 'ההתאמה שלך: ' + SPACES[st.room].name;
+}
+function focusStep(to){
+  var f = to.querySelector('[data-focus]');
+  if(f){ try { f.focus({ preventScroll: true }); } catch(e){ f.focus(); } }
+}
+function scrollToCard(alsoIfLow){
+  var r = qz.getBoundingClientRect();
+  if(r.top < 56 || (alsoIfLow && r.top > 100)){
+    qz.scrollIntoView({ block: 'start', behavior: reduced() ? 'auto' : 'smooth' });
+  }
+}
+
+/* ───────── מעבר בין שלבים (טרנספורם + אטימות, וגובה הבמה מונפש) ───────── */
+function swap(from, to, dir){
+  if(from === to){ busy = false; return; }
+  if(reduced()){
+    from.hidden = true;
+    to.hidden = false;
+    focusStep(to);
+    busy = false;
+    return;
+  }
+  busy = true;
+  var h0 = from.offsetHeight;
+  stage.style.height = (h0 + PAD) + 'px';
+  stage.classList.add('is-moving');
+  from.style.setProperty('--to', (-dir * 24) + 'px');
+  from.classList.add('is-leaving');
+  to.style.setProperty('--from', (dir * 24) + 'px');
+  to.hidden = false;
+  to.classList.add('is-pre');
+  var h1 = to.offsetHeight;          // מכריח חישוב פריסה — מצב ההתחלה נקבע לפני שמפעילים מעבר
+  to.classList.add('is-anim');
+  from.classList.add('is-anim', 'go');
+  to.classList.remove('is-pre');
+  stage.style.height = (h1 + PAD) + 'px';
+  focusStep(to);
+  setTimeout(function(){
+    from.hidden = true;
+    from.classList.remove('is-leaving', 'is-anim', 'go');
+    from.style.removeProperty('--to');
+    to.classList.remove('is-anim');
+    to.style.removeProperty('--from');
+    stage.classList.remove('is-moving');
+    stage.style.height = '';
+    busy = false;
+  }, DUR + 30);
+}
+function goTo(n, dir){
+  var from = steps[st.step], to = steps[n];
+  st.step = n;
+  ui();
+  announce(n);
+  swap(from, to, dir);
+}
+function prevStep(){
+  if(st.step === 4) return st.room === 'KIDS' ? 1 : 3;
+  return st.step - 1;
+}
+
+/* ───────── בחירה ───────── */
+function select(stepEl, btn){
+  Array.prototype.forEach.call(stepEl.querySelectorAll('.opt'), function(o){
+    var on = o === btn;
+    o.classList.toggle('is-sel', on);
+    o.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+}
+function clearSel(stepEl){ select(stepEl, null); }
+
+function next(n){
+  if(n === 1){ if(st.room === 'KIDS') showResult(); else goTo(2, 1); }
+  else if(n === 2){ goTo(3, 1); }
+  else if(n === 3){ showResult(); }
+}
+
+/* ───────── התוצאה ───────── */
+function getRows(part){
+  if(!S.upcoming) return Promise.resolve({ list: null });
+  return race(S.upcoming({ room: st.room, part: part, n: 3 }), 3000).then(function(list){
+    if(!list) return { list: null };
+    if(list.length || !part) return { list: list, relaxed: false };
+    return race(S.upcoming({ room: st.room, part: null, n: 3 }), 3000).then(function(l2){
+      return { list: l2 || null, relaxed: !!(l2 && l2.length) };
+    });
+  }).catch(function(){ return { list: null }; });
+}
+
+function rowEl(c){
+  var li = el('li', 'row rv');
+  var when = el('div', 'row__when');
+  when.appendChild(el('span', 'row__day', c.day));
+  when.appendChild(el('span', 'row__time', c.time));
+  var what = el('div', 'row__what');
+  var b = el('b');
+  b.appendChild(el('bdi', null, c.name));
+  what.appendChild(b);
+  if(c.coach){
+    var sp = el('span', null, 'עם ');
+    sp.appendChild(el('bdi', null, c.coach));
+    what.appendChild(sp);
+  }
+  var a = el('a', 'btn btn--y', 'קבעי');
+  a.href = c.url;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  a.setAttribute('aria-label', 'קבעי אימון היכרות: ' + c.name + ', ' + c.day + ' ב-' + c.time);
+  a.dataset.t = 'trial-cta';
+  a.dataset.where = 'row';
+  li.appendChild(when);
+  li.appendChild(what);
+  li.appendChild(a);
+  return li;
+}
+
+function waText(sp){
+  if(st.room === 'KIDS') return 'היי, אני מחפשת חוג לילד/ה בגילאי 12–15. אשמח לפרטים על אימון היכרות';
+  return 'היי, עשיתי את ההתאמה באתר: ' + sp.name + ', ' + LEVELS[st.level] + ', ' + PARTS[st.part].text + '. אשמח לעזרה בקביעת אימון היכרות';
+}
+
+function build(sp, rows){
+  var root = steps[4];
+  root.textContent = '';
+  var res = el('div', 'res');
+
+  // כותרת: ההתאמה + שם החלל
+  var head = el('div', 'res__head rv');
+  head.appendChild(el('p', 'eyebrow', 'ההתאמה שלך'));
+  var nm = el('h3', 'res__name', sp.name);
+  nm.id = 'resName';
+  nm.tabIndex = -1;
+  nm.setAttribute('dir', 'ltr');
+  nm.setAttribute('lang', 'en');
+  nm.setAttribute('data-focus', '');
+  head.appendChild(nm);
+  res.appendChild(head);
+
+  // תמונה
+  var fig = el('div', 'res__img rv');
+  var im = el('img');
+  im.src = sp.img;
+  im.alt = sp.alt;
+  im.decoding = 'async';
+  fig.style.setProperty('--pos', sp.pos);
+  fig.appendChild(im);
+  if(sp.ai) fig.appendChild(el('p', 'res__ai', 'תמונת המחשה שנוצרה ב־AI'));
+  res.appendChild(fig);
+
+  // למה זה מתאים + קישור למתחילות
+  var why = el('div', 'res__why rv');
+  why.appendChild(el('p', 'lede', sp.why));
+  if(st.level === 'begin' && sp.beg){
+    var bl = el('a', 'lnk lnk--y', 'מתחילה מאפס? ככה נראה האימון הראשון ');
+    bl.href = sp.beg;
+    bl.appendChild(icon('i-left'));
+    why.appendChild(bl);
+  }
+  res.appendChild(why);
+
+  // השיעורים הקרובים
+  if(rows.list && rows.list.length){
+    var sched = el('div', 'res__sched');
+    sched.appendChild(el('h4', 'res__sub rv', 'השיעורים הקרובים שמתאימים לך'));
+    if(rows.relaxed) sched.appendChild(el('p', 'fine res__note rv', 'בשעות שבחרת אין שיעור קרוב — אלה הקרובים ביותר'));
+    var ul = el('ul', 'rows');
+    rows.list.forEach(function(c){ ul.appendChild(rowEl(c)); });
+    sched.appendChild(ul);
+    res.appendChild(sched);
+  } else {
+    var msg = rows.list
+      ? 'אין כרגע שיעורים קרובים בלוח. את כל השעות תראי בקביעת האימון.'
+      : 'לא הצלחנו לטעון את לוח השיעורים כרגע. את כל השעות תראי בקביעת האימון.';
+    res.appendChild(el('p', 'fine rv', msg));
+  }
+
+  // קריאה לפעולה
+  var act = el('div', 'res__act rv');
+  var cta = el('a', 'btn btn--y btn--lg btn--block', 'קובעת אימון היכרות ב-50 ₪ ');
+  cta.href = S.ARBOX || '#';
+  cta.target = '_blank';
+  cta.rel = 'noopener';
+  cta.dataset.t = 'trial-cta';
+  cta.dataset.where = 'cta';
+  cta.appendChild(icon('i-left'));
+  act.appendChild(cta);
+
+  var wa = el('a', 'btn btn--wa btn--block', 'מעדיפה לשאול בוואטסאפ');
+  wa.href = S.waLink ? S.waLink(waText(sp)) : '#';
+  wa.target = '_blank';
+  wa.rel = 'noopener';
+  wa.dataset.t = 'whatsapp-click';
+  wa.dataset.where = 'quiz';
+  act.appendChild(wa);
+
+  var links = el('div', 'res__links');
+  var more = el('a', 'lnk', 'לפרטים על החלל ');
+  more.href = sp.page;
+  more.appendChild(icon('i-left'));
+  links.appendChild(more);
+  var again = el('button', 'lnk', 'להתחיל מחדש');
+  again.type = 'button';
+  again.id = 'restart';
+  links.appendChild(again);
+  act.appendChild(links);
+  res.appendChild(act);
+
+  root.appendChild(res);
+
+  // השהיות כניסה: 45ms בין פריטים, 50ms בין שורות שיעור
+  var d = 0;
+  Array.prototype.forEach.call(res.querySelectorAll('.rv'), function(n){
+    n.style.transitionDelay = d + 'ms';
+    d += n.classList.contains('row') ? 50 : 45;
+  });
+  return res;
+}
+
+function showResult(){
+  busy = true;
+  var sp = SPACES[st.room];
+  var wantPart = st.room === 'KIDS' ? null : PARTS[st.part].part;
+  Promise.all([getRows(wantPart), race(preload(sp.img), 900)]).then(function(r){
+    var res = build(sp, r[0]);
+    track('quiz_complete', { room: st.room, level: st.level, part: st.part });
+    goTo(4, 1);
+    if(reduced()){ res.classList.add('is-in'); }
+    else { setTimeout(function(){ res.classList.add('is-in'); }, 60); }
+    scrollToCard(true);
+  }).catch(function(){ busy = false; });
+}
+
+function restart(){
+  if(busy) return;
+  st.room = st.level = st.part = null;
+  [1, 2, 3].forEach(function(n){ clearSel(steps[n]); });
+  goTo(1, -1);
+  scrollToCard(false);
+}
+
+/* ───────── אירועים ───────── */
+stage.addEventListener('click', function(e){
+  var t = e.target.closest('[data-t]');
+  if(t){
+    track(t.dataset.t, { room: st.room, level: st.level, part: st.part, where: t.dataset.where || 'cta' });
+    return;
+  }
+  if(e.target.closest('#restart')){ restart(); return; }
+  var b = e.target.closest('.opt');
+  if(!b || busy) return;
+  var stepEl = b.closest('.qz__step');
+  var n = +stepEl.dataset.step;
+  var key = b.getAttribute('data-v');
+  select(stepEl, b);
+  track('quiz_step', { step: n, answer: key });
+  if(n === 1){
+    if(st.room !== key){ st.level = null; st.part = null; clearSel(steps[2]); clearSel(steps[3]); }
+    st.room = key;
+    warm(key);
+  } else if(n === 2){ st.level = key; }
+  else if(n === 3){ st.part = key; }
+  clearTimeout(advTimer);
+  advTimer = setTimeout(function(){ next(n); }, reduced() ? 120 : 220);
+});
+
+backBtn.addEventListener('click', function(){
+  if(busy || st.step === 1) return;
+  clearTimeout(advTimer);
+  goTo(prevStep(), -1);
+  scrollToCard(false);
+});
+
+ui();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>מעבדת העיצוב של סטפס</title>
+<link rel="stylesheet" href="lab.css">
+<style>
+.hub{padding:clamp(28px,5vw,72px) var(--gutter) 80px}
+.hub__head{max-width:860px;margin-bottom:clamp(28px,4vw,56px)}
+.hub__head .h-lg{margin:16px 0 18px}
+.demos{display:grid;gap:16px;grid-template-columns:repeat(3,1fr)}
+@media(max-width:1000px){.demos{grid-template-columns:1fr}}
+.demo{display:flex;flex-direction:column;gap:14px;border:1px solid var(--line-card);border-radius:var(--r-lg);overflow:hidden;background:var(--fill);transition:border-color .2s var(--ease),transform .2s var(--ease-out)}
+.demo:hover{border-color:rgba(255,212,0,.45)}
+.demo:active{transform:scale(.99)}
+.demo__img{aspect-ratio:16/9;object-fit:cover;width:100%;filter:saturate(.9)}
+.demo__body{padding:0 22px 24px;display:flex;flex-direction:column;gap:12px;flex:1}
+.demo__n{font-weight:800;font-size:13px;letter-spacing:.14em;color:var(--yellow)}
+.demo h2{font-size:clamp(26px,2.6vw,32px)}
+.kv{display:grid;gap:8px;font-size:15.5px;line-height:1.55;color:var(--t85)}
+.kv b{color:var(--bone);font-weight:800}
+.demo .btn{margin-top:auto}
+.block{max-width:980px;margin-top:clamp(40px,6vw,80px);border-top:1px solid var(--line);padding-top:clamp(28px,4vw,48px)}
+.block h3{font-size:clamp(24px,2.4vw,30px);margin-bottom:14px}
+.skills{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 28px;margin-top:8px}
+@media(max-width:700px){.skills{grid-template-columns:1fr}}
+.skills li{list-style:none;font-size:15.5px;color:var(--t85);padding:10px 0;border-bottom:1px solid var(--line)}
+.skills b{color:var(--bone)}
+.next li{margin-inline-start:20px;margin-bottom:8px;color:var(--t85)}
+</style>
+</head>
+<body>
+<div class="lab-bar"><span><b>מעבדת עיצוב</b> · STEPS · לא באוויר</span><a href="../index.html">לאתר הנוכחי ←</a></div>
+
+<main class="hub">
+  <header class="hub__head">
+    <span class="badge">3 דוגמאות לשיפור</span>
+    <h1 class="h-lg">אותו אתר. <br><span class="y">יותר אנשים שקובעות.</span></h1>
+    <p class="lede">כל דוגמה מטפלת בנקודה אחרת במסע של מתאמנת חדשה: מה היא רואה בשנייה הראשונה, איך היא מבינה מה מתאים לה, ואיך היא מגיעה לשיעור אמיתי. כל השיעורים בדוגמאות לקוחים מלוח ארבוקס האמיתי.</p>
+  </header>
+
+  <div class="demos">
+    <a class="demo" href="demo-3.html">
+      <img class="demo__img" src="../images/shoot2025/hero-cine-1080-poster.webp" alt="" loading="lazy">
+      <div class="demo__body">
+        <span class="demo__n">01 · הרושם הראשון</span>
+        <h2>פתיח חי + כפתור חכם</h2>
+        <div class="kv">
+          <p><b>היום:</b> בטלפון הפתיח מציג כותרת, שני כפתורים ועוד שתי שורות טקסט. שום דבר בו לא "חי", והכפתור הדביק למטה אומר תמיד אותו דבר.</p>
+          <p><b>בדוגמה:</b> כפתור ראשי אחד, פס "השיעור הבא בסטודיו" שמתחלף מהלוח האמיתי, ציטוטים מביקורות גוגל, וכפתור דביק שמשנה את ההצעה לפי המקטע שקוראים.</p>
+          <p><b>למה זה ימכור:</b> 100% מהגולשות רואות את הפתיח. שיעור אמיתי שמתחיל בקרוב = דחיפות אמיתית, בלי להמציא "נותרו מקומות".</p>
+        </div>
+        <span class="btn btn--y btn--block">לפתוח את הדוגמה ←</span>
+      </div>
+    </a>
+    <a class="demo" href="demo-1.html">
+      <img class="demo__img" src="../images/shoot2025/room-pilates-poster.webp" alt="" loading="lazy">
+      <div class="demo__body">
+        <span class="demo__n">02 · ההחלטה</span>
+        <h2>התאמת אימון ב-3 שאלות</h2>
+        <div class="kv">
+          <p><b>היום:</b> "מאיפה בא לך להתחיל?" = 5 כרטיסים סטטיים, כ-1,300 פיקסלים של גלילה בטלפון. מי שלא בטוחה — יוצאת.</p>
+          <p><b>בדוגמה:</b> 3 הקשות (מטרה, ניסיון, שעה) ⇐ החלל שמתאים לה + 3 השיעורים הקרובים שמתאימים לשעה שבחרה, עם "קבעי" ישיר לאימון היכרות.</p>
+          <p><b>למה זה ימכור:</b> פחות בחירה = פחות נטישה. כל הקשה היא התחייבות קטנה, והתוצאה מרגישה אישית — וממנה שיעור אחד ללחוץ עליו.</p>
+        </div>
+        <span class="btn btn--y btn--block">לפתוח את הדוגמה ←</span>
+      </div>
+    </a>
+    <a class="demo" href="demo-2.html">
+      <img class="demo__img" src="../images/shoot2025/room-gym-poster.webp" alt="" loading="lazy">
+      <div class="demo__body">
+        <span class="demo__n">03 · הסיור</span>
+        <h2>שלושת החללים כסטוריז</h2>
+        <div class="kv">
+          <p><b>היום:</b> שלושת החללים מסודרים אחד מתחת לשני — 2,940 פיקסלים בטלפון, המקטע הארוך ביותר בדף.</p>
+          <p><b>בדוגמה:</b> נגן בסגנון סטוריז של אינסטגרם — מסך אחד, וידאו מלא, הקשה לחלל הבא. בסוף כל סטורי: השיעור הבא בחלל הזה + "קבעי".</p>
+          <p><b>למה זה ימכור:</b> הקהל של סטפס חי באינסטגרם — זו שפה שהוא כבר מכיר. הדף מתקצר בכ-2,000 פיקסלים, והשראה הופכת מיד לפעולה.</p>
+        </div>
+        <span class="btn btn--y btn--block">לפתוח את הדוגמה ←</span>
+      </div>
+    </a>
+  </div>
+
+  <section class="block">
+    <h3>הסקילים שעבדו כאן</h3>
+    <p class="lede" style="font-size:17px">רובם כבר מותקנים אצלך — מהחזקים בגיטהאב לתחום הזה.</p>
+    <ul class="skills">
+      <li><b>emil-design-eng</b> — תנועה ומיקרו-אינטראקציות (Emil Kowalski, ~45 אלף כוכבים)</li>
+      <li><b>apple-design-web</b> — דף "חי" בסגנון אפל: סיפור בגלילה, וידאו, הדרגה</li>
+      <li><b>zero-jank-scroll</b> — גלילה חלקה בלי קפיצות בטלפון</li>
+      <li><b>impeccable</b> — ביקורת וליטוש עיצוב (~79 אלף כוכבים)</li>
+      <li><b>page-cro · form-cro · marketing-psychology</b> — המרה ופסיכולוגיה של החלטה</li>
+      <li><b>claude-seo · ai-seo</b> — לשלב הבא: SEO ונראות במנועי AI</li>
+    </ul>
+  </section>
+
+  <section class="block">
+    <h3>אחרי זה: SEO ו-GEO</h3>
+    <ul class="next">
+      <li>מדידת יום-30 של אשכולות התוכן (16/10) — מה נכנס לאינדקס ומה עלה בדירוג.</li>
+      <li>סכמת "שיעורים" (Event) מהלוח האמיתי — כדי שגוגל ו-ChatGPT ידעו מתי יש שיעור.</li>
+      <li>דפים לשאלות שאנשים שואלים צ'אטבוטים ("איפה יש פילאטיס מכשירים לנשים בנתניה").</li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>
