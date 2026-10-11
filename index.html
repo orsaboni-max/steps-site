@@ -166,8 +166,6 @@
   --r-lg:20px;
   --r-md:16px;
   --ease:cubic-bezier(.2,.7,.3,1);
-  --ease-out:cubic-bezier(.23,1,.32,1);
-  --ease-io:cubic-bezier(.77,0,.175,1);
 }
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -327,18 +325,6 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .hero h1{text-wrap:balance}
 .hero__lede{margin-top:clamp(16px,2.2vw,30px);max-width:53ch;text-wrap:pretty}
 .hero__cta{display:flex;gap:14px;margin-top:clamp(22px,2.8vw,38px);flex-wrap:wrap}
-/* השיעור הבא בסטודיו — מתחלף מהלוח החי. מוסתר עד שיש נתון אמיתי. */
-.hero__next{display:inline-flex;align-items:center;gap:12px;max-width:100%;margin-top:clamp(16px,2vw,22px);padding:8px 8px 8px 16px;padding-inline-start:16px;border-radius:var(--r-pill);background:rgba(11,11,11,.55);border:1px solid var(--line-strong);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:border-color .18s var(--ease)}
-.hero__next[hidden]{display:none}
-.hero__next:hover{border-color:rgba(255,212,0,.6)}
-.hero__next-dot{position:relative;flex:none;width:9px;height:9px;border-radius:50%;background:var(--wa)}
-.hero__next-dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--wa);animation:heroPulse 2.4s var(--ease-out) infinite}
-@keyframes heroPulse{0%{transform:scale(1);opacity:.6}75%,100%{transform:scale(3);opacity:0}}
-.hero__next-txt{display:grid;min-width:0;line-height:1.25}
-.hero__next-k{font-size:12.5px;color:var(--t60)}
-.hero__next-v{overflow:hidden;text-overflow:ellipsis;font-weight:800;font-size:clamp(14.5px,1.2vw,16px);white-space:nowrap}
-.hero__next-go{flex:none;display:inline-flex;align-items:center;min-height:36px;padding:0 14px;border-radius:var(--r-pill);background:var(--yellow);color:var(--ink);font-weight:800;font-size:14px}
-@media (prefers-reduced-motion:reduce){.hero__next-dot::after{animation:none;opacity:0}}
 
 /* auto-fit עם מינימום — אם אין נתון אמיתי לאחד התאים והוא מוסר,
    המסילה הריקה מתכווצת והשאר מתחלקים שווה בשווה. בלי grid-auto-flow:column,
@@ -372,112 +358,28 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 @media (hover:hover){.mq:hover .mq__track{animation-play-state:paused}} /* במסך מגע נגיעה נתפסת כ-hover ומקפיאה את הפס */
 @media(max-width:760px){.mq__track{animation-duration:30s}}
 
-/* ═══ בחירת מסלול: שאלון של 3 שאלות ═══════════════════════
-   החליף 5 כרטיסים סטטיים (1,300px בטלפון). התשובות מובילות לחלל המתאים
-   ולשיעורים הקרובים שלו מהלוח החי — אותו מקור כמו מערכת השעות. */
+/* ═══ בחירת מסלול מהירה ══════════════════════════════════════ */
 .chooser{padding-top:clamp(42px,5.8vw,78px);padding-bottom:clamp(42px,6vw,82px);background:var(--ink-2);border-bottom:1px solid var(--line)}
 .chooser__head{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,40ch);gap:clamp(20px,5vw,72px);align-items:end;margin-bottom:clamp(24px,3.5vw,42px)}
 .chooser__head .lede{max-width:40ch}
-.chooser__help{display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px;margin-top:22px;font-size:15px;color:var(--t75)}
+.chooser__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.path-card{position:relative;display:flex;min-height:230px;flex-direction:column;padding:clamp(22px,2.3vw,32px);border:1px solid var(--line-card);border-radius:var(--r-lg);background:linear-gradient(155deg,rgba(244,242,237,.07),rgba(244,242,237,.02));overflow:hidden;transition:transform .22s var(--ease),border-color .22s var(--ease),background .22s var(--ease)}
+.path-card::after{content:"←";position:absolute;inset-inline-end:24px;bottom:22px;font-size:24px;color:var(--yellow);transition:transform .22s var(--ease)}
+.path-card:hover,.path-card:focus-visible{transform:translateY(-4px);border-color:rgba(255,212,0,.55);background:linear-gradient(155deg,rgba(255,212,0,.10),rgba(244,242,237,.03))}
+.path-card:hover::after,.path-card:focus-visible::after{transform:translateX(-5px)}
+.path-card__n{font-family:var(--display);font-weight:900;font-size:12px;letter-spacing:.18em;color:var(--yellow)}
+.path-card h3{margin-top:clamp(22px,2.6vw,34px);font-size:clamp(24px,2.2vw,32px);line-height:1.05}
+.path-card p{margin-top:12px;max-width:28ch;font-size:15px;line-height:1.55;color:var(--t75);padding-bottom:42px}
+.chooser__help{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:22px;font-size:15px;color:var(--t75)}
 .chooser__help a{color:var(--yellow);font-weight:700;text-decoration:underline;text-underline-offset:4px}
-.chooser__paths{display:flex;flex-wrap:wrap;align-items:center;gap:4px 16px;margin-top:12px;font-size:15px;color:var(--t60)}
-.chooser__paths a{color:var(--bone);font-weight:700;text-decoration:underline;text-decoration-color:rgba(255,212,0,.55);text-underline-offset:4px;min-height:40px;display:inline-flex;align-items:center}
-@media(max-width:680px){.chooser__head{grid-template-columns:1fr;align-items:start}}
-@media(min-width:900px){#qz{margin-inline:auto}.chooser__help,.chooser__paths{justify-content:center}}
-/* ───────── הכרטיס ───────── */
-.qz{max-width:760px;--pad:6px;border:1px solid var(--line-card);border-radius:var(--r-lg);padding:clamp(20px,3vw,40px);background:var(--fill);scroll-margin-top:72px;min-width:0}
-
-/* פס התקדמות: שלושה מקטעים, מתמלאים מימין לשמאל (RTL) */
-.qz__bar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
-.qz__bar i{position:relative;display:block;height:4px;border-radius:4px;background:var(--fill-2);overflow:hidden}
-.qz__bar i::after{content:'';position:absolute;inset:0;background:var(--yellow);transform:scaleX(0);transform-origin:right;transition:transform .32s var(--ease-out)}
-.qz__bar i.on::after{transform:scaleX(1)}
-.qz__row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px}
-.qz__count{font-size:14px;font-weight:700;color:var(--t75);line-height:1.2}
-.qz__back{display:inline-flex;align-items:center;gap:6px;min-height:48px;margin-block:-12px;padding:0 6px;font-size:15px;font-weight:700;color:var(--t75);transition:color .18s var(--ease-out),transform .16s var(--ease-out);-webkit-tap-highlight-color:transparent}
-.qz__back[hidden]{display:inline-flex;visibility:hidden}
-.qz__back:active{transform:scale(.97)}
-@media (hover:hover) and (pointer:fine){.qz__back:hover{color:var(--bone)}}
-
-/* במה: כאן מתחלפים השלבים. הריפוד השלילי משאיר מקום לטבעת-פוקוס כשחותכים בזמן מעבר */
-.qz__stage{position:relative;padding:var(--pad);margin:calc(18px - var(--pad)) calc(var(--pad) * -1) calc(var(--pad) * -1)}
-.qz__stage.is-moving{transition:height .26s var(--ease-out);clip-path:inset(0 -48px);pointer-events:none}
-.qz__step{display:flow-root}
-.qz__step[hidden]{display:none}
-.qz__step.is-leaving{position:absolute;top:var(--pad);inset-inline:var(--pad)}
-.qz__step.is-pre{opacity:0;transform:translateX(var(--from,0px))}
-.qz__step.is-anim{transition:opacity .26s var(--ease-out),transform .26s var(--ease-out)}
-.qz__step.is-leaving.go{opacity:0;transform:translateX(var(--to,0px))}
-.qz__q{margin-bottom:18px;text-wrap:balance}
-.qz__q:focus,.qz-res__name:focus{outline:none}
-
-/* ───────── כפתורי בחירה ───────── */
-.qz-opts{display:grid;gap:10px}
-.qz-opt{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:64px;padding:14px 18px;text-align:start;border:1px solid var(--line-card);border-radius:var(--r-md);background:var(--fill);-webkit-tap-highlight-color:transparent;transition:border-color .18s var(--ease-out),background-color .18s var(--ease-out),transform .16s var(--ease-out)}
-.qz-opt__t{display:grid;gap:2px;min-width:0}
-.qz-opt__t b{font-size:clamp(17px,1.5vw,19px);font-weight:800;line-height:1.25;color:var(--bone)}
-.qz-opt__t small{font-size:14px;line-height:1.4;font-weight:400;color:var(--t60)}
-.qz-opt__k{flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line-strong);transition:background-color .18s var(--ease-out),border-color .18s var(--ease-out)}
-.qz-opt__k svg{width:16px;height:16px;fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
-.qz-opt__k path{stroke-dasharray:22;stroke-dashoffset:22;transition:stroke-dashoffset .18s var(--ease-out) .04s}
-.qz-opt.is-sel{border-color:var(--yellow);background:var(--yellow-tint)}
-.qz-opt.is-sel .qz-opt__k{background:var(--yellow);border-color:var(--yellow)}
-.qz-opt.is-sel .qz-opt__k path{stroke-dashoffset:0}
-.qz-opt:active{transform:scale(.97)}
-@media (hover:hover) and (pointer:fine){
-  .qz-opt:hover{border-color:var(--line-strong);background:var(--fill-2)}
-  .qz-opt.is-sel:hover{border-color:var(--yellow);background:var(--yellow-tint)}
-}
-
-/* קישורי טקסט */
-.qz-lnk{display:inline-flex;align-items:center;gap:8px;min-height:48px;font-size:16px;font-weight:700;color:var(--t75);-webkit-tap-highlight-color:transparent;transition:color .18s var(--ease-out),opacity .16s var(--ease-out)}
-.qz-lnk--y{color:var(--yellow)}
-.qz-lnk:active{opacity:.7}
-.qz-ico{width:1.15em;height:1.15em;flex:none;transition:transform .18s var(--ease-out)}
-@media (hover:hover) and (pointer:fine){
-  .qz-lnk:hover{color:var(--bone)}
-  .qz-lnk--y:hover{color:var(--yellow)}
-  .qz-lnk:hover .qz-ico,.btn:hover .qz-ico{transform:translateX(-3px)}
-}
-.qz__foot{margin-top:6px}
-
-/* ───────── התוצאה ───────── */
-.qz-res{display:grid;gap:clamp(16px,2vw,22px)}
-.qz-res__head{display:grid;gap:8px}
-.qz-res__head .eyebrow{letter-spacing:.04em;font-size:14px}
-.qz-res__name{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-height:.95;font-size:clamp(40px,8vw,72px);text-align:right;text-wrap:balance}
-.qz-res__img{position:relative;aspect-ratio:16/10;border-radius:var(--r-md);overflow:hidden;background:var(--fill-2)}
-.qz-res__img img{width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%)}
-.qz-res__ai{position:absolute;bottom:10px;inset-inline-start:10px;font-size:11px;line-height:1.4;color:var(--t75);background:rgba(0,0,0,.55);padding:4px 10px;border-radius:var(--r-pill)}
-.qz-res__why{display:grid;gap:4px}
-.qz-res__sched{display:grid;gap:10px}
-.qz-res__sub{font-family:var(--display);font-weight:900;font-size:clamp(20px,2vw,24px);letter-spacing:-.02em;line-height:1.15}
-.qz-res__note{margin-top:-2px}
-.qz-rows{list-style:none;display:grid;border-top:1px solid var(--line)}
-.qz-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
-.qz-row__when{display:grid;justify-items:start;min-width:58px;line-height:1.1}
-.qz-row__day{font-size:13px;font-weight:700;color:var(--t60)}
-.qz-row__time{font-family:var(--display);font-weight:900;font-size:clamp(26px,3vw,32px);letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--bone)}
-.qz-row__what{display:grid;gap:2px;min-width:0}
-.qz-row__what b{font-weight:800;font-size:16px;line-height:1.3}
-.qz-row__what span{font-size:14px;line-height:1.4;color:var(--t60)}
-.qz-row .btn{min-height:48px;padding:0 18px;font-size:15px}
-.qz-res__act{display:grid;gap:10px}
-.qz-res__links{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0 20px}
-
-/* חשיפה הדרגתית של התוצאה: כל פריט נכנס בהשהיה משלו (נקבעת ב-JS) */
-.qz-rv{opacity:0;transform:translateY(var(--y,12px));transition:opacity .32s var(--ease-out),transform .32s var(--ease-out)}
-.qz-row.qz-rv{--y:8px}
-.qz-res.is-in .qz-rv{opacity:1;transform:none}
-
-@media (max-width:380px){
-  .qz-opt{padding:12px 14px;gap:10px}
-  .qz-row{gap:10px}
-  .qz-row .btn{padding:0 14px}
-}
-@media (prefers-reduced-motion:reduce){
-  .qz-rv{opacity:1!important;transform:none!important;transition:none!important}
-  .qz__step,.qz__stage{transition:none!important}
+@media(max-width:980px){.chooser__grid{grid-template-columns:1fr 1fr}}
+@media(max-width:680px){
+  .chooser__head{grid-template-columns:1fr;align-items:start}
+  .chooser__grid{grid-template-columns:1fr;gap:10px}
+  .path-card{min-height:0;padding:22px 22px 20px}
+  .path-card h3{margin-top:14px;font-size:25px}
+  .path-card p{padding-bottom:26px;margin-top:8px}
+  .chooser__help{align-items:flex-start;justify-content:flex-start;flex-wrap:wrap}
 }
 
 /* ═══ למה בוחרות ═══════════════════════════════════════════ */
@@ -493,169 +395,48 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .objection__hook{margin-top:clamp(14px,1.6vw,22px);font-family:var(--display);font-weight:900;font-size:clamp(38px,4.6vw,64px);line-height:1;letter-spacing:-.03em}
 .objection p{margin:clamp(12px,1.4vw,20px) 0 clamp(18px,2vw,26px);max-width:46ch;font-size:clamp(16px,1.3vw,18px);line-height:1.65;color:rgba(244,242,237,.8)}
 
-/* ═══ שלושה חללים: נגן סטוריז ═══════════════════════════════
-   היה 2,940px בטלפון — המקטע הארוך בדף. עכשיו מסך אחד: במובייל סטוריז
-   כמו באינסטגרם, בדסקטופ שלושה פאנלים שהפעיל מתרחב. כל סטורי נגמר בשיעור
-   הבא מהלוח החי. */
-/* ───────── כותרת המקטע ───────── */
-.tr-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:clamp(20px,3vw,36px)}
-.tr-tools{display:flex;align-items:center;gap:6px;flex:none;padding-bottom:6px}
-.tr-counter{font-variant-numeric:tabular-nums;line-height:1}
-.tr-counter .tr-n{display:inline-block}
-.tr-counter .tr-n.tick{animation:tick .3s var(--ease-out)}
-@keyframes tick{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-
-/* ───────── כפתור השהיה (WCAG 2.2.2) ───────── */
-.tr-pausebtn{position:relative;display:inline-grid;place-items:center;flex:none;width:44px;height:44px;border-radius:50%;color:var(--bone);transition:transform .16s var(--ease-out)}
-.tr-pausebtn::before{content:"";position:absolute;inset:6px;border-radius:50%;background:rgba(11,11,11,.5);border:1px solid var(--line-strong);transition:background .18s var(--ease)}
-.tr-pausebtn svg{position:relative;display:block;width:14px;height:14px;fill:currentColor}
-.tr-pausebtn .tr-i-play{display:none}
-.tour.is-userpaused .tr-pausebtn .tr-i-play{display:block}
-.tour.is-userpaused .tr-pausebtn .tr-i-pause{display:none}
-.tr-pausebtn:active{transform:scale(.94)}
-.tr-pausebtn:focus-visible{border-radius:50%}
-.tr-head .tr-pausebtn{display:none}
-@media (hover:hover) and (pointer:fine){.tr-pausebtn:hover::before{background:var(--fill-2)}}
-
-/* ───────── הנגן — מובייל: כרטיס אחד ───────── */
-.tr-stage{position:relative;width:100%;aspect-ratio:9/14;min-height:440px;max-height:76vh;max-height:76svh;border-radius:var(--r-lg);overflow:hidden;isolation:isolate;background:var(--ink-2);container-type:inline-size;touch-action:pan-y pinch-zoom;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;--dur:6s;--b:0s}
-.tr-story{position:absolute;inset:0;pointer-events:none}
-
-/* שכבת המדיה (וידאו + גרדיאנט) — נחלפת בקרוס-פייד */
-.tr-media{position:absolute;inset:0;z-index:1;opacity:0;visibility:hidden;transition:opacity 0s linear .42s,visibility 0s linear .42s}
-.is-active .tr-media{z-index:2;opacity:1;visibility:visible;transition:opacity .4s var(--ease-out)}
-.tr-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%;background:var(--ink-2)}
-.is-active .tr-vid{animation:settle .9s var(--ease-out) both}
-@keyframes settle{from{transform:scale(1.04)}to{transform:scale(1)}}
-.tr-scrim{position:absolute;inset:0;background:
-  linear-gradient(to top,rgba(11,11,11,.94) 0,rgba(11,11,11,.88) 34%,rgba(11,11,11,.58) 55%,rgba(11,11,11,.18) 74%,rgba(11,11,11,0) 90%),
-  linear-gradient(to bottom,rgba(11,11,11,.55),rgba(11,11,11,0) 22%)}
-.tr-dim,.tr-rail,.tr-pick,.tr-dprog,.tr-vplay{display:none}
-
-/* אזורי הקשה — כפתורים אמיתיים, ניתנים להתמקדות */
-.tr-zone{position:absolute;top:0;bottom:0;z-index:3;width:40%;display:flex;align-items:center;color:var(--bone);-webkit-tap-highlight-color:transparent}
-.tr-zone--next{left:0;justify-content:flex-start;padding-left:10px}
-.tr-zone--prev{right:0;justify-content:flex-end;padding-right:10px}
-.tr-zone svg{width:30px;height:30px;padding:7px;border-radius:50%;background:rgba(11,11,11,.6);opacity:0;transition:opacity .15s ease-out}
-.tr-zone:focus-visible{outline:2px solid var(--yellow);outline-offset:-5px;border-radius:var(--r-lg)}
-.tr-zone:focus-visible svg{opacity:1}
-
-/* פס עליון: ברים + תווית + השהיה */
-.tr-tb{position:absolute;z-index:6;top:0;inset-inline:0;padding:12px 12px 0;display:flex;flex-direction:column;gap:8px;pointer-events:none}
-.tr-bars{display:flex;gap:4px}
-.tr-bars>span{position:relative;flex:1;height:3px;border-radius:3px;overflow:hidden;background:rgba(244,242,237,.3)}
-.tr-bars i{position:absolute;inset:0;background:var(--bone);transform:scaleX(0);transform-origin:right}
-.tr-bars .done i{transform:scaleX(1)}
-.tr-bars i.run,.tr-dprog i.run{animation:fillbar var(--dur) linear forwards}
-@keyframes fillbar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-.tour.is-paused .tr-bars i,.tour.is-paused .tr-dprog i,.tour.is-paused .tr-dot::after{animation-play-state:paused}
-.tr-tb-row{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:28px}
-.tr-tb .tr-pausebtn{pointer-events:auto;margin-block:-8px}
-.tr-lbl{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:900;font-size:13px;letter-spacing:.14em;text-shadow:0 1px 10px rgba(11,11,11,.5)}
-.tr-lbl::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--yellow)}
-.tr-lbl small{font-family:var(--body);font-weight:700;font-size:12.5px;letter-spacing:.02em;color:var(--t85)}
-
-/* תוכן שכבת-העל */
-.tr-content{position:absolute;z-index:4;inset-inline:0;bottom:0;display:flex;flex-direction:column;align-items:flex-start;gap:9px;padding:0 clamp(16px,5vw,26px) clamp(16px,4.6vw,24px);pointer-events:none;opacity:0;transition:opacity .16s ease-out;text-shadow:0 1px 14px rgba(11,11,11,.55)}
-.is-active .tr-content{opacity:1;transition:none}
-.tr-content a{pointer-events:auto;text-shadow:none}
-.tr-eb{font-size:12.5px;letter-spacing:.08em}
-.tr-title{font-size:clamp(48px,14vw,84px);line-height:.92;color:var(--bone);margin-top:2px;text-shadow:none}
-.tr-title.tr-t-long{font-size:clamp(36px,12.2vw,72px)}
-.tr-ln{display:block;overflow:hidden;padding-bottom:.06em}
-.tr-ln>span{display:block}
-.tr-line{max-width:40ch;font-size:clamp(14.5px,3.9vw,17px);font-weight:500;line-height:1.45;color:var(--t85);text-wrap:balance}
-.tr-tags{list-style:none;display:flex;flex-wrap:wrap;font-size:12.5px;font-weight:700;letter-spacing:.02em;line-height:1.55;color:var(--t75)}
-.tr-tags li+li::before{content:"·";margin-inline:.55em;color:var(--yellow);font-weight:900}
-.tr-chip{visibility:hidden;display:inline-flex;align-items:center;gap:9px;max-width:100%;padding:7px 13px;border-radius:16px;background:rgba(11,11,11,.55);border:1px solid var(--line-card);font-size:13px;font-weight:700;line-height:1.35;color:var(--bone)}
-.tr-chip.is-ok{visibility:visible}
-.tr-chip.nodata{display:none}
-.tr-dot{position:relative;flex:none;width:8px;height:8px;border-radius:50%;background:var(--wa)}
-.tr-dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--wa)}
-.is-active .tr-dot::after{animation:pulse 2.4s var(--ease-out) infinite}
-@keyframes pulse{0%{transform:scale(1);opacity:.6}75%,100%{transform:scale(3.2);opacity:0}}
-.tr-cta{display:flex;flex-wrap:wrap;gap:8px;width:100%;margin-top:3px}
-.tr-cta .btn{min-height:48px;padding-inline:20px;font-size:15px}
-.tr-cta .btn--y{flex:1 1 auto}
-.tr-cta .btn--ghost{background:rgba(11,11,11,.45);border-color:rgba(244,242,237,.4)}
-@media (hover:hover) and (pointer:fine){.tr-cta .btn--ghost:hover{background:rgba(244,242,237,.14)}}
-
-/* חשיפה מדורגת: יציאה מהירה (160ms), כניסה איטית ומדורגת */
-.tr-rv{opacity:0;transform:translateY(12px);transition:opacity 0s linear .2s,transform 0s linear .2s}
-.is-active .tr-rv{opacity:1;transform:none;transition:opacity .5s var(--ease-out) var(--d,0s),transform .5s var(--ease-out) var(--d,0s)}
-.tr-ln>span{transform:translateY(106%);transition:transform 0s linear .2s}
-.is-active .tr-ln>span{transform:none;transition:transform .52s var(--ease-out) var(--d,0s)}
-.tr-eb{--d:calc(var(--b) + 0s)}
-.tr-ln:nth-child(1)>span{--d:calc(var(--b) + .06s)}
-.tr-ln:nth-child(2)>span{--d:calc(var(--b) + .12s)}
-.tr-line{--d:calc(var(--b) + .18s)}
-.tr-tags{--d:calc(var(--b) + .24s)}
-.tr-chip{--d:calc(var(--b) + .3s)}
-.tr-cta{--d:calc(var(--b) + .36s)}
-/* לפני שהנגן נכנס למסך — מצב פתיחה, כדי שהחשיפה תקרה כשרואים אותה */
-.pre .is-active .tr-rv{opacity:0;transform:translateY(12px);transition:none}
-.pre .is-active .tr-ln>span{transform:translateY(106%);transition:none}
-.pre .is-active .tr-vid{animation:none}
-
-/* ───────── קישורי SEO ───────── */
-.tr-links{display:flex;flex-wrap:wrap;gap:14px 26px;margin-top:clamp(22px,3vw,32px)}
-
-/* ───────── דסקטופ: שלושה פאנלים ───────── */
-@media (min-width:860px){
-  .tr-tb{display:none}
-  .tr-head .tr-pausebtn{display:inline-grid}
-  .tr-stage{display:flex;gap:12px;aspect-ratio:auto;min-height:0;max-height:none;height:min(72vh,720px);border-radius:0;overflow:visible;background:none;touch-action:auto;-webkit-user-select:auto;user-select:auto;-webkit-touch-callout:default;--dur:7s;--b:.3s}
-  .tr-zone{display:none}
-  .tr-story{position:relative;inset:auto;flex:1 1 0;min-width:0;border-radius:var(--r-lg);overflow:hidden;isolation:isolate;pointer-events:auto;background:var(--ink-2);transition:flex-grow .65s var(--ease-io)}
-  .tr-story.is-active{flex-grow:3.4}
-  .tr-story .tr-media,.tr-story.is-active .tr-media{opacity:1;visibility:visible;transition:none}
-  .tr-vid{object-position:50% 36%}
-  .tr-dim{display:block;position:absolute;inset:0;background:var(--ink);opacity:.45;transition:opacity .5s var(--ease-io)}
-  .is-active .tr-dim{opacity:0}
-  @media (hover:hover) and (pointer:fine){.tr-story:not(.is-active):hover .tr-dim{opacity:.3}}
-
-  .tr-rail{display:flex;position:absolute;z-index:3;inset:0;flex-direction:column;align-items:center;justify-content:space-between;padding:26px 0 30px;pointer-events:none;transition:opacity .3s var(--ease-out) .3s}
-  .is-active .tr-rail{opacity:0;transition:opacity .14s ease-out}
-  .tr-rail-n{font-family:var(--display);font-weight:900;font-size:15px;letter-spacing:.12em;color:var(--yellow)}
-  .tr-rail-t{direction:ltr;writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--display);font-weight:900;font-size:clamp(30px,3vw,46px);line-height:1;letter-spacing:-.02em;white-space:nowrap;color:var(--bone)}
-
-  .tr-pick{display:block;position:absolute;z-index:5;inset:0;width:100%;cursor:pointer;border-radius:var(--r-lg)}
-  .tr-pick:focus-visible{outline-offset:-5px;border-radius:var(--r-lg)}
-  .tr-story.is-active .tr-pick{pointer-events:none;cursor:default}
-
-  /* רוחב קבוע = רוחב הפאנל הפעיל, כדי שהטקסט לא יזוז תוך כדי הצמיחה */
-  .tr-content{inset-inline:auto;inset-inline-start:0;width:560px;padding:0 clamp(24px,2.8vw,40px) clamp(24px,2.8vw,40px);gap:12px;pointer-events:auto}
-  @supports (width:1cqw){.tr-content{width:min(640px,calc((100cqw - 24px) * .6296))}}
-  .tr-line{font-size:clamp(16px,1.35vw,19px);max-width:40ch}
-  .tr-tags{font-size:13.5px}
-  .tr-chip{font-size:14px;padding:8px 15px}
-  .tr-cta .btn{min-height:52px;padding-inline:26px;font-size:16px}
-  .tr-cta{width:auto}
-  .tr-cta .btn--y{flex:0 0 auto}
-  .tr-title.tr-t-long{font-size:clamp(36px,6vw,72px)}
-
-  .tr-dprog{display:block;position:absolute;z-index:6;inset-inline:0;bottom:0;height:3px;background:rgba(244,242,237,.18);opacity:0;transition:opacity .2s ease-out}
-  .is-active .tr-dprog{opacity:1}
-  .tr-dprog i{position:absolute;inset:0;background:var(--yellow);transform:scaleX(0);transform-origin:right}
+/* ═══ שלושה חללים ═══════════════════════════════════════════
+   הקליפים אנכיים (9:16, צולמו בטלפון) — ולכן הם מוצגים כפי שהם,
+   גדולים, עם אוויר מסביב. אין חיתוך, אין רצועה מהאמצע.
+   הטקסט יושב מתחת ולא עליהם. */
+.rooms{display:flex;flex-direction:column;gap:clamp(56px,9vw,128px);padding:clamp(40px,6vw,80px) 0 0}
+.room{display:grid;justify-items:center;gap:clamp(18px,2.4vw,30px);
+  grid-template-areas:"head" "media" "body"}
+.room__head{grid-area:head;text-align:center}
+.room__media{grid-area:media}
+.room__body{grid-area:body;width:min(560px,90vw);text-align:center;display:flex;flex-direction:column;align-items:center}
+.room__media{
+  position:relative;width:min(420px,78vw);aspect-ratio:9/16;
+  border-radius:22px;overflow:hidden;background:#000;
+  box-shadow:0 30px 90px -20px rgba(0,0,0,.9);
+  border:1px solid var(--line-card);
 }
+.room__media video,.room__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
-/* ───────── תנועה מופחתת ───────── */
-@media (prefers-reduced-motion:reduce){
-  .tr-media,.is-active .tr-media,.tr-content,.is-active .tr-content,.tr-rv,.is-active .tr-rv,.tr-ln>span,.is-active .tr-ln>span,.tr-story{transition:none!important}
-  .tr-rv,.is-active .tr-rv,.tr-ln>span,.is-active .tr-ln>span{transform:none!important}
-  .is-active .tr-vid{animation:none!important}
-  .is-active .tr-dot::after{animation:none!important;opacity:0}
-  .tr-counter .tr-n.tick{animation:none}
-  .tr-pausebtn,.tr-head .tr-pausebtn,.tr-dprog{display:none!important}
-  .tr-bars .cur i{transform:scaleX(1)}
-  .tr-bars .done i{opacity:.55}
-  .is-active .tr-vplay{display:grid}
+.room__n{font-family:var(--display);font-weight:900;font-size:clamp(12px,1.2vw,14px);letter-spacing:.2em;color:var(--yellow)}
+.room__head h3{margin-top:12px;font-size:clamp(48px,7vw,86px);line-height:.95;letter-spacing:-.04em}
+.room__head h3.is-long{font-size:clamp(34px,5vw,62px)}
+.room__body p{margin:0 0 24px;max-width:44ch;font-size:clamp(16px,1.4vw,19px);line-height:1.65;color:rgba(244,242,237,.78)}
+.room__body .taglist{justify-content:center;margin-bottom:26px}
+.room__body .link-rule{align-self:center}
+.room__body .link-rule + .link-rule{margin-top:12px}
+/* במסכים רחבים הסרטון והטקסט יושבים זה לצד זה, לסירוגין —
+   כך יש קצב ולא שלושה בלוקים זהים בטור. */
+@media(min-width:1000px){
+  /* בדסקטופ הכותרת והגוף חוזרים להיות גוש אחד לצד הסרטון — שם אין בלבול,
+     והסרטון ממשיך לסירוגין ימין/שמאל כדי לשמור על קצב. */
+  .room{grid-template-columns:min(400px,32vw) minmax(0,46ch);
+        grid-template-areas:"media head" "media body";
+        justify-content:center;align-content:center;
+        column-gap:clamp(48px,6vw,96px);row-gap:18px}
+  .room:nth-child(even){grid-template-columns:minmax(0,46ch) min(400px,32vw);
+        grid-template-areas:"head media" "body media"}
+  .room__media{width:100%;align-self:center}
+  .room__head{align-self:end;text-align:start;justify-self:start}
+  .room__body{align-self:start;text-align:start;align-items:flex-start;width:auto;max-width:46ch;justify-self:start}
+  .room__body .taglist{justify-content:flex-start}
+  .room__body .link-rule{align-self:flex-start}
 }
-.tr-vplay{position:absolute;z-index:5;left:50%;top:30%;width:64px;height:64px;margin:-32px 0 0 -32px;place-items:center;border-radius:50%;background:rgba(11,11,11,.55);border:1px solid var(--line-strong);color:var(--bone);pointer-events:auto}
-.tr-vplay svg{display:block;width:22px;height:22px;fill:currentColor}
-.tr-vplay .tr-i-pause{display:none}
-.tr-vplay.on .tr-i-pause{display:block}
-.tr-vplay.on .tr-i-play{display:none}
 
 /* ═══ ליווי תזונה ═══════════════════════════════════════════ */
 .bina{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);align-items:center}
@@ -911,14 +692,6 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .bar .btn{flex:1;min-height:52px;font-size:16px}
 .bar .bar__wa{flex:none;width:52px;height:52px;border-radius:50%;background:var(--wa);color:var(--wa-ink);display:flex;align-items:center;justify-content:center}
 .bar .bar__wa svg{width:26px;height:26px}
-/* הכפתור הדביק מחליף הצעה לפי המקטע שקוראים עכשיו */
-.bar .btn{position:relative;overflow:hidden}
-.bar .btn span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:transform .22s var(--ease-out),opacity .22s var(--ease-out)}
-.bar .btn span.out{transform:translateY(-120%);opacity:0;transition-duration:.16s}
-.bar .btn span.pre{transform:translateY(120%);opacity:0;transition:none}
-.bar{transition:transform .3s var(--ease-out),visibility 0s}
-.bar.is-away{transform:translateY(110%);visibility:hidden;transition:transform .3s var(--ease-out),visibility 0s linear .3s}
-@media (prefers-reduced-motion:reduce){.bar,.bar .btn span{transition:none}}
 @media(max-width:760px){
   .bar{display:flex}
   body{padding-bottom:88px}
@@ -993,27 +766,10 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .js .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none}}
 </style>
-<noscript><style>
-/* בלי JavaScript — שלושת החללים מוצגים ברצף, כל הטקסט גלוי */
-/* בלי JavaScript — שלושת החללים מוצגים ברצף, כל הטקסט גלוי */
-.tr-stage{display:grid!important;height:auto!important;min-height:0!important;max-height:none!important;aspect-ratio:auto!important;overflow:visible!important;gap:12px;background:none!important}
-.tr-story{position:relative!important;inset:auto!important;flex:none!important;aspect-ratio:9/14;min-height:520px;overflow:hidden;border-radius:var(--r-lg);background:var(--ink-2);pointer-events:auto!important}
-.tr-media{opacity:1!important;visibility:visible!important}
-.tr-content,.tr-rv,.tr-ln>span{opacity:1!important;transform:none!important}
-.tr-content{pointer-events:auto!important}
-.tr-chip,.tr-tb,.tr-zone,.tr-pick,.tr-rail,.tr-dprog,.tr-vplay,.tr-dim,.tr-pausebtn,.tr-head .tr-pausebtn{display:none!important}
-</style></noscript>
-
 <link rel="stylesheet" href="booking.css">
 <script src="booking.js" defer></script>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <defs>
-    <symbol id="i-left" viewBox="0 0 24 24"><path d="M19 12H5M11 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  </defs>
-</svg>
 <a class="skip" href="#top">דלגי לתוכן</a>
 
 <!-- ═══ HEADER ═══ -->
@@ -1076,15 +832,11 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       <a class="btn btn--y btn--lg" href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener" data-track="trial-cta">קובעת אימון היכרות ב-50 ₪ <span aria-hidden="true">←</span></a>
       <a class="btn btn--ghost btn--lg" href="#choose" data-track="path-choice" data-path="chooser">עזרו לי לבחור מסלול</a>
     </div>
-    <a class="hero__next" id="heroNext" href="#sched" hidden data-track="trial-cta arbox-open">
-      <span class="hero__next-dot" aria-hidden="true"></span>
-      <span class="hero__next-txt"><span class="hero__next-k">השיעור הבא בסטודיו</span><span class="hero__next-v" id="heroNextV"></span></span>
-      <span class="hero__next-go" aria-hidden="true">קבעי</span>
-    </a>
     <p class="hero__lede" style="margin-top:14px;font-size:clamp(15px,1.1vw,17px)">מעדיפה שנחזור אלייך? <a href="#contact" style="color:var(--yellow);font-weight:700">השאירי פרטים להתאמת אימון</a>.</p>
+    <p class="hero__lede" style="margin-top:14px;font-size:clamp(13px,1vw,15px)"><a href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener" style="color:var(--yellow);font-weight:700">4.9 ★ · 34 ביקורות בגוגל</a> · מעל 500 מתאמנות</p>
   </div>
   <div class="stats">
-    <a class="stats__i" href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener"><div class="stats__n"><span class="y">4.9</span> ★</div><div class="stats__l">34 ביקורות בגוגל · מעל 500 מתאמנות</div></a>
+    <a class="stats__i" href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener"><div class="stats__n"><span class="y">4.9</span> ★</div><div class="stats__l">34 ביקורות בגוגל</div></a>
     <div class="stats__i stats__i--drop"><div class="stats__n">3</div><div class="stats__l">חללים · כוח, MOVE, רפורמר</div></div>
     <div class="stats__i"><div class="stats__n" id="weekly">—</div><div class="stats__l">שיעורים בשבוע</div></div>
     <div class="stats__i"><div class="stats__n">חינם</div><div class="stats__l">חנייה בקניון פולג</div></div>
@@ -1104,245 +856,116 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
         <p class="badge" style="margin-bottom:18px">לבחור בלי להסתבך</p>
         <h2 class="h-lg" id="choose-title">מאיפה בא לך <br>להתחיל?</h2>
       </div>
-      <p class="lede">3 שאלות קצרות — ונראה לך את האימון שמתאים לך, ואת השיעורים הקרובים שלו.</p>
+      <p class="lede">בחרי את מה שהכי קרוב למטרה שלך עכשיו. אפשר לשלב בין החללים בהמשך.</p>
     </div>
-    <div class="qz" id="qz">
-
-        <div class="qz__top">
-          <div class="qz__bar" id="qzBar" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
-          <div class="qz__row">
-            <span class="qz__count" id="qzCount">שאלה 1 מתוך 3</span>
-            <button type="button" class="qz__back" id="qzBack" hidden>
-              <svg class="qz-ico" aria-hidden="true" focusable="false"><use href="#i-right"/></svg>חזרה
-            </button>
-          </div>
-        </div>
-
-        <div class="qz__stage" id="qzStage">
-
-          <!-- שאלה 1 -->
-          <div class="qz__step" id="s1" data-step="1" role="group" aria-labelledby="q1">
-            <h3 class="h-md qz__q" id="q1" tabindex="-1" data-focus>מה הכי חשוב לך עכשיו?</h3>
-            <div class="qz-opts">
-              <button type="button" class="qz-opt" data-v="GYM" aria-pressed="false">
-                <span class="qz-opt__t"><b>להתחזק ולהרגיש חזקה</b><small>אימוני כוח, מכשירים ו-BOOTCAMP</small></span>
-                <span class="qz-opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
-              </button>
-              <button type="button" class="qz-opt" data-v="MOVE" aria-pressed="false">
-                <span class="qz-opt__t"><b>לזוז, להתגמש ולחטב</b><small>בר, יוגה, גמישות, פילאטיס מזרן ו-SCULPT</small></span>
-                <span class="qz-opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
-              </button>
-              <button type="button" class="qz-opt" data-v="REF" aria-pressed="false">
-                <span class="qz-opt__t"><b>גב, יציבה ותנועה מדויקת</b><small>פילאטיס מכשירים בקבוצה של עד 11</small></span>
-                <span class="qz-opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
-              </button>
-              <button type="button" class="qz-opt" data-v="KIDS" aria-pressed="false">
-                <span class="qz-opt__t"><b>חוג לבת או לבן שלי</b><small>קבוצות לגילאי 12–15</small></span>
-                <span class="qz-opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
-              </button>
-            </div>
-            <a class="qz-lnk qz__foot" href="nutrition.html" data-track="path-choice" data-path="quiz-nutrition">מחפשת סדר באוכל? ליווי תזונה אישי <svg class="qz-ico" aria-hidden="true" focusable="false"><use href="#i-left"/></svg></a>
-          </div>
-
-          <!-- שאלה 2 -->
-          <div class="qz__step" id="s2" data-step="2" role="group" aria-labelledby="q2" hidden>
-            <h3 class="h-md qz__q" id="q2" tabindex="-1" data-focus>איפה את היום?</h3>
-            <div class="qz-opts">
-              <button type="button" class="qz-opt" data-v="begin" aria-pressed="false">
-                <span class="qz-opt__t"><b>מתחילה מאפס</b></span>
-                <span class="qz-opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
-              </button>
-              <button type="button" class="qz-opt" data-v="back" aria-pressed="false">
-                <span class="qz-opt__t"><b>חוזרת אחרי הפסקה</b></span>
-                <span class="qz-opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
-              </button>
-              <button type="button" class="qz-opt" data-v="reg" aria-pressed="false">
-                <span class="qz-opt__t"><b>מתאמנת באופן קבוע</b></span>
-                <span class="qz-opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
-              </button>
-            </div>
-          </div>
-
-          <!-- שאלה 3 -->
-          <div class="qz__step" id="s3" data-step="3" role="group" aria-labelledby="q3" hidden>
-            <h3 class="h-md qz__q" id="q3" tabindex="-1" data-focus>מתי הכי נוח לך?</h3>
-            <div class="qz-opts">
-              <button type="button" class="qz-opt" data-v="morning" aria-pressed="false">
-                <span class="qz-opt__t"><b>בבוקר</b><small>עד 12:00</small></span>
-                <span class="qz-opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
-              </button>
-              <button type="button" class="qz-opt" data-v="evening" aria-pressed="false">
-                <span class="qz-opt__t"><b>בערב</b><small>מ-16:00</small></span>
-                <span class="qz-opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
-              </button>
-              <button type="button" class="qz-opt" data-v="flex" aria-pressed="false">
-                <span class="qz-opt__t"><b>גמיש לי</b><small>השיעורים הקרובים ביותר, בכל שעה</small></span>
-                <span class="qz-opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
-              </button>
-            </div>
-          </div>
-
-          <!-- תוצאה: נבנית ב-JS -->
-          <div class="qz__step" id="s4" data-step="4" role="group" aria-label="ההתאמה שלך" hidden></div>
-
-        </div>
-
-        <noscript>
-          <p class="fine" style="margin-top:18px">כדי לקבל התאמה אישית צריך להפעיל JavaScript. בינתיים אפשר לעבור ישר לחלל:</p>
-          <p style="display:grid;gap:0;margin-top:6px">
-            <a class="qz-lnk qz-lnk--y" href="gym-women.html">GYM</a>
-            <a class="qz-lnk qz-lnk--y" href="barre.html">MOVE &amp; BARRE</a>
-            <a class="qz-lnk qz-lnk--y" href="pilates.html">REFORMER PILATES</a>
-            <a class="qz-lnk qz-lnk--y" href="kids.html">KIDS &amp; TEENS</a>
-          </p>
-        </noscript>
-
-        <p class="vh" id="qzLive" role="status" aria-live="polite"></p>
-      </div>
+    <div class="chooser__grid">
+      <a class="path-card rv" href="gym-women.html" data-track="path-choice" data-path="gym">
+        <span class="path-card__n">01 · GYM</span>
+        <h3>אני רוצה להתחזק</h3>
+        <p>אימוני כוח, מכשירים ו-BOOTCAMP עם התאמה לרמה שלך.</p>
+      </a>
+      <a class="path-card rv" href="barre.html" data-track="path-choice" data-path="move">
+        <span class="path-card__n">02 · MOVE &amp; BARRE</span>
+        <h3>אני רוצה בר ושיעורי סטודיו</h3>
+        <p>אימוני בר (Barre), יוגה, גמישות, פילאטיס מזרן ו-SCULPT.</p>
+      </a>
+      <a class="path-card rv" href="pilates.html" data-track="path-choice" data-path="pilates">
+        <span class="path-card__n">03 · REFORMER</span>
+        <h3>אני רוצה פילאטיס מכשירים</h3>
+        <p>עד 11 מיטות, קבוצה קטנה ומדריכה שרואה אותך.</p>
+      </a>
+      <a class="path-card rv" href="kids.html" data-track="path-choice" data-path="kids">
+        <span class="path-card__n">04 · KIDS &amp; TEENS</span>
+        <h3>חוגי כושר לילדים ונוער</h3>
+        <p>קבוצות קטנות, שיפור יציבה, חגורת כתפיים וביטחון עצמי.</p>
+      </a>
+      <a class="path-card rv" href="nutrition.html" data-track="path-choice" data-path="nutrition">
+        <span class="path-card__n">05 · תזונה</span>
+        <h3>אני רוצה סדר באוכל</h3>
+        <p>ליווי תזונה אישי שמתחבר למטרות ולאימונים שלך.</p>
+      </a>
+    </div>
     <p class="chooser__help">עדיין לא בטוחה? <a href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A0%D7%99%20%D7%9C%D7%90%20%D7%91%D7%98%D7%95%D7%97%D7%94%20%D7%90%D7%99%D7%96%D7%94%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%9E%D7%AA%D7%90%D7%99%D7%9D%20%D7%9C%D7%99%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="whatsapp-click path-choice" data-path="help">נבחר יחד בוואטסאפ</a></p>
-    <nav class="chooser__paths" aria-label="ישר לחלל">או ישר לדף:
-      <a href="gym-women.html" data-track="path-choice" data-path="gym">GYM</a>
-      <a href="barre.html" data-track="path-choice" data-path="move">MOVE &amp; BARRE</a>
-      <a href="pilates.html" data-track="path-choice" data-path="pilates">פילאטיס מכשירים</a>
-      <a href="kids.html" data-track="path-choice" data-path="kids">ילדים ונוער</a>
-      <a href="nutrition.html" data-track="path-choice" data-path="nutrition">ליווי תזונה</a>
-    </nav>
   </div>
 </section>
 
 
 <!-- ═══ שלושה חללים ═══ -->
-<section class="sec" id="spaces" aria-labelledby="spaces-title">
-<div class="shell">
-<div class="tour" id="tour">
-      <script>document.getElementById('tour').classList.add('pre')</script>
-
-      <div class="tr-head">
-        <h2 class="h-lg" id="spaces-title">שלושה חללים. <br>קורת גג אחת.</h2>
-        <div class="tr-tools">
-          <p class="eyebrow tr-counter" aria-hidden="true"><span class="tr-n" id="trCnt">01</span> — 03</p>
-          <button class="tr-pausebtn" type="button" data-pause aria-label="השהיית הסיור">
-            <svg class="tr-i-pause" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><rect x="2.2" y="1.2" width="3.4" height="11.6" rx="1"/><rect x="8.4" y="1.2" width="3.4" height="11.6" rx="1"/></svg>
-            <svg class="tr-i-play" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M3.4 1.7v10.6c0 .7.8 1.1 1.4.7l8-5.3c.5-.3.5-1.1 0-1.4l-8-5.3c-.6-.4-1.4 0-1.4.7z"/></svg>
-          </button>
-        </div>
+<section class="sec" id="spaces">
+  <div class="shell">
+    <div class="sec-head sec-head--keep">
+      <h2 class="h-lg">שלושה חללים. <br>קורת גג אחת.</h2>
+      <span class="eyebrow">01 — 03</span>
+    </div>
+  </div>
+  <div class="rooms">
+    <article class="room" id="room-gym">
+      <header class="room__head sv">
+        <p class="room__n">01 / החלל הראשון</p>
+        <h3>GYM</h3>
+      </header>
+      <div class="room__media">
+        <video loading="lazy" preload="none" muted loop playsinline poster="images/shoot2025/room-gym-poster.webp"
+               data-src="images/shoot2025/room-gym.mp4" data-src-sm="images/shoot2025/room-gym-sm.mp4" aria-label="חלל הכוח בסטודיו STEPS" tabindex="-1"></video>
       </div>
-
-      <div class="tr-stage" role="region" aria-roledescription="carousel" aria-label="סיור בשלושת החללים של STEPS">
-
-        <div class="tr-tb">
-          <div class="tr-bars" aria-hidden="true"><span><i></i></span><span><i></i></span><span><i></i></span></div>
-          <div class="tr-tb-row">
-            <span class="tr-lbl" aria-hidden="true">STEPS<small>פולג</small></span>
-            <button class="tr-pausebtn" type="button" data-pause aria-label="השהיית הסיור">
-              <svg class="tr-i-pause" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><rect x="2.2" y="1.2" width="3.4" height="11.6" rx="1"/><rect x="8.4" y="1.2" width="3.4" height="11.6" rx="1"/></svg>
-              <svg class="tr-i-play" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M3.4 1.7v10.6c0 .7.8 1.1 1.4.7l8-5.3c.5-.3.5-1.1 0-1.4l-8-5.3c-.6-.4-1.4 0-1.4.7z"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <button class="tr-zone tr-zone--prev" type="button" aria-label="לחלל הקודם">
-          <svg viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M5 2l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button class="tr-zone tr-zone--next" type="button" aria-label="לחלל הבא">
-          <svg viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M9 2L4 7l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-
-        <!-- 1 · GYM -->
-        <article class="tr-story is-active" id="room-gym" data-room="GYM" data-title="GYM" role="group" aria-roledescription="slide" aria-label="1 מתוך 3: GYM">
-          <div class="tr-media" aria-hidden="true">
-            <video class="tr-vid" muted playsinline loop preload="none" disablepictureinpicture tabindex="-1" poster="images/shoot2025/room-gym-poster.webp" data-tsrc="images/shoot2025/room-gym-sm.mp4"></video>
-            <div class="tr-scrim"></div>
-            <div class="tr-dim"></div>
-          </div>
-          <div class="tr-rail" aria-hidden="true"><span class="tr-rail-n">01</span><span class="tr-rail-t">GYM</span></div>
-          <button class="tr-pick" type="button" aria-label="הצגת החלל: GYM"></button>
-          <button class="tr-vplay" type="button" aria-label="הפעלת הסרטון">
-            <svg class="tr-i-play" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M3.4 1.7v10.6c0 .7.8 1.1 1.4.7l8-5.3c.5-.3.5-1.1 0-1.4l-8-5.3c-.6-.4-1.4 0-1.4.7z"/></svg>
-            <svg class="tr-i-pause" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><rect x="2.2" y="1.2" width="3.4" height="11.6" rx="1"/><rect x="8.4" y="1.2" width="3.4" height="11.6" rx="1"/></svg>
-          </button>
-          <div class="tr-content">
-            <p class="eyebrow tr-eb tr-rv">01 / החלל הראשון</p>
-            <h3 class="tr-title"><span class="tr-ln"><span>GYM</span></span></h3>
-            <p class="tr-line tr-rv">משקולות חופשיות, מכשירים מתקדמים, ומאמנות שיודעות בדיוק מה את צריכה.</p>
-            <ul class="tr-tags tr-rv"><li>אימוני כוח</li><li>BOOTCAMP</li><li>ENDURANCE</li><li>GYM &amp; RUN</li></ul>
-            <p class="tr-chip tr-rv" id="chip-gym"><span class="tr-dot" aria-hidden="true"></span><span class="tr-ct">השיעור הבא: …</span></p>
-            <div class="tr-cta tr-rv">
-              <a class="btn btn--y" data-cta data-track="trial-cta arbox-open" href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener">קבעי אימון היכרות</a>
-              <a class="btn btn--ghost" href="gym-women.html" aria-label="לפרטים: חדר כושר לנשים בנתניה">לפרטים</a>
-            </div>
-          </div>
-          <div class="tr-dprog" aria-hidden="true"><i></i></div>
-        </article>
-
-        <!-- 2 · MOVE -->
-        <article class="tr-story" id="room-move" data-room="MOVE" data-title="MOVE" role="group" aria-roledescription="slide" aria-label="2 מתוך 3: MOVE">
-          <div class="tr-media" aria-hidden="true">
-            <video class="tr-vid" muted playsinline loop preload="none" disablepictureinpicture tabindex="-1" poster="images/shoot2025/room-move-poster.jpg" data-tsrc="images/shoot2025/room-move.mp4"></video>
-            <div class="tr-scrim"></div>
-            <div class="tr-dim"></div>
-          </div>
-          <div class="tr-rail" aria-hidden="true"><span class="tr-rail-n">02</span><span class="tr-rail-t">MOVE</span></div>
-          <button class="tr-pick" type="button" aria-label="הצגת החלל: MOVE"></button>
-          <button class="tr-vplay" type="button" aria-label="הפעלת הסרטון">
-            <svg class="tr-i-play" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M3.4 1.7v10.6c0 .7.8 1.1 1.4.7l8-5.3c.5-.3.5-1.1 0-1.4l-8-5.3c-.6-.4-1.4 0-1.4.7z"/></svg>
-            <svg class="tr-i-pause" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><rect x="2.2" y="1.2" width="3.4" height="11.6" rx="1"/><rect x="8.4" y="1.2" width="3.4" height="11.6" rx="1"/></svg>
-          </button>
-          <div class="tr-content">
-            <p class="eyebrow tr-eb tr-rv">02 / החלל השני</p>
-            <h3 class="tr-title"><span class="tr-ln"><span>MOVE</span></span></h3>
-            <p class="tr-line tr-rv">השיעורים שגורמים לך לחזור. בר, יוגה, גמישות, פילאטיס מזרן ו-SCULPT.</p>
-            <ul class="tr-tags tr-rv"><li>BARRE</li><li>YOGA</li><li>פילאטיס מזרן</li><li>SCULPT</li></ul>
-            <p class="tr-chip tr-rv" id="chip-move"><span class="tr-dot" aria-hidden="true"></span><span class="tr-ct">השיעור הבא: …</span></p>
-            <div class="tr-cta tr-rv">
-              <a class="btn btn--y" data-cta data-track="trial-cta arbox-open" href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener">קבעי אימון היכרות</a>
-              <a class="btn btn--ghost" href="barre.html" aria-label="לפרטים: אימוני בר בנתניה">לפרטים</a>
-            </div>
-          </div>
-          <div class="tr-dprog" aria-hidden="true"><i></i></div>
-        </article>
-
-        <!-- 3 · REFORMER PILATES -->
-        <article class="tr-story" id="room-pilates" data-room="REF" data-title="REFORMER PILATES" role="group" aria-roledescription="slide" aria-label="3 מתוך 3: REFORMER PILATES">
-          <div class="tr-media" aria-hidden="true">
-            <video class="tr-vid" muted playsinline loop preload="none" disablepictureinpicture tabindex="-1" poster="images/shoot2025/room-pilates-poster.webp" data-tsrc="images/shoot2025/room-pilates-sm.mp4" data-start="1.2"></video>
-            <div class="tr-scrim"></div>
-            <div class="tr-dim"></div>
-          </div>
-          <div class="tr-rail" aria-hidden="true"><span class="tr-rail-n">03</span><span class="tr-rail-t">REFORMER PILATES</span></div>
-          <button class="tr-pick" type="button" aria-label="הצגת החלל: REFORMER PILATES"></button>
-          <button class="tr-vplay" type="button" aria-label="הפעלת הסרטון">
-            <svg class="tr-i-play" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M3.4 1.7v10.6c0 .7.8 1.1 1.4.7l8-5.3c.5-.3.5-1.1 0-1.4l-8-5.3c-.6-.4-1.4 0-1.4.7z"/></svg>
-            <svg class="tr-i-pause" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><rect x="2.2" y="1.2" width="3.4" height="11.6" rx="1"/><rect x="8.4" y="1.2" width="3.4" height="11.6" rx="1"/></svg>
-          </button>
-          <div class="tr-content">
-            <p class="eyebrow tr-eb tr-rv">03 / החלל השלישי</p>
-            <h3 class="tr-title tr-t-long"><span class="tr-ln"><span>REFORMER</span></span> <span class="tr-ln"><span>PILATES</span></span></h3>
-            <p class="tr-line tr-rv">קבוצה קטנה, עד 11 מתאמנות. מספיק קטנה כדי שיעברו עלייך אחת-אחת.</p>
-            <ul class="tr-tags tr-rv"><li>עד 11 מתאמנות</li><li>מתאים לשיקום</li><li>כל הגילאים</li></ul>
-            <p class="tr-chip tr-rv" id="chip-ref"><span class="tr-dot" aria-hidden="true"></span><span class="tr-ct">השיעור הבא: …</span></p>
-            <div class="tr-cta tr-rv">
-              <a class="btn btn--y" data-cta data-track="trial-cta arbox-open" href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener">קבעי אימון היכרות</a>
-              <a class="btn btn--ghost" href="pilates.html" aria-label="לפרטים: פילאטיס מכשירים בנתניה">לפרטים</a>
-            </div>
-          </div>
-          <div class="tr-dprog" aria-hidden="true"><i></i></div>
-        </article>
-
+      <div class="room__body sv">
+<p>משקולות חופשיות, מכשירים מתקדמים, ומאמנות שיודעות בדיוק מה את צריכה.</p>
+        <div class="taglist">
+          <span class="tagpill tagpill--out">אימוני כוח</span>
+          <span class="tagpill tagpill--out">BOOTCAMP</span>
+          <span class="tagpill tagpill--out">ENDURANCE</span>
+          <span class="tagpill tagpill--out">GYM &amp; RUN</span>
       </div>
+        <a class="link-rule" href="gym-women.html">לפרטים על חדר כושר לנשים בנתניה <span class="arw" aria-hidden="true">←</span></a>
+        <a class="link-rule" href="#sched">לשיעורי הכוח השבוע <span class="arw" aria-hidden="true">←</span></a>
+      </div>
+    </article>
 
-      <p class="vh" id="trLive" role="status" aria-live="polite"></p>
-<nav class="tr-links" aria-label="דפי החללים">
-        <a class="link-rule" href="gym-women.html">חדר כושר לנשים בנתניה</a>
-        <a class="link-rule" href="barre.html">אימוני בר בנתניה</a>
-        <a class="link-rule" href="barre-beginners.html">אימון בר למתחילות</a>
-        <a class="link-rule" href="pilates.html">פילאטיס מכשירים בנתניה</a>
-        <a class="link-rule" href="#sched">לוח השיעורים השבוע</a>
-      </nav>
-</div>
-</div>
+    <article class="room" id="room-move">
+      <header class="room__head sv">
+        <p class="room__n">02 / החלל השני</p>
+        <h3>MOVE</h3>
+      </header>
+      <div class="room__media">
+        <video loading="lazy" preload="none" muted loop playsinline poster="images/shoot2025/room-move-poster.jpg"
+               data-src="images/shoot2025/room-move.mp4" aria-label="חלל MOVE בסטודיו STEPS" tabindex="-1"></video>
+      </div>
+      <div class="room__body sv">
+<p>השיעורים שגורמים לך לחזור. בר, יוגה, גמישות, פילאטיס מזרן ו-SCULPT.</p>
+        <div class="taglist">
+          <span class="tagpill tagpill--out">BARRE</span>
+          <span class="tagpill tagpill--out">YOGA</span>
+          <span class="tagpill tagpill--out">פילאטיס מזרן</span>
+          <span class="tagpill tagpill--out">SCULPT</span>
+      </div>
+        <a class="link-rule" href="barre.html">לפרטים על אימוני בר בנתניה <span class="arw" aria-hidden="true">←</span></a>
+        <a class="link-rule" href="barre-beginners.html">אימון בר למתחילות — מה קורה בשיעור הראשון <span class="arw" aria-hidden="true">←</span></a>
+        <a class="link-rule" href="#sched">לשיעורי MOVE השבוע <span class="arw" aria-hidden="true">←</span></a>
+      </div>
+    </article>
+
+    <article class="room" id="room-pilates">
+      <header class="room__head sv">
+        <p class="room__n">03 / החלל השלישי</p>
+        <h3 class="is-long">REFORMER PILATES</h3>
+      </header>
+      <div class="room__media">
+        <video loading="lazy" preload="none" muted loop playsinline poster="images/shoot2025/room-pilates-poster.webp"
+               data-src="images/shoot2025/room-pilates.mp4" data-src-sm="images/shoot2025/room-pilates-sm.mp4" aria-label="חלל הרפורמר פילאטיס בסטודיו STEPS" tabindex="-1"></video>
+      </div>
+      <div class="room__body sv">
+<p>קבוצה קטנה, עד 11 מתאמנות. מספיק קטנה כדי שיעברו עלייך אחת-אחת.</p>
+        <div class="taglist">
+          <span class="tagpill tagpill--out">עד 11 מתאמנות</span>
+          <span class="tagpill tagpill--out">מתאים לשיקום</span>
+          <span class="tagpill tagpill--out">כל הגילאים</span>
+      </div>
+        <a class="link-rule" href="pilates.html">לפרטים על פילאטיס מכשירים בנתניה <span class="arw" aria-hidden="true">←</span></a>
+        <a class="link-rule" href="#sched">לשיעורי רפורמר השבוע <span class="arw" aria-hidden="true">←</span></a>
+      </div>
+    </article>
+  </div>
 </section>
-
 
 <!-- ═══ ליווי תזונה ═══ -->
 <section class="sec" id="bina">
@@ -1665,8 +1288,8 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.7.44 3.36 1.28 4.82L2.05 22l5.4-1.42a9.9 9.9 0 0 0 4.6 1.17h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.13-2.9-7C17.2 3.03 14.7 2 12.05 2Zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.03.13-2.1-.24-.48-.17-1.1-.35-1.9-.7-3.35-1.45-5.53-4.8-5.7-5.02-.17-.22-1.36-1.8-1.36-3.44 0-1.63.86-2.43 1.16-2.77.3-.33.66-.42.88-.42h.63c.2 0 .47-.04.73.55.27.6.9 2.08.98 2.23.08.16.13.34.02.55-.1.2-.16.33-.32.5-.16.18-.34.4-.48.53-.16.15-.33.32-.14.63.19.32.85 1.4 1.83 2.27 1.26 1.12 2.32 1.47 2.65 1.63.33.16.52.14.71-.08.2-.22.83-.97 1.05-1.3.22-.34.44-.28.74-.17.3.11 1.9.9 2.23 1.06.32.16.54.24.62.38.08.13.08.77-.16 1.45Z"/></svg>
 </a>
 
-<div class="bar" id="stickyBar">
-  <a class="btn btn--y" href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener" data-track="trial-cta" id="barCta"><span>אימון היכרות · 50 ₪</span></a>
+<div class="bar">
+  <a class="btn btn--y" href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener" data-track="trial-cta">אימון היכרות · 50 ₪</a>
   <a class="bar__wa" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%A0%D7%AA%20%D7%91%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%94%D7%99%D7%9B%D7%A8%D7%95%D7%AA%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" aria-label="שלחי לנו הודעה בוואטסאפ" data-track="whatsapp-click">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.7.44 3.36 1.28 4.82L2.05 22l5.4-1.42a9.9 9.9 0 0 0 4.6 1.17h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.13-2.9-7C17.2 3.03 14.7 2 12.05 2Zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.03.13-2.1-.24-.48-.17-1.1-.35-1.9-.7-3.35-1.45-5.53-4.8-5.7-5.02-.17-.22-1.36-1.8-1.36-3.44 0-1.63.86-2.43 1.16-2.77.3-.33.66-.42.88-.42h.63c.2 0 .47-.04.73.55.27.6.9 2.08.98 2.23.08.16.13.34.02.55-.1.2-.16.33-.32.5-.16.18-.34.4-.48.53-.16.15-.33.32-.14.63.19.32.85 1.4 1.83 2.27 1.26 1.12 2.32 1.47 2.65 1.63.33.16.52.14.71-.08.2-.22.83-.97 1.05-1.3.22-.34.44-.28.74-.17.3.11 1.9.9 2.23 1.06.32.16.54.24.62.38.08.13.08.77-.16 1.45Z"/></svg>
   </a>
@@ -1967,46 +1590,12 @@ var $=function(s,r){return (r||document).querySelector(s)};
     moreBtn.style.display=(list.length>lim&&board.dataset.expanded!=='true')?'flex':'none';
   }
 
-  var pending={},failedAt={};
   function fetchDay(date){
     if(cache[date])return Promise.resolve(cache[date]);
-    if(pending[date])return pending[date];
-    if(failedAt[date]&&Date.now()-failedAt[date]<60000)return Promise.reject(new Error('recent failure'));   // הפתיח, השאלון והסטוריז מבקשים את אותו יום במקביל
-    return pending[date]=fetch('/api/schedule?date='+date)
+    return fetch('/api/schedule?date='+date)
       .then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
-      .then(function(d){if(!Array.isArray(d))throw new Error('bad payload');cache[date]=d;delete pending[date];return d})
-      ['catch'](function(e){delete pending[date];failedAt[date]=Date.now();throw e});
+      .then(function(d){if(!Array.isArray(d))throw new Error('bad payload');cache[date]=d;return d});
   }
-
-  /* השיעורים הבאים מכל החללים — לפתיח, לשאלון, לסטוריז ולכפתור הדביק.
-     אותו מטמון, אותו סיווג ואותו כלל "לא מציגים שיעור שכבר התחיל" כמו הלוח.
-     יום שנכשל בטעינה מדולג; אין נתון ⇒ רשימה ריקה, והרכיב לא מוצג. */
-  function partOf(t){return t<'12:00'?'morning':t<'16:00'?'noon':'evening'}
-  window.STEPS_NEXT=function(opts){
-    opts=opts||{};
-    var want=opts.n||1,out=[],i=0,fails=0;
-    function fail(){fails++;return step()}
-    function step(){
-      if(out.length>=want||i>=7)return Promise.resolve(!out.length&&fails===i?null:out.slice(0,want));
-      var idx=i++,date=dates[idx],label=idx<2?days[idx].label:'יום '+days[idx].label;
-      return fetchDay(date).then(function(list){
-        var hhmm=getIsraelNow().time,day=[];
-        list.forEach(function(s){
-          var t=(s.start_time||'').slice(0,5);
-          if(idx===0&&t<=hhmm)return;
-          var r=roomOf(s.session_name);
-          if(opts.room&&r!==opts.room)return;
-          if(!opts.room&&r==='KIDS'&&!opts.kids)return;
-          if(opts.part&&partOf(t)!==opts.part)return;
-          day.push({day:label,time:t,name:s.session_name||'',coach:s.coach||'',room:r,url:getArboxUrl(s)});
-        });
-        day.sort(function(a,b){return a.time<b.time?-1:a.time>b.time?1:0});
-        out=out.concat(day);
-        return step();
-      },fail);
-    }
-    return step();
-  };
 
   var requestId=0;
   function load(i){
@@ -2057,714 +1646,6 @@ var $=function(s,r){return (r||document).querySelector(s)};
   }
   if('requestIdleCallback' in window)requestIdleCallback(countWeek,{timeout:2500});
   else setTimeout(countWeek,1400);
-})();
-
-/* ═══ שכבת חיבור לרכיבים החדשים: נתונים, וואטסאפ ומדידה ═══ */
-var STEPS_UI={
-  upcoming:function(o){return window.STEPS_NEXT?window.STEPS_NEXT(o):Promise.resolve([])},
-  ARBOX:ARBOX,
-  waLink:function(t){if(t.indexOf('הגעתי מהאתר')<0)t+=' (הגעתי מהאתר)';return WA+'?text='+encodeURIComponent(t)},
-  track:function(n,p){document.dispatchEvent(new CustomEvent('steps:track',{detail:{name:n,params:p||{}}}))},
-  reduced:reduce
-};
-
-/* ── פתיח: השיעור הבא בסטודיו. נבדק מחדש כל דקה ובחזרה לטאב, כדי שלא יציג
-   שיעור שכבר התחיל (הלוח מסתיר אותם — הפתיח מתנהג אותו דבר). בלי סבב
-   מתחלף, ולכן לא נדרש כפתור השהיה. ── */
-(function(){
-  var box=$('#heroNext'),v=$('#heroNextV');
-  if(!box||!v)return;
-  function refresh(){
-    STEPS_UI.upcoming({n:1}).then(function(list){
-      var c=list&&list[0];
-      if(!c){box.hidden=true;return}
-      var txt=c.day+' '+c.time+' · '+c.name;
-      v.textContent=txt;box.href=c.url;
-      box.setAttribute('aria-label','השיעור הבא בסטודיו: '+txt+'. קבעי אימון היכרות');
-      box.hidden=false;
-    });
-  }
-  refresh();setInterval(refresh,60000);
-  document.addEventListener('visibilitychange',function(){if(!document.hidden)refresh()});
-})();
-
-/* ── כפתור דביק (מובייל): ההצעה מתחלפת לפי המקטע שקוראים ── */
-(function(){
-  var bar=$('#stickyBar'),btn=$('#barCta');
-  if(!bar||!btn)return;
-  var def={text:btn.textContent.trim(),href:btn.getAttribute('href'),track:'trial-cta'};
-  var states={sched:null,prices:{text:'לא בטוחה איזה מסלול? נתאים לך',href:STEPS_UI.waLink('היי, אשמח שתעזרו לי לבחור מסלול'),track:'whatsapp-click'}};
-  var current='def';
-  function refreshNext(){
-    STEPS_UI.upcoming({n:1}).then(function(l){
-      var c=l&&l[0];
-      states.sched=c?{text:'השיעור הבא: '+c.day+' '+c.time+' · קבעי',href:c.url,track:'trial-cta arbox-open'}:null;
-      if(current==='sched'){current='';apply('sched')}
-    });
-  }
-  refreshNext();setInterval(refreshNext,60000);
-  document.addEventListener('visibilitychange',function(){if(!document.hidden)refreshNext()});
-  function apply(key){
-    var s=key==='def'?def:states[key];
-    if(!s){key='def';s=def}
-    if(key===current)return;current=key;
-    btn.href=s.href;btn.setAttribute('data-track',s.track);
-    if(s.track==='whatsapp-click'){btn.target='_blank';btn.rel='noopener'}
-    var old=btn.querySelector('span'),nx=document.createElement('span');
-    nx.textContent=s.text;
-    if(reduce||!old){btn.textContent='';btn.appendChild(nx);return}
-    nx.className='pre';nx.style.cssText='position:absolute;inset:0;display:flex;align-items:center;justify-content:center';
-    btn.appendChild(nx);void nx.offsetWidth;
-    old.classList.add('out');nx.classList.remove('pre');
-    setTimeout(function(){old.remove();nx.removeAttribute('style')},230);
-  }
-  if(!('IntersectionObserver' in window))return;
-  var inView={};
-  var io=new IntersectionObserver(function(es){
-    es.forEach(function(e){inView[e.target.id]=e.isIntersecting});
-    if(inView.where||inView.contact){bar.classList.add('is-away');return}
-    bar.classList.remove('is-away');
-    apply(inView.sched?'sched':inView.prices?'prices':'def');
-  },{rootMargin:'-40% 0px -40% 0px'});
-  ['sched','prices','where','contact'].forEach(function(id){var n=document.getElementById(id);if(n)io.observe(n)});
-})();
-
-/* ── שאלון ההתאמה (מקטע "מאיפה בא לך להתחיל") ── */
-(function(){
-'use strict';
-var S = STEPS_UI;
-var track = S.track || function(){};
-var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-function reduced(){ return mq.matches; }
-
-var NS = 'http://www.w3.org/2000/svg';
-var DUR = 260;           // משך מעבר בין שלבים
-var PAD = 12;            // ריפוד הבמה (6px מלמעלה + 6px מלמטה)
-
-var qz = document.getElementById('qz');
-var stage = document.getElementById('qzStage');
-var live = document.getElementById('qzLive');
-var count = document.getElementById('qzCount');
-var backBtn = document.getElementById('qzBack');
-var segs = Array.prototype.slice.call(document.querySelectorAll('#qzBar i'));
-var steps = {
-  1: document.getElementById('s1'),
-  2: document.getElementById('s2'),
-  3: document.getElementById('s3'),
-  4: document.getElementById('s4')
-};
-
-/* ───────── התוכן של כל חלל ───────── */
-var SPACES = {
-  GYM: {
-    name: 'GYM',
-    img: 'images/shoot2025/room-gym-poster.webp', pos: '50% 6%',
-    alt: 'מתאמנת מרימה מוט בחדר הכושר של STEPS',
-    why: 'משקולות חופשיות, מכשירים מתקדמים ומאמנות שיודעות בדיוק מה את צריכה.',
-    beg: 'gym-beginners.html', page: 'gym-women.html'
-  },
-  MOVE: {
-    name: 'MOVE & BARRE',
-    img: 'images/shoot2025/room-move-poster.jpg', pos: '50% 24%',
-    alt: 'מתאמנות מרימות משקולות קלות בשיעור בחלל ה-MOVE של STEPS',
-    why: 'בר, יוגה, גמישות, פילאטיס מזרן ו-SCULPT — השיעורים שגורמים לך לחזור.',
-    beg: 'barre-beginners.html', page: 'barre.html'
-  },
-  REF: {
-    name: 'REFORMER PILATES',
-    img: 'images/shoot2025/room-pilates-poster.webp', pos: '50% 72%',
-    alt: 'שיעור פילאטיס מכשירים בחלל הרפורמר של STEPS',
-    why: 'קבוצה קטנה, עד 11 מתאמנות — מספיק קטנה כדי שיעברו עלייך אחת-אחת.',
-    beg: 'pilates-beginners.html', page: 'pilates.html'
-  },
-  KIDS: {
-    name: 'KIDS & TEENS',
-    img: 'images/kids-hero.webp', pos: '50% 50%', ai: true,
-    alt: 'המחשת אימוני כושר וסולמות זריזות לילדים ונוער בסטפס',
-    why: 'שלוש קבוצות לגילאי 12–15: כוח לילדים ולנוער, פילאטיס מכשירים לנערות ובר לנערות.',
-    beg: null, page: 'kids.html'
-  }
-};
-var LEVELS = { begin: 'מתחילה מאפס', back: 'חוזרת אחרי הפסקה', reg: 'מתאמנת באופן קבוע' };
-var PARTS = {
-  morning: { part: 'morning', text: 'בבוקר' },
-  evening: { part: 'evening', text: 'בערב' },
-  flex:    { part: null,      text: 'שעות גמישות' }
-};
-
-/* ───────── מצב ───────── */
-var st = { step: 1, room: null, level: null, part: null };
-var busy = false;
-var advTimer = 0;
-
-/* ───────── עזרים ───────── */
-function el(tag, cls, text){
-  var n = document.createElement(tag);
-  if(cls) n.className = cls;
-  if(text != null) n.textContent = text;
-  return n;
-}
-function icon(id){
-  var s = document.createElementNS(NS, 'svg');
-  s.setAttribute('class', 'qz-ico');
-  s.setAttribute('aria-hidden', 'true');
-  s.setAttribute('focusable', 'false');
-  var u = document.createElementNS(NS, 'use');
-  u.setAttribute('href', '#' + id);
-  s.appendChild(u);
-  return s;
-}
-function race(p, ms){
-  return Promise.race([p, new Promise(function(r){ setTimeout(r, ms); })]);
-}
-var imgCache = {};
-function preload(src){
-  if(!imgCache[src]){
-    imgCache[src] = new Promise(function(res){
-      var im = new Image();
-      im.onload = im.onerror = function(){ res(); };
-      im.src = src;
-    });
-  }
-  return imgCache[src];
-}
-function warm(room){
-  preload(SPACES[room].img);
-  if(S.upcoming){ try { S.upcoming({ room: room, n: 1 }).catch(function(){}); } catch(e){} }
-}
-
-/* ───────── התקדמות / כותרת עליונה ───────── */
-function ui(){
-  var n = st.step;
-  count.textContent = n <= 3 ? 'שאלה ' + n + ' מתוך 3' : 'ההתאמה מוכנה';
-  segs.forEach(function(s, i){ s.classList.toggle('on', n === 4 || i < n); });
-  backBtn.hidden = (n === 1);
-}
-function announce(n){
-  live.textContent = n <= 3 ? 'שאלה ' + n + ' מתוך 3' : 'ההתאמה שלך: ' + SPACES[st.room].name;
-}
-function focusStep(to){
-  var f = to.querySelector('[data-focus]');
-  if(f){ try { f.focus({ preventScroll: true }); } catch(e){ f.focus(); } }
-}
-function scrollToCard(alsoIfLow){
-  var r = qz.getBoundingClientRect();
-  if(r.top < 56 || (alsoIfLow && r.top > 100)){
-    qz.scrollIntoView({ block: 'start', behavior: reduced() ? 'auto' : 'smooth' });
-  }
-}
-
-/* ───────── מעבר בין שלבים (טרנספורם + אטימות, וגובה הבמה מונפש) ───────── */
-function swap(from, to, dir){
-  if(from === to){ busy = false; return; }
-  if(reduced()){
-    from.hidden = true;
-    to.hidden = false;
-    focusStep(to);
-    busy = false;
-    return;
-  }
-  busy = true;
-  var h0 = from.offsetHeight;
-  stage.style.height = (h0 + PAD) + 'px';
-  stage.classList.add('is-moving');
-  from.style.setProperty('--to', (-dir * 24) + 'px');
-  from.classList.add('is-leaving');
-  to.style.setProperty('--from', (dir * 24) + 'px');
-  to.hidden = false;
-  to.classList.add('is-pre');
-  var h1 = to.offsetHeight;          // מכריח חישוב פריסה — מצב ההתחלה נקבע לפני שמפעילים מעבר
-  to.classList.add('is-anim');
-  from.classList.add('is-anim', 'go');
-  to.classList.remove('is-pre');
-  stage.style.height = (h1 + PAD) + 'px';
-  focusStep(to);
-  setTimeout(function(){
-    from.hidden = true;
-    from.classList.remove('is-leaving', 'is-anim', 'go');
-    from.style.removeProperty('--to');
-    to.classList.remove('is-anim');
-    to.style.removeProperty('--from');
-    stage.classList.remove('is-moving');
-    stage.style.height = '';
-    busy = false;
-  }, DUR + 30);
-}
-function goTo(n, dir){
-  var from = steps[st.step], to = steps[n];
-  st.step = n;
-  ui();
-  announce(n);
-  swap(from, to, dir);
-}
-function prevStep(){
-  if(st.step === 4) return st.room === 'KIDS' ? 1 : 3;
-  return st.step - 1;
-}
-
-/* ───────── בחירה ───────── */
-function select(stepEl, btn){
-  Array.prototype.forEach.call(stepEl.querySelectorAll('.qz-opt'), function(o){
-    var on = o === btn;
-    o.classList.toggle('is-sel', on);
-    o.setAttribute('aria-pressed', on ? 'true' : 'false');
-  });
-}
-function clearSel(stepEl){ select(stepEl, null); }
-
-function next(n){
-  if(n === 1){ if(st.room === 'KIDS') showResult(); else goTo(2, 1); }
-  else if(n === 2){ goTo(3, 1); }
-  else if(n === 3){ showResult(); }
-}
-
-/* ───────── התוצאה ───────── */
-function getRows(part){
-  if(!S.upcoming) return Promise.resolve({ list: null });
-  return race(S.upcoming({ room: st.room, part: part, n: 3 }), 3000).then(function(list){
-    if(!list) return { list: null };
-    if(list.length || !part) return { list: list, relaxed: false };
-    return race(S.upcoming({ room: st.room, part: null, n: 3 }), 3000).then(function(l2){
-      return { list: l2 || null, relaxed: !!(l2 && l2.length) };
-    });
-  }).catch(function(){ return { list: null }; });
-}
-
-function rowEl(c){
-  var li = el('li', 'qz-row qz-rv');
-  var when = el('div', 'qz-row__when');
-  when.appendChild(el('span', 'qz-row__day', c.day));
-  when.appendChild(el('span', 'qz-row__time', c.time));
-  var what = el('div', 'qz-row__what');
-  var b = el('b');
-  b.appendChild(el('bdi', null, c.name));
-  what.appendChild(b);
-  if(c.coach){
-    var sp = el('span', null, 'עם ');
-    sp.appendChild(el('bdi', null, c.coach));
-    what.appendChild(sp);
-  }
-  var a = el('a', 'btn btn--y', 'קבעי');
-  a.href = c.url;
-  a.target = '_blank';
-  a.rel = 'noopener';
-  a.setAttribute('aria-label', 'קבעי אימון היכרות: ' + c.name + ', ' + c.day + ' ב-' + c.time);
-  a.setAttribute('data-track', 'trial-cta arbox-open');
-  li.appendChild(when);
-  li.appendChild(what);
-  li.appendChild(a);
-  return li;
-}
-
-function waText(sp){
-  if(st.room === 'KIDS') return 'היי, אני מחפשת חוג לילד/ה בגילאי 12–15. אשמח לפרטים על אימון היכרות';
-  return 'היי, עשיתי את ההתאמה באתר: ' + sp.name + ', ' + LEVELS[st.level] + ', ' + PARTS[st.part].text + '. אשמח לעזרה בקביעת אימון היכרות';
-}
-
-function build(sp, rows){
-  var root = steps[4];
-  root.textContent = '';
-  var res = el('div', 'qz-res');
-
-  // כותרת: ההתאמה + שם החלל
-  var head = el('div', 'qz-res__head qz-rv');
-  head.appendChild(el('p', 'eyebrow', 'ההתאמה שלך'));
-  var nm = el('h3', 'qz-res__name', sp.name);
-  nm.id = 'resName';
-  nm.tabIndex = -1;
-  nm.setAttribute('dir', 'ltr');
-  nm.setAttribute('lang', 'en');
-  nm.setAttribute('data-focus', '');
-  head.appendChild(nm);
-  res.appendChild(head);
-
-  // תמונה
-  var fig = el('div', 'qz-res__img qz-rv');
-  var im = el('img');
-  im.src = sp.img;
-  im.alt = sp.alt;
-  im.decoding = 'async';
-  fig.style.setProperty('--pos', sp.pos);
-  fig.appendChild(im);
-  if(sp.ai) fig.appendChild(el('p', 'qz-res__ai', 'תמונת המחשה שנוצרה ב־AI'));
-  res.appendChild(fig);
-
-  // למה זה מתאים + קישור למתחילות
-  var why = el('div', 'qz-res__why qz-rv');
-  why.appendChild(el('p', 'lede', sp.why));
-  if(st.level === 'begin' && sp.beg){
-    var bl = el('a', 'qz-lnk qz-lnk--y', 'מתחילה מאפס? ככה נראה האימון הראשון ');
-    bl.href = sp.beg;
-    bl.appendChild(icon('i-left'));
-    why.appendChild(bl);
-  }
-  res.appendChild(why);
-
-  // השיעורים הקרובים
-  if(rows.list && rows.list.length){
-    var sched = el('div', 'qz-res__sched');
-    sched.appendChild(el('h4', 'qz-res__sub qz-rv', 'השיעורים הקרובים שמתאימים לך'));
-    if(rows.relaxed) sched.appendChild(el('p', 'fine qz-res__note qz-rv', 'בשעות שבחרת אין שיעור קרוב — אלה הקרובים ביותר'));
-    var ul = el('ul', 'qz-rows');
-    rows.list.forEach(function(c){ ul.appendChild(rowEl(c)); });
-    sched.appendChild(ul);
-    res.appendChild(sched);
-  } else {
-    var msg = rows.list
-      ? 'אין כרגע שיעורים קרובים בלוח. את כל השעות תראי בקביעת האימון.'
-      : 'לא הצלחנו לטעון את לוח השיעורים כרגע. את כל השעות תראי בקביעת האימון.';
-    res.appendChild(el('p', 'fine qz-rv', msg));
-  }
-
-  // קריאה לפעולה
-  var act = el('div', 'qz-res__act qz-rv');
-  var cta = el('a', 'btn btn--y btn--lg btn--block', 'קובעת אימון היכרות ב-50 ₪ ');
-  cta.href = S.ARBOX || '#';
-  cta.target = '_blank';
-  cta.rel = 'noopener';
-  cta.setAttribute('data-track', 'trial-cta');
-  cta.appendChild(icon('i-left'));
-  act.appendChild(cta);
-
-  var wa = el('a', 'btn btn--wa btn--block', 'מעדיפה לשאול בוואטסאפ');
-  wa.href = S.waLink ? S.waLink(waText(sp)) : '#';
-  wa.target = '_blank';
-  wa.rel = 'noopener';
-  wa.setAttribute('data-track', 'whatsapp-click');
-  act.appendChild(wa);
-
-  var links = el('div', 'qz-res__links');
-  var more = el('a', 'qz-lnk', 'לפרטים על החלל ');
-  more.href = sp.page;
-  more.setAttribute('data-track', 'path-choice');
-  more.setAttribute('data-path', 'quiz-page');
-  more.appendChild(icon('i-left'));
-  links.appendChild(more);
-  var again = el('button', 'qz-lnk', 'להתחיל מחדש');
-  again.type = 'button';
-  again.id = 'restart';
-  links.appendChild(again);
-  act.appendChild(links);
-  res.appendChild(act);
-
-  root.appendChild(res);
-
-  // השהיות כניסה: 45ms בין פריטים, 50ms בין שורות שיעור
-  var d = 0;
-  Array.prototype.forEach.call(res.querySelectorAll('.qz-rv'), function(n){
-    n.style.transitionDelay = d + 'ms';
-    d += n.classList.contains('qz-row') ? 50 : 45;
-  });
-  return res;
-}
-
-function showResult(){
-  busy = true;
-  var sp = SPACES[st.room];
-  var wantPart = st.room === 'KIDS' ? null : PARTS[st.part].part;
-  Promise.all([getRows(wantPart), race(preload(sp.img), 900)]).then(function(r){
-    var res = build(sp, r[0]);
-    track('quiz_complete', { room: st.room, level: st.level, part: st.part });
-    goTo(4, 1);
-    if(reduced()){ res.classList.add('is-in'); }
-    else { setTimeout(function(){ res.classList.add('is-in'); }, 60); }
-    scrollToCard(true);
-  }).catch(function(){ busy = false; });
-}
-
-function restart(){
-  if(busy) return;
-  st.room = st.level = st.part = null;
-  [1, 2, 3].forEach(function(n){ clearSel(steps[n]); });
-  goTo(1, -1);
-  scrollToCard(false);
-}
-
-/* ───────── אירועים ───────── */
-stage.addEventListener('click', function(e){
-  if(e.target.closest('a')) return;
-  if(e.target.closest('#restart')){ restart(); return; }
-  var b = e.target.closest('.qz-opt');
-  if(!b || busy) return;
-  var stepEl = b.closest('.qz__step');
-  var n = +stepEl.dataset.step;
-  var key = b.getAttribute('data-v');
-  select(stepEl, b);
-  track('quiz_step', { step: n, answer: key });
-  if(n === 1){
-    if(st.room !== key){ st.level = null; st.part = null; clearSel(steps[2]); clearSel(steps[3]); }
-    st.room = key;
-    warm(key);
-  } else if(n === 2){ st.level = key; }
-  else if(n === 3){ st.part = key; }
-  clearTimeout(advTimer);
-  advTimer = setTimeout(function(){ next(n); }, reduced() ? 120 : 220);
-});
-
-backBtn.addEventListener('click', function(){
-  if(busy || st.step === 1) return;
-  clearTimeout(advTimer);
-  goTo(prevStep(), -1);
-  scrollToCard(false);
-});
-
-ui();
-})();
-
-/* ── שלושה חללים: נגן סטוריז ── */
-(function(){
-  'use strict';
-  var S=STEPS_UI;
-  var tour=document.getElementById('tour');
-  if(!tour)return;
-  var stage=tour.querySelector('.tr-stage');
-  var stories=[].slice.call(stage.querySelectorAll('.tr-story'));
-  var N=stories.length;
-  if(!N)return;
-  var bars=[].slice.call(stage.querySelectorAll('.tr-bars > span'));
-  var fills=[].slice.call(tour.querySelectorAll('.tr-bars i, .tr-dprog i'));
-  var vplays=stories.map(function(s){return s.querySelector('.tr-vplay')});
-  var pauseBtns=[].slice.call(tour.querySelectorAll('[data-pause]'));
-  var cnt=document.getElementById('trCnt');
-  var live=document.getElementById('trLive');
-  var mqDesk=matchMedia('(min-width:860px)');
-  var mqRM=matchMedia('(prefers-reduced-motion: reduce)');
-  var cur=0;
-  var st={userPaused:false,held:false,kbd:false,inView:false,hidden:!!document.hidden,seen:false,userPlay:[]};
-  var pauseT=0;
-
-  function noop(){}
-  function RM(){return !!(S.reduced||mqRM.matches)}
-  function pad(n){return (n<10?'0':'')+n}
-  function onMQ(mq,fn){if(mq.addEventListener)mq.addEventListener('change',fn);else if(mq.addListener)mq.addListener(fn)}
-  function videoOf(i){return stories[i].querySelector('video')}
-
-  /* האם ההתקדמות האוטומטית (הפס + מעבר לסטורי הבא) רצה עכשיו */
-  function advOn(){return !RM()&&!st.userPaused&&!st.held&&!st.kbd&&st.inView&&!st.hidden}
-
-  function update(){
-    var rm=RM();
-    tour.classList.toggle('is-paused',!advOn());
-    tour.classList.toggle('is-userpaused',st.userPaused);
-    var label=st.userPaused?'הפעלת הסיור':'השהיית הסיור';
-    pauseBtns.forEach(function(b){b.setAttribute('aria-label',label)});
-    for(var i=0;i<N;i++){
-      var b=vplays[i];
-      if(b){
-        var on=!!st.userPlay[i];
-        b.classList.toggle('on',on);
-        b.setAttribute('aria-label',on?'עצירת הסרטון':'הפעלת הסרטון');
-      }
-      if(i!==cur)continue;
-      var v=videoOf(i);
-      if(!v)continue;
-      var want=st.inView&&!st.hidden&&(rm?!!st.userPlay[i]:(!st.userPaused&&!st.held));
-      if(want){
-        if(!v.getAttribute('src')&&v.dataset.tsrc){v.src=v.dataset.tsrc;if(v.dataset.start)v.addEventListener('loadedmetadata',function(){this.currentTime=+this.dataset.start},{once:true})}
-        var p=v.play();
-        if(p&&p.catch)p.catch(noop);
-      }else if(!v.paused){
-        v.pause();
-      }
-    }
-  }
-
-  function show(n,user,quiet){
-    n=((n%N)+N)%N;
-    var changed=(n!==cur);
-    cur=n;
-    var i;
-    for(i=0;i<N;i++){
-      var s=stories[i],a=(i===n);
-      s.classList.toggle('is-active',a);
-      var c=s.querySelector('.tr-content');
-      if(c)c.toggleAttribute('inert',!a);
-      var pk=s.querySelector('.tr-pick');
-      if(pk){
-        pk.tabIndex=a?-1:0;
-        pk.setAttribute('aria-current',a?'true':'false');
-        pk.setAttribute('aria-label',a?s.dataset.title+' — מוצג כעת':'הצגת החלל: '+s.dataset.title);
-      }
-      if(!a)st.userPlay[i]=false;
-      if(bars[i])bars[i].className=i<n?'done':(i===n?'cur':'');
-    }
-    /* אתחול אמין של פס ההתקדמות: הסרת הקלאס, ריפלואו, הוספה מחדש */
-    for(i=0;i<fills.length;i++)fills[i].classList.remove('run');
-    void stage.offsetWidth;
-    if(!RM()){
-      var bi=bars[n]&&bars[n].querySelector('i');
-      var di=stories[n].querySelector('.tr-dprog i');
-      if(bi)bi.classList.add('run');
-      if(di)di.classList.add('run');
-    }
-    if(cnt){
-      cnt.textContent=pad(n+1);
-      cnt.classList.remove('tick');
-      void cnt.offsetWidth;
-      if(changed&&!quiet&&!RM())cnt.classList.add('tick');
-    }
-    var v=videoOf(n);
-    if(changed&&v&&v.getAttribute('src')){try{v.currentTime=+(v.dataset.start||0)}catch(e){}}
-    /* הווידאו היוצא נעצר רק אחרי שהקרוס-פייד הסתיים */
-    clearTimeout(pauseT);
-    pauseT=setTimeout(function(){
-      for(var k=0;k<N;k++){
-        if(k===cur)continue;
-        var o=videoOf(k);
-        if(o&&!o.paused)o.pause();
-      }
-    },480);
-    update();
-    if(changed&&user&&st.seen&&S.track)S.track('space_story_view',{room:stories[n].dataset.room});
-    if(user&&live)live.textContent=(n+1)+' מתוך '+N+': '+stories[n].dataset.title;
-  }
-  function go(d,user){show(cur+d,user)}
-
-  /* ── השיעור הבא בכל חלל ── */
-  function nextClasses(){
-    stories.forEach(function(s){
-      var chip=s.querySelector('.tr-chip'),ct=chip&&chip.querySelector('.tr-ct'),cta=s.querySelector('[data-cta]');
-      if(!chip||!S.upcoming){if(chip)chip.classList.add('nodata');return}
-      if(cta&&!cta.dataset.base)cta.dataset.base=cta.getAttribute('href');
-      function none(){
-        chip.classList.remove('is-ok');chip.classList.add('nodata');
-        if(cta){cta.href=cta.dataset.base;cta.textContent='קבעי אימון היכרות';cta.removeAttribute('aria-describedby')}
-      }
-      S.upcoming({room:s.dataset.room,n:1}).then(function(list){
-        var c=list&&list[0];
-        if(!c){none();return}
-        ct.textContent='השיעור הבא: '+c.day+' '+c.time+' · '+c.name;
-        if(cta){cta.href=c.url;cta.textContent='קבעי את השיעור הזה';cta.setAttribute('aria-describedby',chip.id)}
-        chip.classList.remove('nodata');chip.classList.add('is-ok');
-      })['catch'](none);
-    });
-  }
-  nextClasses();setInterval(nextClasses,60000);
-  document.addEventListener('visibilitychange',function(){if(!document.hidden)nextClasses()});
-
-  /* ── מעבר אוטומטי כשפס ההתקדמות מסתיים ── */
-  tour.addEventListener('animationend',function(e){
-    if(e.animationName!=='fillbar'||!e.target.classList.contains('run'))return;
-    go(1,false);
-  });
-
-  /* ── כפתור השהיה ── */
-  pauseBtns.forEach(function(b){
-    b.addEventListener('click',function(){
-      st.userPaused=!st.userPaused;
-      if(!st.userPaused)st.kbd=false;
-      update();
-    });
-  });
-  vplays.forEach(function(b,i){
-    if(!b)return;
-    b.addEventListener('click',function(){st.userPlay[i]=!st.userPlay[i];update()});
-  });
-
-  /* ── אזורי הקשה (מובייל) ── */
-  var suppress=false,g=null,holdT=0;
-  function mute(){suppress=true;setTimeout(function(){suppress=false},400)}
-  stage.querySelector('.tr-zone--next').addEventListener('click',function(){if(!suppress)go(1,true)});
-  stage.querySelector('.tr-zone--prev').addEventListener('click',function(){if(!suppress)go(-1,true)});
-
-  function unbind(){
-    window.removeEventListener('pointermove',onMove);
-    window.removeEventListener('pointerup',onUp);
-    window.removeEventListener('pointercancel',onUp);
-  }
-  function onDown(e){
-    if(mqDesk.matches||!e.isPrimary)return;
-    if(e.pointerType==='mouse'&&e.button!==0)return;
-    if(e.target.closest&&e.target.closest('.tr-pausebtn,.tr-vplay'))return;
-    g={x:e.clientX,y:e.clientY,t:performance.now(),id:e.pointerId,held:false};
-    clearTimeout(holdT);
-    holdT=setTimeout(function(){
-      if(!g)return;
-      g.held=true;st.held=true;update();
-    },250);
-    window.addEventListener('pointermove',onMove);
-    window.addEventListener('pointerup',onUp);
-    window.addEventListener('pointercancel',onUp);
-  }
-  function onMove(e){
-    if(!g||e.pointerId!==g.id||g.held)return;
-    if(Math.abs(e.clientX-g.x)>12||Math.abs(e.clientY-g.y)>12)clearTimeout(holdT);
-  }
-  function onUp(e){
-    if(!g||e.pointerId!==g.id)return;
-    clearTimeout(holdT);
-    var dx=e.clientX-g.x,dy=e.clientY-g.y,dt=Math.max(1,performance.now()-g.t),wasHeld=g.held;
-    g=null;
-    unbind();
-    if(wasHeld){st.held=false;update();mute();return}
-    if(e.type!=='pointerup')return;
-    var ax=Math.abs(dx);
-    /* החלקה אופקית: מרחק מספיק, או תנועה מהירה (מומנטום). RTL — גרירה ימינה = הבא */
-    if(ax>Math.abs(dy)*1.2&&(ax>=40||(ax>=20&&ax/dt>0.11))){
-      mute();
-      go(dx>0?1:-1,true);
-    }
-  }
-  stage.addEventListener('pointerdown',onDown);
-  stage.addEventListener('contextmenu',function(e){if(!mqDesk.matches)e.preventDefault()});
-
-  /* ── דסקטופ: ריחוף עם השהיית כוונה, ולחיצה ── */
-  stories.forEach(function(s,i){
-    var t=0;
-    s.addEventListener('pointerenter',function(e){
-      if(!mqDesk.matches||e.pointerType!=='mouse'||i===cur)return;
-      clearTimeout(t);
-      t=setTimeout(function(){if(i!==cur)show(i,false)},120);
-    });
-    s.addEventListener('pointerleave',function(){clearTimeout(t)});
-    var pk=s.querySelector('.tr-pick');
-    if(pk)pk.addEventListener('click',function(){if(mqDesk.matches&&i!==cur)show(i,true)});
-  });
-
-  /* ── מקלדת: RTL — חץ שמאלה = הבא ── */
-  tour.addEventListener('keydown',function(e){
-    if(e.altKey||e.ctrlKey||e.metaKey||e.shiftKey)return;
-    if(e.key==='ArrowLeft'){e.preventDefault();go(1,true)}
-    else if(e.key==='ArrowRight'){e.preventDefault();go(-1,true)}
-  });
-  /* פוקוס מקלדת בתוך הנגן עוצר מעבר אוטומטי (דפוס הקרוסלה של APG); פוקוס של עכבר/מגע לא */
-  tour.addEventListener('focusin',function(e){
-    var vis=false;
-    try{vis=e.target.matches(':focus-visible')}catch(_){}
-    if(vis&&!st.kbd){st.kbd=true;update()}
-  });
-  tour.addEventListener('focusout',function(e){
-    if(st.kbd&&!tour.contains(e.relatedTarget)){st.kbd=false;update()}
-  });
-
-  /* ── מעקב בחשיפה, נראות, וסימולציית שינויי מדיה ── */
-  document.addEventListener('visibilitychange',function(){st.hidden=!!document.hidden;update()});
-  onMQ(mqDesk,function(){g=null;clearTimeout(holdT);st.held=false;show(cur,false,true)});
-  onMQ(mqRM,function(){show(cur,false,true)});
-
-  function reveal(){
-    if(st.seen)return;
-    st.seen=true;
-    tour.classList.remove('pre');
-    if(S.track)S.track('space_story_view',{room:stories[cur].dataset.room});
-  }
-  stories.forEach(function(s){
-    var v=s.querySelector('video');
-    if(v){v.muted=true;v.defaultMuted=true}
-  });
-  show(0,false,true);
-  if('IntersectionObserver' in window){
-    new IntersectionObserver(function(es){
-      var e=es[es.length-1];
-      st.inView=e.isIntersecting;
-      if(e.isIntersecting)reveal();
-      update();
-    },{threshold:.35}).observe(stage);
-  }else{
-    st.inView=true;
-    reveal();
-    update();
-  }
 })();
 
 /* ── מאיפה היא הגיעה: נתפס בכניסה, נשמר, ונוסע עם הליד ──
@@ -2858,8 +1739,6 @@ var STEPS_REFERRAL = window.STEPS_REFERRAL || {};
     if(t.indexOf('arbox-open')>-1)track('arbox_open',{link_url:el.href||''});
     if(t.indexOf('path-choice')>-1)track('path_choice',{path:el.getAttribute('data-path')||'',link_url:el.href||''});
   });
-  var BRIDGE={quiz_step:1,quiz_complete:1,space_story_view:1};   // ליד נמדד רק אחרי אישור השרת — לא דרך הגשר
-  document.addEventListener('steps:track',function(e){var d=e.detail||{};if(BRIDGE[d.name])track(d.name,d.params||{})});
   document.addEventListener('steps:lead-saved',function(){
     track('lead_form_submit',{form_id:'leadForm'});
   },{once:true});
