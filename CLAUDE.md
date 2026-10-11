@@ -27,6 +27,7 @@ node --test tests/website.test.mjs api/lead.test.mjs   # 17 בדיקות. Stop h
 ```bash
 cd C:\Users\USER\steps-site && npx vercel --yes --prod   # deploy — רק מהתיקייה הראשית
 ```
+אחרי כל העלאה: `node scripts/indexnow.mjs` (IndexNow — מודיע ל-Bing על כל כתובות ה-sitemap).
 ⚠️ **להעלות רק מ-`C:\Users\USER\steps-site`, לא מ-worktree.** `vercel --prod` מ-worktree יוצר פרויקט Vercel חדש (קרה 2/8/26).
 לפני העלאה: `grep -c FFD400 index.html` חייב להחזיר 1 — אם 0, זו התיקייה הלא נכונה.
 
