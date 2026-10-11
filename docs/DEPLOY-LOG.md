@@ -5,6 +5,7 @@
 
 | Date | Platform | Deploy ID | Changes |
 |------|----------|-----------|---------|
+| 2026-10-11 | Vercel | steps-site-nlkrgiygx | IndexNow: קובץ מפתח `304e3c157e0e8c5cdb016bb6ef6cadb5.txt` בשורש (חי, 200, text/plain) + `scripts/indexnow.mjs`. נשלחו 18 כתובות מה-sitemap ⇒ HTTP 202. אחרי כל העלאה: `node scripts/indexnow.mjs`. אין שינוי בדפים. |
 | 2026-10-11 | Vercel | steps-site-i5ssff0om | תיקוני SEO קטנים: קישורי "דף הבית" ב-kids.html ל-"/" (במקום index.html שמופנה) · aggregateRating מספרי (4.9 / 34) ב-barre, pilates, gym-women · הביטוי "מכון כושר לנשים בנתניה" פעם אחת בגוף gym-women. אומת חי. index.html לא נגע. |
 | 2026-10-11 | Vercel | steps-site-2v01wra7x | מדידת יום-30: pilates-beginners — H1 "פילאטיס מכשירים למתחילות", פסקת תשובה שפותחת בביטוי, כ-55 דקות (במקום "כשעה") · עוגנים תיאוריים בדף הבית (FAQ גלוי+סכמה), pilates.html (FAQ גלוי+סכמה), nutrition, barre-or-pilates, pilates-or-gym · gym-beginners: תיאור מטא עם הצעה (היכרות 50 ₪). לא נגעו ב-pilates-price/postpartum. אומת חי בפייתון. מדידה הבאה ~8/11 |
 | 2026-10-11 | Vercel | steps-site-732ul2ss7 | שחזור דף הבית לגרסה שלפני 11/10 לבקשת אור (לא אהב את השינוי). אומת: הקובץ החי זהה בייט-לבייט לגרסה dc292e3. |
