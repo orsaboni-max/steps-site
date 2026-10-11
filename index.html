@@ -336,12 +336,9 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 @keyframes heroPulse{0%{transform:scale(1);opacity:.6}75%,100%{transform:scale(3);opacity:0}}
 .hero__next-txt{display:grid;min-width:0;line-height:1.25}
 .hero__next-k{font-size:12.5px;color:var(--t60)}
-.hero__next-v{position:relative;overflow:hidden;height:1.35em;font-weight:800;font-size:clamp(14.5px,1.2vw,16px);white-space:nowrap}
-.hero__next-v span{display:block;overflow:hidden;text-overflow:ellipsis;transition:transform .38s var(--ease-out),opacity .38s var(--ease-out)}
-.hero__next-v span.out{transform:translateY(-110%);opacity:0}
-.hero__next-v span.pre{transform:translateY(110%);opacity:0;transition:none}
+.hero__next-v{overflow:hidden;text-overflow:ellipsis;font-weight:800;font-size:clamp(14.5px,1.2vw,16px);white-space:nowrap}
 .hero__next-go{flex:none;display:inline-flex;align-items:center;min-height:36px;padding:0 14px;border-radius:var(--r-pill);background:var(--yellow);color:var(--ink);font-weight:800;font-size:14px}
-@media (prefers-reduced-motion:reduce){.hero__next-dot::after{animation:none;opacity:0}.hero__next-v span{transition:none}}
+@media (prefers-reduced-motion:reduce){.hero__next-dot::after{animation:none;opacity:0}}
 
 /* auto-fit עם מינימום — אם אין נתון אמיתי לאחד התאים והוא מוסר,
    המסילה הריקה מתכווצת והשאר מתחלקים שווה בשווה. בלי grid-auto-flow:column,
@@ -915,12 +912,12 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .bar .bar__wa{flex:none;width:52px;height:52px;border-radius:50%;background:var(--wa);color:var(--wa-ink);display:flex;align-items:center;justify-content:center}
 .bar .bar__wa svg{width:26px;height:26px}
 /* הכפתור הדביק מחליף הצעה לפי המקטע שקוראים עכשיו */
-.bar .btn{overflow:hidden}
+.bar .btn{position:relative;overflow:hidden}
 .bar .btn span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:transform .22s var(--ease-out),opacity .22s var(--ease-out)}
 .bar .btn span.out{transform:translateY(-120%);opacity:0;transition-duration:.16s}
 .bar .btn span.pre{transform:translateY(120%);opacity:0;transition:none}
-.bar{transition:transform .3s var(--ease-out)}
-.bar.is-away{transform:translateY(110%)}
+.bar{transition:transform .3s var(--ease-out),visibility 0s}
+.bar.is-away{transform:translateY(110%);visibility:hidden;transition:transform .3s var(--ease-out),visibility 0s linear .3s}
 @media (prefers-reduced-motion:reduce){.bar,.bar .btn span{transition:none}}
 @media(max-width:760px){
   .bar{display:flex}
@@ -1087,7 +1084,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <p class="hero__lede" style="margin-top:14px;font-size:clamp(15px,1.1vw,17px)">מעדיפה שנחזור אלייך? <a href="#contact" style="color:var(--yellow);font-weight:700">השאירי פרטים להתאמת אימון</a>.</p>
   </div>
   <div class="stats">
-    <a class="stats__i" href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener"><div class="stats__n"><span class="y">4.9</span> ★</div><div class="stats__l">34 ביקורות בגוגל</div></a>
+    <a class="stats__i" href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener"><div class="stats__n"><span class="y">4.9</span> ★</div><div class="stats__l">34 ביקורות בגוגל · מעל 500 מתאמנות</div></a>
     <div class="stats__i stats__i--drop"><div class="stats__n">3</div><div class="stats__l">חללים · כוח, MOVE, רפורמר</div></div>
     <div class="stats__i"><div class="stats__n" id="weekly">—</div><div class="stats__l">שיעורים בשבוע</div></div>
     <div class="stats__i"><div class="stats__n">חינם</div><div class="stats__l">חנייה בקניון פולג</div></div>
@@ -1127,19 +1124,19 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
           <div class="qz__step" id="s1" data-step="1" role="group" aria-labelledby="q1">
             <h3 class="h-md qz__q" id="q1" tabindex="-1" data-focus>מה הכי חשוב לך עכשיו?</h3>
             <div class="qz-opts">
-              <button type="button" class="qz-opt" data-v="GYM" aria-pressed="false" data-track="path-choice" data-path="quiz-gym">
+              <button type="button" class="qz-opt" data-v="GYM" aria-pressed="false">
                 <span class="qz-opt__t"><b>להתחזק ולהרגיש חזקה</b><small>אימוני כוח, מכשירים ו-BOOTCAMP</small></span>
                 <span class="qz-opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
               </button>
-              <button type="button" class="qz-opt" data-v="MOVE" aria-pressed="false" data-track="path-choice" data-path="quiz-move">
+              <button type="button" class="qz-opt" data-v="MOVE" aria-pressed="false">
                 <span class="qz-opt__t"><b>לזוז, להתגמש ולחטב</b><small>בר, יוגה, גמישות, פילאטיס מזרן ו-SCULPT</small></span>
                 <span class="qz-opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
               </button>
-              <button type="button" class="qz-opt" data-v="REF" aria-pressed="false" data-track="path-choice" data-path="quiz-pilates">
+              <button type="button" class="qz-opt" data-v="REF" aria-pressed="false">
                 <span class="qz-opt__t"><b>גב, יציבה ותנועה מדויקת</b><small>פילאטיס מכשירים בקבוצה של עד 11</small></span>
                 <span class="qz-opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
               </button>
-              <button type="button" class="qz-opt" data-v="KIDS" aria-pressed="false" data-track="path-choice" data-path="quiz-kids">
+              <button type="button" class="qz-opt" data-v="KIDS" aria-pressed="false">
                 <span class="qz-opt__t"><b>חוג לבת או לבן שלי</b><small>קבוצות לגילאי 12–15</small></span>
                 <span class="qz-opt__k" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
               </button>
@@ -1271,7 +1268,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
             <ul class="tr-tags tr-rv"><li>אימוני כוח</li><li>BOOTCAMP</li><li>ENDURANCE</li><li>GYM &amp; RUN</li></ul>
             <p class="tr-chip tr-rv" id="chip-gym"><span class="tr-dot" aria-hidden="true"></span><span class="tr-ct">השיעור הבא: …</span></p>
             <div class="tr-cta tr-rv">
-              <a class="btn btn--y" data-cta data-track="trial-cta arbox-open" href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener">קבעי את השיעור הזה</a>
+              <a class="btn btn--y" data-cta data-track="trial-cta arbox-open" href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener">קבעי אימון היכרות</a>
               <a class="btn btn--ghost" href="gym-women.html" aria-label="לפרטים: חדר כושר לנשים בנתניה">לפרטים</a>
             </div>
           </div>
@@ -1298,7 +1295,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
             <ul class="tr-tags tr-rv"><li>BARRE</li><li>YOGA</li><li>פילאטיס מזרן</li><li>SCULPT</li></ul>
             <p class="tr-chip tr-rv" id="chip-move"><span class="tr-dot" aria-hidden="true"></span><span class="tr-ct">השיעור הבא: …</span></p>
             <div class="tr-cta tr-rv">
-              <a class="btn btn--y" data-cta data-track="trial-cta arbox-open" href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener">קבעי את השיעור הזה</a>
+              <a class="btn btn--y" data-cta data-track="trial-cta arbox-open" href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener">קבעי אימון היכרות</a>
               <a class="btn btn--ghost" href="barre.html" aria-label="לפרטים: אימוני בר בנתניה">לפרטים</a>
             </div>
           </div>
@@ -1325,7 +1322,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
             <ul class="tr-tags tr-rv"><li>עד 11 מתאמנות</li><li>מתאים לשיקום</li><li>כל הגילאים</li></ul>
             <p class="tr-chip tr-rv" id="chip-ref"><span class="tr-dot" aria-hidden="true"></span><span class="tr-ct">השיעור הבא: …</span></p>
             <div class="tr-cta tr-rv">
-              <a class="btn btn--y" data-cta data-track="trial-cta arbox-open" href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener">קבעי את השיעור הזה</a>
+              <a class="btn btn--y" data-cta data-track="trial-cta arbox-open" href="https://BP4JSUDD1589999012.web.arboxapp.com/group?whitelabel=Arbox&amp;lang=he&amp;location=18259&amp;referrer=PLUGIN&amp;filters=%7B%22trial%22%3A%22trial%22%2C%22pageName%22%3A%22group%22%7D" target="_blank" rel="noopener">קבעי אימון היכרות</a>
               <a class="btn btn--ghost" href="pilates.html" aria-label="לפרטים: פילאטיס מכשירים בנתניה">לפרטים</a>
             </div>
           </div>
@@ -1970,14 +1967,15 @@ var $=function(s,r){return (r||document).querySelector(s)};
     moreBtn.style.display=(list.length>lim&&board.dataset.expanded!=='true')?'flex':'none';
   }
 
-  var pending={};
+  var pending={},failedAt={};
   function fetchDay(date){
     if(cache[date])return Promise.resolve(cache[date]);
-    if(pending[date])return pending[date];   // הפתיח, השאלון והסטוריז מבקשים את אותו יום במקביל
+    if(pending[date])return pending[date];
+    if(failedAt[date]&&Date.now()-failedAt[date]<60000)return Promise.reject(new Error('recent failure'));   // הפתיח, השאלון והסטוריז מבקשים את אותו יום במקביל
     return pending[date]=fetch('/api/schedule?date='+date)
       .then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
       .then(function(d){if(!Array.isArray(d))throw new Error('bad payload');cache[date]=d;delete pending[date];return d})
-      ['catch'](function(e){delete pending[date];throw e});
+      ['catch'](function(e){delete pending[date];failedAt[date]=Date.now();throw e});
   }
 
   /* השיעורים הבאים מכל החללים — לפתיח, לשאלון, לסטוריז ולכפתור הדביק.
@@ -1986,9 +1984,10 @@ var $=function(s,r){return (r||document).querySelector(s)};
   function partOf(t){return t<'12:00'?'morning':t<'16:00'?'noon':'evening'}
   window.STEPS_NEXT=function(opts){
     opts=opts||{};
-    var want=opts.n||1,out=[],i=0;
+    var want=opts.n||1,out=[],i=0,fails=0;
+    function fail(){fails++;return step()}
     function step(){
-      if(out.length>=want||i>=7)return Promise.resolve(out.slice(0,want));
+      if(out.length>=want||i>=7)return Promise.resolve(!out.length&&fails===i?null:out.slice(0,want));
       var idx=i++,date=dates[idx],label=idx<2?days[idx].label:'יום '+days[idx].label;
       return fetchDay(date).then(function(list){
         var hhmm=getIsraelNow().time,day=[];
@@ -2004,7 +2003,7 @@ var $=function(s,r){return (r||document).querySelector(s)};
         day.sort(function(a,b){return a.time<b.time?-1:a.time>b.time?1:0});
         out=out.concat(day);
         return step();
-      },step);
+      },fail);
     }
     return step();
   };
@@ -2069,36 +2068,24 @@ var STEPS_UI={
   reduced:reduce
 };
 
-/* ── פתיח: השיעור הבא בסטודיו, מתחלף כל 4 שניות ── */
+/* ── פתיח: השיעור הבא בסטודיו. נבדק מחדש כל דקה ובחזרה לטאב, כדי שלא יציג
+   שיעור שכבר התחיל (הלוח מסתיר אותם — הפתיח מתנהג אותו דבר). בלי סבב
+   מתחלף, ולכן לא נדרש כפתור השהיה. ── */
 (function(){
   var box=$('#heroNext'),v=$('#heroNextV');
   if(!box||!v)return;
-  STEPS_UI.upcoming({n:4}).then(function(list){
-    if(!list.length)return;
-    var i=0,paused=false;
-    function txt(c){return c.day+' '+c.time+' · '+c.name}
-    function set(c){box.href=c.url;box.setAttribute('aria-label','השיעור הבא בסטודיו: '+txt(c)+'. קבעי אימון היכרות')}
-    var cur=document.createElement('span');cur.textContent=txt(list[0]);v.appendChild(cur);set(list[0]);
-    box.hidden=false;
-    if(list.length<2||reduce)return;
-    box.addEventListener('mouseenter',function(){paused=true});
-    box.addEventListener('mouseleave',function(){paused=false});
-    box.addEventListener('focus',function(){paused=true});
-    box.addEventListener('blur',function(){paused=false});
-    setInterval(function(){
-      if(paused||document.hidden)return;
-      i=(i+1)%list.length;
-      var old=cur,nx=document.createElement('span');
-      nx.className='pre';nx.textContent=txt(list[i]);
-      nx.style.position='absolute';nx.style.inset='0';
-      v.appendChild(nx);
-      void nx.offsetWidth;
-      old.classList.add('out');nx.classList.remove('pre');
-      set(list[i]);
-      setTimeout(function(){old.remove();nx.style.position='';nx.style.inset=''},400);
-      cur=nx;
-    },4000);
-  });
+  function refresh(){
+    STEPS_UI.upcoming({n:1}).then(function(list){
+      var c=list&&list[0];
+      if(!c){box.hidden=true;return}
+      var txt=c.day+' '+c.time+' · '+c.name;
+      v.textContent=txt;box.href=c.url;
+      box.setAttribute('aria-label','השיעור הבא בסטודיו: '+txt+'. קבעי אימון היכרות');
+      box.hidden=false;
+    });
+  }
+  refresh();setInterval(refresh,60000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)refresh()});
 })();
 
 /* ── כפתור דביק (מובייל): ההצעה מתחלפת לפי המקטע שקוראים ── */
@@ -2107,10 +2094,16 @@ var STEPS_UI={
   if(!bar||!btn)return;
   var def={text:btn.textContent.trim(),href:btn.getAttribute('href'),track:'trial-cta'};
   var states={sched:null,prices:{text:'לא בטוחה איזה מסלול? נתאים לך',href:STEPS_UI.waLink('היי, אשמח שתעזרו לי לבחור מסלול'),track:'whatsapp-click'}};
-  STEPS_UI.upcoming({n:1}).then(function(l){
-    if(l[0])states.sched={text:'השיעור הבא: '+l[0].day+' '+l[0].time+' · קבעי',href:l[0].url,track:'trial-cta arbox-open'};
-  });
   var current='def';
+  function refreshNext(){
+    STEPS_UI.upcoming({n:1}).then(function(l){
+      var c=l&&l[0];
+      states.sched=c?{text:'השיעור הבא: '+c.day+' '+c.time+' · קבעי',href:c.url,track:'trial-cta arbox-open'}:null;
+      if(current==='sched'){current='';apply('sched')}
+    });
+  }
+  refreshNext();setInterval(refreshNext,60000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)refreshNext()});
   function apply(key){
     var s=key==='def'?def:states[key];
     if(!s){key='def';s=def}
@@ -2120,10 +2113,10 @@ var STEPS_UI={
     var old=btn.querySelector('span'),nx=document.createElement('span');
     nx.textContent=s.text;
     if(reduce||!old){btn.textContent='';btn.appendChild(nx);return}
-    nx.className='pre';nx.style.position='absolute';
+    nx.className='pre';nx.style.cssText='position:absolute;inset:0;display:flex;align-items:center;justify-content:center';
     btn.appendChild(nx);void nx.offsetWidth;
     old.classList.add('out');nx.classList.remove('pre');
-    setTimeout(function(){old.remove();nx.style.position=''},230);
+    setTimeout(function(){old.remove();nx.removeAttribute('style')},230);
   }
   if(!('IntersectionObserver' in window))return;
   var inView={};
@@ -2628,20 +2621,26 @@ ui();
   function go(d,user){show(cur+d,user)}
 
   /* ── השיעור הבא בכל חלל ── */
-  stories.forEach(function(s){
-    var chip=s.querySelector('.tr-chip'),ct=chip&&chip.querySelector('.tr-ct'),cta=s.querySelector('[data-cta]');
-    if(!chip||!S.upcoming){if(chip)chip.classList.add('nodata');return}
-    S.upcoming({room:s.dataset.room,n:1}).then(function(list){
-      var c=list&&list[0];
-      if(!c){chip.classList.add('nodata');return}
-      ct.textContent='השיעור הבא: '+c.day+' '+c.time+' · '+c.name;
-      if(cta){
-        if(c.url)cta.href=c.url;
-        cta.setAttribute('aria-describedby',chip.id);
+  function nextClasses(){
+    stories.forEach(function(s){
+      var chip=s.querySelector('.tr-chip'),ct=chip&&chip.querySelector('.tr-ct'),cta=s.querySelector('[data-cta]');
+      if(!chip||!S.upcoming){if(chip)chip.classList.add('nodata');return}
+      if(cta&&!cta.dataset.base)cta.dataset.base=cta.getAttribute('href');
+      function none(){
+        chip.classList.remove('is-ok');chip.classList.add('nodata');
+        if(cta){cta.href=cta.dataset.base;cta.textContent='קבעי אימון היכרות';cta.removeAttribute('aria-describedby')}
       }
-      chip.classList.add('is-ok');
-    }).catch(function(){chip.classList.add('nodata')});
-  });
+      S.upcoming({room:s.dataset.room,n:1}).then(function(list){
+        var c=list&&list[0];
+        if(!c){none();return}
+        ct.textContent='השיעור הבא: '+c.day+' '+c.time+' · '+c.name;
+        if(cta){cta.href=c.url;cta.textContent='קבעי את השיעור הזה';cta.setAttribute('aria-describedby',chip.id)}
+        chip.classList.remove('nodata');chip.classList.add('is-ok');
+      })['catch'](none);
+    });
+  }
+  nextClasses();setInterval(nextClasses,60000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)nextClasses()});
 
   /* ── מעבר אוטומטי כשפס ההתקדמות מסתיים ── */
   tour.addEventListener('animationend',function(e){
@@ -2715,7 +2714,7 @@ ui();
     s.addEventListener('pointerenter',function(e){
       if(!mqDesk.matches||e.pointerType!=='mouse'||i===cur)return;
       clearTimeout(t);
-      t=setTimeout(function(){if(i!==cur)show(i,true)},120);
+      t=setTimeout(function(){if(i!==cur)show(i,false)},120);
     });
     s.addEventListener('pointerleave',function(){clearTimeout(t)});
     var pk=s.querySelector('.tr-pick');
@@ -2859,7 +2858,8 @@ var STEPS_REFERRAL = window.STEPS_REFERRAL || {};
     if(t.indexOf('arbox-open')>-1)track('arbox_open',{link_url:el.href||''});
     if(t.indexOf('path-choice')>-1)track('path_choice',{path:el.getAttribute('data-path')||'',link_url:el.href||''});
   });
-  document.addEventListener('steps:track',function(e){var d=e.detail||{};if(d.name)track(d.name,d.params||{})});
+  var BRIDGE={quiz_step:1,quiz_complete:1,space_story_view:1};   // ליד נמדד רק אחרי אישור השרת — לא דרך הגשר
+  document.addEventListener('steps:track',function(e){var d=e.detail||{};if(BRIDGE[d.name])track(d.name,d.params||{})});
   document.addEventListener('steps:lead-saved',function(){
     track('lead_form_submit',{form_id:'leadForm'});
   },{once:true});
