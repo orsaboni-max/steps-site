@@ -307,7 +307,7 @@ function healthClubOf(html) {
     if (!/application\/ld\+json/.test(attrs)) continue;
     const data = JSON.parse(body);
     for (const node of Array.isArray(data['@graph']) ? data['@graph'] : [data]) {
-      if (node['@type'] === 'HealthClub') return node;
+      if ([].concat(node['@type'] || []).includes('HealthClub')) return node;
     }
   }
   return null;
@@ -329,6 +329,65 @@ test('every page shares one HealthClub identity block (@id, address, phone, hour
     assert.equal(club.telephone, home.telephone, page + ' telephone');
     assert.deepEqual(club.openingHoursSpecification, home.openingHoursSpecification, page + ' hours');
     assert.equal(club.priceRange, home.priceRange, page + ' priceRange');
+    assert.equal(club.hasMap, home.hasMap, page + ' map');
+  }
+});
+
+function schemaNodes(html) {
+  const nodes = [];
+  const visit = value => {
+    if (!value || typeof value !== 'object') return;
+    if (value['@type']) nodes.push(value);
+    Object.values(value).forEach(visit);
+  };
+  for (const [, json] of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    visit(JSON.parse(json));
+  }
+  return nodes;
+}
+
+test('homepage catalog connects visible service links to the business and existing service identities', () => {
+  const club = healthClubOf(home);
+  const body = home.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
+  const ids = new Set();
+  for (const offer of club.hasOfferCatalog.itemListElement) {
+    const service = offer.itemOffered;
+    assert.equal(service.provider['@id'], club['@id'], service.name + ' provider');
+    assert.equal(service.url, offer.url, service.name + ' destination');
+    assert.ok(service['@id'] && !ids.has(service['@id']), service.name + ' unique identity');
+    ids.add(service['@id']);
+    const url = new URL(service.url);
+    const links = [...body.matchAll(/href="([^"]+)"/g)].map(([, href]) =>
+      new URL(href.replaceAll('&amp;', '&'), 'https://stepsnetanya.co.il/').href);
+    if (url.pathname !== '/') assert.ok(links.includes(service.url),
+      service.name + ' must link to content visitors can reach');
+    const target = read(url.pathname.slice(1) || 'index.html');
+    if (url.hash) assert.ok(target.includes('id="' + url.hash.slice(1) + '"'), service.name + ' visible section');
+    // A JSON-LD entity @id need not be an HTML anchor. Where the destination
+    // already defines a Service, reuse its identity instead of creating a duplicate.
+    const definitions = schemaNodes(target).filter(node => node['@type'] === 'Service' && node['@id']);
+    if (definitions.length) assert.ok(definitions.some(node => node['@id'] === service['@id']),
+      service.name + ' must reuse its destination Service identity');
+  }
+});
+
+test('business schema omits self-serving ratings while keeping visible Google reviews', () => {
+  for (const page of sitePages()) {
+    const html = read(page), club = healthClubOf(html);
+    if (club) assert.equal(club.aggregateRating, undefined, page + ' self-serving rating');
+  }
+  for (const page of ['index.html', 'gym-women.html', 'pilates.html', 'barre.html']) {
+    const visible = read(page).replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
+    assert.match(visible, /4\.9/, page + ' visible rating retained');
+    assert.match(visible, /ביקורת בגוגל/, page + ' visible reviews retained');
+  }
+});
+
+test('service entities do not use the CreativeWork-only dateModified property', () => {
+  for (const page of sitePages()) {
+    for (const node of schemaNodes(read(page)).filter(node => node['@type'] === 'Service')) {
+      assert.equal(node.dateModified, undefined, page + ': dateModified is not a Service property');
+    }
   }
 });
 
@@ -336,6 +395,7 @@ test('the footer directions link names the same Google place the schema claims',
   const source = read('index.html');
   const claimed = source.match(/place_id:([A-Za-z0-9_-]+)/);
   assert.ok(claimed, 'index.html must claim a verified Google place in sameAs');
+  assert.equal(new URL(healthClubOf(source).hasMap).searchParams.get('q'), 'place_id:' + claimed[1]);
   const link = source.match(/href="(https:\/\/www\.google\.com\/maps\/search\/[^"]+)"/);
   assert.ok(link, 'the footer must offer directions through a maps search link');
   assert.ok(link[1].includes('query_place_id=' + claimed[1]),
@@ -372,7 +432,10 @@ test('the published review count is the same number everywhere it appears', () =
 // happening again the next time a cluster ships.
 const footerGuides = html => {
   const block = html.match(/מדריכים<\/(?:div|p)>([\s\S]*?)<\/(?:ul|nav)>/);
-  return block && [...block[1].matchAll(/href="([^"]+\.html)"/g)].map(m => m[1]);
+  return block && [...block[1].matchAll(/href="([^"]+\.html)"/g)].map(m => {
+    const url = new URL(m[1], 'https://stepsnetanya.co.il/');
+    return url.origin === 'https://stepsnetanya.co.il' ? url.pathname.slice(1) : url.href;
+  });
 };
 
 test('every page that lists guides in its footer lists the same ones, and they all exist', () => {

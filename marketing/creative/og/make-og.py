@@ -22,6 +22,8 @@ PAD = 64
 
 # page slug -> (source photo, Hebrew title, focal y in 0..1)
 PAGES = [
+    ("pilates-ramat-poleg", "images/shoot2025/hero-main.jpg", "פילאטיס מכשירים ברמת פולג", 0.38),
+    ("yoga-barre-netanya", "images/gallery-4.webp", "יוגה ובר לנשים בנתניה", 0.50),
     ("home",        "images/shoot2025/hero-main.jpg",  "סטודיו כושר לנשים בנתניה · פולג", 0.38),
     ("pilates",     "images/shoot2025/gallery-e.jpg",  "פילאטיס מכשירים בנתניה",          0.45),
     ("gym-women",   "images/shoot2025/gym-main.jpg",   "חדר כושר לנשים בנתניה",           0.35),

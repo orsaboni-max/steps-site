@@ -71,11 +71,11 @@
     "addressCountry": "IL"
   },
   "geo": {"@type": "GeoCoordinates", "latitude": 32.2749168, "longitude": 34.8479596},
+  "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJX3typn8_HRURJ4xZd-KWQQU",
   "openingHoursSpecification": [
     {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday"], "opens": "07:00", "closes": "22:00"},
     {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "07:00", "closes": "13:00"}
   ],
-  "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "34", "bestRating": "5", "worstRating": "1"},
   "priceRange": "₪230-₪530",
   "areaServed": [
     {"@type": "City", "name": "נתניה"},
@@ -99,11 +99,11 @@
     "@type": "OfferCatalog",
     "name": "שיעורים",
     "itemListElement": [
-      {"@type": "Offer", "url": "https://stepsnetanya.co.il/gym-women.html", "itemOffered": {"@type": "Service", "name": "אימוני כוח"}},
-      {"@type": "Offer", "url": "https://stepsnetanya.co.il/pilates.html", "itemOffered": {"@type": "Service", "name": "פילאטיס מכשירים"}},
-      {"@type": "Offer", "url": "https://stepsnetanya.co.il/#room-move", "itemOffered": {"@type": "Service", "name": "יוגה"}},
-      {"@type": "Offer", "url": "https://stepsnetanya.co.il/barre.html", "itemOffered": {"@type": "Service", "name": "אימוני בר (Barre)"}},
-      {"@type": "Offer", "url": "https://stepsnetanya.co.il/kids.html", "itemOffered": {"@type": "Service", "name": "קבוצות כושר לילדים ונוער (Kids & Teens)"}}
+      {"@type": "Offer", "url": "https://stepsnetanya.co.il/gym-women.html", "itemOffered": {"@type": "Service", "@id": "https://stepsnetanya.co.il/gym-women.html#gym", "name": "אימוני כוח", "url": "https://stepsnetanya.co.il/gym-women.html", "provider": {"@id": "https://stepsnetanya.co.il/#healthclub"}}},
+      {"@type": "Offer", "url": "https://stepsnetanya.co.il/pilates.html", "itemOffered": {"@type": "Service", "@id": "https://stepsnetanya.co.il/pilates.html#pilates", "name": "פילאטיס מכשירים", "url": "https://stepsnetanya.co.il/pilates.html", "provider": {"@id": "https://stepsnetanya.co.il/#healthclub"}}},
+      {"@type": "Offer", "url": "https://stepsnetanya.co.il/#room-move", "itemOffered": {"@type": "Service", "@id": "https://stepsnetanya.co.il/#yoga-service", "name": "יוגה", "url": "https://stepsnetanya.co.il/#room-move", "provider": {"@id": "https://stepsnetanya.co.il/#healthclub"}}},
+      {"@type": "Offer", "url": "https://stepsnetanya.co.il/barre.html", "itemOffered": {"@type": "Service", "@id": "https://stepsnetanya.co.il/barre.html#barre", "name": "אימוני בר (Barre)", "url": "https://stepsnetanya.co.il/barre.html", "provider": {"@id": "https://stepsnetanya.co.il/#healthclub"}}},
+      {"@type": "Offer", "url": "https://stepsnetanya.co.il/kids.html", "itemOffered": {"@type": "Service", "@id": "https://stepsnetanya.co.il/kids.html#kids-fitness", "name": "קבוצות כושר לילדים ונוער (Kids & Teens)", "url": "https://stepsnetanya.co.il/kids.html", "provider": {"@id": "https://stepsnetanya.co.il/#healthclub"}}}
     ]
   }
 }
