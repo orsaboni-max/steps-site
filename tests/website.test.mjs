@@ -302,6 +302,37 @@ test('click tracking across service pages and guides does not use standard Meta 
   }
 });
 
+test('new local landing CTAs emit interest events through the shared controller without emitting leads', () => {
+  for (const page of ['pilates-ramat-poleg.html', 'yoga-barre-netanya.html']) {
+    const calls = [];
+    const links = [...read(page).matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)].map(([, attrs, text]) => {
+      const href = attrs.match(/href="([^"]+)"/)?.[1] || '';
+      const tracking = attrs.match(/data-track="([^"]+)"/)?.[1] || '';
+      return { href, tracking, textContent: text.replace(/<[^>]*>/g, ''),
+        getAttribute: name => name === 'data-track' ? tracking : href,
+        addEventListener(type, fn) { this[type] = fn; } };
+    }).filter(link => /web\.arboxapp\.com\/|https:\/\/wa\.me\//i.test(link.href));
+    assert.ok(links.length, page + ' must retain contact paths');
+    for (const link of links) assert.ok(link.tracking, page + ' unmeasured CTA: ' + link.href);
+    vm.runInNewContext(read('content.js'), {
+      window: {}, location: { href: 'https://stepsnetanya.co.il/' + page },
+      localStorage: { getItem: () => null }, addEventListener() {},
+      document: { getElementById: () => null, addEventListener() {},
+        querySelectorAll: selector => selector === '[data-track]' ? links : [] },
+      gtag: (...args) => calls.push(args), fbq: (...args) => calls.push(args)
+    });
+    for (const link of links) {
+      const start = calls.length;
+      link.click();
+      const events = calls.slice(start);
+      const expected = /arboxapp/.test(link.href) ? 'arbox_open' : 'whatsapp_click';
+      assert.equal(events.filter(args => args[0] === 'event' && args[1] === expected).length, 1, page);
+      assert.equal(events.filter(args => args[0] === 'trackCustom' && args[1] === expected).length, 1, page);
+      assert.ok(events.every(args => args[1] !== 'Lead' && args[1] !== 'lead_form_submit'), page + ' interest became a lead');
+    }
+  }
+});
+
 function healthClubOf(html) {
   for (const [,attrs,body] of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)) {
     if (!/application\/ld\+json/.test(attrs)) continue;
