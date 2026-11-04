@@ -1,6 +1,6 @@
 import { ledger } from '../lib/attribution.ts';
 import { authorized } from '../lib/outcomes.ts';
-import { buildFeed } from '../lib/ledger-feed.ts';
+import { buildFeed, readSince } from '../lib/ledger-feed.ts';
 
 /**
  * Ledger-only read for the STEPS backend's free inquiry-to-payment alert.
@@ -15,7 +15,9 @@ export default async function handler(req: any, res: any) {
   const from = typeof req.query?.from === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(req.query.from) ? req.query.from : '2026-11-01';
   if (!process.env.BLOB_READ_WRITE_TOKEN) return res.status(503).json({ error: 'not_configured' });
   try {
-    return res.status(200).json(buildFeed(await ledger.all(), from));
+    const since = typeof req.query?.since === 'string' && Number.isFinite(Date.parse(req.query.since)) ? req.query.since : null;
+    // `since` = only records written since then (the backend merges); without it, the complete ledger.
+    return res.status(200).json(buildFeed(since ? await readSince(since) : await ledger.all(), from));
   } catch {
     return res.status(503).json({ error: 'ledger_unavailable' });
   }

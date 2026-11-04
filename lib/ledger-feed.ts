@@ -1,4 +1,6 @@
 import type { RecordData } from './attribution.ts';
+import { list } from '@vercel/blob';
+import { ledger } from './attribution.ts';
 import { localDay } from './outcomes.ts';
 
 /** Fixed activation day of the inquiry ledger: nothing earlier is a measured inquiry. */
@@ -35,4 +37,27 @@ export function buildFeed(rows: RecordData[], from: string, now = new Date()) {
     .filter((r): r is NonNullable<ReturnType<typeof feedRow>> => !!r && localDay(r.created_at) >= start && Date.parse(r.created_at) <= +now)
     .sort((a, b) => a.created_at.localeCompare(b.created_at));
   return { ledger: 'steps-website-inquiries', version: 1, from: start, generated_at: now.toISOString(), inquiries };
+}
+
+const PREFIX = 'website-attribution/v1/'; // same private prefix as lib/attribution.ts
+
+/**
+ * Incremental read for the backend's sweep: ONE list call, then a read only for records written at or after `since`
+ * (a record is written when created and again when linked, so its upload time is never before its creation).
+ * The Blob store is shared with the customer form, so a sweep must not read every record every time.
+ */
+export async function readSince(since: string | null, deps = { list, read: (id: string) => ledger.read(id) }): Promise<RecordData[]> {
+  const floor = since ? Date.parse(since) : NaN;
+  const rows: RecordData[] = []; let cursor: string | undefined;
+  do {
+    const page = await deps.list({ prefix: PREFIX, limit: 200, cursor });
+    for (const blob of page.blobs) {
+      if (Number.isFinite(floor) && +new Date(blob.uploadedAt) < floor) continue;
+      const row = await deps.read(blob.pathname.slice(PREFIX.length, -5));
+      if (row) rows.push(row);
+    }
+    cursor = page.hasMore ? page.cursor : undefined;
+    if (rows.length > 2000) throw new Error('ledger_limit');
+  } while (cursor);
+  return rows;
 }
