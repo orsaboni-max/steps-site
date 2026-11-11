@@ -12,7 +12,7 @@ function showAudioState(playing) {
   }
 }
 
-audio.volume = 0.5;
+audio.volume = 0.45;
 audio.addEventListener('play', () => showAudioState(true));
 audio.addEventListener('pause', () => showAudioState(false));
 reel?.addEventListener('play', () => audio.pause());
@@ -25,6 +25,27 @@ for (const button of audioButtons) {
     try { await audio.play(); }
     catch { showAudioState(false); audioStatus.textContent = 'המוזיקה לא נטענה. אפשר לנסות שוב.'; }
   });
+}
+
+// Music is on by default. Browsers only allow sound after the visitor's first touch or click,
+// so we try right away and otherwise start on that first interaction. The button turns it off.
+let userStopped = false;
+for (const button of audioButtons) button.addEventListener('click', () => { if (!audio.paused) userStopped = true; }, { capture: true });
+const kick = () => { if (!userStopped && audio.paused) audio.play().catch(() => {}); };
+audio.play().catch(() => {
+  const once = e => {
+    if (e.target.closest?.('.audio-button, .reel')) return;
+    kick();
+    ['pointerdown','keydown','touchend'].forEach(t => removeEventListener(t, once, true));
+  };
+  ['pointerdown','keydown','touchend'].forEach(t => addEventListener(t, once, true));
+});
+
+// Days left until the event (Israel time), shown next to the sign-up count.
+const cd = document.querySelector('[data-countdown]');
+if (cd) {
+  const days = Math.ceil((new Date('2026-11-27T08:00:00+02:00') - Date.now()) / 864e5);
+  cd.textContent = days > 1 ? `עוד ${days} ימים` : days === 1 ? 'זה מחר!' : days === 0 ? 'זה היום!' : '';
 }
 
 // The booking dock appears on phones once the hero button has scrolled away, and steps aside for the other booking buttons.

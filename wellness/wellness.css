@@ -38,7 +38,7 @@ time{unicode-bidi:isolate;font-variant-numeric:tabular-nums}
 .top nav{display:flex;gap:1.6rem;font-size:.95rem;font-weight:500;margin-inline-start:auto}
 .top nav a{text-decoration:none}
 .top nav a:hover{text-decoration:underline}
-.audio-button{display:inline-flex;align-items:center;gap:.55rem;min-height:44px;padding:0 1rem;border:1px solid rgb(255 255 255 / .55);border-radius:100px;background:rgb(18 19 20 / .25);color:inherit;font:500 .85rem var(--sans);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.audio-button{display:inline-flex;align-items:center;gap:.55rem;min-height:44px;padding:0 1rem;border:1px solid rgb(255 255 255 / .55);border-radius:100px;background:rgb(18 19 20 / .25);color:inherit;font:500 .85rem var(--sans);white-space:nowrap;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .audio-button:hover{background:rgb(18 19 20 / .45)}
 .bars{display:inline-flex;align-items:center;gap:2px;height:14px;direction:ltr}
 .bars i{width:2px;height:40%;border-radius:2px;background:currentColor}
@@ -175,3 +175,9 @@ time{unicode-bidi:isolate;font-variant-numeric:tabular-nums}
   .closing .cta{width:100%}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* Social proof + countdown under the hero action */
+.proof{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem .5rem;margin-block-start:1rem;font-size:.95rem;font-weight:600;color:#fff}
+.proof .dot{width:8px;height:8px;border-radius:50%;background:#3DDC84;box-shadow:0 0 0 0 rgb(61 220 132 / .6);animation:ping 2s cubic-bezier(.2,.8,.2,1) infinite}
+.proof [data-countdown]:not(:empty)::before{content:"·";margin-inline:.1rem .45rem;opacity:.7}
+@keyframes ping{70%{box-shadow:0 0 0 8px rgb(61 220 132 / 0)}100%{box-shadow:0 0 0 0 rgb(61 220 132 / 0)}}
