@@ -160,6 +160,9 @@ time{unicode-bidi:isolate;font-variant-numeric:tabular-nums}
   .how .cta{justify-self:start}
 }
 @media (max-width:620px){
+  .how .cta{justify-self:center;width:100%;max-width:340px}
+}
+@media (max-width:620px){
   .padel-visual{aspect-ratio:1/1}
   body{font-size:1rem}
   .foot{padding-block-end:calc(96px + env(safe-area-inset-bottom,0px))}
