@@ -31,15 +31,16 @@ for (const button of audioButtons) {
 // so we try right away and otherwise start on that first interaction. The button turns it off.
 let userStopped = false;
 for (const button of audioButtons) button.addEventListener('click', () => { if (!audio.paused) userStopped = true; }, { capture: true });
-const kick = () => { if (!userStopped && audio.paused) audio.play().catch(() => {}); };
-audio.play().catch(() => {
-  const once = e => {
-    if (e.target.closest?.('.audio-button, .reel')) return;
-    kick();
-    ['pointerdown','keydown','touchend'].forEach(t => removeEventListener(t, once, true));
-  };
-  ['pointerdown','keydown','touchend'].forEach(t => addEventListener(t, once, true));
-});
+// Only some events count as a "real" gesture for sound (a touch must END, not just start),
+// so keep listening on all of them and stop only once playback has actually begun.
+const GESTURES = ['touchend', 'pointerup', 'click', 'keydown'];
+const stopListening = () => GESTURES.forEach(t => removeEventListener(t, onGesture, true));
+function onGesture(e) {
+  if (userStopped || !audio.paused) { stopListening(); return; }
+  if (e.target.closest?.('.audio-button, .reel')) return;
+  audio.play().then(stopListening, () => {});
+}
+audio.play().catch(() => GESTURES.forEach(t => addEventListener(t, onGesture, true)));
 
 // Days left until the event (Israel time), shown next to the sign-up count.
 const cd = document.querySelector('[data-countdown]');

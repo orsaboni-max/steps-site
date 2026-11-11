@@ -71,7 +71,7 @@ time{unicode-bidi:isolate;font-variant-numeric:tabular-nums}
 .schedule-head{display:grid;gap:.6rem;margin-block-end:clamp(28px,4vw,48px)}
 .schedule h2,.how h2,.between h2{font:900 clamp(2rem,4.4vw,3.4rem)/1.02 var(--sans);letter-spacing:-.03em}
 .schedule-head p{max-width:46ch;color:var(--ink-2);font-size:1.1rem}
-.arrival{display:inline-flex;gap:.6rem;align-items:baseline;justify-self:start;margin-block-start:.6rem;padding:.55rem .9rem;border-radius:10px;background:var(--court);color:#fff;font-weight:600}
+.schedule-head .arrival,.arrival{display:inline-flex;gap:.6rem;align-items:baseline;justify-self:start;margin-block-start:.6rem;padding:.55rem .9rem;border-radius:10px;background:var(--court);color:#fff;font-weight:600}
 .arrival time{font-weight:800;color:var(--yellow)}
 .track-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-block:clamp(28px,4vw,44px) 14px;padding-block-start:14px;border-block-start:2px solid var(--ink)}
 .track-head h3{font:800 clamp(1.3rem,2.2vw,1.7rem)/1.1 var(--sans);letter-spacing:-.015em}
@@ -128,7 +128,7 @@ time{unicode-bidi:isolate;font-variant-numeric:tabular-nums}
 .reel video{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:8px;background:var(--court-deep)}
 .reel figcaption{display:grid;gap:.4rem}
 .reel strong{font-weight:800;font-size:1.25rem}
-.reel a{color:var(--court);font-weight:600}
+.reel a{display:inline-flex;align-items:center;min-height:44px;color:var(--court);font-weight:600}
 
 /* Closing */
 .closing{background:var(--ink);color:var(--bone);padding-block:clamp(40px,5vw,64px)}
@@ -161,7 +161,8 @@ time{unicode-bidi:isolate;font-variant-numeric:tabular-nums}
 }
 @media (max-width:620px){
   .padel-visual{aspect-ratio:1/1}
-  body{font-size:1rem;padding-block-end:76px}
+  body{font-size:1rem}
+  .foot{padding-block-end:calc(96px + env(safe-area-inset-bottom,0px))}
   .hero{min-height:88svh}
   .hero-img{object-position:36% 30%}
   .rail{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:calc(-1 * var(--edge));padding-inline:var(--edge);scroll-padding-inline:var(--edge);scrollbar-width:none}
