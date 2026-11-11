@@ -1,34 +1,8 @@
-const dialog = document.querySelector('#choice');
 const audio = document.querySelector('#mix');
 const audioButtons = [...document.querySelectorAll('.audio-button')];
 const audioStatus = document.querySelector('#audio-status');
-const reel = document.querySelector('.social-reel video');
-const mobileDock = document.querySelector('[data-mobile-dock]');
-let selectedButton;
-
-document.querySelectorAll('[data-slot]').forEach(button => {
-  button.addEventListener('click', () => {
-    selectedButton = button;
-    const { slot, title, detail, group } = button.dataset;
-    const time = document.createElement('time');
-    time.dir = 'ltr';
-    time.dateTime = slot;
-    time.textContent = slot;
-    const heading = dialog.querySelector('#choice-title');
-    heading.replaceChildren(title + ' · ', time);
-    dialog.querySelector('#choice-detail').textContent = group === 'studio' ? 'עם ' + detail : detail;
-    dialog.querySelectorAll('[data-booking]').forEach(section => {
-      section.hidden = section.dataset.booking !== group;
-    });
-    dialog.showModal();
-    heading.focus();
-  });
-});
-
-dialog.querySelectorAll('[data-close]').forEach(button => {
-  button.addEventListener('click', () => dialog.close());
-});
-dialog.addEventListener('close', () => selectedButton?.focus());
+const reel = document.querySelector('.reel video');
+const dock = document.querySelector('[data-dock]');
 
 function showAudioState(playing) {
   for (const button of audioButtons) {
@@ -39,62 +13,32 @@ function showAudioState(playing) {
 }
 
 audio.volume = 0.5;
-let waitingForGesture = audio.autoplay;
-
-function stopWaitingForGesture() {
-  waitingForGesture = false;
-  document.removeEventListener('click', startOnFirstClick);
-}
-
-async function startMusic() {
-  audioStatus.textContent = '';
-  try {
-    await audio.play();
-  } catch (error) {
-    if (error.name === 'NotAllowedError' || error.name === 'AbortError') return;
-    showAudioState(false);
-    audioStatus.textContent = 'המוזיקה לא נטענה. אפשר לנסות שוב.';
-  }
-}
-
-function startOnFirstClick(event) {
-  if (!waitingForGesture || !event.isTrusted || event.target.closest('.audio-button, .social-reel')) return;
-  stopWaitingForGesture();
-  void startMusic();
-}
-
-audio.addEventListener('play', () => {
-  stopWaitingForGesture();
-  showAudioState(true);
-});
+audio.addEventListener('play', () => showAudioState(true));
 audio.addEventListener('pause', () => showAudioState(false));
-reel.addEventListener('play', () => {
-  stopWaitingForGesture();
-  audio.pause();
-});
+reel?.addEventListener('play', () => audio.pause());
+
 for (const button of audioButtons) {
-  button.addEventListener('click', () => {
-    stopWaitingForGesture();
-    if (!audio.paused) {
-      audio.pause();
-      return;
-    }
-    reel.pause();
-    void startMusic();
+  button.addEventListener('click', async () => {
+    if (!audio.paused) { audio.pause(); return; }
+    reel?.pause();
+    audioStatus.textContent = '';
+    try { await audio.play(); }
+    catch { showAudioState(false); audioStatus.textContent = 'המוזיקה לא נטענה. אפשר לנסות שוב.'; }
   });
-}
-if (waitingForGesture) {
-  document.addEventListener('click', startOnFirstClick);
-  void startMusic();
 }
 
-if (mobileDock) {
-  const heroActions = document.querySelector('.hero-actions');
-  const bottomCta = document.querySelector('.bottom-cta');
-  const observer = new IntersectionObserver(() => {
-    mobileDock.hidden = heroActions.getBoundingClientRect().bottom > 0 ||
-      bottomCta.getBoundingClientRect().top < window.innerHeight;
+// The booking dock appears on phones once the hero button has scrolled away, and steps aside for the other booking buttons.
+if (dock && window.matchMedia('(max-width: 620px)').matches) {
+  const anchors = [...document.querySelectorAll('.hero .cta, .how .cta, .closing .cta')];
+  const visible = new Set();
+  const update = () => {
+    const pastHero = document.querySelector('.hero').getBoundingClientRect().bottom < 0;
+    dock.hidden = !pastHero || visible.size > 0;
+  };
+  const io = new IntersectionObserver(entries => {
+    for (const e of entries) e.isIntersecting ? visible.add(e.target) : visible.delete(e.target);
+    update();
   });
-  observer.observe(heroActions);
-  observer.observe(bottomCta);
+  anchors.forEach(a => io.observe(a));
+  addEventListener('scroll', update, { passive: true });
 }
