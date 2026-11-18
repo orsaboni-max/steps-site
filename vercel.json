@@ -23,6 +23,11 @@
       "permanent": true
     },
     {
+      "source": "/:slug(pilates|gym-women|barre|kids|nutrition|pilates-price|pilates-beginners|pilates-or-gym|pilates-postpartum|pilates-ramat-poleg|barre-beginners|barre-or-pilates|barre-teens|gym-beginners|gym-or-mixed|gym-menopause|yoga-barre-netanya|accessibility|privacy)",
+      "destination": "/:slug.html",
+      "permanent": true
+    },
+    {
       "source": "/nutrition-v3.html",
       "destination": "/nutrition.html",
       "permanent": false
