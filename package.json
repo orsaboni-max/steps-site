@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "type": "module",
+  "overrides": {
+    "zod": "4.6.7"
+  },
+  "dependencies": {
+    "@vercel/blob": "2.8.2"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "typescript": "7.0.2"
+  }
+}

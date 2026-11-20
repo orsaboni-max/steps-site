@@ -328,7 +328,11 @@ table.cmp .y{color:var(--yellow);font-weight:700}
   "@type": "HealthClub",
   "@id": "https://stepsnetanya.co.il/#healthclub",
   "name": "סטודיו סטפס | STEPS Fitness Center",
-  "alternateName": ["סטודיו סטפס", "סטפס פולג", "סטפס נתניה"],
+  "alternateName": [
+    "סטודיו סטפס",
+    "סטפס פולג",
+    "סטפס נתניה"
+  ],
   "url": "https://stepsnetanya.co.il",
   "logo": "https://stepsnetanya.co.il/steps-logo-white.png",
   "image": "https://stepsnetanya.co.il/images/kids-hero.jpg",
@@ -347,20 +351,55 @@ table.cmp .y{color:var(--yellow);font-weight:700}
     "postalCode": "4220209",
     "addressCountry": "IL"
   },
-  "geo": {"@type": "GeoCoordinates","latitude": 32.2749168,"longitude": 34.8479596},
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 32.2749168,
+    "longitude": 34.8479596
+  },
   "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJX3typn8_HRURJ4xZd-KWQQU",
   "openingHoursSpecification": [
-    {"@type": "OpeningHoursSpecification","dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday"],"opens": "07:00","closes": "22:00"},
-    {"@type": "OpeningHoursSpecification","dayOfWeek": "Friday","opens": "07:00","closes": "13:00"}
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday"
+      ],
+      "opens": "07:00",
+      "closes": "22:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Friday",
+      "opens": "07:00",
+      "closes": "13:00"
+    }
   ],
   "priceRange": "₪230-₪530",
   "currenciesAccepted": "ILS",
   "areaServed": [
-    {"@type": "City", "name": "נתניה"},
-    {"@type": "Place", "name": "פולג"},
-    {"@type": "Place", "name": "רמת פולג"},
-    {"@type": "Place", "name": "עיר ימים"},
-    {"@type": "Place", "name": "אגמים"}
+    {
+      "@type": "City",
+      "name": "נתניה"
+    },
+    {
+      "@type": "Place",
+      "name": "פולג"
+    },
+    {
+      "@type": "Place",
+      "name": "רמת פולג"
+    },
+    {
+      "@type": "Place",
+      "name": "עיר ימים"
+    },
+    {
+      "@type": "Place",
+      "name": "אגמים"
+    }
   ],
   "description": "חוגי כושר לילדים ונוער בגילאי 12–15 בסטודיו STEPS בקניון פולג, נתניה: אימוני כוח לילדים ולנוער, פילאטיס מכשירים לנערות ואימוני בר לנערות.",
   "makesOffer": [
@@ -369,47 +408,107 @@ table.cmp .y{color:var(--yellow);font-weight:700}
       "itemOffered": {
         "@type": "Service",
         "name": "אימוני כוח לילדים ולנוער",
-        "audience": {"@type": "PeopleAudience", "suggestedMinAge": 12, "suggestedMaxAge": 15},
+        "audience": {
+          "@type": "PeopleAudience",
+          "suggestedMinAge": 12,
+          "suggestedMaxAge": 15
+        },
         "hoursAvailable": [
-          {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday","Thursday"], "opens": "17:00"},
-          {"@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "16:30"}
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Sunday",
+              "Thursday"
+            ],
+            "opens": "17:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Tuesday",
+            "opens": "16:30"
+          }
         ],
-        "provider": {"@id": "https://stepsnetanya.co.il/#healthclub"}
+        "provider": {
+          "@id": "https://stepsnetanya.co.il/#healthclub"
+        },
+        "@id": "https://stepsnetanya.co.il/kids.html#kids-fitness"
       },
       "price": "50",
       "priceCurrency": "ILS",
-      "name": "אימון היכרות"
+      "name": "אימון היכרות",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "price": "50",
+        "priceCurrency": "ILS",
+        "valueAddedTaxIncluded": true
+      },
+      "description": "אימון היכרות ב-50 ₪ כולל מע״מ. התיאום לקבוצת הנוער נעשה מול הצוות."
     },
     {
       "@type": "Offer",
       "itemOffered": {
         "@type": "Service",
         "name": "פילאטיס מכשירים לנערות",
-        "audience": {"@type": "PeopleAudience", "suggestedMinAge": 12, "suggestedMaxAge": 15},
+        "audience": {
+          "@type": "PeopleAudience",
+          "suggestedMinAge": 12,
+          "suggestedMaxAge": 15
+        },
         "hoursAvailable": [
-          {"@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "16:00"},
-          {"@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "17:00"}
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Wednesday",
+            "opens": "17:00"
+          }
         ],
-        "provider": {"@id": "https://stepsnetanya.co.il/#healthclub"}
+        "provider": {
+          "@id": "https://stepsnetanya.co.il/#healthclub"
+        },
+        "@id": "https://stepsnetanya.co.il/kids.html#teens-pilates"
       },
       "price": "50",
       "priceCurrency": "ILS",
-      "name": "אימון היכרות"
+      "name": "אימון היכרות",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "price": "50",
+        "priceCurrency": "ILS",
+        "valueAddedTaxIncluded": true
+      },
+      "description": "אימון היכרות ב-50 ₪ כולל מע״מ. התיאום לקבוצת הנוער נעשה מול הצוות."
     },
     {
       "@type": "Offer",
       "itemOffered": {
         "@type": "Service",
         "name": "אימוני בר לנערות",
-        "audience": {"@type": "PeopleAudience", "suggestedMinAge": 12, "suggestedMaxAge": 15},
+        "audience": {
+          "@type": "PeopleAudience",
+          "suggestedMinAge": 12,
+          "suggestedMaxAge": 15
+        },
         "hoursAvailable": [
-          {"@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "16:00"}
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Sunday",
+            "opens": "16:00"
+          }
         ],
-        "provider": {"@id": "https://stepsnetanya.co.il/#healthclub"}
+        "provider": {
+          "@id": "https://stepsnetanya.co.il/#healthclub"
+        },
+        "@id": "https://stepsnetanya.co.il/kids.html#teens-barre"
       },
       "price": "50",
       "priceCurrency": "ILS",
-      "name": "אימון היכרות"
+      "name": "אימון היכרות",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "price": "50",
+        "priceCurrency": "ILS",
+        "valueAddedTaxIncluded": true
+      },
+      "description": "אימון היכרות ב-50 ₪ כולל מע״מ. התיאום לקבוצת הנוער נעשה מול הצוות."
     }
   ]
 }
@@ -418,10 +517,9 @@ table.cmp .y{color:var(--yellow);font-weight:700}
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "dateModified": "2026-09-20",
   "mainEntity": [
     {"@type":"Question","name":"לאיזה גילאים מתאימות הקבוצות?","acceptedAnswer":{"@type":"Answer","text":"כל שלוש הפעילויות — אימוני כוח לילדים ולנוער, פילאטיס מכשירים לנערות ואימוני בר לנערות — מיועדות לגילאי 12–15."}},
-    {"@type":"Question","name":"באילו ימים ושעות מתקיימים האימונים?","acceptedAnswer":{"@type":"Answer","text":"כוח לילדים ולנוער: ראשון וחמישי ב־17:00, שלישי ב־16:30. פילאטיס מכשירים לנערות: ראשון ב־16:00, רביעי ב־17:00. בר לנערות: ראשון ב־16:00."}},
+    {"@type":"Question","name":"באילו ימים ושעות מתקיימים האימונים?","acceptedAnswer":{"@type":"Answer","text":"כוח לילדים ולנוער: ראשון וחמישי ב־17:00, שלישי ב־16:30. פילאטיס מכשירים לנערות: רביעי ב־17:00, לתיאום ובירור מועדים נוספים יש לפנות לצוות. בר לנערות: ראשון ב־16:00."}},
     {"@type":"Question","name":"כמה זמן נמשך שיעור?","acceptedAnswer":{"@type":"Answer","text":"אימון כוח לילדים ולנוער נמשך 50–60 דקות. שיעורי פילאטיס מכשירים לנערות ובר לנערות נמשכים כ-55 דקות."}},
     {"@type":"Question","name":"כמה עולה שיעור ניסיון?","acceptedAnswer":{"@type":"Answer","text":"אימון היכרות עולה 50 ₪ בכל אחת משלוש הפעילויות: כוח לילדים ולנוער, פילאטיס מכשירים לנערות ובר לנערות. לתיאום, פנו לצוות דרך הכפתור של הפעילות המתאימה."}},
     {"@type":"Question","name":"האם זה מתאים לילדים שלא עסקו בספורט מעולם?","acceptedAnswer":{"@type":"Answer","text":"חד משמעית כן! אנחנו שמים דגש על יחס אישי, התאמת עומסים והדרגתיות. המטרה שלנו היא קודם כל לייצר אהבה לתנועה ולספורט."}},
@@ -472,7 +570,7 @@ table.cmp .y{color:var(--yellow);font-weight:700}
       <a class="btn-a" href="#programs">לפעילויות ולמערכת השעות ←</a>
       <a class="btn-b" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%94%D7%99%D7%9B%D7%A8%D7%95%D7%AA%20%D7%91%D7%A7%D7%91%D7%95%D7%A6%D7%95%D7%AA%20%D7%94%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%95%D7%94%D7%A0%D7%95%D7%A2%D7%A8%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="trial-cta whatsapp-click">לבחירת קבוצה בוואטסאפ</a>
     </div>
-    <p class="hero-assurance"><a href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener">4.9 ★ · 34 ביקורות בגוגל</a> · מעל 500 מתאמנות</p>
+    <p class="hero-assurance"><a href="https://search.google.com/local/reviews?placeid=ChIJX3typn8_HRURJ4xZd-KWQQU" target="_blank" rel="noopener">4.9 ★ · 36 ביקורות בגוגל</a> · מעל 500 מתאמנות</p>
   </div>
 </section>
 
@@ -484,7 +582,7 @@ table.cmp .y{color:var(--yellow);font-weight:700}
     <p class="sec-sub">כוח, פילאטיס מכשירים ובר — לכל פעילות החלל שלה, הקבוצה שלה והמועדים שלה.</p>
     <div class="answer">
       <div class="answer-t">בקצרה</div>
-      <p>בסטודיו סטפס בקניון פולג נתניה יש שלוש פעילויות נפרדות לגילאי <bdi>12–15</bdi>: אימוני כוח לילדים ולנוער בחלל ה-GYM, בימי ראשון וחמישי ב-17:00 ובימי שלישי ב-16:30, כ-50 עד 60 דקות לאימון; פילאטיס מכשירים לנערות בחלל הרפורמר, בימי ראשון ב-16:00 וברביעי ב-17:00; ואימון בר לנערות בחלל MOVE, בימי ראשון ב-16:00.</p>
+      <p>בסטודיו סטפס בקניון פולג נתניה יש שלוש פעילויות נפרדות לגילאי <bdi>12–15</bdi>: אימוני כוח לילדים ולנוער בחלל ה-GYM, בימי ראשון וחמישי ב-17:00 ובימי שלישי ב-16:30, כ-50 עד 60 דקות לאימון; פילאטיס מכשירים לנערות בחלל הרפורמר, ביום רביעי ב-17:00 ובתיאום מול הצוות; ואימון בר לנערות בחלל MOVE, בימי ראשון ב-16:00.</p>
       <p>כל פעילות מתקיימת בקבוצה קטנה עם מדריך או מדריכה שמלווים לאורך האימון, ובנויה סביב תנועה נכונה, חיזוק ועבודה על יציבה — לא סביב משקלים כבדים או תחרות בין המשתתפים. שלוש הפעילויות נפרדות זו מזו — אפשר להירשם לאחת מהן בלבד. אימון היכרות בכל אחת מהפעילויות עולה <strong>50 ₪</strong>, והרישום נעשה בוואטסאפ מול הצוות — שם גם עונים על שאלות לגבי מחירי המנוי, גודל הקבוצה והתאמת הילד או הנערה לפעילות. הכתובת: אמנון ותמר 6, קניון פולג, קומה 2, נתניה, וחניון הקניון חינם. שלושת החללים נמצאים באותו סטודיו, כך שאח ואחות יכולים להתאמן באותו מקום ובאותה שעה.</p>
     </div>
     <nav class="space-links" aria-label="בחירת פעילות לילדים ולנערות">
@@ -528,10 +626,7 @@ table.cmp .y{color:var(--yellow);font-weight:700}
       </figure>
       <div class="youth-room__body">
         <p class="program-copy">אימון על מיטות רפורמר בקבוצה לנערות, עם עבודה על תנועה מדויקת ושליטה בגוף ובהדרכת מדריכה לאורך השיעור.</p>
-      <ul class="program-times" aria-label="מועדי פילאטיס מכשירים לנערות">
-        <li><span>ימי ראשון</span><time datetime="16:00"><bdi>16:00</bdi></time></li>
-        <li><span>ימי רביעי</span><time datetime="17:00"><bdi>17:00</bdi></time></li>
-      </ul>
+      <p class="program-note">יום רביעי ב-<bdi>17:00</bdi> · לתיאום ובירור מועדים נוספים יש לפנות לצוות.</p>
       <p class="program-note">גילאי <bdi>12–15</bdi> · כ-<bdi>55</bdi> דקות<br>אימון היכרות: 50 ₪</p>
       <a class="btn-a program-cta" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%A4%D7%99%D7%9C%D7%90%D7%98%D7%99%D7%A1%20%D7%9E%D7%9B%D7%A9%D7%99%D7%A8%D7%99%D7%9D%20%D7%9C%D7%A0%D7%A2%D7%A8%D7%95%D7%AA%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="trial-cta whatsapp-click">לתיאום פילאטיס לנערות ←</a>
       </div>
@@ -585,7 +680,7 @@ table.cmp .y{color:var(--yellow);font-weight:700}
         <tr>
           <th scope="row">מתי</th>
           <td class="y">ראשון וחמישי ב-<bdi>17:00</bdi> · שלישי ב-<bdi>16:30</bdi></td>
-          <td class="y">ראשון ב-<bdi>16:00</bdi> · רביעי ב-<bdi>17:00</bdi></td>
+          <td class="y">רביעי ב-<bdi>17:00</bdi> · לתיאום ובירור מועדים נוספים יש לפנות לצוות</td>
           <td class="y">ראשון ב-<bdi>16:00</bdi></td>
         </tr>
         <tr>
@@ -640,9 +735,9 @@ table.cmp .y{color:var(--yellow);font-weight:700}
       <label for="d4">חמישי</label>
     </div>
     <div class="dpick-panels">
-      <div class="dpick-p"><div class="dpick-d">ראשון</div><div class="dpick-h" dir="ltr">16:00 · 17:00</div><div class="dpick-c">שלוש הקבוצות פעילות: בר לנערות בחלל <bdi>MOVE</bdi> ב-<bdi>16:00</bdi> · פילאטיס מכשירים לנערות בחלל הרפורמר ב-<bdi>16:00</bdi> · אימון כוח לילדים ולנוער בחלל ה-<bdi>GYM</bdi> ב-<bdi>17:00</bdi>. הבר והפילאטיס מתקיימים באותה שעה, כך שצריך לבחור ביניהם.</div></div>
+      <div class="dpick-p"><div class="dpick-d">ראשון</div><div class="dpick-h" dir="ltr">16:00 · 17:00</div><div class="dpick-c">בר לנערות בחלל <bdi>MOVE</bdi> ב-<bdi>16:00</bdi> · אימון כוח לילדים ולנוער בחלל ה-<bdi>GYM</bdi> ב-<bdi>17:00</bdi>. למועדי פילאטיס לנערות, יש לפנות לצוות.</div></div>
       <div class="dpick-p"><div class="dpick-d">שלישי</div><div class="dpick-h" dir="ltr">16:30</div><div class="dpick-c">אימון כוח לילדים ולנוער בחלל ה-<bdi>GYM</bdi>, <bdi>50–60</bdi> דקות.</div></div>
-      <div class="dpick-p"><div class="dpick-d">רביעי</div><div class="dpick-h" dir="ltr">17:00</div><div class="dpick-c">פילאטיס מכשירים לנערות בחלל הרפורמר, כ-<bdi>55</bdi> דקות.</div></div>
+      <div class="dpick-p"><div class="dpick-d">רביעי</div><div class="dpick-h" dir="ltr">17:00</div><div class="dpick-c">פילאטיס מכשירים לנערות בחלל הרפורמר, בתיאום מול הצוות.</div></div>
       <div class="dpick-p"><div class="dpick-d">חמישי</div><div class="dpick-h" dir="ltr">17:00</div><div class="dpick-c">אימון כוח לילדים ולנוער בחלל ה-<bdi>GYM</bdi>, <bdi>50–60</bdi> דקות.</div></div>
     </div>
     <p class="dpick-note">בימי שני ושישי ובשבת אין קבוצות נוער. אימון היכרות בכל אחת מהפעילויות עולה 50 ₪, כולל מע״מ.</p>
@@ -689,7 +784,7 @@ table.cmp .y{color:var(--yellow);font-weight:700}
       <summary>באילו ימים ושעות מתקיימים האימונים?</summary>
       <ul class="faq-list">
         <li><strong>כוח לילדים ולנוער:</strong> ראשון וחמישי ב־<bdi>17:00</bdi>, שלישי ב־<bdi>16:30</bdi>.</li>
-        <li><strong>פילאטיס מכשירים לנערות:</strong> ראשון ב־<bdi>16:00</bdi>, רביעי ב־<bdi>17:00</bdi>.</li>
+        <li><strong>פילאטיס מכשירים לנערות:</strong> רביעי ב־<bdi>17:00</bdi>, לתיאום ובירור מועדים נוספים יש לפנות לצוות.</li>
         <li><strong>בר לנערות:</strong> ראשון ב־<bdi>16:00</bdi>.</li>
       </ul>
     </details>

@@ -75,7 +75,7 @@ cd C:\Users\USER\steps-site && npx vercel --yes --prod   # deploy — רק מה�
 
 ## תשתית
 - **Vercel:** פרויקט `steps-site` · דומיין `stepsnetanya.co.il` · env `ARBOX_API_KEY` · כותרות אבטחה והפניות ב-`vercel.json`.
-- **Arbox:** `/api/schedule?date=YYYY-MM-DD` → v3 schedule, סינון `location_name` מכיל "פולג", cache 5 דק'.
+- **Arbox:** `/api/schedule?date=YYYY-MM-DD` → v3 schedule, סינון `location_name` מכיל "פולג", שמירה מדורגת (היום 30 דק' · מחר שעתיים · רחוק 6 שעות — `.claude/rules/api.md`).
 - **GitHub:** `orsaboni-max/steps-site`, ענף `main`. Netlify לא בשימוש.
 - **מדידה:** GA4 `G-5T22VE9YHT` · Meta Pixel `1016773848190436` — נטענים רק אחרי הסכמה לעוגיות.
 - **חוק ונגישות:** עוסק מורשה 558306098 בפוטר · "כולל מע״מ" במחירים · `accessibility.html` · כפתור "הגדרות עוגיות" למשיכת הסכמה.

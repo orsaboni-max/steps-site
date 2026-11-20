@@ -33,3 +33,4 @@ materials-drive/
 
 # סודות סביבה — לעולם לא בגיט
 .env*
+node_modules/

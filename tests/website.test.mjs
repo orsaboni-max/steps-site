@@ -185,6 +185,8 @@ function formHarness(fetchResult) {
   elements.leadForm.querySelector = () => button;
   const context = { document, $: id => elements[id.slice(1)], STEPS_REFERRAL: {},
     location: { href: 'https://stepsnetanya.co.il/' },
+    crypto: { randomUUID: () => 'aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa' },
+    sessionStorage: { getItem: () => null, setItem() {}, removeItem() {} },
     gtag: (...args) => events.push(['ga', ...args]), fbq: (...args) => events.push(['meta', ...args]),
     oaiq: (...args) => events.push(['oai', ...args]),
     CustomEvent: class { constructor(type) { this.type = type; } },
@@ -204,6 +206,15 @@ function formHarness(fetchResult) {
 }
 const successfulResponse = () => Promise.resolve({ ok: true, json: () => Promise.resolve({ ok: true }) });
 const leads = h => h.events.filter(e => e[0] === 'meta' && e[1] === 'track' && e[2] === 'Lead');
+test('form retry carries the same inquiry reference and a page, without putting contact details in analytics', async () => {
+  const h = formHarness(() => Promise.reject(new Error('network')));
+  h.submit(); await flush(); h.submit(); await flush();
+  const bodies = h.requests.map(r => JSON.parse(r[1].body));
+  assert.equal(bodies.length, 2);
+  assert.equal(bodies[0].inquiry_id, 'aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa');
+  assert.equal(bodies[1].inquiry_id, bodies[0].inquiry_id);
+  assert.equal(bodies[0].page, '/'); assert.equal(leads(h).length,0);
+});
 // ה-SDK של OpenAI מקבל רשימה סגורה של שמות, ולכל שם סוג-נתונים אחד. שם או סוג
 // שאינם ברשימה נזרקים בשקט (unsupported_event_name) — הדף נראה תקין והמדידה ריקה.
 const conversions = h => h.events.filter(e => e[0] === 'oai' && e[1] === 'measure');
@@ -299,6 +310,34 @@ test('click tracking across service pages and guides does not use standard Meta 
   for (const file of ['gym-women.html', 'pilates.html', 'barre.html', 'nutrition.html', 'content.js', 'kids.html']) {
     const source = read(file);
     assert.doesNotMatch(source, /fbq\(['"]track['"],\s*['"]Lead['"]/i, file);
+  }
+});
+
+test('nutrition contact clicks record interest without becoming training trials or leads', () => {
+  const html = read('nutrition.html');
+  const links = [...html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)]
+    .filter(([, attrs]) => /data-track=/.test(attrs))
+    .map(([, attrs, text]) => ({
+      href: attrs.match(/href="([^"]+)"/)[1],
+      textContent: text.replace(/<[^>]*>/g, ''),
+      getAttribute: () => attrs.match(/data-track="([^"]+)"/)[1],
+      addEventListener(type, handler) { this[type] = handler; }
+    }));
+  const tracking = [...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)]
+    .map(([, code]) => code).find(code => code.includes('// Conversion tracking'));
+  const events = [];
+  vm.runInNewContext(tracking, {
+    location: { href: 'https://stepsnetanya.co.il/nutrition.html' },
+    document: { querySelectorAll: () => links },
+    gtag: (...args) => events.push(args), fbq: (...args) => events.push(args)
+  });
+  assert.ok(links.length > 0);
+  for (const link of links) {
+    events.length = 0;
+    link.click();
+    assert.deepEqual(events.map(args => args.slice(0, 2)), [
+      ['event', 'whatsapp_click'], ['trackCustom', 'whatsapp_click']
+    ]);
   }
 });
 
@@ -420,6 +459,25 @@ test('service entities do not use the CreativeWork-only dateModified property', 
       assert.equal(node.dateModified, undefined, page + ': dateModified is not a Service property');
     }
   }
+});
+
+test('priced offers match visible ILS prices including VAT without claiming live class availability', () => {
+  let checked = 0;
+  for (const page of sitePages()) {
+    const html = read(page);
+    const visible = html.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, '')
+      .replace(/<[^>]+>/g, ' ').replace(/,(?=\d{3})/g, '');
+    const prices = new Set((visible.match(/\d+/g) || []));
+    for (const offer of schemaNodes(html).filter(node => node['@type'] === 'Offer' && node.price != null)) {
+      checked++;
+      assert.ok(prices.has(String(offer.price)), page + ' marks up a price the reader cannot find');
+      assert.equal(offer.priceCurrency, 'ILS', page + ' currency');
+      assert.equal(offer.priceSpecification?.price, offer.price, page + ' conflicting price specification');
+      assert.equal(offer.priceSpecification?.valueAddedTaxIncluded, true, page + ' VAT');
+      assert.equal(offer.availability, undefined, page + ' class availability must come from Arbox');
+    }
+  }
+  assert.ok(checked >= 25, 'priced service offers disappeared');
 });
 
 test('the footer directions link names the same Google place the schema claims', () => {
@@ -655,7 +713,7 @@ const clusterGuides = () => sitePages().filter(page => {
   return crumbs && [...crumbs[0].matchAll(/"position":\s*(\d+)/g)].length === 3;
 });
 
-test('every cluster guide answers in more than prose — table, video and a day picker', () => {
+test('every cluster guide has a table, video and a schedule or link to a live timetable', () => {
   const guides = clusterGuides();
   assert.ok(guides.length >= 10, 'cluster guides disappeared from the sitemap: ' + guides.length);
   for (const page of guides) {
@@ -681,6 +739,14 @@ test('every cluster guide answers in more than prose — table, video and a day 
 
     // בוחרת היום עובדת בלי JavaScript: רדיו מסומן ⇒ הפאנל שמתאים לו נראה. אם מספר
     // התוויות, הרדיו והפאנלים לא זהה — יום אחד לא ייפתח לעולם, וזה לא נראה ב-diff.
+    // These guides link to their live timetable instead of publishing
+    // a fixed timetable that can become stale.
+    const liveTimetables = {'pilates-price.html': 'pilates.html#sched', 'pilates-beginners.html': 'pilates.html#sched', 'gym-beginners.html': 'gym-women.html#sched', 'barre-beginners.html': 'barre.html#sched'};
+    if (liveTimetables[page]) {
+      assert.ok(html.includes('href="' + liveTimetables[page] + '"'), page + ' must link to its live timetable');
+      assert.doesNotMatch(html, /class="dpick-p"/);
+      continue;
+    }
     const radios = [...html.matchAll(/<input type="radio" name="dpick" id="(d\d)"( checked)?>/g)];
     assert.ok(radios.length >= 4, page + ' carries no day picker');
     const labels = [...html.matchAll(/<label for="(d\d)">/g)].map(m => m[1]);
@@ -705,10 +771,54 @@ test('the OpenAI pixel ships once per page, unmodified, after the environment gu
     const html = read(page);
     assert.equal(count(html, pixel), 1, page + ' does not carry exactly one unmodified OpenAI pixel');
     // Environment guard must run first so previews cannot initialize pixels.
-    const guard = html.match(/<script src="tracking\.js"(?: data-ga)?><\/script>/)?.[0];
+    const guard = html.match(/<script src="tracking\.js"(?: data-ga)?><\/script>|<script data-ga data-tracking-inline>[\s\S]*?<\/script>/)?.[0];
     assert.ok(guard, page + ' lacks the measurement environment guard');
     assert.equal(html.indexOf('<script'), html.indexOf(guard), page + ' runs a script before the environment guard');
     assert.ok(html.indexOf(guard) < html.indexOf(pixel), page + ' initializes the pixel before the guard');
+  }
+});
+
+test('the inline home bootstrap preserves consent, attribution and preview isolation', () => {
+  const inline = home.match(/<script data-ga data-tracking-inline>([\s\S]*?)<\/script>/)?.[1];
+  assert.ok(inline, 'the home bootstrap must execute before the other pixels');
+  assert.equal(inline.replace(/\r\n/g, '\n').trim(), read('tracking.js').replace(/\r\n/g, '\n').trim(),
+    'resync the inline bootstrap after changing tracking.js');
+  assert.doesNotMatch(home, /<script[^>]+src="tracking\.js"/);
+  for (const hostname of ['stepsnetanya.co.il', 'localhost', 'steps-site-preview.vercel.app']) {
+    for (const consent of [null, 'denied', 'granted']) {
+      const storage = new Map(consent ? [['steps-consent', consent]] : []), appended = [], listeners = {};
+      const window = { location: { protocol: 'https:', hostname, pathname: '/', search: '' },
+        localStorage: { getItem: key => storage.get(key) ?? null, setItem: (key,value) => storage.set(key,value) } };
+      const document = { currentScript: { hasAttribute: attr => attr === 'data-ga' },
+        referrer: 'https://www.google.com/search?q=private-query',
+        addEventListener: (type,fn) => { listeners[type] = fn; },
+        createElement: () => ({}), head: { appendChild: script => appended.push(script) } };
+      vm.runInNewContext(inline, { window, document, URL, URLSearchParams });
+      assert.equal(window.STEPS_TRACKING_ENABLED, hostname === 'stepsnetanya.co.il');
+      if (hostname !== 'stepsnetanya.co.il') {
+        assert.equal(appended.length, 0); assert.equal(storage.has('steps_ref'), false);
+        for (const pixelFn of ['gtag', 'fbq', 'oaiq']) assert.equal(typeof window[pixelFn], 'function');
+        continue;
+      }
+      assert.equal(appended.length, 1);
+      assert.equal(appended[0].src, 'https://www.googletagmanager.com/gtag/js?id=G-5T22VE9YHT');
+      assert.equal(appended[0].async, true);
+      assert.equal(window.dataLayer[0][0], 'consent');
+      assert.equal(window.dataLayer[0][2].analytics_storage, 'denied');
+      assert.equal(window.dataLayer.at(-1)[1], 'G-5T22VE9YHT');
+      assert.equal(storage.has('steps_ref'), consent === 'granted');
+      const sameReferral = window.STEPS_REFERRAL;
+      if (consent === null) {
+        storage.set('steps-consent', 'granted');
+        listeners.click({ target: { closest: () => true } });
+        assert.equal(window.STEPS_REFERRAL, sameReferral, 'the form must retain the updated referral object');
+      }
+      if (consent !== 'denied') {
+        assert.equal(sameReferral.ref, 'https://www.google.com/');
+        assert.equal(sameReferral.ref_only, true);
+        assert.doesNotMatch(storage.get('steps_ref'), /private-query|search\?q/);
+      }
+    }
   }
 });
 

@@ -1,4 +1,4 @@
-declare const process: { env: { ARBOX_API_KEY?: string } };
+import { attribution, personKey, requestId, trackedLead } from '../lib/attribution.ts';
 
 /**
  * מקים ליד ב-Arbox מטופס האתר.
@@ -15,14 +15,11 @@ const SOURCE_INSTAGRAM_PAID = 126889; // "אינסטגרם ממומן"
 const SOURCE_GOOGLE = 6552; // "google"
 const IL_MOBILE = /^0(5[0-9])\d{7}$/;
 
-/* מאיפה היא הגיעה. נמדד 17/08/26: Arbox שומר "אתר" בלבד, ולכן אף אחד לא
-   ידע איזו מודעה הביאה ליד — תנועה מהמודעות לאתר הייתה כסף עיוור.
-   Arbox v3 לא נותן שדה חופשי משלנו על הליד, אז זה נוסע בתוך `comment`:
-   המזכירה רואה משפט קריא, ו-steps-brain יכול לפרסר את אותה שורה.
-   ponytail: comment ולא שדה מותאם. אם/כשיהיה custom field — לעבור אליו. */
+/* A short human-readable CRM summary. The complete attribution and returned
+   official v3 user_id are stored independently in the private ledger. */
 const REF_FIELDS = [
-  "fbclid", "gclid", "utm_source", "utm_medium",
-  "utm_campaign", "utm_content", "utm_term", "ad_id", "landing", "ref",
+  "landing", "submitted_page", "utm_source", "utm_medium", "ref",
+  "utm_campaign", "utm_content", "utm_term", "ad_id", "gclid", "fbclid",
 ] as const;
 const REF_MAX = 300;
 
@@ -39,7 +36,12 @@ export function referralNote(raw: unknown): string {
     if (clean) parts.push(`${key}=${clean}`);
   }
   if (!parts.length) return "";
-  return ` | מקור-הגעה: ${parts.join("; ")}`.slice(0, REF_MAX);
+  let note = ' | מקור-הגעה: ';
+  for (const part of parts) {
+    const next = (note.endsWith(': ') ? '' : '; ') + part;
+    if (note.length + next.length <= REF_MAX) note += next;
+  }
+  return note.endsWith(': ') ? '' : note;
 }
 
 function refText(raw: unknown, key: string, limit: number): string {
@@ -119,15 +121,19 @@ export default async function handler(req: any, res: any) {
 
   if (name.length < 2 || name.length > 40) return res.status(400).json({ error: "bad_name" });
   if (!IL_MOBILE.test(phone)) return res.status(400).json({ error: "bad_phone" });
+  if (!process.env.BLOB_READ_WRITE_TOKEN || !process.env.ATTRIBUTION_SECRET) return res.status(503).json({ error: 'measurement_unavailable' });
 
   // Arbox דורש first_name; שם משפחה אופציונלי ולכן מפצלים על הרווח הראשון
   const parts = name.split(" ");
   const first_name = parts[0];
   const last_name = parts.length > 1 ? parts.slice(1).join(" ") : null;
 
-  const campaign = attributionCampaign(body.ref);
+  const ref = attribution(body.ref, body.page, body.consent);
+  const campaign = attributionCampaign(ref);
   try {
-    const r = await fetch("https://arboxserver.arboxapp.com/api/public/v3/leads", {
+    const record = { version: 1, inquiry_id: requestId(body.inquiry_id), created_at: new Date().toISOString(), location_id: LOCATION_POLEG, person_key: personKey(phone), state: 'pending', ...ref };
+    const result = await trackedLead(record, async () => {
+      const r = await fetch("https://arboxserver.arboxapp.com/api/public/v3/leads", {
       method: "POST",
       headers: {
         "api-key": apiKey,
@@ -139,24 +145,21 @@ export default async function handler(req: any, res: any) {
         last_name,
         phone,
         location_id: LOCATION_POLEG,
-        source_id: attributionSource(body.ref),
+        source_id: attributionSource(ref),
         ...(campaign ? { campaign } : {}),
         gender: "female",
         comment:
-          "הושאר בטופס באתר — ביקשה לקבל את מערכת השעות" + referralNote(body.ref),
+          "הושאר בטופס באתר — ביקשה לקבל את מערכת השעות" + referralNote(ref),
       }),
+      signal: AbortSignal.timeout(12000),
     });
-
-    if (!r.ok) {
-      // לא מחזירים את שגיאת Arbox כלשונה לדפדפן
-      const detail = await r.text();
-      console.error("arbox lead failed", r.status, detail.slice(0, 400));
-      return res.status(502).json({ error: "crm_unavailable" });
-    }
-
-    return res.status(200).json({ ok: true });
+      if (!r.ok) throw new Error('crm_unavailable');
+      return r.json();
+    });
+    const { status, ...bodyResult } = result;
+    return res.status(status).json(bodyResult);
   } catch (e) {
-    console.error("arbox lead error", String(e));
+    console.error("arbox lead error");
     return res.status(502).json({ error: "crm_unavailable" });
   }
 }

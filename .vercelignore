@@ -37,3 +37,16 @@ images/nutrition/cards/
 
 # דוגמאות עיצוב פנימיות — לא עולות לאוויר
 lab/
+
+# Local research and private source materials
+maplerank/
+materials-drive/
+stepsnetanya.co.il-audit/
+.pytest_cache/
+.env*
+scripts/sync-home-tracking.mjs
+scripts/measurement-*.mjs
+lib/*.test.mjs
+
+# נתוני מדידה פנימיים של החלטות (Search Console וכו') — *.md למעלה לא תופס json
+docs/decisions/*.json

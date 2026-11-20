@@ -44,6 +44,12 @@ test("סוג לא-מחרוזת מדולג בשקט, ולא הופך ל-[object O
 
 import { attributionSource, attributionCampaign } from "./lead.ts";
 
+test('page and source survive a crowded 300-character CRM summary without a cut-off field', () => {
+  const note = referralNote({ landing:'/pilates-price.html', submitted_page:'/', utm_source:'google', utm_medium:'cpc', fbclid:'x'.repeat(1000), utm_campaign:'y'.repeat(1000) });
+  assert.ok(note.length<=300); assert.match(note,/landing=\/pilates-price.html/); assert.match(note,/utm_source=google/);
+  assert.ok(!note.includes('fbclid=') || note.includes('fbclid='+'x'.repeat(120)));
+});
+
 test("מקור הליד לפי utm_source — רק ערכים מוכרים, רגיש-לרווח ואותיות", () => {
   assert.equal(attributionSource({ utm_source: "fb" }), 19383);
   assert.equal(attributionSource({ utm_source: " Facebook " }), 19383);
