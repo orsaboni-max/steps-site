@@ -686,8 +686,9 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 @media(max-width:760px){
   .strip,.phones{
     display:flex;flex-wrap:nowrap;align-items:flex-start;
-    gap:12px;max-width:none;
-    overflow-x:auto;overscroll-behavior-x:contain;
+    gap:14px;max-width:none;
+    overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;
+    touch-action:pan-x pan-y;
     scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
     /* יוצא אל שולי המסך, כך שהכרטיס הראשון מיושר לגוף הטקסט */
     margin-inline:calc(var(--gutter) * -1);
@@ -696,7 +697,10 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     scrollbar-width:none;
   }
   .strip::-webkit-scrollbar,.phones::-webkit-scrollbar{display:none}
-  .strip>figure,.phone{flex:0 0 74vw;max-width:310px;scroll-snap-align:center}
+  .strip>figure{flex:0 0 74vw;max-width:300px;scroll-snap-align:center}
+  .phone{flex:0 0 66vw;max-width:260px;scroll-snap-align:center}
+  /* מונע קפיצות מעלה/מטה וגלילה אנכית פנימית בזמן החלקה הצידה בנייד */
+  .js .phones .phone.rv,.js .strip figure.rv{opacity:1!important;transform:none!important;transition:none!important}
   .strip img{aspect-ratio:4/5;min-height:0}
 
   .swipe{
@@ -1150,19 +1154,19 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   <p class="swipe">← החליקי לצדדים</p>
   <div class="phones">
     <div class="phone">
-      <div class="phone-frame"><img src="images/nutrition/bina-app-day-light.png" width="390" height="844" alt="אפליקציית בינה החדשה — מסך היום עם הארוחה הבאה, כפתורי אכלתי והחלפה וטבעות קלוריות, חלבון ומים" loading="lazy"></div>
+      <div class="phone-frame"><img src="images/nutrition/bina-app-day-light.png" width="390" height="844" alt="אפליקציית בינה החדשה — מסך היום עם הארוחה הבאה, כפתורי אכלתי והחלפה וטבעות קלוריות, חלבון ומים" loading="eager" decoding="async"></div>
       <p class="phone-cap"><b>היום שלך במבט אחד</b>הארוחה הבאה, כפתור ״אכלתי״ או ״החלפה״, וטבעות קלוריות, חלבון ומים</p>
     </div>
     <div class="phone">
-      <div class="phone-frame"><img src="images/nutrition/bina-app-goal.png" width="390" height="844" alt="אפליקציית בינה החדשה — מסך היעד והדרך המחולק לשלושה שלבים לאורך 13 שבועות" loading="lazy"></div>
+      <div class="phone-frame"><img src="images/nutrition/bina-app-goal.png" width="390" height="844" alt="אפליקציית בינה החדשה — מסך היעד והדרך המחולק לשלושה שלבים לאורך 13 שבועות" loading="eager" decoding="async"></div>
       <p class="phone-cap"><b>היעד והדרך (13 שבועות)</b>איפה את נמצאת מול המטרה שלך — הבסיס, הקצב והישורת</p>
     </div>
     <div class="phone">
-      <div class="phone-frame"><img src="images/nutrition/bina-app-progress.png" width="390" height="844" alt="אפליקציית בינה החדשה — דף ההתקדמות עם גרף משקל, מדדי היקפים ואבני דרך" loading="lazy"></div>
+      <div class="phone-frame"><img src="images/nutrition/bina-app-progress.png" width="390" height="844" alt="אפליקציית בינה החדשה — דף ההתקדמות עם גרף משקל, מדדי היקפים ואבני דרך" loading="eager" decoding="async"></div>
       <p class="phone-cap"><b>ההתקדמות שלך</b>גרף משקל, ירידה בהיקפים ואבני דרך — המגמה שלך לאורך זמן</p>
     </div>
     <div class="phone">
-      <div class="phone-frame"><img src="images/nutrition/bina-app-day-dark.png" width="390" height="844" alt="אפליקציית בינה החדשה במצב כהה — נוח לעיניים גם בערב" loading="lazy"></div>
+      <div class="phone-frame"><img src="images/nutrition/bina-app-day-dark.png" width="390" height="844" alt="אפליקציית בינה החדשה במצב כהה — נוח לעיניים גם בערב" loading="eager" decoding="async"></div>
       <p class="phone-cap"><b>גם במצב כהה</b>עיצוב נקי ונוח לעיניים בכל שעה, בלי להוריד כלום מהחנות</p>
     </div>
   </div>
