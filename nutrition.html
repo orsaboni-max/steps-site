@@ -6,13 +6,13 @@
 <!-- OpenAI Ads Measurement Pixel — ההסכמה כבויה עד שהמבקרת מאשרת עוגיות. -->
 <script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");oaiq("consent", function(){try{return localStorage.getItem('steps-consent')==='granted'}catch(e){return false}}());oaiq("init",{pixelId:"B5T2RjYyoPNLhM1naM9xVT"});</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ליווי תזונה למתאמנות בנתניה — 3 חודשים, 1,500 ₪ | סטודיו סטפס פולג</title>
-<meta name="description" content="ליווי הרגלי תזונה למתאמנות STEPS בקניון פולג, נתניה: 3 חודשים, 4 פגישות עם אור סבוני ומעקב בוואטסאפ. 1,500 ₪ כולל מע״מ, בנפרד ממנוי האימונים. לבדיקת התאמה.">
+<title>ליווי תזונה למתאמנות בנתניה — שני מסלולים מ-650 ₪ ל-3 חודשים | סטודיו סטפס פולג</title>
+<meta name="description" content="תוכנית התזונה של STEPS בקניון פולג, נתניה: מסלול דיגיטלי עם בינה והאפליקציה החדשה ב-650 ₪ ל-3 חודשים, או ליווי אישי עם 4 פגישות אצל אור סבוני ב-1,500 ₪. המשך ב-99 ₪ לחודש ללא התחייבות.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://stepsnetanya.co.il/nutrition.html" />
 <link rel="alternate" hreflang="he" href="https://stepsnetanya.co.il/nutrition.html" />
-<meta property="og:title" content="תוכנית התזונה של STEPS | 3 חודשים, ביחד">
-<meta property="og:description" content="מפגשים אישיים איתי בסטודיו, ובינה שמלווה אותך בוואטסאפ כל יום שבדרך. 3 חודשים, 1,500 ₪ כולל מע״מ.">
+<meta property="og:title" content="תוכנית התזונה של STEPS | בינה + אפליקציה חדשה">
+<meta property="og:description" content="שני מסלולים ל-3 חודשים למתאמנות STEPS: מסלול דיגיטלי עם בינה והאפליקציה ב-650 ₪, או ליווי אישי + 4 פגישות בסטודיו ב-1,500 ₪. המשך ב-99 ₪ לחודש ללא התחייבות.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://stepsnetanya.co.il/nutrition.html">
 <meta property="og:image" content="https://stepsnetanya.co.il/images/og/nutrition.jpg">
@@ -21,8 +21,8 @@
 <meta property="og:locale" content="he_IL">
 <meta property="og:site_name" content="STEPS Fitness Center">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="תוכנית התזונה של STEPS | 3 חודשים, ביחד">
-<meta name="twitter:description" content="מפגשים אישיים בסטודיו + ליווי יומיומי בוואטסאפ. 3 חודשים, 1,500 ₪ כולל מע״מ.">
+<meta name="twitter:title" content="תוכנית התזונה של STEPS | בינה + אפליקציה חדשה">
+<meta name="twitter:description" content="מסלול דיגיטלי עם בינה והאפליקציה ב-650 ₪ ל-3 חודשים, או ליווי אישי + 4 פגישות ב-1,500 ₪. המשך ב-99 ₪ לחודש ללא התחייבות.">
 <meta name="twitter:image" content="https://stepsnetanya.co.il/images/og/nutrition.jpg">
 <meta name="theme-color" content="#0B0B0B">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
@@ -582,17 +582,18 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .strip figcaption{margin-top:13px;text-align:center;font-size:14.5px;line-height:1.55;color:var(--t60)}
 .strip figcaption b{display:block;color:var(--bone);font-weight:700;font-size:15.5px;margin-bottom:3px}
 
-/* ◆ מסגרות טלפון */
-.phones{display:flex;gap:clamp(16px,2.4vw,34px);justify-content:center;align-items:flex-start;flex-wrap:wrap;max-width:1100px;margin:0 auto}
-.phone{flex:0 0 clamp(230px,24vw,290px)}
+/* ◆ מסגרות טלפון (4 מסכים של אפליקציית בינה החדשה) */
+.phones{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,1.8vw,24px);align-items:start;max-width:1180px;margin:0 auto}
+.phone{min-width:0}
 .phone-frame{
-  border:1px solid var(--line-strong);border-radius:26px;padding:9px;background:#151515;
+  border:1px solid var(--line-strong);border-radius:26px;padding:8px;background:#151515;
   box-shadow:0 18px 44px rgba(0,0,0,.5);
 }
-.phone-frame img{width:100%;height:clamp(400px,42vw,520px);object-fit:cover;object-position:top center;border-radius:18px;background:#0E110F}
+.phone-frame img{width:100%;aspect-ratio:390/844;height:auto;object-fit:cover;object-position:top center;border-radius:18px;background:#0E110F;display:block}
 .phone-cap{margin-top:14px;text-align:center;font-size:14px;line-height:1.5;color:var(--t60)}
 .phone-cap b{display:block;color:var(--bone);font-weight:700;font-size:15px;margin-bottom:3px}
 .demo-note{max-width:66ch;margin:clamp(26px,3vw,36px) auto 0;text-align:center;font-size:13px;line-height:1.7;color:var(--t45)}
+@media(max-width:1024px) and (min-width:761px){.phones{grid-template-columns:repeat(2,minmax(0,1fr));max-width:660px}}
 
 /* ◆ רמז ההחלקה — מופיע רק כשהרצועות הופכות לגלילה אופקית */
 .swipe{display:none}
@@ -602,22 +603,60 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .shot img{width:100%;border-radius:var(--r-lg);border:1px solid var(--line-card);box-shadow:0 20px 50px rgba(0,0,0,.45)}
 .shot figcaption{margin-top:16px;text-align:center;font-size:14px;line-height:1.7;color:var(--t60)}
 
-/* ◆ המחיר */
+/* ◆ המחיר — שני מסלולים */
+.price-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(16px,2vw,26px);max-width:1020px;margin:0 auto;align-items:stretch;
+}
 .price-card{
-  max-width:640px;margin:0 auto;border:1px solid rgba(255,212,0,.32);border-radius:var(--r-lg);
-  background:var(--yellow-tint);padding:clamp(28px,3.4vw,46px);text-align:center;
+  display:flex;flex-direction:column;
+  border:1px solid var(--line-card);border-radius:var(--r-lg);
+  background:var(--fill);padding:clamp(26px,3vw,40px);text-align:center;
 }
-.price-n{font-family:var(--display);font-weight:900;font-size:clamp(58px,9vw,104px);line-height:.9;letter-spacing:-.05em;color:var(--yellow)}
-.price-for{margin-top:12px;font-size:clamp(16px,1.5vw,19px);font-weight:600;color:var(--bone)}
-.price-vat{margin-top:6px;font-size:14px;color:var(--t60)}
-.price-line{height:1px;background:var(--line-card);margin:clamp(24px,3vw,32px) 0}
-.price-card .tick{text-align:start;max-width:440px;margin:0 auto}
-.price-after{
-  margin-top:clamp(24px,3vw,32px);border:1px solid var(--line-card);border-radius:var(--r-md);
-  padding:20px 22px;font-size:15px;line-height:1.7;color:var(--t75);text-align:start;
+.price-card.featured{
+  border-color:rgba(255,212,0,.38);background:var(--yellow-tint);
 }
-.price-after b{color:var(--bone)}
-.price-card>.btn-a{margin-top:24px}
+.price-badge{
+  display:inline-flex;align-items:center;justify-content:center;align-self:center;
+  margin-bottom:16px;border-radius:var(--r-pill);padding:7px 16px;
+  font-weight:700;font-size:13px;letter-spacing:.02em;
+  border:1px solid var(--line-strong);color:var(--bone);background:rgba(244,242,237,.05);
+}
+.price-card.featured .price-badge{
+  border-color:rgba(255,212,0,.4);color:var(--yellow);background:rgba(255,212,0,.08);
+}
+.price-name{
+  font-family:var(--display);font-weight:900;font-size:clamp(22px,2.2vw,28px);
+  letter-spacing:-.03em;line-height:1.15;color:var(--bone);margin-bottom:10px;
+}
+.price-n{font-family:var(--display);font-weight:900;font-size:clamp(50px,6.2vw,76px);line-height:.95;letter-spacing:-.05em;color:var(--yellow)}
+.price-for{margin-top:10px;font-size:clamp(15.5px,1.4vw,18px);font-weight:600;color:var(--bone)}
+.price-vat{margin-top:5px;font-size:13.5px;color:var(--t60)}
+.price-line{height:1px;background:var(--line-card);margin:clamp(20px,2.4vw,26px) 0}
+.price-card .tick{text-align:start;width:100%;max-width:420px;margin:0 auto;flex:1}
+.price-card>.btn-a{margin-top:26px;width:100%;justify-content:center}
+.btn-outline{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  margin-top:26px;width:100%;padding:16px 24px;border-radius:var(--r-pill);
+  border:1.5px solid var(--yellow);background:transparent;color:var(--yellow);
+  font-family:var(--body);font-weight:800;font-size:16px;text-decoration:none;
+  transition:background .18s,color .18s,transform .18s;
+}
+.btn-outline:hover{background:var(--yellow);color:var(--ink);transform:translateY(-1px)}
+.price-continue{
+  max-width:1020px;margin:clamp(18px,2.2vw,26px) auto 0;
+  border:1px solid rgba(255,212,0,.28);border-radius:var(--r-lg);
+  background:rgba(255,212,0,.05);padding:clamp(20px,2.4vw,28px) clamp(22px,2.8vw,34px);
+  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+}
+.price-continue-txt{font-size:15.5px;line-height:1.7;color:var(--t75);text-align:start;flex:1;min-width:240px}
+.price-continue-txt b{color:var(--bone);font-size:17px;display:block;margin-bottom:4px}
+.price-continue-num{
+  font-family:var(--display);font-weight:900;font-size:clamp(30px,3.4vw,42px);
+  letter-spacing:-.04em;color:var(--yellow);white-space:nowrap;text-align:center;
+}
+.price-continue-num span{display:block;font-family:var(--body);font-size:13px;font-weight:600;color:var(--t60);letter-spacing:0;margin-top:2px}
+@media(max-width:860px){.price-grid{grid-template-columns:1fr}.price-continue{flex-direction:column;align-items:flex-start}}
 .price-anchor{max-width:60ch;margin:clamp(22px,2.6vw,30px) auto 0;text-align:center;font-size:14.5px;line-height:1.75;color:var(--t60)}
 .spots{
   display:inline-flex;align-items:center;gap:10px;margin-bottom:22px;
@@ -770,21 +809,37 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
       "name": "אגמים"
     }
   ],
-  "offers": {
-    "@type": "Offer",
-    "price": "1500",
-    "priceCurrency": "ILS",
-    "priceSpecification": {
-      "@type": "PriceSpecification",
+  "offers": [
+    {
+      "@type": "Offer",
       "price": "1500",
       "priceCurrency": "ILS",
-      "valueAddedTaxIncluded": true
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "price": "1500",
+        "priceCurrency": "ILS",
+        "valueAddedTaxIncluded": true
+      },
+      "name": "מסלול ליווי אישי + בינה והאפליקציה — 3 חודשים",
+      "description": "1,500 ₪ כולל מע״מ לשלושה חודשים, כולל 4 פגישות אישיות 1-על-1 עם אור סבוני בסטודיו, אפליקציית בינה וליווי 24/7 בוואטסאפ. המשך אופציונלי לאחר 3 חודשים ב-99 ₪ לחודש ללא התחייבות.",
+      "url": "https://stepsnetanya.co.il/nutrition.html#price"
     },
-    "name": "תוכנית ליווי תזונה מלאה — 3 חודשים",
-    "description": "1,500 ₪ כולל מע״מ לתוכנית מלאה של שלושה חודשים וארבע פגישות אישיות. למתאמנות STEPS בלבד, בתשלום נפרד ממנוי האימונים.",
-    "url": "https://stepsnetanya.co.il/nutrition.html#price"
-  },
-  "description": "ליווי הרגלי תזונה למתאמנות STEPS בלבד: תוכנית של שלושה חודשים עם אור סבוני, ארבע פגישות אישיות ומעקב בוואטסאפ בעזרת בינה. שירות נפרד ממנוי האימונים; אור מאמן כושר ולא דיאטן קליני, והליווי אינו מחליף דיאטנית קלינית או רופאה.",
+    {
+      "@type": "Offer",
+      "price": "650",
+      "priceCurrency": "ILS",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "price": "650",
+        "priceCurrency": "ILS",
+        "valueAddedTaxIncluded": true
+      },
+      "name": "מסלול דיגיטלי עצמאי עם בינה והאפליקציה — 3 חודשים",
+      "description": "650 ₪ כולל מע״מ לשלושה חודשים: אפליקציית בינה האישית וליווי 24/7 בוואטסאפ סביב האימונים בסטודיו, ללא פגישות פרונטליות. המשך אופציונלי לאחר 3 חודשים ב-99 ₪ לחודש ללא התחייבות.",
+      "url": "https://stepsnetanya.co.il/nutrition.html#price"
+    }
+  ],
+  "description": "ליווי הרגלי תזונה למתאמנות STEPS בלבד בשני מסלולים ל-3 חודשים: מסלול דיגיטלי עצמאי עם בינה והאפליקציה (650 ₪) או ליווי אישי הכולל 4 פגישות עם אור סבוני (1,500 ₪). המשך אופציונלי ב-99 ₪ לחודש ללא התחייבות. שירות נפרד ממנוי האימונים; אור מאמן כושר ולא דיאטן קליני.",
   "audience": {
     "@type": "Audience",
     "audienceType": "מתאמנות STEPS"
@@ -802,7 +857,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     {"@type":"Question","name":"צריך להוריד אפליקציה?","acceptedAnswer":{"@type":"Answer","text":"לא. הכול רץ בוואטסאפ שכבר על הטלפון שלך, ודף התפריט וההתקדמות נפתח בדפדפן."}},
     {"@type":"Question","name":"אני צמחונית / רגישה לגלוטן או ללקטוז?","acceptedAnswer":{"@type":"Answer","text":"התפריט מסנן ומציע חלופות אוטומטית. ואפשר לעדכן את בינה בכל שלב, גם אחרי שהוא כבר נבנה."}},
     {"@type":"Question","name":"יקבלו ממני הודעות בשבת?","acceptedAnswer":{"@type":"Answer","text":"לא. בינה לא שולחת הודעות יזומות בשבת ובחג. אם תכתבי לה — היא תענה."}},
-    {"@type":"Question","name":"מה קורה בסוף שלושת החודשים?","acceptedAnswer":{"@type":"Answer","text":"נפגשים, מודדים ומסכמים איפה את עומדת."}}
+    {"@type":"Question","name":"מה קורה בסוף שלושת החודשים?","acceptedAnswer":{"@type":"Answer","text":"במסלול האישי נפגשים, מודדים ומסכמים איפה את עומדת. ובשני המסלולים — אם תרצי להמשיך עם בינה והאפליקציה האישית שלך כדי לשמור על ההרגלים והתוצאות, ההמשך הוא 99 ₪ לחודש בלבד, ללא התחייבות."}}
   ]
 }
 </script>
@@ -840,13 +895,13 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     <div>
       <div class="hero-tag">תוכנית התזונה של STEPS</div>
       <h1>את כבר מתאמנת.<em>עכשיו נשאר רק לסדר את האוכל.</em></h1>
-      <p class="hero-tag">3 חודשים · 4 פגישות אישיות · 1,500 ₪ כולל מע״מ</p>
-      <p class="hero-sub">ליווי הרגלי תזונה למתאמנות STEPS בלבד, בקניון פולג, נתניה. ארבע פגישות אישיות עם אור סבוני, מאמן כושר, ומעקב שוטף בוואטסאפ בעזרת בינה. המחיר לתוכנית המלאה, בתשלום נפרד ממנוי האימונים. הליווי אינו מחליף דיאטנית קלינית או רופאה.</p>
+      <p class="hero-tag">3 חודשים · מסלול דיגיטלי ב-650 ₪ או ליווי אישי ב-1,500 ₪</p>
+      <p class="hero-sub">תוכנית תזונה למתאמנות STEPS בלבד, בקניון פולג, נתניה — בשני מסלולים לבחירתך: <strong>מסלול דיגיטלי עצמאי</strong> עם האפליקציה החדשה ובינה 24/7 בוואטסאפ (650 ₪ ל-3 חודשים), או <strong>מסלול ליווי אישי</strong> הכולל גם 4 פגישות 1-על-1 ומדידות עם אור סבוני בסטודיו (1,500 ₪ ל-3 חודשים). אחרי 3 חודשים אפשר להמשיך עם בינה ב-99 ₪ לחודש ללא התחייבות. בתשלום נפרד ממנוי האימונים; אינו מחליף דיאטנית קלינית או רופאה.</p>
       <div class="hero-actions">
-        <a class="btn-a" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%20%D7%90%D7%95%D7%A8%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%A0%D7%AA%20%D7%91%D7%AA%D7%95%D7%9B%D7%A0%D7%99%D7%AA%20%D7%94%D7%AA%D7%96%D7%95%D7%A0%D7%94%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="whatsapp-click">לבדיקת התאמה בוואטסאפ</a>
-        <a class="hero-cue" href="#content">מה יש בתוכנית</a>
+        <a class="btn-a" href="#price">לצפייה בשני המסלולים</a>
+        <a class="hero-cue" href="#menu">לאפליקציה החדשה</a>
       </div>
-      <p class="byline">נכתב על ידי אור סבוני, בעלים ומאמן כושר · עודכן 31/10/2026</p>
+      <p class="byline">נכתב על ידי אור סבוני, בעלים ומאמן כושר · עודכן 24/11/2026</p>
     </div>
     <div class="hero-media">
       <!-- ◆ ההירו — שלוש תמונות אוכל שמתחלפות בהצלבה.
@@ -1085,29 +1140,33 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   </div>
 </section>
 
-<!-- ═══ התפריט בטלפון ═══ -->
+<!-- ═══ האפליקציה החדשה בטלפון ═══ -->
 <section class="sec sec-alt" id="menu">
   <div class="sec-h">
-    <div class="sec-tag">התפריט שלך</div>
-    <h2 class="sec-title">ככה זה נראה בטלפון</h2>
-    <p class="sec-sub">לא PDF שנשמר בהורדות ונשכח. דף חי שמתעדכן איתך.</p>
+    <div class="sec-tag">חדש · האפליקציה של בינה</div>
+    <h2 class="sec-title">ככה זה נראה בטלפון שלך</h2>
+    <p class="sec-sub">לא PDF שנשמר בהורדות ונשכח. אפליקציה אישית חיה שנפתחת ישר מהוואטסאפ — עם טבעות יומיות, החלפת ארוחות בלחיצה, גרף התקדמות ומצב בהיר וכהה.</p>
   </div>
   <p class="swipe">← החליקי לצדדים</p>
   <div class="phones">
     <div class="phone">
-      <div class="phone-frame"><img src="images/nutrition/menu-hero.png" width="380" height="812" alt="דף התפריט האישי — טבעת קלוריות יומית ומעקב שתייה" loading="lazy"></div>
-      <p class="phone-cap"><b>היום שלך במבט אחד</b>כמה נשאר, כמה חלבון, כמה מים</p>
+      <div class="phone-frame"><img src="images/nutrition/bina-app-day-light.png" width="390" height="844" alt="אפליקציית בינה החדשה — מסך היום עם הארוחה הבאה, כפתורי אכלתי והחלפה וטבעות קלוריות, חלבון ומים" loading="lazy"></div>
+      <p class="phone-cap"><b>היום שלך במבט אחד</b>הארוחה הבאה, כפתור ״אכלתי״ או ״החלפה״, וטבעות קלוריות, חלבון ומים</p>
     </div>
     <div class="phone">
-      <div class="phone-frame"><img src="images/nutrition/menu-meals.png" width="380" height="812" alt="ארוחות היום בתפריט, עם סימון ארוחות שנאכלו והחלפות אפשריות" loading="lazy"></div>
-      <p class="phone-cap"><b>הארוחות עצמן</b>מסמנת מה אכלת, מחליפה מה שלא בא לך</p>
+      <div class="phone-frame"><img src="images/nutrition/bina-app-goal.png" width="390" height="844" alt="אפליקציית בינה החדשה — מסך היעד והדרך המחולק לשלושה שלבים לאורך 13 שבועות" loading="lazy"></div>
+      <p class="phone-cap"><b>היעד והדרך (13 שבועות)</b>איפה את נמצאת מול המטרה שלך — הבסיס, הקצב והישורת</p>
     </div>
     <div class="phone">
-      <div class="phone-frame"><img src="images/nutrition/progress.png" width="365" height="2523" alt="דף ההתקדמות — גרף משקל, טבלה שבועית וגרף היקפים" loading="lazy"></div>
-      <p class="phone-cap"><b>ההתקדמות</b>המגמה שלך לאורך זמן, לא מספר בודד</p>
+      <div class="phone-frame"><img src="images/nutrition/bina-app-progress.png" width="390" height="844" alt="אפליקציית בינה החדשה — דף ההתקדמות עם גרף משקל, מדדי היקפים ואבני דרך" loading="lazy"></div>
+      <p class="phone-cap"><b>ההתקדמות שלך</b>גרף משקל, ירידה בהיקפים ואבני דרך — המגמה שלך לאורך זמן</p>
+    </div>
+    <div class="phone">
+      <div class="phone-frame"><img src="images/nutrition/bina-app-day-dark.png" width="390" height="844" alt="אפליקציית בינה החדשה במצב כהה — נוח לעיניים גם בערב" loading="lazy"></div>
+      <p class="phone-cap"><b>גם במצב כהה</b>עיצוב נקי ונוח לעיניים בכל שעה, בלי להוריד כלום מהחנות</p>
     </div>
   </div>
-  <p class="demo-note">הצילומים מתוך חשבון הדגמה — לא נתונים של לקוחה אמיתית.</p>
+  <p class="demo-note">הצילומים מתוך חשבון הדגמה של האפליקציה החדשה — לא נתונים של לקוחה אמיתית.</p>
 </section>
 
 <!-- ═══ צילומי מסך מלקוחות ═══
@@ -1130,32 +1189,61 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
   </figure>
 </section>
 
-<!-- ═══ מחיר ═══ -->
+<!-- ═══ מחיר — שני מסלולים ═══ -->
 <section class="sec" id="price">
   <div class="sec-h">
     <div class="sec-tag">כמה זה עולה</div>
-    <h2 class="sec-title">מחיר אחד. הכול בפנים.</h2>
+    <h2 class="sec-title">שני מסלולים. בוחרות מה שמתאים לך.</h2>
+    <p class="sec-sub">שני המסלולים הם ל-3 חודשים, כוללים גישה מלאה לאפליקציה החדשה ולבינה 24/7 בוואטסאפ — והמחיר כולל מע״מ.</p>
   </div>
-  <div style="text-align:center"><span class="spots">מחזור של 10 מתאמנות בלבד</span></div>
-  <div class="price-card">
-    <div class="price-n">1,500 ₪</div>
-    <div class="price-for">לתוכנית מלאה של 3 חודשים</div>
-    <div class="price-vat">המחיר כולל מע״מ · בתשלום נפרד ממנוי הסטודיו</div>
-    <div class="price-line"></div>
-    <ul class="tick">
-      <li>4 פגישות אישיות אחד על אחד בסטודיו</li>
-      <li>שאלון רפואי, הרגלי אכילה ושגרת יום</li>
-      <li>נתונים פיזיולוגיים ומדידה בכל פגישה</li>
-      <li>תוכנית מסודרת לפי המטרה שלך, מתעדכנת לאורך הדרך</li>
-      <li>ליווי 24/7 בוואטסאפ עם בינה, 3 חודשים</li>
-      <li>שקילות, מדידות, דוחות שבועיים וחודשיים</li>
-    </ul>
-    <div class="price-after">
-      <b>ואחרי שלושת החודשים?</b><br>
-      נפגשים, מודדים ומסכמים.
+
+  <div class="price-grid">
+
+    <div class="price-card featured">
+      <span class="price-badge">ליווי אישי · מחזור של 10 מתאמנות</span>
+      <div class="price-name">ליווי אישי + בינה</div>
+      <div class="price-n">1,500 ₪</div>
+      <div class="price-for">לתוכנית מלאה של 3 חודשים</div>
+      <div class="price-vat">כולל מע״מ · בתשלום נפרד ממנוי הסטודיו</div>
+      <div class="price-line"></div>
+      <ul class="tick">
+        <li><strong>4 פגישות אישיות 1-על-1</strong> איתי בסטודיו</li>
+        <li>שאלון רפואי, הרגלי אכילה ושגרת יום</li>
+        <li>מדידת משקל, היקפים ואחוזי שומן בכל פגישה</li>
+        <li>תוכנית אישית ומעקב צמוד של אור לאורך הדרך</li>
+        <li><strong>אפליקציית בינה החדשה</strong> — תפריט, החלפות, טבעות, קניות וגרף התקדמות</li>
+        <li><strong>ליווי 24/7 בוואטסאפ עם בינה</strong>, שקילות ודוחות שבועיים</li>
+      </ul>
+      <a class="btn-a" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%20%D7%90%D7%95%D7%A8%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%A0%D7%AA%20%D7%91%D7%9E%D7%A1%D7%9C%D7%95%D7%9C%20%D7%94%D7%9C%D7%99%D7%95%D7%95%D7%99%20%D7%94%D7%90%D7%99%D7%A9%D7%99%20%2B%20%D7%91%D7%99%D7%A0%D7%94%20(1%2C500%20%E2%82%AA)" target="_blank" rel="noopener" data-track="whatsapp-click">למסלול הליווי האישי בוואטסאפ</a>
     </div>
-    <a class="btn-a" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%20%D7%90%D7%95%D7%A8%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%A0%D7%AA%20%D7%91%D7%AA%D7%95%D7%9B%D7%A0%D7%99%D7%AA%20%D7%94%D7%AA%D7%96%D7%95%D7%A0%D7%94%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="whatsapp-click">לבדיקת התאמה בוואטסאפ</a>
+
+    <div class="price-card">
+      <span class="price-badge">חדש · עצמאי לגמרי</span>
+      <div class="price-name">מסלול דיגיטלי עם בינה</div>
+      <div class="price-n">650 ₪</div>
+      <div class="price-for">לתוכנית מלאה של 3 חודשים</div>
+      <div class="price-vat">כולל מע״מ · בתשלום נפרד ממנוי הסטודיו</div>
+      <div class="price-line"></div>
+      <ul class="tick">
+        <li>בניית יעד קלורי וחלבון מותאם לאימונים שלך ב-STEPS</li>
+        <li><strong>אפליקציית בינה החדשה</strong> — תפריט יומי, כפתור ״אכלתי״, החלפות, רשימת קניות וגרף התקדמות</li>
+        <li><strong>ליווי 24/7 בוואטסאפ עם בינה</strong> — שאלות, תמונות ארוחות והתאמות מיידיות</li>
+        <li>שקילות שבועיות ומעקב מגמה אוטומטי לאורך 3 חודשים</li>
+        <li>עבודה עצמאית בקצב שלך, בלי פגישות פרונטליות בסטודיו</li>
+      </ul>
+      <a class="btn-outline" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%20%D7%90%D7%95%D7%A8%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%A0%D7%AA%20%D7%91%D7%9E%D7%A1%D7%9C%D7%95%D7%9C%20%D7%94%D7%93%D7%99%D7%92%D7%99%D7%98%D7%9C%D7%99%20%D7%A2%D7%9D%20%D7%91%D7%99%D7%A0%D7%94%20(650%20%E2%82%AA)" target="_blank" rel="noopener" data-track="whatsapp-click">למסלול הדיגיטלי בוואטסאפ</a>
+    </div>
+
   </div>
+
+  <div class="price-continue">
+    <div class="price-continue-txt">
+      <b>ואחרי 3 החודשים? (בשני המסלולים)</b>
+      במסלול האישי נפגשים, מודדים ומסכמים. ובשני המסלולים — אם את רוצה להמשיך לעבוד עם בינה והאפליקציה האישית שלך כדי לשמור על ההרגלים והתוצאות, אפשר להמשיך חודש בחודשו בלי שום התחייבות.
+    </div>
+    <div class="price-continue-num">99 ₪<span>לחודש · ללא התחייבות</span></div>
+  </div>
+
   <p class="price-anchor">תכלס, בשביל פרופורציה: פגישה אחת אצל דיאטנית קלינית פרטית עולה 150–420 ₪. זה חשוב, ולפעמים הכרחי. זה לא תחליף לזה — זה מה שקורה בין לבין.</p>
 </section>
 
@@ -1228,7 +1316,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
     </details>
     <details class="faq-item">
       <summary class="faq-q">מה קורה בסוף שלושת החודשים?</summary>
-      <div class="faq-a">נפגשים, מודדים ומסכמים איפה את עומדת.</div>
+      <div class="faq-a">במסלול האישי נפגשים, מודדים ומסכמים איפה את עומדת. ובשני המסלולים — אם תרצי להמשיך עם בינה והאפליקציה האישית שלך כדי לשמור על ההרגלים והתוצאות, ההמשך הוא 99 ₪ לחודש בלבד, ללא התחייבות.</div>
     </details>
   </div>
 </section>
