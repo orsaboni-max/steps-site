@@ -23,7 +23,7 @@
       "permanent": true
     },
     {
-      "source": "/:slug(pilates|gym-women|barre|kids|nutrition|pilates-price|pilates-beginners|pilates-or-gym|pilates-postpartum|pilates-ramat-poleg|barre-beginners|barre-or-pilates|barre-teens|gym-beginners|gym-or-mixed|gym-menopause|yoga-barre-netanya|accessibility|privacy)",
+      "source": "/:slug(pilates|gym-women|barre|kids|nutrition|pilates-price|pilates-beginners|pilates-or-gym|pilates-postpartum|pilates-ramat-poleg|pilates-ir-yamim|pilates-agamim|pilates-even-yehuda|pilates-teens|barre-beginners|barre-or-pilates|barre-teens|gym-beginners|gym-or-mixed|gym-menopause|yoga-barre-netanya|accessibility|privacy)",
       "destination": "/:slug.html",
       "permanent": true
     },
@@ -44,6 +44,12 @@
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
         { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()" },
         { "key": "Content-Security-Policy", "value": "frame-ancestors 'self'" }
+      ]
+    },
+    {
+      "source": "/(ads|ads-board|nutrition-v3).html",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
       ]
     },
     {

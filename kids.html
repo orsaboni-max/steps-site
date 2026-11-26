@@ -325,84 +325,80 @@ table.cmp .y{color:var(--yellow);font-weight:700}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "HealthClub",
-  "@id": "https://stepsnetanya.co.il/#healthclub",
-  "name": "סטודיו סטפס | STEPS Fitness Center",
-  "alternateName": [
-    "סטודיו סטפס",
-    "סטפס פולג",
-    "סטפס נתניה"
-  ],
-  "url": "https://stepsnetanya.co.il",
-  "logo": "https://stepsnetanya.co.il/steps-logo-white.png",
-  "image": "https://stepsnetanya.co.il/images/kids-hero.jpg",
-  "sameAs": [
-    "https://www.instagram.com/steps_netanya/",
-    "https://www.facebook.com/stepsnetanya/",
-    "https://www.google.com/maps/place/?q=place_id:ChIJX3typn8_HRURJ4xZd-KWQQU"
-  ],
-  "telephone": "+972-52-792-7575",
-  "email": "stepsnetanya@gmail.com",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "אמנון ותמר 6, קניון פולג, קומה 2",
-    "addressLocality": "נתניה",
-    "addressRegion": "מחוז המרכז",
-    "postalCode": "4220209",
-    "addressCountry": "IL"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 32.2749168,
-    "longitude": 34.8479596
-  },
-  "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJX3typn8_HRURJ4xZd-KWQQU",
-  "openingHoursSpecification": [
+  "@graph": [
     {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday"
+      "@type": "HealthClub",
+      "@id": "https://stepsnetanya.co.il/#healthclub",
+      "name": "סטודיו סטפס | STEPS Fitness Center",
+      "alternateName": [
+        "סטודיו סטפס",
+        "סטפס פולג",
+        "סטפס נתניה"
       ],
-      "opens": "07:00",
-      "closes": "22:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Friday",
-      "opens": "07:00",
-      "closes": "13:00"
-    }
-  ],
-  "priceRange": "₪230-₪530",
-  "currenciesAccepted": "ILS",
-  "areaServed": [
-    {
-      "@type": "City",
-      "name": "נתניה"
-    },
-    {
-      "@type": "Place",
-      "name": "פולג"
-    },
-    {
-      "@type": "Place",
-      "name": "רמת פולג"
-    },
-    {
-      "@type": "Place",
-      "name": "עיר ימים"
-    },
-    {
-      "@type": "Place",
-      "name": "אגמים"
-    }
-  ],
-  "description": "חוגי כושר לילדים ונוער בגילאי 12–15 בסטודיו STEPS בקניון פולג, נתניה: אימוני כוח לילדים ולנוער, פילאטיס מכשירים לנערות ואימוני בר לנערות.",
-  "makesOffer": [
+      "url": "https://stepsnetanya.co.il",
+      "logo": "https://stepsnetanya.co.il/steps-logo-white.png",
+      "image": "https://stepsnetanya.co.il/images/kids-hero.jpg",
+      "sameAs": [
+        "https://www.instagram.com/steps_netanya/",
+        "https://www.facebook.com/stepsnetanya/",
+        "https://www.google.com/maps/place/?q=place_id:ChIJX3typn8_HRURJ4xZd-KWQQU"
+      ],
+      "telephone": "+972-52-792-7575",
+      "email": "stepsnetanya@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "אמנון ותמר 6, קניון פולג, קומה 2",
+        "addressLocality": "נתניה",
+        "addressRegion": "מחוז המרכז",
+        "postalCode": "4220209",
+        "addressCountry": "IL"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 32.2749168,
+        "longitude": 34.8479596
+      },
+      "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJX3typn8_HRURJ4xZd-KWQQU",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday"
+          ],
+          "opens": "07:00",
+          "closes": "22:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Friday",
+          "opens": "07:00",
+          "closes": "13:00"
+        }
+      ],
+      "priceRange": "₪230-₪530",
+      "currenciesAccepted": "ILS",
+      "areaServed": [
+        {"@type": "City", "name": "נתניה"},
+        {"@type": "Place", "name": "פולג"},
+        {"@type": "Place", "name": "רמת פולג"},
+        {"@type": "Place", "name": "עיר ימים"},
+        {"@type": "Place", "name": "אגמים"},
+        {"@type": "Place", "name": "גבעת האירוסים"},
+        {"@type": "Place", "name": "נוף הטיילת"},
+        {"@type": "Place", "name": "אבן יהודה"}
+      ],
+      "amenityFeature": [
+        {"@type": "LocationFeatureSpecification", "name": "3 חללי אימון נפרדים לקבוצות נוער (GYM, REFORMER, MOVE)", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "חניה חינם להורים בקניון פולג", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "קבוצות קטנות לגילאי 12–15 בהדרכת מאמנים מוסמכים", "value": true}
+      ],
+      "knowsAbout": ["חוגי כושר לילדים ונוער", "פילאטיס מכשירים לנערות", "אימון בר לנערות", "שיפור יציבה לנוער"],
+      "description": "חוגי כושר לילדים ונוער בגילאי 12–15 בסטודיו STEPS בקניון פולג, נתניה: אימוני כוח לילדים ולנוער, פילאטיס מכשירים לנערות ואימוני בר לנערות.",
+      "makesOffer": [
     {
       "@type": "Offer",
       "itemOffered": {
@@ -511,6 +507,22 @@ table.cmp .y{color:var(--yellow);font-weight:700}
       "description": "אימון היכרות ב-50 ₪ כולל מע״מ. התיאום לקבוצת הנוער נעשה מול הצוות."
     }
   ]
+    },
+    {
+      "@type": "Person",
+      "name": "אור סבוני",
+      "jobTitle": "בעלים ומאמן כושר",
+      "image": "https://stepsnetanya.co.il/images/shoot2025/team-or-saboni.jpg",
+      "worksFor": {"@id": "https://stepsnetanya.co.il/#healthclub"}
+    },
+    {
+      "@type": "Person",
+      "name": "אור תורג׳מן",
+      "jobTitle": "בעלים ומנהל חלל GYM",
+      "image": "https://stepsnetanya.co.il/images/shoot2025/team-or-turgeman.jpg",
+      "worksFor": {"@id": "https://stepsnetanya.co.il/#healthclub"}
+    }
+  ]
 }
 </script>
 <script type="application/ld+json">
@@ -565,7 +577,7 @@ table.cmp .y{color:var(--yellow);font-weight:700}
     <p class="hero-tag">KIDS &amp; TEENS · פולג, נתניה</p>
     <h1>חוגי כושר לילדים ונוער <em>כוח · פילאטיס · בר</em></h1>
     <p class="hero-sub">אימוני כוח לילדים ולנוער, פילאטיס מכשירים לנערות ואימוני בר לנערות — שלוש פעילויות לגילאי <bdi>12–15</bdi>, בקבוצות קטנות ועם הדרכה וליווי לאורך האימון. אימון היכרות בכל פעילות ב־50 ₪.</p>
-    <p class="byline">נכתב על ידי אור סבוני, בעלים ומאמן כושר · עודכן 20/9/2026</p>
+    <p class="byline">נכתב על ידי אור סבוני, בעלים ומאמן כושר · עודכן 26/11/2026</p>
     <div class="hero-btns">
       <a class="btn-a" href="#programs">לפעילויות ולמערכת השעות ←</a>
       <a class="btn-b" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%94%D7%99%D7%9B%D7%A8%D7%95%D7%AA%20%D7%91%D7%A7%D7%91%D7%95%D7%A6%D7%95%D7%AA%20%D7%94%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%95%D7%94%D7%A0%D7%95%D7%A2%D7%A8%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="trial-cta whatsapp-click">לבחירת קבוצה בוואטסאפ</a>
@@ -625,7 +637,7 @@ table.cmp .y{color:var(--yellow);font-weight:700}
         <figcaption>תמונת המחשה שנוצרה ב־AI</figcaption>
       </figure>
       <div class="youth-room__body">
-        <p class="program-copy">אימון על מיטות רפורמר בקבוצה לנערות, עם עבודה על תנועה מדויקת ושליטה בגוף ובהדרכת מדריכה לאורך השיעור.</p>
+        <p class="program-copy">אימון על מיטות רפורמר בקבוצה לנערות, עם עבודה על תנועה מדויקת ושליטה בגוף ובהדרכת מדריכה לאורך השיעור. <a href="pilates-teens.html" style="color:var(--yellow);text-decoration:underline">כל הפרטים על פילאטיס המכשירים לנערות ←</a></p>
       <p class="program-note">יום רביעי ב-<bdi>17:00</bdi> · לתיאום ובירור מועדים נוספים יש לפנות לצוות.</p>
       <p class="program-note">גילאי <bdi>12–15</bdi> · כ-<bdi>55</bdi> דקות<br>אימון היכרות: 50 ₪</p>
       <a class="btn-a program-cta" href="https://wa.me/972527927575?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%A4%D7%99%D7%9C%D7%90%D7%98%D7%99%D7%A1%20%D7%9E%D7%9B%D7%A9%D7%99%D7%A8%D7%99%D7%9D%20%D7%9C%D7%A0%D7%A2%D7%A8%D7%95%D7%AA%20%D7%91-STEPS%20(%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8)" target="_blank" rel="noopener" data-track="trial-cta whatsapp-click">לתיאום פילאטיס לנערות ←</a>

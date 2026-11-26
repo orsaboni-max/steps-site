@@ -172,6 +172,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-
 .crumbs a:hover{color:var(--bone)}
 .crumbs span{margin:0 6px;color:var(--t45)}
 .byline{max-width:820px;margin:10px auto 0;padding:0 var(--gutter);font-size:13px;color:var(--t60);text-align:center}
+.byline a{color:var(--yellow);text-decoration:underline;text-underline-offset:3px}
 
 /* ═══ כפתורים ═════════════════════════════════════════════════ */
 .btn-a,.btn-b{
